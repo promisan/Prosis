@@ -140,6 +140,8 @@ password="#SESSION.dbpw#">
 			 datasource="AppsSelection" 
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
+			    SELECT *
+				FROM (
 				SELECT   DISTINCT F.FunctionNo,
 				         F.FunctionDescription, 
 				         O.OrganizationDescription, 
@@ -192,7 +194,10 @@ password="#SESSION.dbpw#">
 				--->		
 				AND      F.FunctionClass     = '#Owner.FunctionClassSelect#'  <!--- same class --->
 				AND      R.Owner = '#Owner.Owner#' <!--- same owner --->
+				
 				</cfif>
+				) as D
+				WHERE Candidates > 0
 			</cfquery>		
 						
 			 
@@ -201,7 +206,7 @@ password="#SESSION.dbpw#">
 			<table width="97%" style="height:100%" border="0" align="center">
 			
 			 <tr class="labelmedium">
-			    <td style="height:40px;font-size:20px;padding-left:4px">Select one of more roster buckets for your search
+			    <td style="height:40px;font-size:18px;padding-left:4px">Select one of more Job Opening candidate buckets to search
 				
 				  <input type="hidden" id="OccupationalGroup" name="OccupationalGroup" value="<cfoutput>#Doc.OccupationalGroup#</cfoutput>">
 				  
@@ -217,19 +222,21 @@ password="#SESSION.dbpw#">
 					--->
 						  
 				</td>
+				<cfif FunctionAll.recordcount gt "0">
 				<td align="right" style="padding-right:3px">
 				<input class="button10g" type="reset"  value=" Reset  ">
 				<input type="submit" name="Submit" value="  Continue  " class="button10g">	    
 				</td>
+				</cfif>
 			 </tr> 	
 			   
 			<tr><td colspan="2" style="padding-left:5px;padding-right:5px;height:100%">
 			
 			<cf_divscroll style="height:100%">
 			
-			<table width="98.5%" class="formpadding">
+			<table style="width:98.5%" class="formpadding">
 						
-			<TR style="padding-left:6px" class="labelmedium2 line fixrow fixlengthlist">
+			<TR style="padding-left:6px" class="labelmedium2 fixrow fixlengthlist">
 			    <td height="23"><cf_tl id="Area"></td>
 			    <TD><cf_tl id="Function"></TD>
 			    <TD><cf_tl id="Level"></TD>
@@ -239,11 +246,18 @@ password="#SESSION.dbpw#">
 				<TD align="right" style="padding-right:5px"><cf_tl id="Vetted"></TD>
 				<TD></TD>
 			</TR>
+			
+			<cfif FunctionAll.recordcount eq "0">
+			
+			<TR style="padding-left:6px" class="labelmedium2">
+			    <td colspan="8"style="padding-top:20px"  align="center" height="23"><cf_tl id="Attention: No buckets found for you to search. Please contact your administrator"></td>			  
+			</TR>
+			
+			</cfif>
 				
 			<cfloop query="FunctionAll"> 
-			
-			<cfif candidates gte "1">
-						
+								
+															
 				<cfset rowClass="labelmedium2 line">
 				<cfif url.docno neq "">
 					<cfset rowClass= rowClass & " highLight2">
@@ -276,9 +290,7 @@ password="#SESSION.dbpw#">
 					
 					</TD>
 				</TR>
-				
-			</cfif>
-					
+								
 			</cfloop>
 				
 			</table>
@@ -286,7 +298,9 @@ password="#SESSION.dbpw#">
 			</cf_divscroll>
 			
 			</td></tr>
-						
+			
+			<cfif FunctionAll.recordcount neq "0">			
+			
 			<tr>
 			<td colspan="6" align="center" valign="middle" height="39">	
 			
@@ -299,6 +313,9 @@ password="#SESSION.dbpw#">
 				   value="<cfoutput>#FunctionAll.recordcount#</cfoutput>">	
 			
 			</td></tr>
+			
+			</cfif>
+			
 			</table>
 			
 			</CFFORM>

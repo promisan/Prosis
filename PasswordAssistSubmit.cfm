@@ -46,9 +46,9 @@
 	</script>
 	
 	<cfif url.mode eq "regular">
-	
-	<font face="Verdana" size="2" color="008000"><cf_tl id="An email was sent to your account."> <br><a href="Default.cfm"><font color="0080C0"><u><cf_tl id="Press here to return to the logon screen"></a></font>
-	
+		<cfoutput>
+			<font face="Verdana" size="2" color="008000"><cf_tl id="An email was sent to your account."> <br><a href="http://#CGI.HTTP_HOST#"><font color="0080C0"><u><cf_tl id="Press here to return to the logon screen"></a></font>
+		</cfoutput>
 	<cfelse>
 	
 	<font face="Verdana" size="2" color="008000"><cf_tl id="An email was sent to your account."></font>

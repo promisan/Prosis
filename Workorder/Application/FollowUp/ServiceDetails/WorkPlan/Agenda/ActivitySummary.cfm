@@ -5,13 +5,31 @@ then we show per line-class (duplicate) the action status (pending / completed) 
 
 --->
 
-<table>
- <tr><td>Duplicate</td><td>1</td></tr>
- <tr><td>Duplicate</td><td>1</td></tr>
+<cfparam name="url.orgunit"    default="">
+<cfparam name="url.positionno" default="">
 
+<cfquery name="Schedule"
+		datasource="AppsWorkOrder" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT       W.ServiceItem, S.Description AS ServiceItemName, WL.ServiceDomain, WL.ServiceDomainClass, R.Description, WLA.ActionClass, COUNT(*) AS Counted
+		FROM         WorkOrder AS W INNER JOIN
+		             WorkOrderLine AS WL ON W.WorkOrderId = WL.WorkOrderId INNER JOIN
+		             WorkOrderLineAction AS WLA ON WL.WorkOrderId = WLA.WorkOrderId AND WL.WorkOrderLine = WLA.WorkOrderLine INNER JOIN
+		             Ref_ServiceItemDomainClass AS R ON WL.ServiceDomain = R.ServiceDomain AND WL.ServiceDomainClass = R.Code INNER JOIN
+		             ServiceItem AS S ON W.ServiceItem = S.Code
+		WHERE        W.Mission = '#url.mission#' 
+		AND          CAST(WLA.DateTimeRequested AS Date) = '#dateformat(url.calendardate,client.dateSQL)#'
+		GROUP BY     WL.ServiceDomain, WL.ServiceDomainClass, WLA.ActionClass, R.Description, W.ServiceItem, S.Description
+</cfquery>
+
+<table width="100%">
+ <cfoutput query="Schedule"> 
+ <tr><td>#ServiceItemName#</td><td>#counted#</td></tr>
+ </cfoutput>
 </table>
 
-<!---
+<!--- to be removed 
 
 <cfparam name="url.orgunit"    default="">
 <cfparam name="url.positionno" default="">
@@ -351,7 +369,6 @@ then we show per line-class (duplicate) the action status (pending / completed) 
 </cfif>
 
 </table>
-
 
 --->
 

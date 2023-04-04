@@ -172,7 +172,7 @@
 									
 										<cf_tl id="Return to Logon" var="1">
 										<cfset tLogon= "#lt_text#">
-										<input class="button" type="button" id="Cancel" value="#tLogon#" onClick="javascript:window.location='default.cfm'">
+										<input class="button" type="button" id="Cancel" value="#tLogon#" onClick="javascript:window.location='http://#CGI.HTTP_HOST#'">
 										      
 									</cfif>				 
 								 

@@ -40,7 +40,7 @@
 	     <cfset cl = ""> 
 	</cfif>
 					
-    <table width="100%" height="100%" border="0" align="right" class="navigation_table" navigationhover="f5f5f5" navigationselected="eaeaea">
+    <table width="100%" height="100%" >
 					
 		<cfif Mode eq "Pending">	
 						    
@@ -99,7 +99,7 @@
 															
 					<td align="right">
 					
-						<table cellspacing="0" cellpadding="0" class="formspacing">
+						<table class="formspacing">
 						
 						<tr>					
 						<td>
@@ -231,7 +231,7 @@
 			<cfif url.search eq "">
 								
 				<tr><td height="6" colspan="9"></td></tr>
-				<tr><td colspan="9" align="center" class="labelmedium"><cf_tl id="REQ014"></b></td></tr>
+				<tr><td colspan="9" align="center" class="labelmedium"><cf_tl id="REQ014"></td></tr>
 				<tr><td height="5" colspan="9"></td></tr>
 				
 			<cfelse>
@@ -257,11 +257,11 @@
 												
 			<cf_divscroll style="height:100%">
 					
-			<table style="width:99%" border="0">
+			<table style="width:99%" border="0" class="navigation_table" navigationhover="f5f5f5" navigationselected="eaeaea">
 							
 			<cfif Requisition.recordcount neq "0">	
 			
-			<TR class="line labelmedium2 fixlengthlist">
+			<TR class="line labelmedium2 fixlengthlist fixrow">
 			  
 			   <td>		
 				<cfif url.process eq "Radio">
@@ -354,8 +354,8 @@
 						   <td style="font-size:22px;height:36px;padding-right:5px;padding-left:5px" colspan="4">					       
 						       <a href="javascript:RequisitionView('#mission#','#period#','#Reference#')">#Reference#</a>
 						   </td>
-						   <td align="right" style="font-size:15px;padding-right:10px" colspan="2">(#This.Lines#)&nbsp;&nbsp;#GetCurrency.BaseCurrency#&nbsp;#NumberFormat(This.Total,",__.__")#</td>
-						   <td align="right" style="font-size:15px;padding-right:10px" colspan="2">(#Total.Lines#)&nbsp;&nbsp;#GetCurrency.BaseCurrency#&nbsp;#NumberFormat(Total.Total,",__.__")#</td>
+						   <td align="right" style="font-size:15px;padding-right:10px" colspan="2">[#This.Lines#]&nbsp;&nbsp;#GetCurrency.BaseCurrency#&nbsp;#NumberFormat(This.Total,",.__")#</td>
+						   <td align="right" style="font-size:15px;padding-right:10px" colspan="2">[#Total.Lines#]&nbsp;&nbsp;#GetCurrency.BaseCurrency#&nbsp;#NumberFormat(Total.Total,",.__")#</td>
 				 	    </TR>									
 						
 						<cfif Header.RequisitionPurpose neq "">					
@@ -612,49 +612,43 @@
 													
 													  <tr>
 													  
-													  <td style="padding:3px" height="21" bgcolor="white">
-													  													  													  
-													  	<cf_tl id="Pending" var="1">
-													  												  
-														<cf_UIToolTip tooltip="#lt_text#">
+													  <cf_tl id="Pending" var="1">
+													  <td style="padding:3px" height="21" bgcolor="white" title="#lt_text#">	
+														
 													  	<input type="radio" 
 													       name="f#currentrow#" 
 	                                                       id="f#currentrow#"
 														   style="width:21;height:21"
 														   value="" checked
 														   onClick="hl('0','#mode#_#currentrow#')">	   	
-														</cf_UIToolTip>
+														
 														   
 													  </td> 
+													  													  
+													  <cf_tl id="Send back request" var="1">
 													  
-													  <td style="padding:3px" height="21" bgcolor="yellow">
-													  
-													   <cf_tl id="Send back request" var="1">
-													  
-														<cf_UIToolTip tooltip="#lt_text#">
+													  <td style="padding:3px" height="21" bgcolor="yellow" title="#lt_text#">													  
+													  														
 															<input type="radio" 
 														       name="f#currentrow#"
 	                                                           id="f#currentrow#" 
 															   style="width:21;height:21"
 															   value="R_#RequisitionNo#" 
 															   onClick="hl('1','#mode#_#currentrow#');reason('#currentrow#','#mode#_#currentrow#','#RequisitionNo#','requisition','9')">
-														</cf_UIToolTip>
-														 
-													  </td>									 					  
+																												 
+													  </td>		
+													  
+													  <cf_tl id="Cancel Request" var="1">							 					  
 													 									  										
-													  <td style="padding:3px" height="21" bgcolor="red">
+													  <td style="padding:3px" height="21" bgcolor="red" title="#lt_text#">
 													  
-													   <cf_tl id="Cancel Request" var="1">
-													  
-														<cf_UIToolTip tooltip="#lt_text#">
 															<input type="radio" 
 														       name="f#currentrow#" 
 	                                                           id="f#currentrow#"
 															   style="width:20;height:20"
 															   value="D_#RequisitionNo#" 
 															   onClick="hl('1','#mode#_#currentrow#');reason('#currentrow#','#mode#_#currentrow#','#RequisitionNo#','requisition','9')">
-														</cf_UIToolTip>
-														
+																												
 													  </td>
 													  
 													  <cf_tl id="Forward Request" var="vForward">
@@ -669,31 +663,26 @@
 													  												  
 													      <!--- tuning 10/01/2012 to honor the ability not to select a funding by requester/reviewer --->
 													  
-														  <td style="padding:3px" height="50" bgcolor="00FF00">
-														  
-														  
+														  <td style="padding:3px" height="50" bgcolor="00FF00" title="#vforward#">
 														  
 														   <!--- inclomplete funding --->
 														   <cfif fullyfunded neq "1" AND url.role eq "ProcReqReview"  AND parameter.FundingByReviewer eq "2">
 														      
 															   <!--- inclomplete funding and funding not required for review step --->
-															   
-															   <cf_UIToolTip tooltip="#vForward#">
+															  
 																	<input type="radio" 
 																       name="f#currentrow#" 
 	                                                                   id="c_#currentrow#"		
 																	   style="width:20;height:20"														 
 																	   value="C_#RequisitionNo#" 
 																	   onClick="hl('1','#mode#_#currentrow#');reason('#currentrow#','#mode#_#currentrow#','#RequisitionNo#','requisition','2i')">
-																</cf_UIToolTip>
-															   
+																															   
 														   <cfelseif fullyfunded neq 1>	  
 														  														   
 														   	  <!--- inclomplete funding and funding required --->
 															  
 															  <!--- not enabled --->
-															  															 														  
-															     <cf_UIToolTip tooltip="#vForward#">
+															  	  
 																	<input type="radio" 
 																       name="f#currentrow#"
 	                                                                   id="c_#currentrow#" 
@@ -701,21 +690,18 @@
 																	   <cfif fullyfunded neq "1">disabled</cfif>
 																	   value="C_#RequisitionNo#" 
 																	   onClick="hl('1','#mode#_#currentrow#');reason('#currentrow#','#mode#_#currentrow#','#RequisitionNo#','requisition','2i')">
-																 </cf_UIToolTip>
-															   
+																  
 														   <cfelse>
 														   
 														   		<!--- enabled --->
-														  
-																 <cf_UIToolTip tooltip="#vForward#">
+														  																 
 																	<input type="radio" 
 																       name="f#currentrow#" 
 	                                                                   id="c_#currentrow#"		
 																	   style="width:20;height:20"														   
 																	   value="C_#RequisitionNo#" 
 																	   onClick="hl('1','#mode#_#currentrow#');reason('#currentrow#','#mode#_#currentrow#','#RequisitionNo#','requisition','2i')">
-																 </cf_UIToolTip>
-															 
+																															 
 															</cfif> 
 															 
 														  </td>
@@ -825,9 +811,9 @@
 						 				 
 						 <!--- second row --->
 						   
-						 <tr id="#mode#_#currentrow#_2" bgcolor="#cl#" class="labelmedium navigation_row_child fixlengthlist" style="height:20px">
+						 <tr id="#mode#_#currentrow#_2" bgcolor="#cl#" class="labelmedium2 navigation_row_child fixlengthlist" style="height:20px">
 						   			   		    	  
-						   <td style="padding:1px;border:1px solid silver" rowspan="2">
+						   <td style="padding:1px;border:0px solid silver" rowspan="2">
 						   					   					   
 						   	   <cfparam name="FundsMode" default="">															
 							   <cfparam name="bud" default="">																								
@@ -851,7 +837,7 @@
 											<tr><td style="padding-top:5px;padding-left:5px">		
 																
 											<table bgcolor="FFFFCA">
-											<tr><td bgcolor="D9FFD9" style="border:1px solid gray">								
+											<tr><td bgcolor="D9FFD9">								
 											
 											<cfif revert eq "">	
 											
@@ -1014,7 +1000,7 @@
 						
 						<!--- thirdrow --->
 										
-						<tr id="#mode#_#currentrow#_3" bgcolor="#cl#" class="labelmedium navigation_row_child line fixlengthlist" style="height:20px">		
+						<tr id="#mode#_#currentrow#_3" bgcolor="#cl#" class="labelmedium navigation_row_child fixlengthlist" style="height:20px">		
 												
 						<td height="16" style="padding-left:4px" colspan="1">
 																											
@@ -1321,10 +1307,8 @@
 						
 						</cfif>
 						
-						<cfif processlevel eq "Line" or this.lines eq row_line>
-																						
-						<tr><td colspan="8" class="line"></td></tr>
-												
+						<cfif processlevel eq "Line" or this.lines eq row_line>																						
+						<tr><td colspan="8" class="line"></td></tr>												
 						</cfif>				
 										
 						<!--- ---------------- --->
@@ -1346,7 +1330,9 @@
 			</table>
 			
 			</cf_divscroll>
-			
+						
+		     
+							
 			</td>
 		</tr>
 						
@@ -1361,9 +1347,10 @@
 		   value="<cfoutput>#myclr#</cfoutput>">
 						
 	</table>	
+	
+	<cfset ajaxonload("doHighlight")>
 
-	<cfif url.ajax eq 1>	
-		<cfset ajaxonload("doHighlight")>
-	</cfif>	
+	
+	
 	
 	

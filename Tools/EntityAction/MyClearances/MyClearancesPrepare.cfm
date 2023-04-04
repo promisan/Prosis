@@ -320,8 +320,7 @@
 				FROM    OrganizationObjectMail AA INNER JOIN
 			            userQuery.dbo.#SESSION.acc#Current_#FileNo# OA ON AA.ObjectId = OA.ObjectId and AA.ActionCode = OA.ActionCode 	
 				WHERE   AA.Account IN (#preserveSingleQuotes(usr)#)
-				  	 
-								 					
+				  	 								 					
 			</cfquery>	
 					
 		</cfif>	

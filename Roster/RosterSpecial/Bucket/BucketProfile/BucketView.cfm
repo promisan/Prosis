@@ -23,7 +23,8 @@ password="#SESSION.dbpw#">
 
 <table width="100%" height="100%" align="center">
 
-	<cfif get.SubmissionStatus lt "3">
+
+	<cfif get.SubmissionStatus lte "3">
 
 	<tr><td height="40">
 					
@@ -76,9 +77,9 @@ password="#SESSION.dbpw#">
 	</cfif>
 		
 	<tr><td style="height:100%">
-	
+		
 			<cf_divscroll>
-			
+						
 			<table width="100%" 
 			      border="0"
 				  height="100%"

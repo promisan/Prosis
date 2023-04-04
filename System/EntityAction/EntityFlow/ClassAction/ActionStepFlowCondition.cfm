@@ -41,13 +41,16 @@
 		
 			<TR>
 				<td valign="top" style="padding-right:4px"><img src="<cfoutput>#SESSION.root#</cfoutput>/images/join.gif" alt="" border="0"></td>
-			    <TD class="labelit">Require Memo:</TD>
-			    <TD class="labelit">
+			    <TD class="labelmedium2">Require Memo:</TD>
+			    <TD>
 				<table class="formspacing">
-				<tr>
-				<td><input type="radio" class="radiol" name="ConditionMemo" id="ConditionMemo" value="0" <cfif Get.ConditionMemo eq "0">checked</cfif>></td><td class="labelit">No</td>
-				<td><input type="radio" class="radiol" name="ConditionMemo" id="ConditionMemo" value="1" <cfif Get.ConditionMemo eq "1">checked</cfif>></td><td class="labelit">Yes</td>
-				</tr>
+					<tr class="labelmedium2">
+						<td><input type="radio" class="radiol" name="ConditionMemo" id="ConditionMemo" value="0" <cfif Get.ConditionMemo eq "0">checked</cfif>></td><td>No</td>
+						<td><input type="radio" class="radiol" name="ConditionMemo" id="ConditionMemo" value="1" <cfif Get.ConditionMemo eq "1">checked</cfif>></td><td>Yes</td>
+						<TD style="padding-left:20px" class="labelmedium2">Show action in header:</TD>
+						<td><input type="radio" class="radiol" name="ConditionShow" id="ConditionShow" value="0" <cfif Get.ConditionShow eq "0">checked</cfif>></td><td>No</td>
+						<td><input type="radio" class="radiol" name="ConditionShow" id="ConditionShow" value="1" <cfif Get.ConditionShow eq "1">checked</cfif>></td><td>Yes</td>						
+					</tr>
 				</table>
 				</TD>
 			</TR>	
@@ -57,9 +60,7 @@
 				<td></td>
 			    <TD width="140" class="labelit" valign="top">
 				
-					<table><tr><td>
-					Condition Query:
-					</td></tr>
+					<table><tr class="labelmedium2"><td>Condition Query:</td></tr>
 					
 					<tr><td style="padding-top:5px;padding-right:4px">
 					
@@ -79,7 +80,7 @@
 					<cfset dsNames = dsService.getNames()>
 					<cfset ArraySort(dsnames, "textnocase")> 
 				
-					<select name="ConditionDataSource" id="ConditionDataSource" class="regularh" style="width:150;">
+					<select name="ConditionDataSource" id="ConditionDataSource" class="regularxl" style="width:150;">
 														
 						<CFLOOP INDEX="i"
 							FROM="1"
@@ -103,38 +104,34 @@
 				</TD>
 				</TR>	
 								
-				<tr><td></td><td align="right" class="labelit"></td><td colspan="1" style="font-size:12px" class="labelit">Query is executed prior to forwarding the workflow to this step 
+				<tr><td></td><td align="right" class="labelit"></td><td colspan="1" class="labelmedium2">Query is executed prior to forwarding the workflow to this step 
 				<br>Use <b>@action, @key1, @key2, @key3 and @key4 @acc, @last @first</b> to refer to the action,object or user identification</td></tr>
 								
 				
-				<TR>
+				<TR class="labelmedium2">
 				<td></td>
-			    <TD class="labelit">Condition field:</TD>
+			    <TD>Condition field:</TD>
 			    <TD>
-				<table><tr><td>
+				<table><tr class="labelmedium2"><td>
 				<cfinput class="regularxl" type="Text" value="#Get.ConditionField#"  name="ConditionField" required="No" size="30" maxlength="30">
 				</td>
 				  <TD class="labelit" style="padding-left:10px">Operand & Value:</TD>
 			    <TD style="padding-left:5px">
 				<cfinput class="regularxl" type="Text" value="#Get.ConditionValue#"  name="ConditionValue" required="No" size="10" maxlength="20">
-				</TD>
-				
+				</TD>				
 				</tr>
-				
-				
+								
 				</table>
 				</TD>
 				</TR>
 									
-				<TR>
+				<TR class="labelmedium2">
 				<td></td>
-			    <TD class="labelit">Error message:</TD>
+			    <TD>Error message:</TD>
 			    <TD>
 				<cfinput class="regularxl" type="Text" value="#Get.ConditionMessage#"  name="ConditionMessage" required="No" size="80" maxlength="80">
 				</TD>
 				</TR>
-						
-				
 				
 				<cfquery name="Mail" 
 					datasource="AppsOrganization" 
@@ -147,7 +144,7 @@
 					ORDER BY DocumentDescription
 					</cfquery>	
 				
-				<TR>
+				<TR class="labelmedium2">
 				<td></td>
 			    <TD class="labelit">Outgoing Mail:</TD>
 			    <TD>

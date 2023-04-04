@@ -75,7 +75,7 @@
 	
 	</script>
 	
-	<table width="98%" cellspacing="0" cellpadding="0" align="center">
+	<table width="98%" align="center">
 	
 	  <tr><td height="5"></td></tr>
 	  <tr><td class="labelit">
@@ -83,20 +83,23 @@
 	  	<cf_tl id="Search">:
 	  </td>
 	  <td>
-	  <input type="text" style="background-color:f1f1f1;border:0px;" onKeyUp="check()" name="condition" id="condition" size="15" maxlength="20" class="regularxl">
+	  <input type="text" style="background-color:f1f1f1;border:0px;" onKeyUp="check()" name="condition" id="condition" size="20" maxlength="20" class="regularxxl">
 	  </td>
-	  <td>
-	  <button name="search" id="search" class="button10g" style="background-color:f1f1f1;border:0px;height:25;width:35" onclick="search( $('##condition').val())">
-		  <img height="15" width="15" src="../../../../Images/locate3.gif" border="0">
+	  <td>	  
+	  <button name="search" id="search" class="button10g" style="background-color:f1f1f1;border:0px;height:28px;width:35" onclick="search( $('##condition').val())">
+		  <img height="16" width="16" src="../../../../Images/locate3.gif" border="0">
 	  </button>
 	  </td></tr></table>
 	  
 	  </td></tr>
 	     
-	  <tr><td class="linedotted"></td></tr>
+	  <tr><td class="line"></td></tr>
 	  
 	  <tr>
 	  	<td style="padding:10px">
+		
+		    <!--- needs to be replaced --->
+		
 			<cf_eztree
 				template="TreeTemplate/OrganizationLookupTreeData.cfm"
 				iconpath="#SESSION.root#/Tools/Treeview/Images" 
@@ -106,6 +109,7 @@
 				effective="#Eff#"
 				process=""
 				scriptpath=".">
+				
 		</td>
 	  </tr>
 	

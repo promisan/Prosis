@@ -1,10 +1,9 @@
 
-
-
-
 <cfparam name="URL.Mission"    default="">
 <cfparam name="URL.Period"     default="">
 <cfparam name="URL.OrderClass" default="">
+	
+<CF_DropTable dbName="AppsQuery"  tblName="lsPurchase_#SESSION.acc#">
 
 <cfquery name="Parameter" 
    datasource="AppsPurchase" 
@@ -57,8 +56,8 @@
       END as IssuedBy,
 	  COUNT(PL.RequisitionNo) AS Lines,
 	  P.Currency,			  
-	  SUM(PL.OrderAmount)     AS Amount,		
-	  SUM(PL.OrderAmountBase) AS AmountBase			
+	  ISNULL(SUM(PL.OrderAmount),0)    AS Amount,		
+	  ISNULL(SUM(PL.OrderAmountBase),0) AS AmountBase			
  
 </cfsavecontent>	
 </cfoutput>			  
@@ -82,7 +81,6 @@
 </cfsavecontent>
 
 <cfoutput>
-
 
 <cfswitch expression="#URL.ID#">
 
@@ -169,6 +167,8 @@
 		  
 		   <cfif Form.ActionStatus neq "">
 		      <cfset condition   = "#condition# AND P.ActionStatus = '#Form.ActionStatus#'">
+		   <cfelse>
+			   <cfset condition   = "#condition# AND P.ActionStatus != '9'">	  		  
 		  </cfif>
 		  
 		  <cfif Form.OrderType neq "">
@@ -239,14 +239,12 @@
    WHERE  Mission = '#url.mission#'
 </cfquery>
 
-<CF_DropTable dbName="AppsQuery"  tblName="lsPurchase_#SESSION.acc#">	
+<cfoutput>	
  
-<cfquery name="Dataset" 
-	datasource="AppsPurchase" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	SELECT   #preserveSingleQuotes(sqlselect)#					 
-	INTO 	 userQuery.dbo.lsPurchase_#SESSION.acc#		
+<cfsavecontent variable="myquery"> 
+	SELECT *,OrderDate
+	FROM  (
+	SELECT   #preserveSingleQuotes(sqlselect)#					 			
 	FROM     #preserveSingleQuotes(sqlbody)#
 			 #preserveSingleQuotes(Condition)#				
 	GROUP BY P.Mission,	
@@ -272,19 +270,16 @@
 			 P.Period,
 			 E.LastName,
 			 P.OfficerlastName,
-			 P.Currency		  	
-</cfquery>	
-
-<!--- pass the view --->
-
-<cfoutput> 
-
-	<cfsavecontent variable="myquery">  
-		SELECT  *, OrderDate
-		FROM  	userQuery.dbo.lsPurchase_#SESSION.acc# P			 			
-	</cfsavecontent>	
-		  
+			 P.Currency		
+	
+	) as P
+	WHERE 1=1
+	--condition
+</cfsavecontent>	
+	
 </cfoutput>
+
+
 
 <!--- show person, status processing color and filter on raise by me --->
 
@@ -420,9 +415,8 @@
    	box            = "lsPurchase"
 	link           = "#SESSION.root#/Procurement/Application/Purchaseorder/PurchaseView/PurchaseViewListing.cfm?#cgi.query_string#"
 	linkform       = "#f#"
-   	html           = "No"
-	show	       = "30"
-	datasource     = "AppsQuery"
+   	html           = "No"	
+	datasource     = "AppsPurchase"
 	listquery      = "#myquery#"
 	listkey        = "PurchaseNo"
 	listgroup      = "IssuedBy"	

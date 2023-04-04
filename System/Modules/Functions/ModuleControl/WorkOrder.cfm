@@ -92,6 +92,18 @@
    FunctionDirectory = "Workorder/Application"
    FunctionPath      = "Medical/ServiceDetails/WorkPlan/WorkPlanView.cfm"     
    AccessUserGroup   = "0">    
+    
+<cf_ModuleInsertSubmit
+   SystemModule      = "WorkOrder" 
+   FunctionClass     = "Application"
+   FunctionName      = "Activty Assessment" 
+   MenuClass         = "Mission"
+   MenuOrder         = "5"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Medical Services Manager"
+   FunctionDirectory = "Workorder/Application"
+   FunctionPath      = "Followup/ServiceDetails/WorkPlan/WorkPlanView.cfm"     
+   AccessUserGroup   = "0">       
    
 <cf_ModuleInsertSubmit
    SystemModule      = "WorkOrder" 

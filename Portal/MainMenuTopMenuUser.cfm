@@ -130,10 +130,14 @@
         </a> </li> --->
 		
 	  </cfif>
+	  
+	  <cfif getAdministrator("*") eq "1">
 	  	
       <li class="menuitemlabel Selfservice"> <a onclick="milload();" href="javascript:ptoken.location('#SESSION.root#/Portal/PortalListing.cfm?header=0','portalright');">
         <cf_tl id="Selfservice">
         </a> </li>
+		
+	   </cfif>	
 		
      
 	  

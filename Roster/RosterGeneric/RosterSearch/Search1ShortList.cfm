@@ -1,5 +1,6 @@
 
 <cfparam name="url.mode"        default="vacancy">
+<cfparam name="url.wParam"      default="">
 <cfparam name="url.wActionId"   default="">
 
 <cfajaximport tags="cfform,cfdiv">
@@ -95,8 +96,8 @@
 	<cfif ShortList.recordcount eq "0">  this would load a different screen for this bucket only to a full view does not work, better to merge
 	bucket search with the full view in one container
 	--->
-				
-	<cfset url.wparam = "FULL">
+			
+	
 	<cfset url.owner  = Own>
 	<cfset url.mode   = "Vacancy">	
 								

@@ -94,7 +94,7 @@
 			 WHERE    A.ObjectId      = '#ObjectId#' 
 			 AND      U.Disabled = 0
 			 AND      A.ActionCode    = '#NextCheck.ActionCode#' 
-			 AND      A.AccessLevel   > '0' 
+			 AND      A.AccessLevel   >= '0' 
 			 	 
 			 UNION 
 		 

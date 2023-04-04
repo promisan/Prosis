@@ -163,26 +163,26 @@
 
 	<cfquery name="Log"
 			datasource="AppsSystem">
-		SELECT * FROM UserError
-		WHERE HostName      = '#CGI.HTTP_HOST#'
-	AND   Account       = '#SESSION.acc#'
-	AND   ErrorTemplate = '#vTemplate#'
-	AND   ErrorString   = '#error.QueryString#'
-	AND   ErrorTimeStamp > getDate()-1
+			SELECT * FROM UserError
+			WHERE HostName      = '#CGI.HTTP_HOST#'
+			AND   Account       = '#SESSION.acc#'
+			AND   ErrorTemplate = '#vTemplate#'
+			AND   ErrorString   = '#error.QueryString#'
+			AND   ErrorTimeStamp > getDate()-1
 	</cfquery>
 
-<!--- log the error and notify --->
+     <!--- log the error and notify --->
 
 	<cftry>
-
-<!----
-<cfif Parameter.ErrorMailToOwner eq "9">
-    <!--- no mail is sent --->
-    <cfset mail = "0">
-<cfelse>
-    <cfset mail = "0">  <!--- adjusted by hanno to 0 as mail is sent below --->
-</cfif>
---->
+	
+	<!---
+	<cfif Parameter.ErrorMailToOwner eq "9">
+	    <!--- no mail is sent --->
+	    <cfset mail = "0">
+	<cfelse>
+	    <cfset mail = "0">  <!--- adjusted by hanno to 0 as mail is sent below --->
+	</cfif>
+	--->
 
 		<cfif findNoCase("The error occurred on line -1",error.diagnostics)>
 
@@ -754,6 +754,7 @@
 					</cfif>
 
 <!--- below actually generates the loginfo in the log file on cf7/8/9 --->
+
 					<cfif structKeyExists(Error, "RootCause")>
 						<cfoutput>
 							<cfif structKeyExists(Error.RootCause, "SQL")>

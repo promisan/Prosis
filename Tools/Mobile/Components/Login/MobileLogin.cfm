@@ -84,6 +84,11 @@
 							style="display:none;" 
 							onload="_login();"></iframe>
 					</div>
+					<div align="center">
+					<cfoutput>
+							<a href="#session.root#/PasswordAssist.cfm"><cf_tl id="Forgot password"></a>
+					</cfoutput>
+					</div>
 	            </div>
 	        </div>
 	    </div>

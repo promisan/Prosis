@@ -314,7 +314,7 @@
 				
 					<cfif list eq "regular">				
 						<!--- listing --->										
-						<tr class="navigation_row" bgcolor="<cfif attachment.filestatus eq '9'>FF8080</cfif>">										
+						<tr class="navigation_row fixlengthlist" bgcolor="<cfif attachment.filestatus eq '9'>FF8080</cfif>">									
 					</cfif>
 									
 					<!--- attachment list --->						
@@ -453,7 +453,7 @@
 											   onclick="" class="cellcontent">
 											   
 											   <table>											   
-											   <tr class="labelmedium"><td>
+											   <tr class="labelmedium"><td title="#NameShow#">
 											   <a href="javascript:embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')">#Nameshow#</a></td></tr>											   
 											   <cfif len(Attachment.attachmentMemo) gte "5" and attachment.attachmentmemo neq "Detected">									 	
 													<tr class="labelmedium" style="height:15px">													    
@@ -527,7 +527,7 @@
 										</td>	
 																																										
 										<cfif DocumentServerIsOp eq "0">			
-											<td width="50%" class="cellcontent" style="padding-left:10px">												
+											<td width="50%" class="cellcontent" style="padding-left:10px" title="#NameShow#">												
 												<a href="javascript:showfile('#contextmode#','#openas#','#attachment.attachmentid#')">#Nameshow#</a>												
 											</td>
 										<cfelse>
@@ -561,23 +561,32 @@
 												
 									<cfif list eq "regular">
 									
-								    	<td width="20%" class="cellcontent" nowrap><cfif attachment.AttachmentMemo eq "Detected"><font color="6688aa">#Attachment.OfficerFirstName# #Attachment.OfficerLastName#<cfelse>#Attachment.OfficerFirstName# #Attachment.OfficerLastName#</cfif></font></td>								    	
+								    	<td width="20%" class="cellcontent" nowrap><cfif attachment.AttachmentMemo eq "Detected"><font title="detected" color="008000">#Attachment.OfficerFirstName# #Attachment.OfficerLastName#<cfelse>#Attachment.OfficerFirstName# #Attachment.OfficerLastName#</cfif></font></td>								    	
 								    	
 										<cfif DocumentServerIsOp eq "0">
-									    	<TD width="10%" class="cellcontent" nowrap>#DateFormat(DateLastModified, CLIENT.DateFormatShow)#&nbsp;#TimeFormat(DateLastModified, "HH:MM")#&nbsp;</TD>
+									    	<TD class="cellcontent fixlength">#DateFormat(DateLastModified, CLIENT.DateFormatShow)#&nbsp;#TimeFormat(DateLastModified, "HH:MM")#&nbsp;</TD>
 											<cfif ShowSize eq "1">
-								    		<TD width="10%" class="cellcontent" style="padding-right:10px" align="right"><cfset kb = (Size/1024)> #numberFormat(kb, "_____._" )#kb</TD>	
+								    		<TD class="cellcontent" style="padding-right:10px" align="right"><cfset kb = (Size/1024)> #numberFormat(kb, "_____._" )#kb</TD>	
 											</cfif>
 								    	</cfif>															
 																	
 										<td width="20" style="padding-right:7px">
-																				
-											<img src="#SESSION.root#/Images/Info.png" alt="Log" 
-												border="0" 
-												height="18" width="18"
-												align="absmiddle" 
-												style="cursor: pointer;" 
-												onClick="logdocfile('#attachment.attachmentid#','#attbox#_#attachment.attachmentid#')"> 				
+										
+										    <cftry>
+											 											 
+											 <cfif attributes.mode neq "portal">
+																	
+												<img src="#SESSION.root#/Images/Info.png" alt="Log" 
+													border="0" 
+													height="18" width="18"
+													align="absmiddle" 
+													style="cursor: pointer;" 
+													onClick="logdocfile('#attachment.attachmentid#','#attbox#_#attachment.attachmentid#')">
+												
+												</cfif> 				
+												
+												<cfcatch></cfcatch>
+											  </cftry>	
 														
 										</td>
 									
@@ -705,29 +714,28 @@
 					      <TR class="navigation_row">		
 											
 							<td height="22"></td>						
-																	
-							<TD width="2"></TD>
-																
-							<td width="50%" class="cellcontent"><font color="FF0000"><Strike>#FileName#</strike></font></TD>
-																			
-							<cfif ShowSize eq "1">
-							   	<td width="180" class="cellcontent" nowrap><font color="FF0000"><Strike>#OfficerFirstName# #OfficerLastName#</font></td>
-							   	<TD width="120" class="cellcontent" nowrap><font color="FF0000"><Strike>#DateFormat(Created, CLIENT.DateFormatShow)#&nbsp;#TimeFormat(Created, "HH:MM")#&nbsp;</TD>
-								<TD width="100" align="right"></TD>						
+																							
+							<td class="cellcontent"><font color="FF0000"><Strike>#FileName#</strike></font></TD>						
+						   	<td class="cellcontent" nowrap><font color="FF0000"><Strike>#OfficerFirstName# #OfficerLastName#</font></td>
+						   	<TD class="cellcontent" nowrap><font color="FF0000"><Strike>#DateFormat(Created, CLIENT.DateFormatShow)#&nbsp;#TimeFormat(Created, "HH:MM")#&nbsp;</TD>
+							<cfif ShowSize eq "1">	
+								<TD align="right"></TD>						
 							</cfif>
 										
 							<td width="20" style="padding-left:8px">
+							
+							        <img src="#SESSION.root#/Images/Info.png" alt="Log" 
+													border="0" 
+													height="18" width="18"
+													align="absmiddle" 
+													style="cursor: pointer;" 
+													onClick="logdocfile('#attachment.attachmentid#','del#attbox#_#currentrow#')">
 										
-								<img src="#SESSION.root#/Images/info2.gif" 
-								    alt="Document Action Log" 
-									border="0" height="13" width="13"
-									align="absmiddle" 
-									style="cursor: pointer" 
-									onClick="logdocfile('#attachmentid#','del#attbox#_#currentrow#')"> 				
+								
 														
 							</td>
 									
-							<td nowrap align="center" width="20"></td>
+							<td align="center" width="20"></td>
 													
 						   </tr>	
 																											

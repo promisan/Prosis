@@ -12,13 +12,24 @@ password="#SESSION.dbpw#">
 	WHERE  TransactionId = '#url.id#'		
 </cfquery>
 
+<cfquery name="Item"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT   * 			 				 
+		FROM     Item								
+		WHERE    ItemNo = '#get.ItemNo#' 				
+</cfquery>
+
+<cf_precision number="#Item.ItemPrecision#">
+
 <cfif url.itemStock eq "0">
 
 	<cfquery name="getStock" 
 	  datasource="AppsMaterials" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-		    SELECT    SUM(TransactionQuantity) as OnHand
+		    SELECT    ROUND(SUM(TransactionQuantity),#Item.ItemPrecision#) as OnHand
 			FROM      ItemTransaction
 			WHERE     Warehouse       = '#get.warehouse#'
 			AND       ItemNo          = '#get.ItemNo#'
@@ -33,7 +44,7 @@ password="#SESSION.dbpw#">
 	  datasource="AppsMaterials" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-		    SELECT    SUM(TransactionQuantity) as OnHand
+		    SELECT    ROUND(SUM(TransactionQuantity),#Item.ItemPrecision#) as OnHand
 			FROM      ItemTransaction
 			WHERE     Mission         = '#get.Mission#'
 			AND       ItemNo          = '#get.ItemNo#'
@@ -60,7 +71,7 @@ password="#SESSION.dbpw#">
 	<cfif get.ItemClass eq "Service">
 		-
 	<cfelse>
-		#numberformat(itemStock,'_')#				
+		#numberformat(itemStock,'#pformat#')#				
 	</cfif>	
 	
 	<cfif url.action eq "quantity">
@@ -82,16 +93,16 @@ password="#SESSION.dbpw#">
 		document.getElementById('line_#url.line#').className = "labelmedium line highlight3"
 	</script>
 		
-	<font color="FF0000">#numberformat(itemStock,'_')#</font>	
+	<font color="FF0000">#numberformat(itemStock,'#pformat#')#</font>	
 	
 	<cfif (itemEntityStock gte get.TransactionQuantity and get.TransactionQuantity gt 0)>
 	
 		<span class="clsNoPrint clsDetailLineCell" id="transfer_#get.transactionid#" style="padding-bottom:2px;min-width:200px"></span>	
 		
-		<button style="width:90px;height:29px;font-size:13px!important;background:##f8f9fa;;border:1px solid gray" 
-			type="button" id="btransfer_#url.line#" name="btransfer_#url.line#" onclick="salesTransfer('#URL.id#','#URL.warehouse#')">
-		     <cf_tl id="Transfer"><i class="fas fa-share-square"></i>
-		</button>
+			<button style="width:90px;height:29px;font-size:13px!important;background:##f8f9fa;;border:1px solid gray" 
+				type="button" id="btransfer_#url.line#" name="btransfer_#url.line#" onclick="salesTransfer('#URL.id#','#URL.warehouse#')">
+			     <cf_tl id="Transfer"><i class="fas fa-share-square"></i>
+			</button>
 		
 	<cfelse>
 	
@@ -111,7 +122,6 @@ password="#SESSION.dbpw#">
 		  </cfif>
 	
 	</cfif>
-	
 
 </cfif>
 

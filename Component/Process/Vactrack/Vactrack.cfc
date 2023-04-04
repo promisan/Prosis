@@ -23,6 +23,7 @@
 			 <cfargument name="Mandate"               type="string"  required="true"   default="">
 			 <cfargument name="OrgUnitAdministrative" type="string"  required="true"   default="0">
 			 <cfargument name="PostType"              type="string"  required="true"   default="">
+			 <cfargument name="DocumentType"          type="string"  required="false"  default="">
 			 
 			 <cfset result.status = "1">
 			 <cfset result.reason = "pass">
@@ -259,7 +260,15 @@
 						                          FROM   Ref_EntityClassMission 
 										          WHERE  EntityCode = 'VacDocument' 
 										          AND    Mission = '#Miss#')
-						</cfif>			
+						</cfif>		
+						
+						<cfif documenttype neq "">
+						
+						AND     R.EntityClass IN (SELECT EntityClass 
+						                          FROM   Vacancy.dbo.Ref_DocumentTypeMatrix 
+										          WHERE  Code = '#documenttype#')
+						
+						</cfif>
 							   
 						ORDER BY R.ListingOrder	 
 						

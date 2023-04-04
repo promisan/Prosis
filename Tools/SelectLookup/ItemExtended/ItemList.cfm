@@ -100,14 +100,12 @@
 		        I.ItemClass IN ('Service') 
 		       OR   (
 				    I.ItemClass IN ('Supply')
-				    AND
-				    I.ItemNo IN (SELECT     ItemNo 
-			                     FROM       ItemTransaction
-					   		     WHERE      ItemNo    = I.ItemNo
-								 AND        Mission   = I.Mission
-								 AND        Warehouse = '#url.filter1value#'
-								 GROUP BY   ItemNo
-								 HAVING     SUM(TransactionQuantity) > 0)
+				    AND EXISTS (SELECT 'X' 
+			                    FROM       ItemTransaction
+					   		    WHERE      ItemNo    = I.ItemNo								
+								AND        Warehouse = '#url.filter1value#'
+								GROUP BY   ItemNo
+								HAVING     SUM(TransactionQuantity) > 0)
 				   )			 
 			  )			 	
 
@@ -134,7 +132,8 @@
 					     AND    I2.Make = 'STIHL' )
 		     )
 	</cfif>
-
+	
+	
 </cfquery>
 
 <cfif getList.recordcount eq "0" and url.search neq "">
@@ -197,6 +196,7 @@
 <table cellpadding="0" cellspacing="0">
 
 		<tr>
+		
 
 		<cfoutput query="getList">
 		
@@ -237,13 +237,17 @@
 					<tr>
 					                                                  
                            <cfif ImagePathThumbnail neq "">
-												
+							
+							    <!---	this is slower I noted, we might as well prevent it				
 								<cfif FileExists("#SESSION.rootDocument#/#ImagePathThumbnail#")>
+								--->
 								
-						            <td valign="top" align="center" style="min-width:80px;padding-top:3px"> 																									
+						            <td valign="top" align="center" style="min-width:80px;padding-top:3px"> 	
+																																	
 									    <cfdiv bind="url:#session.root#/tools/selectlookup/ItemExtended/ItemListImage.cfm?id=#itemno#&image=#ImagePathThumbnail#">																		  
 									 </td>
-									  
+								
+								<!---	  
 								<cfelse>
 																    
 									<td valign="top" align="center" style="min-width:200px;padding-top:40px" class="labelit"> 	
@@ -251,10 +255,13 @@
 									</td>
 																		
 								</cfif>
+								--->
 								
                            <cfelse>
 						   
+						      <!---
 						   	  <cfif FileExists("#SESSION.rootDocumentPath#/Warehouse/Pictures/#ItemNo#.jpg")>
+							  --->
 						
 						            <td valign="top" align="center" style="min-width:80px;padding-top:3px"> 
 																
@@ -266,6 +273,8 @@
 									  
 									  </td>
 								
+								<!---
+								
 								<cfelse>
 															 
 									<td valign="top" align="center" style="min-width:200px;padding-top:40px" class="labelit"> 	
@@ -274,6 +283,8 @@
 									
 									
 								</cfif>
+								
+								--->
 							
                            </cfif>
                                 
@@ -301,3 +312,7 @@
     <tr><td height="5"></td></tr>
 									
 </table>
+
+<script>
+   Prosis.busyRegion('not','itemlisting');
+</script> 

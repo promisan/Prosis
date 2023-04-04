@@ -1,7 +1,8 @@
 
 <cfparam name="url.back" default="1">
+<cfparam name="url.mode" default="">
 
-<cfif url.back eq "1">	
+<cfif url.back eq "1" or url.mode eq "Vacancy">	
 	<cf_screentop label="Roster Search Result" height="100%" jQuery="Yes" scroll="no" html="No">
 <cfelse>
     <cf_screentop label="Roster Search Result" height="100%" jQuery="Yes" scroll="no" html="Yes" layout="webapp" >
@@ -56,12 +57,12 @@
     	<cfoutput>
 		
 		<table width="100%">
-		<tr class="labelmedium"><td style="height:20px"><cf_tl id="Search">:</td>
-			<td style="height:20px;padding-left:10px"  class="labelmedium">#SearchAction.OfficerFirstName# #SearchAction.OfficerLastName# (#SearchAction.SearchId#)</b></td>
+		<tr class="labelmedium" style="height:20px"><td><cf_tl id="Search">:</td>
+			<td style="padding-left:10px"  class="labelmedium">#SearchAction.OfficerFirstName# #SearchAction.OfficerLastName# (#SearchAction.SearchId#)</b></td>
 		</tr>
-		<tr class="labelmedium"> 
-			<td style="height:20px"><cf_tl id="Date">:</td>
-			<td style="height:20px;padding-left:10px"  class="labelmedium">#DateFormat(SearchAction.Created)#</b>
+		<tr class="labelmedium" style="height:20px"> 
+			<td><cf_tl id="Date">:</td>
+			<td style="padding-left:10px"  class="labelmedium">#DateFormat(SearchAction.Created,client.dateformatshow)#</b>
 		</tr>
 
 		<cfif CheckDetail.recordcount eq "1">
@@ -302,8 +303,8 @@
 	  
 		</cfif>		
 					
-		<tr class="labelmedium2 line fixrow fixlengthlist">
-			<td style="padding-left:5px" >
+		<tr class="labelmedium2 fixrow fixlengthlist">
+			<td style="padding-left:15px" >
 			  <cfif url.print eq "0">
 				<input type="checkbox" name="selectall" value=""
 				    onClick="selall(this,this.checked);selected('',this.checked)" class="clsNoPrint">
@@ -318,7 +319,7 @@
 			<td><!---<b>Expiration</b>---></td>
 			<td><!--- <b>Source</b> ---></td>
 			<td align="center"><cf_tl id="Mail"></td>			
-			<cfif url.print eq "0">
+			<cfif url.print eq "0" and url.mode neq "Vacancy">
 			<td align="center">PHP</td>
 			</cfif>
 			
@@ -359,11 +360,11 @@
 				   <cfswitch expression = "#URL.Sort#">
 				    
 					 <cfcase value = "Gender">
-						 <tr class="line labelmedium2"><td style="height:32px;font-weight:200;font-size:17px" colspan="12"><cfif Gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif></b></font></td></tr>						
+						 <tr class="fixrow2 line labelmedium2"><td style="height:32px;font-weight:200;font-size:17px" colspan="12"><cfif Gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif></b></font></td></tr>						
 				     </cfcase>
 					 
 				     <cfcase value = "Continent">
-						 <tr class="line labelmedium2"><td style="height:32px;font-weight:200;font-size:17px" colspan="12">#Continent#</td></tr>						
+						 <tr class="fixrow2 line labelmedium2"><td style="height:32px;font-weight:200;font-size:17px" colspan="12">#Continent#</td></tr>						
 				     </cfcase>
 					 
 				   </cfswitch>
@@ -422,7 +423,7 @@
 					 </a>
 					 
 				 </TD>	
-			     <TD>#DateFormat(DOB, CLIENT.DateFormatShow)#</TD>
+			     <TD><cfif url.mode eq "Vacancy">#DateFormat(DOB, "DD/MM/xxxx")#<cfelse>#DateFormat(DOB, CLIENT.DateFormatShow)#</cfif></TD>
 			     <td style="padding-left:2px;padding-right:2px" align="center">#Gender#</td>
 				 <TD>#Nationality#</TD>
 			     <TD><A href ="javascript:EditPerson('#IndexNo#')">#IndexNo#</a></TD>
@@ -441,9 +442,9 @@
 				 
 				 </td>
 			     				 
-				 <cfif url.print eq "0">
+				 <cfif url.print eq "0" and url.mode neq "Vacancy">
 				 
-				 	<td style="width:20px" class="linedotted">
+				 	<td style="width:20px" >
 									 
 					<cfquery name="Submission" 
 					datasource="AppsSelection" 
@@ -457,7 +458,6 @@
 												WHERE  ApplicantNo = S.ApplicantNo 
 												AND    Status < '9')
 					</cfquery>
-
 				 
 				 	<cf_RosterPHP 
 						DisplayType = "HLink"
@@ -475,13 +475,12 @@
 			     </TR>
 				 
 				 <cfif remarks neq "">
-				 
-				     <tr><td height="3"></td></tr>
+				 				     
 					 <tr>
 					 	 <td align="right" height="20">
 						 	<img src="#SESSION.root#/Images/join.gif" align="absmiddle" alt="" border="0">
 						 </td>
-						 <td class="labelit" colspan="9" style="padding:2px;border:1px solid d4d4d4" bgcolor="ffffdf">#remarks#</td>
+						 <td class="labelmedium2" colspan="9" style="padding-left:4px" bgcolor="ffffcf">#remarks#</td>
 					 </tr>
 				 
 				 </cfif>
@@ -583,7 +582,7 @@
 					 <td></td>
 					 <td colspan="9">
 				   
-				     <table width="95%" border="0" cellspacing="0" cellpadding="0">
+				     <table width="95%">
 					 
 				     <tr><td width="100%">
 					 
@@ -727,7 +726,7 @@
 									name        = "Add" 
 									class       = "button10g"		
 									value       = "<cfoutput>#lt_text#</cfoutput>" 						
-									style       = "width:240;height:25"								
+									style       = "width:290px;height:32px"								
 									onClick     = "return info('Add selected candidates to the shortlist')">
 							
 							</cfif>					
@@ -738,23 +737,16 @@
 							<cf_tl id="Prepare PHP" var="1">
 							<cfset tPhp=#lt_text#>
 							
-							<cfif SearchResult.recordcount neq "0">
+							<cfif SearchResult.recordcount neq "0" and url.mode neq "Vacancy">
 							<input type      = "button"
 							     name        = "PHP" 
 								 class       = "button10g"		
 								 value       = "<cfoutput>#tPhp#</cfoutput>"
 								 onclick     = "php()" 		
-								 style       = "width:140;height:25">
+								 style       = "width:160px;height:32px">
 							</cfif>	 
 							
-							<!---
-							<input type      = "submit" 
-								name         = "Close" 
-								class        = "button10g"		
-								value        = "<cfoutput>#tClose#</cfoutput>" 
-								style        = "width:140;height:25"															
-								onClick      = "parent.parent.window.close(); parent.parent.opener.location.reload()">
-								--->
+							
 							
 							</cfif>				
 				   		   	

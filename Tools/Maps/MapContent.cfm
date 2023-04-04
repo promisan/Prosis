@@ -44,12 +44,13 @@
 			  <cfinvokeargument name="latlng" value="#lat#,#lng#">			
 			  <cfinvokeargument name="ShowDetails" value="false">			  
 	</cfinvoke>	  	
-			
+				
 	<cfset lat = details.latitude>
 	<cfset lng = details.longitude>
 	<cfset sts = details.status>		
 	
 <cfelse>
+
 			
 	<cfinvoke component="service.maps.googlegeocoder3" 
 	          method="googlegeocoder3" 
@@ -63,11 +64,13 @@
 			  
 			  <cfinvokeargument name="ShowDetails" value="false">
 			  
-	</cfinvoke>	  
-	
+	</cfinvoke>	 
+		
 	<cfset lat = details.latitude>
 	<cfset lng = details.longitude>
 	<cfset sts = details.status>
+	
+	
 	
 </cfif>
 
@@ -98,28 +101,26 @@
 			<cfif lat eq "">
 				<cfset lat = "0">				
 				<cfset lng = "0">
-			</cfif>
-			
+				
+			</cfif>		
+									
 			<cfmap name="gmap"
-			    centerlatitude="#lat#" 
-			    centerlongitude="#lng#" 	
-			    doubleclickzoom="true" 
-				collapsible="false" 			
-			    overview="true" 
+			    centerlatitude="#lat#"
+			    centerlongitude="#lng#"
+			    doubleclickzoom="true"
+				collapsible="false"
+			    overview="true"
 				continuousZoom="true"
 				height="#url.height+10#"
 				width="#url.width-20#"
-				typecontrol="advanced" 
+				typecontrol="advanced"
 				hideborder="true"
-				type="#url.format#"				
-			    scrollwheelzoom="false" 
+				type="#url.format#"
+			    scrollwheelzoom="false"
 				showmarkerwindow="true"
-			    showscale="true"					
-			    tip="#details.Formatted_Address#" 
-			    zoomlevel="#url.zoomlevel#"/> 		
-					
-			
-			
+			    showscale="true"
+			    tip="#details.Formatted_Address#"
+			    zoomlevel="#url.zoomlevel#"/>
 	</td></tr>	
 	
 	<cfif details.formatted_address neq "">

@@ -62,7 +62,7 @@ password="#SESSION.dbpw#">
 	  
 	    <td width="100%" class="def">
 		
-		    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="navigation_table formpadding">
+		    <table width="100%" class="navigation_table formpadding">
 							
 		    <tr class="labelmedium line">
 			  
@@ -73,7 +73,7 @@ password="#SESSION.dbpw#">
 				   <cfset jvlink = "ProsisUI.createWindow('outputdialog', 'Milestone / Deliverable', '',{x:0,y:0,height:document.body.clientHeight-150,width:document.body.clientWidth-150,resizable:false,modal:true,center:true});ptoken.navigate('OutputEntryDialog.cfm?id=#url.id#&outputid=0','outputdialog')">		
 			
 				   <cfoutput>
-				   <a href="javascript:#jvlink#"><font color="0080C0"><cf_tl id="New"></font></a>
+				   <a href="javascript:#jvlink#"><cf_tl id="New"></a>
 				   </cfoutput>
 			   
 			   </cfif>
@@ -104,7 +104,7 @@ password="#SESSION.dbpw#">
 					   
 					   <cfif (URL.ProgramAccess eq "EDIT" or URL.ProgramAccess eq "ALL") and completed eq "0">
 					   
-						   <cfset jvlink = "ColdFusion.Window.create('outputdialog', 'Deliverable', '',{x:220,y:300,height:document.body.clientHeight-50,width:document.body.clientWidth-50,resizable:false,modal:true,center:false});ColdFusion.navigate('OutputEntryDialog.cfm?id=#url.id#&outputid=#outputid#','outputdialog')">		
+						   <cfset jvlink = "ProsisUI.createWindow('outputdialog', 'Deliverable', '',{x:220,y:300,height:document.body.clientHeight-50,width:document.body.clientWidth-50,resizable:false,modal:true,center:true});ptoken.navigate('OutputEntryDialog.cfm?id=#url.id#&outputid=#outputid#','outputdialog')">		
 						   
 						   <td colspan="2">
 						   <table><tr>

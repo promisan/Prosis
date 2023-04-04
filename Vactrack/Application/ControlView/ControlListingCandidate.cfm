@@ -111,7 +111,19 @@
 								D.Remarks, D.Source, D.FunctionId, 
 								(SELECT ReferenceNo   FROM Applicant.dbo.FunctionOrganization FO WHERE D.FunctionId = FO.FunctionId) as ReferenceNoExternal,
 								(SELECT DateEffective FROM Applicant.dbo.FunctionOrganization FD WHERE D.FunctionId = FD.FunctionId) as DateEffective,						
+								
+								<!--- selection date --->
+								(SELECT  TOP 1 ReviewDate
+                                 FROM    DocumentCandidateReview
+                                 WHERE   DocumentNo = DC.DocumentNo 
+								 AND     PersonNo = DC.PersonNo 
+								 AND     ReviewStatus = '2s'
+								 ORDER BY Created DESC) AS SelectionDate,	
+								
+								
 								D.Created, 
+								DC.CandidateClass,
+								(SELECT TOP 1 Description FROM Applicant.dbo.Ref_ApplicantClass WHERE ApplicantClass = DC.CandidateClass) as CandidateClassName,
 								A.PersonNo, A.LastName, A.FirstName, A.FullName, A.Nationality, A.Gender, A.DOB, A.IndexNo, 
 								A.EmployeeNo, DC.Status AS CandidateStatus, N.ISOCODE2, N.CountryGroup, 1 as Selected
 					FROM        [Document] AS D INNER JOIN
@@ -124,11 +136,13 @@
 					AND         D.Status != '9'
 				) as G LEFT OUTER JOIN Employee.dbo.Position P ON G.PositionNo = P.PositionNo 
 				
-				WHERE       year(G.DateEffective) = '#url.year#' 						
+				 WHERE       year(G.DateEffective) = '#url.year#' 	
+				-- WHERE year(G.SelectionDate) = '#url.year#'					
 				
 				</cfoutput>	
 			
 	</cfsavecontent>
+	
 	
 <cf_layoutscript>	
 	

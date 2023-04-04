@@ -33,13 +33,7 @@ password="#SESSION.dbpw#">
 		password="#SESSION.dbpw#"> 
 		   #preservesinglequotes(sc)# 
 		</cfquery>	
-		
-		<!---
-		<cfoutput>
-		#cfquery.executiontime#	
-		</cfoutput>
-		--->
-		
+				
 		<cfoutput>			
 								
 			<script>
@@ -97,8 +91,7 @@ password="#SESSION.dbpw#">
 				 #lt_text#
 			</button>
 			
-			</td>
-			
+			</td>			
 						
 			</tr>
 			</table>
@@ -106,8 +99,27 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 		
 		<cfcatch>
+		
+		    <cfoutput>
+		
+		    <table><tr>
 			
+			<td onMouseOver="document.getElementById('save').focus()">
+			
+			 <cf_tl id="Save" var="1">
+			
+			<button name="save" id="save" class="button10g" style="border:1px solid gray;width:245;height:27" type="button"
+				onclick="Prosis.busy('yes');ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditSubmit.cfm?systemfunctionid=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#','result','','','POST','inquiryform');document.getElementById('testing').className='button10g'">
+				 #lt_text#
+			</button>
+			
+			</td>
+			
+			<td>		
 			<input class="button10g" style="height:27px" type="button" name="Cancel" id="Cancel" value="Close" onclick="window.close();returnvalue=9">
+			</td></tr></table>
+			
+			</cfoutput>
 				
 		</cfcatch>
 	
@@ -120,7 +132,3 @@ password="#SESSION.dbpw#">
 	</script>
 		
 </cfif>
-
-		
-	
-		

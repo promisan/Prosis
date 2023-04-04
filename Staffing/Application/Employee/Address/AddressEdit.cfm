@@ -62,6 +62,7 @@ password="#SESSION.dbpw#">
    
 </cfif>  
 
+
 <cfif url.refer eq "workflow" or url.drillid neq "">
 
     <cf_screentop height="100%" scroll="yes" banner="gradient" layout="webapp" label="Address Record" option="Process workflow step">
@@ -71,7 +72,7 @@ password="#SESSION.dbpw#">
 	<cf_ActionListingScript>
 	<cf_fileLibraryScript>
 	<cf_mapscript scope="embed">
-		
+			
 	<cfajaximport tags="cfmap,cfform"
 	     params="#{googlemapkey='#client.googlemapid#'}#"> 
 
@@ -87,8 +88,8 @@ password="#SESSION.dbpw#">
 
 	<cfajaximport params="#{googlemapkey='#client.googlemapid#'}#">	
 	
-</cfif>   
-   
+</cfif>
+
 <cfform name="personaddressform" onsubmit="return false">
 
 <table width="98%" align="center" class="formpadding">

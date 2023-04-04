@@ -30,6 +30,7 @@ password="#SESSION.dbpw#">
 		WHERE    TextAreaDomain = 'Position' 			
 </cfquery>	
 
+
 <cfif check.recordcount eq "0">
 
 	<table><tr class="labelmedium"><td align="center"><cf_tl id="No text areas set for domain : position"></td></tr></table>

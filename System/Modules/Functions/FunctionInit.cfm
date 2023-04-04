@@ -1,21 +1,24 @@
+<cfparam name="url.opacity" 		default="0">
+<cfparam name="attributes.opacity" 	default="#url.opacity#">
+
+<cf_screenTop html="no" jquery="yes">
+
+<cfquery name="Init"
+        datasource="AppsInit">
+    SELECT *
+    FROM   Parameter
+    WHERE  HostName = '#cgi.http_host#'
+</cfquery>
 
 
-<cfoutput>
-<table width="100%" height="100%">
-
-<tr><td align="center">
-
-<div style="height: 100%; margin: 0px; padding: 0px; background: url('<cfoutput>#SESSION.root#</cfoutput>/Images/modules.jpg'); background-size: cover; background-position: right;"></div>
-
-</td></tr>
-
-<!---
-<tr style="background:##FFFFFF;"><td height="10"></td></tr>
-<tr style="background:##FFFFFF;"><td align="right" class="labelit" style="padding-right:16px;padding-bottom:4px;">
-    <font style="color:##555555;font-size:10px;">Last modified, September 2017</font>
-</td></tr>
---->
-<tr style="background:##FFFFFF;"><td height="5"></td></tr>
-</table>
-
-</cfoutput>
+<cfif Init.TreeAnimationPath neq "">
+    <cf_securediv id="divAnimation" bind="url:#session.root#/#Init.TreeAnimationPath#/AnimationWrapper.cfm?opacity=#attributes.opacity#">
+<cfelse>
+    <cfoutput>
+        <div style="width: 100%; height: 100%;">
+                <div style="width: 100%; height: 100%; background: url(#SESSION.root#/Images/Modules.jpg); background-size: cover; background-position: right center;">
+            <p style="position: absolute; color: ##333333; bottom: 3px; right: 18px; font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Raleway',sans-serif!important;">Last Update: July 2018</p>
+    </div>
+    </div>
+    </cfoutput>
+</cfif>

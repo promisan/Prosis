@@ -2,7 +2,6 @@
 <cfajaximport>
 
 <cfparam name="SESSION.authent"   default="">	
-
 <cf_screentop html="no" menuaccess="context" jquery="Yes">
 
 <cfif SESSION.authent eq 1>
@@ -13,9 +12,7 @@
 		<cfcatch></cfcatch>
 	</cftry>
 
-		<cfif ParameterExists(Form.load)>
-
-				
+		<cfif ParameterExists(Form.load)>				
 		
 				<!--- upload file with unique name --->
 				<cffile action="UPLOAD"
@@ -35,8 +32,23 @@
 		
 		<cfif ParameterExists(Form.Delete)> 
 		
+		    <cftry>
+			
+				<cffile action="DELETE" 
+		    	    file="#SESSION.rootDocumentPath#\User\Signature\#account#.png">
+				
+				<cfcatch></cfcatch>
+				
+			</cftry>
+			
+			 <cftry>
+				
 			<cffile action="DELETE" 
-		        file="#SESSION.rootDocumentPath#\User\Signature\#account#.png">
+		        file="#SESSION.rootDocumentPath#\User\Signature\#account#.jpg">	
+				
+			<cfcatch></cfcatch>
+				
+			</cftry>	
 		
 		</cfif>
 		
@@ -53,4 +65,6 @@
 			
 		</cfoutput>
 		
+		
 </cfif>
+

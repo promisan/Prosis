@@ -349,7 +349,55 @@
 		
 		 <tr><td height="3"></td></tr>
 		 				 
- </cfif>   
+ </cfif> 
+  
+  <cfif entityaccess eq "EDIT">
+    
+	   <cfquery name="getaccess" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">		
+				SELECT   OA.AccessId, U.PersonNo, P.IndexNo, P.LastName, P.FirstName, P.Gender, P.Nationality
+				FROM     OrganizationAuthorization AS OA INNER JOIN
+		                 System.dbo.UserNames AS U ON OA.UserAccount = U.Account INNER JOIN
+		                 Employee.dbo.Person AS P ON U.PersonNo = P.PersonNo
+				WHERE    OA.ClassParameter = '#Action.ActionCode#' 							
+				AND      OA.OrgUnit        = '#Object.OrgUnit#'
+				AND      OA.AccessLevel    = '2'
+		</cfquery>	
+		
+		<cfif getAccess.recordcount eq "0">
+		
+		 <cfquery name="getaccess" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">		
+				SELECT   OA.AccessId, U.PersonNo, P.IndexNo, P.LastName, P.FirstName, P.Gender, P.Nationality
+				FROM     OrganizationAuthorization AS OA INNER JOIN
+		                 System.dbo.UserNames AS U ON OA.UserAccount = U.Account INNER JOIN
+		                 Employee.dbo.Person AS P ON U.PersonNo = P.PersonNo
+				WHERE    OA.ClassParameter = '#Action.ActionCode#' 							
+				AND      OA.OrgUnit        is NULL
+				AND      OA.Mission        = '#Object.Mission#'
+				AND      OA.AccessLevel    = '2'
+		</cfquery>	
+		
+		</cfif>
+		
+		 <!--- we check if also access level 2 exists ---> 
+		
+		<cfif getAccess.recordcount gte "1">
+		
+			<tr class="labelmedium2">
+			<td></td>
+			<td colspan="1" style="color:red;height:35px;background-color:ffffff;font-size:15px">
+			<b>Attention</b> : By confirming, I certify that the above decision was approved by #getaccess.firstName# #getAccess.lastName#.								
+			</td>
+			</tr>
+		
+		</cfif>
+				
+	</cfif>  
   
  <tr>
  	<td colspan="2">

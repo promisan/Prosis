@@ -196,7 +196,6 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 
-
 <cfif URL.Mode neq "Limited">
 	
 	<table width="100%" height="100%" align="center">
@@ -239,8 +238,8 @@ password="#SESSION.dbpw#">
 					FROM   FunctionOrganization
 					WHERE  SubmissionEdition IN (#preservesingleQuotes(ed)#)
 				</cfquery>
-								
-				<cfif CheckEdition.recordcount gt 0>				
+												
+				<cfif CheckEdition.recordcount gt 0 and url.wParam neq "Limited">				
 				
 					<cfset tabNo = tabNo + 1>
 								 		
@@ -257,7 +256,7 @@ password="#SESSION.dbpw#">
 				
 				</cfif>		
 				
-				<cfif url.mode eq "Vacancy">
+				<cfif url.mode eq "Vacancy">	
 							
 					<cfquery name="Doc" 
 					datasource="AppsVacancy" 
@@ -322,8 +321,7 @@ password="#SESSION.dbpw#">
 																					
 					</cfquery>	
 					
-					<cfif ShortList.recordcount eq "0">
-					
+					<cfif ShortList.recordcount eq "0">					
 					
 						<cfquery name="Shortlist" 
 						 datasource="AppsSelection" 
@@ -346,8 +344,6 @@ password="#SESSION.dbpw#">
 							AND      F.FunctionClass        = '#Owner.FunctionClassSelect#'  
 							--->
 							AND      F2.FunctionId          = F1.FunctionId		
-							
-
 																						
 						</cfquery>	
 									
@@ -356,7 +352,7 @@ password="#SESSION.dbpw#">
 					<cfif shortList.recordcount gte "1">
 					
 						<cfset tabNo = tabNo + 1>
-						
+												
 						<cf_menutab item       = "#tabNo#" 
 						            iconsrc    = "Logos/Roster/Candidates.png" 
 									iconwidth  = "#wd#" 
@@ -368,9 +364,9 @@ password="#SESSION.dbpw#">
 					
 					</cfif>		
 				
-				</cfif>						
-											
-				<cfif url.wparam neq "ROSTER">			
+				</cfif>		
+														
+				<cfif url.wparam neq "ROSTER" and url.wParam neq "Limited">			
 				
 					<cfset tabNo = tabNo + 1>
 						
@@ -385,7 +381,8 @@ password="#SESSION.dbpw#">
 				</cfif>		
 											 
 			 </tr>
-			 </table>
+			 </table>		 
+			
 						
 		</td></tr>
 						
@@ -404,7 +401,7 @@ password="#SESSION.dbpw#">
 			 
 		</cf_menucontainer>	 
 				
-		<cfif CheckEdition.recordcount gt 0>
+		<cfif CheckEdition.recordcount gt 0 and url.wParam neq "Limited">	
 		
 			<cfset tabNo = tabNo + 1>
 			<cf_menucontainer item="#tabNo#" class="hide" iframe="rosteradd"/>					

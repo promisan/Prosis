@@ -15,6 +15,8 @@
 	 FROM     Parameter	
 </cfquery>  
 
+
+
 <cfquery name="ThisAction" 
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
@@ -135,6 +137,9 @@
 <!--- close current action in MS Exchange task --->
 <!--- ---------------------------------------- --->	
 
+
+					
+
 <cfquery name="NextStep" 
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
@@ -198,14 +203,16 @@
 		 AND    O.EntityCode   = C.EntityCode 
 		 AND    O.EntityClass  = C.EntityClass
 		 AND    O.Operational  = 1
+		 
 	</cfquery>
 	
+		
 	<cfif Object.classMail   eq "1" and <!--- mail enabled for the flow --->
 	      Object.enableEMail eq "1" and <!--- mail enabled fro the object --->
  		      (Form.actionStatus neq "0")>  <!--- user selected a forward, submit or deny --->
 										
-		<!--- 1. process personalised email defined for this ACTION to OTHER PARTIES --->
-					
+		<!--- 1. process personalised email defined for this ACTION to OTHER PARTIES --->		
+		
 		<cfif ThisAction.PersonMailAction neq "">
 			
 			<!--- query potential document holder for eMail --->
@@ -281,6 +288,7 @@
 				 WHERE     ActionPublishNo = '#ActionPublishNo#' 
 				 AND       ActionCode      = '#ActionCode#' 
 				 ORDER bY  Created DESC 
+				 
 			    </cfquery>	
 																		
 			   	<cfif NextCheck.PersonMailCode neq "">
@@ -333,8 +341,7 @@
 			   </cfif>
 			 		   
 		       <!--- 3. NOTIFICATION email to ACTOR for next step --->	
-			
-			   			   		   				      			
+			   												   			   		   				      			
 			   <cfif NextCheck.EnableNotification eq "1" and NextCheck.recordcount eq "1">
 			   							
 					 <cfset actionId = NextAction.ActionId>	 												 
@@ -349,8 +356,13 @@
 					 					 					 	
 						 <cfoutput>
 							 <script>
+							    
 							 	try {
-							   		maildialog('#object.objectid#','#NextAction.ActionCode#','#NextCheck.NotificationGlobal#')
+								    
+								   	parent.ProsisUI.createWindow('wMailDialog', 'Notification', '',{x:100,y:100,height:600,width:890,modal:true,center:true}) 
+									parent.ptoken.navigate('#session.root#/Tools/entityaction/ProcessMailView.cfm?objectid=#object.objectid#&actioncode=#NextAction.ActionCode#&NotificationGlobal=#NextCheck.NotificationGlobal#','wMailDialog');																	   
+							   		//maildialog('#object.objectid#','#NextAction.ActionCode#','#NextCheck.NotificationGlobal#')									
+									
 							   	} catch(e) {}					
 							 </script>
 						 </cfoutput>	 

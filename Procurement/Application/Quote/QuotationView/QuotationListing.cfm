@@ -405,7 +405,7 @@
 									
 					<cfif selected eq 1 and PurNo neq "">
 					<tr bgcolor="EAFBFF" class="labelit">
-						<td colspan="9" align="right" style="height:30">			
+						<td colspan="10" align="right" style="height:30;padding-right:5px">			
 							<cf_tl id="Assigned Purchase Order"> :
 							<a href="javascript:ProcPOEdit('#PurNo#','view')" title="View Purchase Order">#PurNo#</a>
 						</td>

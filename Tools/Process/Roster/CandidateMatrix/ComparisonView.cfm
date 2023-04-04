@@ -39,6 +39,7 @@
 
 <!--- document also retrieves the bucket and requirements --->
 
+
 <cfif attributes.applicantno neq "">
 
 		<cfquery name="getCandidates" 
@@ -86,7 +87,7 @@
 	<cfelse>		
 		<cfset ssource = Parameter.PHPSource>	
 	</cfif>
-	
+		
 	<!--- you can have several so we take only the last one --->
 		
 	<cfquery name="getCandidates" 
@@ -97,9 +98,24 @@
 		 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
 		 WHERE    S.PersonNo = A.PersonNo
 		 AND      S.PersonNo = '#attributes.PersonNo#'		 
-		 AND      S.Source   = '#SSource#'
+		 AND      S.Source   = '#SSource#' 
 		 ORDER BY Created DESC
 	</cfquery>	
+	
+	<cfif getCandidates.recordcount eq "0">
+	
+		<cfquery name="getCandidates" 
+		     datasource="AppsSelection" 
+		  	 username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+		     SELECT   TOP 1 A.*, S.ApplicantNo, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
+			 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
+			 WHERE    S.PersonNo = A.PersonNo
+			 AND      S.PersonNo = '#attributes.PersonNo#'		 		  
+			 ORDER BY Created DESC
+		</cfquery>	
+		
+	</cfif> 
 				
 	<cfset attributes.applicantNo = getCandidates.applicantNo>	
 	
@@ -148,7 +164,12 @@
 
 <cfset applicantNo = attributes.applicantNo>
 
-<cfif getCandidates.recordcount gt "0">
+<cfif getCandidates.recordcount eq "0">
+
+<table style="width:100%;height:100%"><tr class="labelmedium2"><td align="center">No information could be found</td></tr></table>
+
+<cfelse>
+
 
 	<!--- Hanno we need to define at the minium the source for the edition/languahe --->
 		

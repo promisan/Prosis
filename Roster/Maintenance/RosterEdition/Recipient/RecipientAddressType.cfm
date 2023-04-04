@@ -21,26 +21,28 @@ password="#SESSION.dbpw#">
 	<TD>
 		<table border="0">
 			<tr height="20px" align="left">
-			<cfloop query="qTypes">
-				
-					<td width="2%">
-						<cfif operational eq 1>
-							<input type="checkbox" onclick="recipienttype('disable','#URL.SubmissionEdition#','#AddressType#')" checked>
-							<cfset TotalActive = TotalActive + 1>
-						<cfelse>
-							<input type="checkbox" onclick="recipienttype('enable','#URL.SubmissionEdition#','#AddressType#')">
-						</cfif>
-	
-					</td>		
-					<td  class="labelmedium" style="padding-left:4px;padding-right:10px;">
-						<cfif Description neq "">	
-							#Description#
-						<cfelse>
-							#AddressType#
-						</cfif>
-					</td>
-							
-			</cfloop>
+			
+				<cfloop query="qTypes">
+					
+						<td width="2%">
+							<cfif operational eq 1>
+								<input type="checkbox" onclick="recipienttype('disable','#URL.SubmissionEdition#','#AddressType#')" checked>
+								<cfset TotalActive = TotalActive + 1>
+							<cfelse>
+								<input type="checkbox" onclick="recipienttype('enable','#URL.SubmissionEdition#','#AddressType#')">
+							</cfif>
+		
+						</td>		
+						<td  class="labelmedium fixlength" style="padding-left:4px;padding-right:10px;">
+							<cfif Description neq "">	
+								#Description#
+							<cfelse>
+								#AddressType#
+							</cfif>
+						</td>
+								
+				</cfloop>
+			
 		   </tr>
 		</table>
 	</TD>

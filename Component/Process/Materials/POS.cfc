@@ -1945,13 +1945,28 @@
 					       datasource="AppsMaterials" 
 					       username="#SESSION.login#" 
 					       password="#SESSION.dbpw#">
-					         SELECT    Location
-					         FROM      ItemWarehouseLocation
-							 WHERE     ItemNo      = '#Itemno#'		
-							 AND       UoM         = '#TransactionUoM#'
-							 AND       Warehouse   = '#Warehouse#'
-							 AND       Location   != '#getMission.LocationReceipt#'
-							 AND       Operational = 1 				 
+					         SELECT    L.Location,L.PickingOrder
+					         FROM      ItemWarehouseLocation L INNER JOIN WarehouseLocation W ON L.Warehouse = W.Warehouse AND L.Location = W.Location  
+							 WHERE     L.ItemNo      = '#Itemno#'		
+							 AND       L.UoM         = '#TransactionUoM#'
+							 AND       L.Warehouse   = '#Warehouse#'
+							 AND       L.Location   != '#getMission.LocationReceipt#'
+							 AND       W.Operational = 1 
+						     AND       W.PickingOrder is NULL <!--- means detail is leading & value 0 is disalbed --->
+							 AND       L.Operational = 1 		
+							 
+							 UNION ALL
+							 							 
+							 SELECT    L.Location,W.PickingOrder
+					         FROM      ItemWarehouseLocation L INNER JOIN WarehouseLocation W ON L.Warehouse = W.Warehouse AND L.Location = W.Location  
+							 WHERE     L.ItemNo      = '#Itemno#'		
+							 AND       L.UoM         = '#TransactionUoM#'
+							 AND       L.Warehouse   = '#Warehouse#'
+							 AND       L.Location   != '#getMission.LocationReceipt#'
+							 AND       W.Operational = 1 
+						     AND       W.PickingOrder IN ('1','2','3','4','5','6','7','8','9')  <!--- value 0 is disalle --->
+							 AND       L.Operational = 1 							 
+							 		 
 							 ORDER BY  PickingOrder <!--- sorts locations by required order --->													 
 						</cfquery>
 						
@@ -2069,13 +2084,29 @@
 						       datasource="AppsMaterials" 
 						       username="#SESSION.login#" 
 						       password="#SESSION.dbpw#">
-						         SELECT    Location
-						         FROM      ItemWarehouseLocation
-								 WHERE     ItemNo    = '#Itemno#'		
-								 AND       UoM       = '#traUoM#'
-								 AND       Warehouse = '#Warehouse#'
-								 AND       Operational = 1 				 
-								 ORDER BY  PickingOrder <!--- sorts locations by required order --->								 
+							   
+							     SELECT    L.Location,L.PickingOrder
+						         FROM      ItemWarehouseLocation L INNER JOIN WarehouseLocation W ON L.Warehouse = W.Warehouse AND L.Location = W.Location  
+								 WHERE     L.ItemNo      = '#Itemno#'		
+								 AND       L.UoM         = '#traUoM#'
+								 AND       L.Warehouse   = '#Warehouse#'								 
+								 AND       W.Operational = 1 
+							     AND       W.PickingOrder is NULL <!--- detail is leanding : 0 is disalbed  --->
+								 AND       L.Operational = 1 		
+								 
+								 UNION ALL
+								 							 
+								 SELECT    L.Location,W.PickingOrder
+						         FROM      ItemWarehouseLocation L INNER JOIN WarehouseLocation W ON L.Warehouse = W.Warehouse AND L.Location = W.Location  
+								 WHERE     L.ItemNo      = '#Itemno#'		
+								 AND       L.UoM         = '#trauom#'
+								 AND       L.Warehouse   = '#Warehouse#'								 
+								 AND       W.Operational = 1 
+							     AND       W.PickingOrder IN ('1','2','3','4','5','6','7','8','9')
+								 AND       L.Operational = 1 							 
+							 		 
+							     ORDER BY  PickingOrder <!--- sorts locations by required order --->			
+												 
 						    </cfquery>		
 
 							<cfset vtotal_locqty = 0>	
@@ -2384,6 +2415,7 @@
 				
 				</cfif>
 				
+				<!--- onwards this is defined on the level of the transaction --->:
 				<cfif ReferenceNo neq "">				
 				    <cfset relref = ReferenceNo>				
 				</cfif>
@@ -2399,7 +2431,7 @@
 						WHERE  AddressId = '#AddressId#'				
 					 </cfquery>						  
 
-					 <cfset relnme   = "#Customer.CustomerName# #Address.AddressCity#">					  					 
+					 <cfset mem   = "#mem# #Address.AddressCity#">					  					 
 				
 				</cfif>
 				

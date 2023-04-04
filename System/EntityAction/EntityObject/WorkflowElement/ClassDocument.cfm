@@ -26,9 +26,9 @@ and can be diabled --->
 		            Ref_EntityDocument S ON R.DocumentId = S.DocumentId
 		WHERE       R.ActionCode      = '#URL.ActionCode#'		
 		<cfif actionMode.ProcessMode gte "1">			
-		AND         S.DocumentType IN  ('function','dialog','field','attach','session')
+		AND         S.DocumentType IN  ('function','dialog','field','attach','session','action')
 		<cfelse>
-		AND         S.DocumentType IN  ('dialog','field','attach','session')
+		AND         S.DocumentType IN  ('dialog','field','attach','session','action')
 		</cfif>
 		AND         S.Operational = '1'
 		AND         R.DocumentId NOT IN (SELECT DocumentId 
@@ -62,9 +62,9 @@ and can be diabled --->
 				  	AND A.ActionPublishNo = '#URL.PublishNo#' 
 					AND A.ActionCode      = '#URL.ActionCode#'
 		<cfif actionMode.ProcessMode gte "1">			
-		WHERE     R.DocumentType IN  ('function','dialog','field','attach','session')
+		WHERE     R.DocumentType IN  ('function','dialog','field','attach','session','action')
 		<cfelse>
-		WHERE     R.DocumentType IN  ('dialog','field','attach','session')
+		WHERE     R.DocumentType IN  ('dialog','field','attach','session','action')
 		</cfif>
 		AND       R.EntityCode = '#url.entityCode#'	
 		

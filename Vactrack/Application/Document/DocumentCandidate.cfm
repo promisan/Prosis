@@ -1,9 +1,10 @@
 
 <cfparam name="actions.actionstatus" default="0">
-<cfparam name="currentrow" default="1">
-<cfparam name="candidate" default="0">
-<cfparam name="url.line" default="#currentrow#">
-<cfparam name="url.mode" default="document">
+<cfparam name="currentrow"   default="1">
+<cfparam name="candidate"    default="0">
+<cfparam name="url.line"     default="#currentrow#">
+<cfparam name="url.mode"     default="document">
+<cfparam name="url.wparam"   default="FULL"> <!--- tag in the workflow step --->
 
 <cfif candidate eq "0">
 		
@@ -139,9 +140,9 @@
 		
 	<cfif SearchResult.recordCount neq "0">
 				
-	<table width="100%"	bgcolor="f4f4f4" align="center" id="shortlist">			 	
-					
-		<cfquery name="Validation" 
+	<table width="100%"	bgcolor="f4f4f4" align="center" id="shortlist">		
+	
+	<cfquery name="Validation" 
 			datasource="AppsOrganization" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
@@ -149,8 +150,10 @@
 			    FROM  Vacancy.dbo.DocumentValidation
 				WHERE DocumentNo = '#URL.ajaxid#'
 				AND   ValidationCode = 'OverwriteSelection'
-		</cfquery>		
-		
+		</cfquery>	
+	
+	<cfif url.wparam neq "Limited">
+				
 		<cfinvoke component = "Service.Access"  
 		   method           = "RoleAccess" 
 		   role             = "'VacOfficer'"
@@ -158,56 +161,57 @@
 		   accesslevel      = "'2'" 	  
 		   returnvariable   = "accessOverwrite">			
 		
-	<cfif (RosterParameter.SelectionDaysOverwrite eq "1" and accessOverwrite eq "GRANTED") or Validation.recordcount eq "1" or getAdministrator("*") eq "1">
-		
-		<tr class="labelmedium2" style="height:30px;background-color:e4e4e4"><td>
-		
-			<cfoutput>
-			<table>
-			    				
-				<cfif Validation.Recordcount eq "1">
+		<cfif (RosterParameter.SelectionDaysOverwrite eq "1" and accessOverwrite eq "GRANTED") or Validation.recordcount eq "1" or getAdministrator("*") eq "1">
 			
-				<tr class="labelmedium2"><td height="20"  style="padding-left:20px">	
-					<font color="gray">Candidate selection validation is overruled by <b>#Validation.OfficerFirstName# #Validation.OfficerLastName#</b> on #dateformat(Validation.created, CLIENT.DateFormatShow)#</font>
-					</td>
-				</tr>	
-					
-				<cfelse>
-					
-				<tr class="labelmedium2"><td height="20" style="padding-left:20px" id="selectionvalidation">	
-					 <a href="javascript:ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCandidateValidation.cfm?documentNo=#url.ajaxid#','selectionvalidation')">					 
-					 <b>Press here</b></a> to overwrite the candidate selection limitation which will allow you to select candidate that have been also selected for other tracks
-					</td>
-				</tr>	
+			<tr class="labelmedium2" style="height:30px;background-color:e4e4e4"><td>
 			
-				</cfif>
+				<cfoutput>
+				<table>
+				    				
+					<cfif Validation.Recordcount eq "1">
+				
+					<tr class="labelmedium2"><td height="20"  style="padding-left:20px">	
+						<font color="gray">Candidate selection validation is overruled by <b>#Validation.OfficerFirstName# #Validation.OfficerLastName#</b> on #dateformat(Validation.created, CLIENT.DateFormatShow)#</font>
+						</td>
+					</tr>	
+						
+					<cfelse>
+						
+					<tr class="labelmedium2"><td height="20" style="padding-left:20px" id="selectionvalidation">	
+						 <a href="javascript:ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCandidateValidation.cfm?documentNo=#url.ajaxid#','selectionvalidation')">					 
+						 <b>Press here</b></a> to overwrite the candidate selection limitation which will allow you to select candidate that have been also selected for other tracks
+						</td>
+					</tr>	
+				
+					</cfif>
+				
+				</table>
+				</cfoutput>
 			
-			</table>
-			</cfoutput>
-		
-		</td></tr>	
-		
-	</cfif>
+			</td></tr>	
+			
+		</cfif>
 	
-	<cfquery name="Search" 
-		datasource="appsOrganization" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		SELECT   DISTINCT A.*
-		FROM     Vacancy.dbo.DocumentCandidate DC, Applicant.dbo.RosterSearch A
-		WHERE    DC.SearchId = A.SearchId
-		 AND     DC.DocumentNo = '#URL.AjaxId#'	
-	</cfquery>
-	
-	<cfif Search.Recordcount gte "1">
+		<cfquery name="Search" 
+			datasource="appsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT   DISTINCT A.*
+			FROM     Vacancy.dbo.DocumentCandidate DC, Applicant.dbo.RosterSearch A
+			WHERE    DC.SearchId = A.SearchId
+			 AND     DC.DocumentNo = '#URL.AjaxId#'	
+		</cfquery>
 		
+		<cfif Search.Recordcount gte "1">		
+			
+			<tr class="labelmedium2" style="height:34px;background-color:9DDBE6">
+				<td style="padding-left:20px;padding-top:5px;font-weight:400">The below candidates were shortlisted through the following roster searches: <cfoutput query="Search">
+				<a href="javascript:searchview('#url.ajaxid#','#searchid#')">#searchid# (#OfficerlastName#)</a>
+				<cfif currentrow neq recordcount>,</cfif> </cfoutput></td>
+			</tr>
+		</cfif>
 		
-		<tr class="labelmedium2" style="height:34px;background-color:9DDBE6">
-			<td style="padding-left:20px;padding-top:5px;font-weight:400">The below candidates were shortlisted through the following roster searches: <cfoutput query="Search">
-			<a href="javascript:searchview('#url.ajaxid#','#searchid#')">#searchid# (#OfficerlastName#)</a>
-			<cfif currentrow neq recordcount>,</cfif> </cfoutput></td>
-		</tr>
-	</cfif>
+	</cfif>	
 		
 	<tr><td style="width:100%;border:0px solid silver">
 	
@@ -275,8 +279,7 @@
 				<td width="30" align="center">
 				#currentrow#.	   
 				</td>
-			</cfif>	   
-		   
+			</cfif>	   	   
 
 		
 		<cfif dob neq "">
@@ -292,7 +295,13 @@
 			
 		</cfif>
 		
-		<td><A HREF ="javascript:ShowCandidate('#PersonNo#')"><cfif IndexNoA neq "">#IndexNoA#<cfelse>#PersonNo#</cfif></a></td>
+		<td>
+		<cfif url.wparam eq "Limited">
+		<cfif IndexNoA neq "">#IndexNoA#<cfelse>#PersonNo#</cfif>
+		<cfelse>
+		<A HREF ="javascript:ShowCandidate('#PersonNo#')"><cfif IndexNoA neq "">#IndexNoA#<cfelse>#PersonNo#</cfif></a>
+		</cfif>
+		</td>
 	    <td>#LastName#</td>
 		<td>#FirstName#</td>
 		
@@ -401,8 +410,7 @@
 		   <tr title="Attention: No profile background reviews were initiated for this candidate">
 		   <td width="10" height="12" bgcolor="FF0000" style="border:1px solid black"></td>
 		   </tr>
-		</table>
-		
+		</table>	
 		
 		</cfif>
 		
@@ -420,25 +428,25 @@
 			</cfquery>
 			
 			<cfif doc.status eq "0">
-									
+												
 				<cfparam name="dialogAccess" default="edit">	
 										
 				<cfif Status lt "2s">
 						
 					<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">				 
-					   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','#session.root#/Vactrack/Application/Document/DocumentCandidateDeleteSubmit.cfm')">				   			 
+					   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','#session.root#/Vactrack/Application/Document/DocumentCandidateDeleteSubmit.cfm','#url.wparam#')">				   			 
 				    </cfif>
 					
 				<cfelseif Status eq "2s" and CandidateClass eq "">
 						
 					<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">				 
-					   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','#session.root#/Vactrack/Application/Document/DocumentCandidateDeleteSubmit.cfm')">				   			 
+					   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','#session.root#/Vactrack/Application/Document/DocumentCandidateDeleteSubmit.cfm','#url.wparam#')">				   			 
 				    </cfif>	
 				
 				<cfelseif Status eq "6" <!--- stalled ---> or Status eq "9" <!--- withdrawm --->>
 					
 					<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">			
-					<a href="javascript:reinstate('#URL.ajaxid#','#PersonNo#')">[reinstate]</a>
+					<a href="javascript:reinstate('#URL.ajaxid#','#PersonNo#')">[<cf_tl id="reinstate">]</a>
 					</cfif>
 						
 				</cfif>
@@ -513,71 +521,75 @@
 			</cfif>
 		
 		</cfif>
-							
-		<cfif ReviewInitiated gte "1">
-			<tr><td></td><td colspan="11">		   			
-				<cf_DocumentCandidateReview 
-						  Owner    = "#Owner#"	
-				          Color    = "transparent" 
-						  PersonNo = "#PersonNo#">		
-						  						  	
-			</td>
-			</tr>
-		</cfif>
-				
-		<cfinvoke component = "Service.Process.Applicant.Vacancy"  
-		   method           = "Candidacy" 
-		   Owner            = "#Mission.MissionOwner#"
-		   DocumentNo       = "#URL.ajaxid#" 
-		   PersonNo         = "#personno#"	
-		   Status           = ""   
-		   returnvariable   = "OtherCandidates">	
-			
-		<cfif OtherCandidates.recordcount gte 1>
 						
-		<tr bgcolor="transparent">
-		
-		<td></td>
-		<td colspan="11">
-				
-		   <table border="0" style="border:1px dotted silver" width="99%" align="center">
-			
-			<cfloop query="OtherCandidates">		
-			
-				<cfif Validation.Recordcount eq "1">		
-				   <cfset cel = "ffffcf">					   
-				<cfelseif Status eq "Short-listed">				
-				   <cfset cel = "ffffcf">				   
-				<cfelse>							
-				   <cfset cel = "FF0000">   				   
-				</cfif>
-	
-				<tr bgcolor="#cel#">
-					<td height="17" class="labelit fixlength" style="padding-left:5px">
-					
-						<a href="javascript:showdocument('#DocumentNo#')">
+		<cfif url.wparam neq "Limited">
 							
-							<cfif cel eq "FF0000">
-							   <font color="FFFFFF">
-							</cfif>
-	
-							Candidate <b>#Status#</b> for
-							<b>#OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# &nbsp;#OtherCandidates.FunctionalTitle#, track : #DocumentNo#</b>
-							</font>
-		
-						</a>
-				    </td>
+			<cfif ReviewInitiated gte "1">
+				<tr><td></td><td colspan="11">				
+					<cf_DocumentCandidateReview 
+							  Owner    = "#Owner#"	
+					          Color    = "transparent" 
+							  PersonNo = "#PersonNo#">		
+							  						  	
+				</td>
 				</tr>
+			</cfif>
+					
+			<cfinvoke component = "Service.Process.Applicant.Vacancy"  
+			   method           = "Candidacy" 
+			   Owner            = "#Mission.MissionOwner#"
+			   DocumentNo       = "#URL.ajaxid#" 
+			   PersonNo         = "#personno#"	
+			   Status           = ""   
+			   returnvariable   = "OtherCandidates">	
+				
+				<cfif OtherCandidates.recordcount gte 1>
+								
+					<tr bgcolor="transparent">
+					
+					<td></td>
+					<td colspan="11">
 							
-			</cfloop>
-			
-			</table>
+					   <table style="border:1px dotted silver" width="99%" align="center">
 						
-		</td>
-		<td></td>
-		</tr>	
+						<cfloop query="OtherCandidates">		
+						
+							<cfif Validation.Recordcount eq "1">		
+							   <cfset cel = "ffffcf">					   
+							<cfelseif Status eq "Short-listed">				
+							   <cfset cel = "ffffcf">				   
+							<cfelse>							
+							   <cfset cel = "FF0000">   				   
+							</cfif>
+				
+							<tr bgcolor="#cel#">
+								<td height="17" class="labelit fixlength" style="padding-left:5px">
+								
+									<a href="javascript:showdocument('#DocumentNo#')">
+										
+										<cfif cel eq "FF0000">
+										   <font color="FFFFFF">
+										</cfif>
+				
+										Candidate <b>#Status#</b> for
+										<b>#OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# &nbsp;#OtherCandidates.FunctionalTitle#, track : #DocumentNo#</b>
+										</font>
+					
+									</a>
+							    </td>
+							</tr>
+										
+						</cfloop>
+					
+					   </table>
+								
+					</td>
+					<td></td>
+					</tr>	
+			
+			</cfif>	
 		
-		</cfif>	
+		</cfif>
 							
 		<cfif Remarks neq "">
 			<tr class="fixlengthlist">

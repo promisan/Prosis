@@ -154,7 +154,8 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			UPDATE #tbl#Process
-			SET    ConditionField      = '#Form.ConditionField#',
+			SET    ConditionShow       = '#Form.ConditionShow#',
+			       ConditionField      = '#Form.ConditionField#',
 				   ConditionValue      = '#Form.ConditionValue#',
 				   ConditionDataSource = '#Form.ConditionDataSource#',
 				   ConditionScript     = '#Form.ConditionScript#',
@@ -227,7 +228,7 @@
 
 		 <cfparam name="Get.#script#" default="">
 		 
-		 <cfset val = Get[#script#]>
+		 <cfset val = Get[script]>
 
 		 <cfset val = replaceNoCase("#val#", "@key1",   "#key1#" , "ALL")>
 		 <cfset val = replaceNoCase("#val#", "@key2",   "#key2#" , "ALL")>
@@ -319,7 +320,5 @@
 	</cfif>
 
 </cfif>
-
-<cf_compression>
 
 </cfoutput>

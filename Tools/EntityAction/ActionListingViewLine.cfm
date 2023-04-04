@@ -414,11 +414,13 @@
 					<table>			
 							
 						<tr class="labelmedium">										
-						<cfif Entity.EnablePerformance eq "1">						
+						<cfif Entity.EnablePerformance eq "1">	
+						    <!---					
 							<td style="font-size: 13px;padding-right:5px"><cf_tl id="within"></td>
+							--->
 							
 							<cfif SESSION.isAdministrator eq "Yes">
-							<td>
+							<td title="Action to complete within NN hours">
 							
 								<input type="text" 
 								   name="hour#ActionId#" 
@@ -426,13 +428,13 @@
 								   value="#actionTakeAction#" 
 								   maxlength="3" 
 								   class="regularxl" 
-								   style="width: 20px; text-align: center" 
+								   style="width: 34px; text-align: center" 
 								   onChange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/entityAction/ActionListingPerformance.cfm?objectid=#objectid#&actionid=#actionid#&hour='+this.value,'perf')">
 									
 							</td>							
 								
 							<cfelse>
-								<td style="padding-left:4px">
+								<td style="padding-left:4px" title="Action to complete within NN hours">
 								#ActionTakeAction#
 								</td>
 							</cfif>

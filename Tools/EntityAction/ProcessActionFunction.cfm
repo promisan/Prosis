@@ -1,5 +1,7 @@
 
 <!--- make sure -fields- are always made visible by default based on the action --->
+
+<cfparam name="formname" default="formactor">
   	   
 <cfquery name="Function" 
 	 datasource="AppsOrganization"
@@ -12,7 +14,7 @@
 		 AND       R.Operational = 1
 		 AND       R.DocumentMode    = 'Embed'
 		 AND       R.DocumentId      = W.DocumentId 
-		 AND       W.ActionCode      = '#ActionCode#'
+		 AND       W.ActionCode      = '#Action.ActionCode#'
 		 AND       W.ActionPublishNo = '#Object.ActionPublishNo#' 
 		 AND       W.Operational = 1
 		 ORDER BY  W.ListingOrder 
@@ -25,13 +27,16 @@
 		<table width="100%">
 					
 			<cfoutput query="function">	  
-			   		 					 
+			   		
+				<!---	 					 
 				 <cf_ProcessActionTopic name="#DocumentCode#"  
 				   mode  = "Expanded"  
 				   title = "#DocumentDescription#"
 				   click = "openfunction('#DocumentCode#','#Object.ObjectId#','#DocumentCode#','#DocumentCode#','#Action.ActionCode#')">
+				   --->
 										   
-				 <tr><td></td>
+				 <tr class="labelmedium2"><td style="font-size:18px">#DocumentDescription#</td></tr>
+				 <tr>
 				 <td id="#DocumentCode#">	
 				 				 
 				 <!--- define the targets --->
@@ -42,7 +47,7 @@
 						<cfdiv bind="url:#sc#" id="#DocumentCode#_#Object.ObjectId#">		
 					 </cfcase>
 					 <cfcase value="fact">
-			  		 	<cfset sc = "#SESSION.root#/tools/entityaction/details/actor/ActorView.cfm?box=#DocumentCode#_#Object.ObjectId#&mode=cost&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#">
+			  		 	<cfset sc = "#SESSION.root#/tools/entityaction/details/actor/ActorView.cfm?formname=#formname#&box=#DocumentCode#_#Object.ObjectId#&mode=cost&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#">
 						<cfdiv bind="url:#sc#" id="#DocumentCode#_#Object.ObjectId#">		
 					 </cfcase>		  
 					 <cfcase value="fexp">

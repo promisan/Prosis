@@ -46,6 +46,10 @@
 		ProsisUI.createWindow('evdialog', 'HR Service Request / Advice', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
     	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope='+scope+'&portal='+portal+'&id='+key,'evdialog')
 	}
+	
+	function eventview(key,scope,portal) {
+    	ptoken.open('#SESSION.root#/Staffing/Application/Employee/Events/EventDialog.cfm?scope='+scope+'&portal='+portal+'&id='+key,'evdialog')
+	}
     
     function checkevent() {		
 	    por     = document.getElementById('portal');
@@ -57,6 +61,12 @@
 		pevent  = document.getElementById('pevent');				
     	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?portal='+por.value+'&scope='+scp.value+'&personno='+per.value+'&triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value+'&pevent='+pevent.value,'dEvent')
     }    
+	
+	function checkinstruction() {		
+	    mis     = document.getElementById('mission');
+	   	evt     = document.getElementById('eventcode');		
+	   	ptoken.navigate('#session.root#/Staffing/Application/Employee/Events/getInstruction.cfm?eventcode='+evt.value+'&mission='+mis.value,'myinstruction')			
+	}
 
     function checkreason() {	 	    
 	    por     = document.getElementById('portal');
@@ -73,15 +83,14 @@
 	    
     function eventdelete(event,portal,scope) {
 	
-		Ext.MessageBox.confirm('Delete', 'Are you sure to remove this request?', function(btn){
-		   if(btn === 'yes'){
-		       ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsDelete.cfm?portal='+portal+'&scope='+scope+'&eventid='+event,'eventdetail');
-		   }
-		 });
+	
+	    if (confirm("Are you sure to remove this request?"))	{			
+	       ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventsDelete.cfm?portal='+portal+'&scope='+scope+'&eventid='+event,'eventdetail');
+	   }
+	
     }
 		
-	function eventsubmit(id,box,portal,scope) {
-	
+	function eventsubmit(id,box,portal,scope) {	
 	  
 		tc  = document.getElementById('triggercode');
 		ev  = document.getElementById('eventcode');
@@ -100,43 +109,40 @@
 		dbx = document.getElementById('documentbox');
 		pbx = document.getElementById('positionbox');	
 		rbx = document.getElementById('requisitionbox');
-		ebx = document.getElementById('expirybox');	
+		efx = document.getElementById('effectivebox');	
+		ebx = document.getElementById('expirybox');					
 				
+		if (pos.value=='' && pbx.className!= 'hide') {		    
+			alert('Please specify a position.');		
 				
-		if (pos.value=='' && pbx.className!= 'hide') {
-		    
-			Ext.Msg.alert('Position', 'Please specify a position.');			
-		} else if (tc.value  == '')   {
-		    
-			Ext.Msg.alert('Trigger', 'Please specify an event trigger.');
-		} else if (doc.value  == '' && dbx.className!= 'hide')   {
-		   
-			Ext.Msg.alert('Document', 'Please specify a Recruitment Document.');	
-		} else if (req.value=='' && rbx.className!='hide'){
-		    
-			Ext.Msg.alert('Requisition', 'Please specify Requisition No.');
-		} else if (pri.checked && prm.value ==''){
-		   
-			Ext.Msg.alert('High Priority', 'Please specify a reason.');	
-		} else if (ev.value  == '')   {
-		  
-			Ext.Msg.alert('Event', 'Please specify an event action.');		
-		} else if (de.value  == '')   {
-		
-			Ext.Msg.alert('Request date', 'Please specify Event Date.');
-		} else if (ded.value == '')  {
-		
-			Ext.Msg.alert('Due date', 'Please specify Due Date.');
+		} else if (tc.value  == '')   {		    
+			alert('Please specify an event trigger.');
 			
-		} else if (eff.value == '')  {
-		
-			Ext.Msg.alert('Effective date', 'Please specify an effective Date.');	
+		} else if (doc.value  == '' && dbx.className!= 'hide')   {		   
+			alert('Please specify a Recruitment Document.');	
 			
-		} else if (exp.value == '' && ebx.className!= 'hide') {
+		} else if (req.value=='' && rbx.className!='hide'){		    
+			alert('Please specify Requisition No.');
+			
+		} else if (pri.checked && prm.value ==''){		   
+			alert('Please specify a reason.');	
+			
+		} else if (ev.value  == '')   {		  
+			alert('Please specify an event action.');		
+			
+		} else if (de.value  == '')   {		
+			alert('Please specify Event Date.');
+			
+		} else if (ded.value == '')  {		
+			alert('Please specify Due Date.');
+			
+		} else if (eff.value == '')  {		
+			alert('Please specify an effective Date.');	
+			
+		} else if (exp.value == '' && ebx.className!= 'hide') {		
+			alert('Please specify an expiration Date.');		
 		
-			Ext.Msg.alert('Expiration date', 'Please specify an expiration Date.');		
-		} 
-		else{		
+		} else{		
 		   
     		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?portal='+portal+'&scope='+scope+'&box='+box+'&eventid='+id,'process','','','POST','eventform')		
 		}

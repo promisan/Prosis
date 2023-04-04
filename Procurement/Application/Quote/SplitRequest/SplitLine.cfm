@@ -59,19 +59,19 @@ password="#SESSION.dbpw#">
     FROM Ref_UoM
 </cfquery>
 
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" height="100%" class="formpadding">
 
 <tr><td valign="top" style="padding-top:10px;padding-left:26px;padding-right:26px">
 
 <cfform action="SplitLineSubmit.cfm?ID=#URL.ID#" method="POST" target="result">
 
-<table width="100%" cellpadding="0" class="formpadding">
+<table width="100%" class="formpadding">
 
 <tr class="hide"><td><iframe name="result" id="result"></iframe></td></tr>
 
 <cfoutput query="Line">
 
-<tr class="labelmedium line">
+<tr class="labelmedium2 line">
    <td width="20" height="20"></td>
    <td><cf_tl id="Description"></td>
    <td><cf_tl id="Qty"></td>
@@ -80,17 +80,14 @@ password="#SESSION.dbpw#">
    <td align="right"><cf_tl id="Total"></td>
 </tr>
 
-<tr  class="labelmedium line">
+<tr  class="labelmedium2 line">
    <td></td>
    <td>#RequestDescription#</td>
    <td>#RequestQuantity#</td>
    <td>#QuantityUoM#</td>
    <td align="right">#NumberFormat(RequestCostPrice,",.__")#</td>
-   <td align="right">#NumberFormat(RequestAmountBase,",.__")#</td>
-   
+   <td align="right">#NumberFormat(RequestAmountBase,",.__")#</td>   
 </tr>
-
-<tr><td height="6"></td></tr>
 
 </cfoutput>
 

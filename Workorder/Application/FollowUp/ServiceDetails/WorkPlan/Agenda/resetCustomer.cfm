@@ -1,2 +1,0 @@
-
-<cfset client.workactionid = "">

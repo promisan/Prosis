@@ -20,23 +20,33 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 <table style="width:100%">
-	<tr style="height:20px" class="labelmedium2">
-	
+		
 	<cfparam name="hasTrack" default="1"> 
+	<cfparam name="positionno" default="">
+		
+	<cfif hasTrack lte "1" and positionNo neq "">
 	
-	<cfif hasTrack eq "0">
+	    <tr style="padding-bottom:2px" class="labelmedium2">
 			
 		<td style="width:100%"> 
 		
-		  <cf_tl id="Initiate recruitment" var="1">
+		  <cfif hasTrack eq "0">
+			  <cf_tl id="Initiate recruitment" var="1">
+		  <cfelse>
+		      <cf_tl id="Initiate other recruitment" var="1">
+		  </cfif>	  
 	      <input title="Click to initiate a recruitment process for this position" 
 		  type="button" value="#lt_text#" class="button10g" <cfif getAdministrator eq "0">disabled</cfif> onclick="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')" 
 		  style="border-radius:2px;width:100%;border:1px solid silver">			  
 			
-		</td>		
+		</td>	
+		
+		</tr>
+		
+	</cfif>
 	
-	<cfelse>
-	
+	<cfif hasTrack gte "1">		
+		
 		<cfquery name="Doc" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
@@ -50,74 +60,128 @@ password="#SESSION.dbpw#">
 			ORDER BY DocumentNo DESC		
 						   
 		</cfquery>
+		
+		<cfloop query="doc">
 					
-		<cfquery name="Position" 
-		datasource="appsEmployee" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		    SELECT *
-		    FROM   Position
-			WHERE  PositionNo = '#Doc.PositionNo#'
-		</cfquery>
+			<cfquery name="Position" 
+			datasource="appsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT *
+			    FROM   Position
+				WHERE  PositionNo = '#Doc.PositionNo#'
+			</cfquery>
 		
-		<cfquery name="Candidate" 
-		datasource="appsVacancy" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		
-			SELECT  A.IndexNo, DC.LastName, DC.FirstName, A.DOB, A.PersonNo, A.EmployeeNo
-			FROM    DocumentCandidate AS DC LEFT OUTER JOIN
-		            Applicant.dbo.Applicant AS A ON DC.PersonNo = A.PersonNo
-			WHERE   DocumentNo = '#Doc.DocumentNo#'
-			AND     Status = '2s'
+			<cfquery name="Candidate" 
+			datasource="appsVacancy" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
 			
-		</cfquery>
-		
-		<cf_wfActive entitycode="VacDocument" objectkeyvalue1="#doc.DocumentNo#">		
-		<cfset link = "Vactrack/Application/Document/DocumentEdit.cfm?ID=#doc.DocumentNo#&IDCandlist=ZoomIn&ActionId=undefined">
-			 
-		<cfif wfstatus neq "closed">	
-		
-			<cfset hasworkflow = 1>				
-			
-			<td style="width:100%">	
-										
-				<cf_ActionListing 
-				    ReadMode         = "read_uncommitted"     
-				    TableWidth       = "100%"
-				    EntityCode       = "VacDocument"
-					EntityClass      = "#Doc.EntityClass#"
-					EntityGroup      = "#Doc.Owner#"
-					EntityStatus     = ""		
-					Mission          = "#Doc.Mission#"
-					OrgUnit          = "#Position.OrgUnitOperational#"
-					ObjectReference  = "#Doc.FunctionalTitle#"
-					ObjectReference2 = "#Doc.Mission# - #Doc.PostGrade#"
-					ObjectKey1       = "#Doc.DocumentNo#"	
-					AjaxId           = "#URL.ajaxId#"
-				  	ObjectURL        = "#link#"
-					Show             = "Mini"
-					DocumentStatus   = "#Doc.Status#">
+				SELECT  A.IndexNo, DC.LastName, DC.FirstName, A.DOB, A.PersonNo, A.EmployeeNo
+				FROM    DocumentCandidate AS DC LEFT OUTER JOIN
+			            Applicant.dbo.Applicant AS A ON DC.PersonNo = A.PersonNo
+				WHERE   DocumentNo = '#Doc.DocumentNo#'
+				AND     Status = '2s'
 				
-			</td>	
+			</cfquery>
+		
+			<cf_wfActive entitycode="VacDocument" objectkeyvalue1="#doc.DocumentNo#">		
+			<cfset link = "Vactrack/Application/Document/DocumentEdit.cfm?ID=#doc.DocumentNo#&IDCandlist=ZoomIn&ActionId=undefined">
+					   
+			   <tr><td style="width:100%;border:1px solid silver;border-radius:6px">
+	     		   <table style="width:100%" class="formpadding">
+				    <tr class="labelmedium2">
+			        <td><b>#doc.documenttype#</b><cf_tl id="Announcement"></td>
 					
-		<cfelse>
+					<cfif Doc.FunctionId neq "">
 		
-			<td bgcolor="FFB0FF" style="padding-left:4px;background-color:FFB0FF"><cf_tl id="Selection completed"></td>
+						<cfquery name="JO" 
+						datasource="appsSelection" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						    SELECT *
+						    FROM   FunctionOrganization
+							WHERE  FunctionId = '#Doc.FunctionId#'
+						</cfquery>
+					
+     			        <td align="right"><A href="javascript:va('#Doc.FunctionId#');">#JO.ReferenceNo#</a></td>
+						
+						<td style="padding-top:4px;padding-bottom:4px" align="right"><table><tr>
+						<cfif Jo.DateEffective neq "">
+							<cfset days = datediff("d",  JO.DateEffective,  now())>		
+							<cfif days gte "90">			
+								<td class="labelit" style="border-radius:10px;text-align:center;background-color:red;color:white;width:40px" title="Days since posting">#days#</td>
+							<cfelseif days gte "60">								
+							    <td class="labelit" style="border-radius:10px;text-align:center;background-color:FFB164;width:40px" title="Days since posting">#days#</td>
+							<cfelse>
+							    <td class="labelit" style="border-radius:10px;text-align:center;background-color:yellow;width:40px" title="Days since posting">#days#</td> 
+							</cfif>
+						<cfelse>
+							<td style="width:40px"></td>
+						</cfif>	
+						</tr></table></td>
+						
+					</cfif>
+					
+					</tr>
+					
+					<cfif wfstatus neq "closed">	
+			
+						<cfset hasworkflow = 1>		
+						
+						<tr>		
+						
+						<td style="width:100%" colspan="3">	
+													
+							<cf_ActionListing 
+							    ReadMode         = "read_uncommitted"     
+							    TableWidth       = "100%"
+							    EntityCode       = "VacDocument"
+								EntityClass      = "#EntityClass#"
+								EntityGroup      = "#Owner#"
+								EntityStatus     = ""		
+								Mission          = "#Mission#"
+								OrgUnit          = "#Position.OrgUnitOperational#"
+								ObjectReference  = "#FunctionalTitle#"
+								ObjectReference2 = "#Mission# - #PostGrade#"
+								ObjectKey1       = "#DocumentNo#"	
+								AjaxId           = "#URL.ajaxId#"
+							  	ObjectURL        = "#link#"
+								ChatEnable       = "0"
+								Show             = "Mini"
+								DocumentStatus   = "#Status#">
+							
+						</td>	
+						
+						</tr>
+								
+					<cfelse>
+					
+						<td bgcolor="FFB0FF" colspan="3"
+						style="padding-left:4px;background-color:FFB0FF"><cf_tl id="Selection completed"></td>
+					
+					</cfif>			
+					
+						
+					<cfif Candidate.recordcount neq "0">
+					
+						<cfloop query="candidate">		
+						<tr class="line labelmedium">
+						     <td style="padding-left:4px;font-size:14px">#Candidate.FirstName# #Candidate.LastName# <cfif IndexNo eq "">[No indexNo]<cfelse></cfif>#IndexNo#</td>
+					    </tr>			
+						</cfloop>
+					
+					</cfif>	
+			
+			  </table>
+			   </td></tr>
+			 
+			  <tr><td style="height:2px"></td></tr>
+						
+		</cfloop>	
 		
-		</cfif>
-		
-		</tr>
-		
-		<cfif Candidate.recordcount neq "0">
-		
-			<cfloop query="candidate">		
-			<tr class="line labelmedium">
-			     <td style="padding-left:4px;font-size:14px">#Candidate.FirstName# #Candidate.LastName# <cfif IndexNo eq "">[No indexNo]<cfelse></cfif>#IndexNo#</td>
-		    </tr>			
-			</cfloop>
-		
-		</cfif>	
+				
+      	        
 			
 	</cfif>
 	

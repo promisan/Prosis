@@ -8,6 +8,7 @@
 		<cfset THIS.ApplicationTimeout = CreateTimeSpan( 0, 0, 180, 0 ) />
 		<cfset THIS.SessionManagement = true />
 		<cfset THIS.clientmanagement = true />
+		<cfset This.loginstorage="Session"/>
 		<cfset THIS.SessionTimeout   = CreateTimeSpan(0,0,180,0)/>
 		<cfset THIS.sessioncookie.httponly = true>
 		 
@@ -21,16 +22,19 @@
 		<!--- Define arguments. --->
 		<cfargument	name="TargetPage" type="string"	required="true"/>
 						 		
-			<cf_appInit>		
-						
-			<cf_Control 
-				verifyMultipleLogon  = "1"
-				verifyCSRF           = "1"
-			    verifyAuthentication = "1" <!--- keep as 0 for scheduled tasks etc. --->
-			    trackUser            = "1"
-				errorHandling        = "1">					
+			<cf_appInit>
+			<cfset vVerify = 1>
+			<cfif FindNoCase("UserStats",Arguments.TargetPage) neq 0>
+				<cfset vVerify = 0>
+			</cfif>
 
-		<!--- Return out. --->
+			<cf_Control
+					verifyMultipleLogon  = "1"
+					verifyCSRF           = "1"
+					verifyAuthentication = "#vVerify#" <!--- keep as 0 for scheduled tasks etc. --->
+					trackUser            = "1"
+					errorHandling        = "1">
+<!--- Return out. --->
 		<cfreturn true />
 		</cffunction>
 		 		 

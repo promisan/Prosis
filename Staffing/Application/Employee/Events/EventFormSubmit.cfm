@@ -131,7 +131,7 @@
 					 <cfif FORM.RequisitionNo neq "">
 				         '#FORM.RequisitionNo#',
 					 </cfif>	 
-			         '#Form.DocumentNo#',					 
+			         '#left(Form.DocumentNo,30)#',					 
 			         #dte#,
 			         #dted#,
 					 #eff#,

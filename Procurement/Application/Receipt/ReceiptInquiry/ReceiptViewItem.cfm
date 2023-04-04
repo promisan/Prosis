@@ -11,39 +11,32 @@
 	 WHERE Warehouse = '#url.warehouse#'
 </cfquery>	 
 
-<cfquery name="InTransit" 
+<cfquery name="Purchase" 
      datasource="AppsPurchase" 
      username="#SESSION.login#" 
      password="#SESSION.dbpw#">
-
-		SELECT   PLR.ReceiptNo, 
-		         R.Period, 
-				 PLR.RequisitionNo,
-				 R.ReceiptDate, R.Created, PLR.Warehouse, PLR.WarehouseItemNo, PLR.WarehouseUoM, 
-		         PLR.WarehouseCurrency, PLR.WarehousePrice, PLR.ReceiptMultiplier, PLR.ReceiptWarehouse, 
-		         PLR.TransactionLot, PLR.ReceiptAmountCost, PLR.ReceiptAmountTax, PLR.ReceiptAmount
-		FROM     PurchaseLineReceipt AS PLR INNER JOIN
-		         Receipt AS R ON PLR.ReceiptNo = R.ReceiptNo
-		WHERE    PLR.ActionStatus = '0' 
-		<!--- Check if ReceiptId does not exists in ItemTransaction --->
-		AND      R.Mission           = '#get.mission#' 
-		AND      PLR.Warehouse       = '#url.warehouse#'
-		AND      PLR.WarehouseItemNo = '#url.itemNo#' 
-		<!---
-		AND      PLR.WarehouseUoM    = '#url.uom#'
-		--->
-		ORDER BY PLR.ReceiptNo DESC
-		
-		
+	 
+	    SELECT       PL.PurchaseNo, P.OrderDate, PLR.ReceiptNo, PLR.RequisitionNo, PL.Currency, 
+		             RL.Warehouse, RL.WarehouseItemNo, RL.WarehouseUoM, 
+		             PL.OrderQuantity, PL.OrderAmountCost, 
+		             PLR.ReceiptOrder,
+					 
+					  (SELECT ReceiptDate FROM Receipt WHERE ReceiptNo = PLR.ReceiptNo) as ReceiptDate, 
+					  PLR.WarehouseCurrency, 
+                     PLR.WarehousePrice, PLR.ReceiptMultiplier, PLR.ReceiptWarehouse, PLR.TransactionLot, PLR.ReceiptAmountCost, PLR.ReceiptAmountTax, PLR.ReceiptAmount 
+        FROM         Purchase AS P INNER JOIN
+                     PurchaseLine AS PL ON P.PurchaseNo = PL.PurchaseNo INNER JOIN
+                     RequisitionLine AS RL ON PL.RequisitionNo = RL.RequisitionNo LEFT OUTER JOIN
+                     PurchaseLineReceipt AS PLR ON PL.RequisitionNo = PLR.RequisitionNo AND PLR.ActionStatus = '0'
+        WHERE        P.Mission = '#get.mission#' 
+		AND          PL.DeliveryStatus IN ('1', '2')
+		AND          RL.Warehouse       = '#url.warehouse#'
+		AND          RL.WarehouseItemNo = '#url.itemno#'
+        ORDER BY     P.OrderDate, PL.PurchaseNo DESC						
+						
 </cfquery>
 
-
-
 <!--- get price fileds --->
-
-
-   
-
 
 <table width="100%">
 
@@ -59,26 +52,31 @@
 			<td align="right"><cf_tl id="Est Price"></td>
 			<td align="right"><cf_tl id="ETA"></td>		
 		</tr>
+		
+		</cfoutput>
 	
-		<cfloop query="InTransit">	
+		<cfoutput query="Purchase" Group="purchaseno">	
+		
+		<tr class="labelmedium2 fixlengthlist line">
+			
+			 <td>#Purchaseno#</td>
+			 <td>#dateformat(OrderDate,client.dateformatshow)#</td>				
+			 <td align="right">#numberformat(OrderQuantity,',.__')#</td>											
+			 <td align="right">#Currency#</td>				
+			 <td align="right">#numberformat(OrderAmountCost/OrderQuantity,',.__')#</td>
+				
+		</tr>				
+		
+		<cfoutput>		
+		
+		    <cfif ReceiptOrder neq "">		
 						
-			<cfquery name="Line" 
-			     datasource="AppsPurchase" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-			
-					SELECT   *
-					FROM     PurchaseLine
-					WHERE    RequisitionNo = '#requisitionno#'
-							
-			</cfquery>
-			
 			<tr class="labelmedium2 fixlengthlist line">
 			
 			    <td><a href="javascript:receipt('#receiptNo#','receipt')">#receiptNo#</a></td>
 				<td>#dateformat(ReceiptDate,client.dateformatshow)#</td>				
 				<td align="right">#numberformat(ReceiptWarehouse,',.__')#</td>											
-				<td align="right">#Line.Currency#</td>				
+				<td align="right">#Currency#</td>				
 				<td align="right">#numberformat(ReceiptAmountCost/ReceiptWarehouse,',.__')#</td>
 				
 				<cfset cost = ReceiptAmountCost>
@@ -164,13 +162,14 @@
 				
 				<td align="right">n/a</td>
 				
-				</cfif>
-				
+				</cfif>				
 					
 			</tr>
+			
+			</cfif>	
+			
+		</cfoutput>
 		
-		</cfloop>
-	
-	</cfoutput>
+	</cfoutput>	
 	
 </table>

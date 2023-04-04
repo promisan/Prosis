@@ -48,16 +48,20 @@
 			ORDER BY Source DESC                                                                                                                                           			  
 	</cfquery>
 
-	<table><tr><td colspan="2">#getCustomerInvoice.CustomerName#</td></tr>
-	<tr><td colspan="2">
-		<select name="TaxCode" id="taxcode" class="regularxl">
-		<cfloop query="getCustomerInvoiceTax">
-		<option value="#TaxCode#" <cfif currentrow eq "1">selected</cfif>>#TaxCode#</option>
-		</cfloop>
-		<option value="CF" <cfif getCustomerInvoiceTax.recordcount eq "0">selected</cfif>>CF</option>	
-		</select>
+	<cfif getCustomerInvoice.CustomerName neq "">
+	<table>
+	<tr><td class="fixlength" title="#getCustomerInvoice.CustomerName#" style="padding-top:3px">#getCustomerInvoice.CustomerName#</td></tr>
+	<tr><td>
+	
+	<input type="hidden" id="taxcode" value="#getCustomerInvoiceTax.taxcode#">
+	
+	    <cfloop query="getCustomerInvoiceTax">
+	    <input type="radio" name="TaxCode" value="#TaxCode#" <cfif currentrow eq "1">checked</cfif> onclick="document.getElementById('taxcode').value='#taxcode#'">#TaxCode#
+		</cfloop>		
+		<input type="radio" name="TaxCode"  value="CF" <cfif getCustomerInvoiceTax.recordcount eq "0">checked</cfif> onclick="document.getElementById('taxcode').value='CF'">CF
 	</td></tr>
 	</table>
+	</cfif> 
 	
 	<cfelse>
 	

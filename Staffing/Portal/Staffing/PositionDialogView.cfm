@@ -41,9 +41,12 @@
 	
 	<cfif wfexist eq "1">
 	
-		<tr class="labelmedium">
-			<td valign="top" style="padding-top:6px"><cf_tl id="Classification documents">:</td>
-			<td>
+		<tr class="labelmedium2">
+			<td colspan="2" style="font-weight:bold;height:30px"><cf_tl id="Classification documents">:</td>
+		</tr>
+		<tr>	
+			<td colspan="2">
+									
 			<cf_filelibraryN
 				DocumentPath="PostClassification"
 				SubDirectory="#wfObjectId#" 
@@ -68,9 +71,11 @@
 	        WHERE    PositionParentId = '#URL.PositionParentId#'
 			ORDER BY Created DESC
 	   </cfquery>	
+	   
+	    <tr><td></td></tr>
 	
 		<tr><td colspan="2" style="padding-right:20px">
-			
+					
 			 <cf_filelibraryN
 			    Box="primary"
 				DocumentPath="Position"

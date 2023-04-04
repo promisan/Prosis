@@ -33,7 +33,7 @@ ORDER BY  L.Mission,L.EditionClass,L.Version,L.Period,P.Period
 <cfset save         = "0"> 
 <tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
-<tr><td>
+<tr><td style="padding:10px">
 
 <cfoutput>
 
@@ -51,11 +51,11 @@ function recordedit(id1) {
 	
 </cfoutput>
 
-	<cf_divscroll>
+	<cf_divscroll >
 	
 	<table width="96%" align="center" class="navigation_table">
 		   
-	<tr class="labelmedium2 line">
+	<tr class="labelmedium2 fixlenghlist fixrow">
 	    <td width="30"></td>   
 	    <td></td>  
 		<td>Id</td>
@@ -64,10 +64,10 @@ function recordedit(id1) {
 		<td>Description</td>
 		<td>Vw</td>
 		<td>Mode</td>
-		<td>Status</td>
+		<td>S</td>
 		<td>Registered by</td>
 	    <td>Date</td>
-		<td align="right">Amount Recorded for edition per planning period</td>
+		<td align="right">Amount edition p. planning period</td>
 	</tr>
 	
 	<cfoutput query="SearchResult" group="Mission">
@@ -111,7 +111,7 @@ function recordedit(id1) {
 	 
 	<cfoutput group="EditionId">
 	    
-		<tr class="labelmedium2 navigation_row line">
+		<tr class="labelmedium2 navigation_row line fixlengthlist">
 		<td></td>
 		<td align="center" style="padding-top:1px" height="20" width="25" class="navigation_action" onclick="recordedit('#EditionId#')">
 		   <cf_img icon="open">	
@@ -139,7 +139,7 @@ function recordedit(id1) {
 		<cfelse>
 			<cfloop query="Funds">
 			<cfif FundDefault eq "1">
-			<font color="0080FF">#Fund#</font><cfelse>#Fund#</cfif><cfif currentrow neq recordcount>,</cfif>
+			#Fund#</font><cfelse>#Fund#</cfif><cfif currentrow neq recordcount>,</cfif>
 			<cfif currentrow eq "5"><br></cfif>
 			<cfif currentrow eq "10"><br></cfif>
 			</cfloop>
@@ -172,7 +172,7 @@ function recordedit(id1) {
 			align="absmiddle">
 		</cfif></td>
 		
-		<td>#OfficerFirstName# #OfficerLastName#</td>
+		<td>#OfficerLastName#</td>
 		<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
 			
 		<td align="right"

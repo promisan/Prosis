@@ -5,89 +5,26 @@
 
 <!--- obtain relevant actioncode --->
 
-<cfswitch expression="#url.wparam#">
-
-<cfcase value="MARK">
-
-	<cfquery name="getAction" 
-	datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Ref_EntityActionPublish
-		WHERE  ( ActionDialogParameter = 'MARK' )
-			   AND ActionPublishNo = '#Object.ActionPublishNo#'
-	</cfquery>
+<cfloop index="itm" list="MARK,TEST,SCORE,INTERVIEW,SELECT">
 	
-	<cfset flowaction = getaction.ActionCode>
-
-</cfcase>
-
-<cfcase value="TEST">
-
-	<cfquery name="getAction" 
-	datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Ref_EntityActionPublish
-		WHERE  ( ActionDialogParameter = 'TEST' )
-			   AND ActionPublishNo = '#Object.ActionPublishNo#'
-	</cfquery>
+	<cfif itm eq url.wparam>
 	
-	<cfset flowaction = getaction.ActionCode>
-
-</cfcase>
-
-<cfcase value="SCORE">
-
-	<cfquery name="getAction" 
-	datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Ref_EntityActionPublish
-		WHERE  ( ActionDialogParameter = 'TEST' )
-			   AND ActionPublishNo = '#Object.ActionPublishNo#'
-	</cfquery>
+		<cfquery name="getAction" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT *
+				FROM   Ref_EntityActionPublish
+				WHERE  ( ActionDialogParameter = '#itm#' )
+					   AND ActionPublishNo = '#Object.ActionPublishNo#'
+			</cfquery>
+			
+			<cfset flowaction = getaction.ActionCode>	
 	
-	<cfset flowaction = getaction.ActionCode>
+	</cfif>
 
-</cfcase>
+</cfloop>
 
-<cfcase value="INTERVIEW">
-
-	<cfquery name="getAction" 
-	datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Ref_EntityActionPublish
-		WHERE  ( ActionDialogParameter = 'INTERVIEW' )
-			   AND ActionPublishNo = '#Object.ActionPublishNo#'
-	</cfquery>
-	
-	<cf<cfset flowaction = getaction.ActionCode>
-
-</cfcase>
-
-<cfcase value="SELECT">
-
-	<cfquery name="getAction" 
-	datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT *
-		FROM   Ref_EntityActionPublish
-		WHERE  ( ActionDialogParameter = 'SELECT' )
-			   AND ActionPublishNo = '#Object.ActionPublishNo#'
-	</cfquery>
-	
-	<cfset flowaction = getaction.ActionCode>
-
-</cfcase>
-
-</cfswitch>
 
 <!--- handling of the interface --->
 
@@ -105,6 +42,16 @@
 			   AND ActionPublishNo = '#Object.ActionPublishNo#'
 	</cfquery>
 	
+	<cfquery name="TestStep" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT *
+		FROM   Ref_EntityActionPublish
+		WHERE  ( ActionDialogParameter = 'TEST' )
+			   AND ActionPublishNo = '#Object.ActionPublishNo#'
+	</cfquery>
+		
 	<cfquery name="Interview" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
@@ -367,10 +314,17 @@
 	}
 	
 	function personprofile(doc,per) {
-		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateProfile.cfm?documentno=#Object.ObjectKeyValue1#&PersonNo='+per,'detailbox')
-		expandArea('mybox','detailbox')
-	}	
 	
+	    if (document.getElementById('detailbox')) {
+	    	ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateProfile.cfm?documentno=#Object.ObjectKeyValue1#&PersonNo='+per,'detailbox')
+		    expandArea('mybox','detailbox')
+		} else {
+		  	ProsisUI.createWindow('detailbox', 'Profile', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    					
+			ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateProfile.cfm?documentno=#Object.ObjectKeyValue1#&PersonNo='+per,'detailbox')	
+		}
+	}	
+
+			
 	function savecandidateeval(obj,per,usr,act,com,val,fld,mdl) {		   	     
 		_cf_loadingtexthtml='';			
 		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Assessment/setAssessment.cfm?objectid='+obj+'&useraccount='+usr+'&personno='+per+'&actioncode='+act+'&competenceid='+com+'&formfield='+val+'&field='+fld+'&modality='+mdl,'process','','','POST','formembed')				
@@ -502,7 +456,9 @@ password="#SESSION.dbpw#">
 	      SELECT   A.IndexNo AS IndexNoA, 
 		           A.PersonNo, 
 				   DC.Status, 
-				   DC.EntityClass as CandidateClass, 
+				   DC.EntityClass, 
+				   DC.CandidateClass,
+				   (SELECT Description FROM Applicant.dbo.Ref_ApplicantClass WHERE ApplicantClassid = DC.CandidateClass) as CandidateClassName,
 				   S.Description  as DescriptionStatus, 				   
 				   DC.Remarks, 
 				   DC.TsInterviewStart,
@@ -510,6 +466,7 @@ password="#SESSION.dbpw#">
 				   DC.OfficerLastName, 
 				   DC.OfficerFirstName, 				   
 				   DC.Created, 
+				   DC.CandidateOrder,
 				   A.LastName, 
 				   A.FirstName, 
 	               A.Nationality, 
@@ -591,7 +548,7 @@ password="#SESSION.dbpw#">
 	
 </TR>
 			
-<cfif url.wparam eq "MARK" or url.wparam eq "TEST">
+<cfif (url.wparam eq "MARK" or url.wparam eq "TEST") and Teststep.recordcount gte "1">
 	
 		<tr class="line labelmedium2">
 		<td style="font-size:18px;height:30px" colspan="4">
@@ -631,13 +588,16 @@ password="#SESSION.dbpw#">
 	    <TR class="labelmedium2 line fixrow fixlengthlist" style="height:25px;">
 		  <td style="width:10px"></td>	
 		  <cfif url.wParam neq "Score">	     	   	  	 
-	      <TD><cf_tl id="Candidate"></TD>      
+	      <TD><cf_tl id="Candidate"></TD>  
+		  <cfif url.wParam eq "SELECT" or url.wParam eq "INTERVIEW" or url.wParam eq "INIT">   
+		  <TD><cf_tl id="Class"></TD> 
+		  </cfif>   
 		  <TD><cf_tl id="IndexNo"></TD>	
 		  <TD><cf_tl id="Nationality"></TD>
 		  <TD><cf_tl id="DOB"></TD>
 	      <TD><cf_tl id="Gender"></TD>
 		  <TD style="max-width:10px;border-right:1px solid silver"></td>		  
-	   	  <TD align="center" style="background-color:ffffaf;padding-left:4px;border-right:1px solid silver"><cf_tl id="Current Recruit status"></TD>	 
+	   	  <TD align="center" style="background-color:ffffaf;padding-left:4px;border-right:1px solid silver"><cf_tl id="Process status"></TD>	 
 		  <cfelse>
 		  <TD colspan="7" style="min-width:200px"><cf_tl id="Candidate"></TD>      		
 		  </cfif>		  
@@ -677,6 +637,7 @@ password="#SESSION.dbpw#">
 			AND   ActionCode = '#FlowAction#'  
 		 </cfquery>	
 		 
+		 		 
 		 <cfif Check.recordcount eq 0>		
 			 <cf_assignid>			 
 		 <cfelse>		 
@@ -840,20 +801,31 @@ password="#SESSION.dbpw#">
 		
 		<cfif url.wParam neq "Score">
 				
-		<td style="font-size:16px; height:30px"><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#, #FirstName#</a></td>	
+		<td style="font-size:16px; height:30px">
+		<cfif url.wparam neq "VIEW">
+		    <a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#, #FirstName#</a>
+		<cfelse>
+		    #LastName#, #FirstName#
+		</cfif>	
+			
+		</td>	
+		<cfif url.wParam eq "SELECT" or url.wParam eq "INTERVIEW" or url.wParam eq "INIT">   
+		<td>#CandidateClassName#</td>
+		</cfif>
 		<td><cfif IndexNoA neq ""><a href ="javascript:EditPerson('#IndexNoA#','','contract')">#IndexNoA#</a><cfelse>[<cf_tl id="undefined">]</cfif></td>		
 		<td>#NationalityName#</td>
 		<td>#dateformat(DOB,client.dateformatshow)#</td>
 		<td><cfif Gender eq "F"><cf_tl id="Female"><cfelse><cf_tl id="Male"></cfif></td>		
 		<td style="padding-top:2px;padding-left:3px;border-right:1px solid silver">
 			<!--- track for candidate already exists --->
-			<cfif (Status eq "2s" and CandidateClass neq "" and wfinal neq "Track")>				
+			<cfif (Status eq "2s" and entityclass neq "" and wfinal neq "Track")>				
 				  <img src="#SESSION.root#/Images/contract.gif" onClick="showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')" alt="Open candidate track" width="13" height="14">				
 			<cfelse>
 			      <cf_img icon="open" onclick="personprofile('#doc.documentno#','#PersonNo#')">	
 			</cfif>		
 		</td>
-		<td id="status#PersonNo#" align="center" style="width:200px;padding-left:3px;border-right:1px solid silver" class="<cfif Status gte wfinal>highlight</cfif>">#DescriptionStatus#</td>	
+		<td id="status#PersonNo#" align="center" style="width:200px;padding-left:3px;border-right:1px solid silver" class="<cfif Status gte wfinal>highlight</cfif>">
+		#DescriptionStatus# <cfif candidateorder gte "1">[#CandidateOrder#]</cfif></td>	
 				
 		<cfelse>
 		
@@ -900,9 +872,7 @@ password="#SESSION.dbpw#">
 		
 		<td style="min-width:#tdsize#" align="left">
 		
-		
-	
-			<cfset cls = CandidateClass>
+			<cfset cls = EntityClass>
 			
 			 <cfif dialog eq "Close">
 				
@@ -1025,8 +995,39 @@ password="#SESSION.dbpw#">
 			
 				<!--- NADA --->
 				
+			<cfelseif dialog eq "Mark">	
+			
+			<table style="width:150px">
+					<tr class="labelmedium2">
+					<td style="width:40px" align="left">																						
+					<input onClick="hl(this,this.checked,'#CurrentRow#')" class="radiol" style="height:15px;width:15px" 
+					type="checkbox" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#personno#" value="#wFinal#" <cfif Status gte wFinal>checked</cfif> style="cursor:pointer;">					
+					</td>
+					
+					<td style="padding-top:2px;min-width:140px" class="<cfif Status gte wFinal>regular<cfelse>hide</cfif>" id="boxReviewDate_#currentrow#">
+					
+					<cfquery name="getClass" 
+						datasource="appsVacancy" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">	
+								
+							SELECT       *
+							FROM         Applicant.dbo.Ref_ApplicantClass		
+							WHERE        Operational = 1 						
+					</cfquery>	
+										
+					<select name="CandidateClass_#CurrentRow#" class="regularxxl" style="border:0px; border-left:1px solid silver;Border-right:1px solid silver">
+					<cfloop query="getClass">
+					<option <cfif searchresult.candidateclass eq applicantClassid>selected</cfif> value="#ApplicantClassid#">#Description#</option>
+					</cfloop>
+					</select>
+								
+					
+					</td>
+					</tr></table>						
+				
 			<cfelseif wFinal eq "2s" or wFinal eq "1">	
-									
+												
 				 <cfif (PreventSelection.recordcount eq "0" or Validation.recordcount eq "1") and 
 				  (Selected.recordcount eq "0" or Status eq "9" or Selected.Status gte "2" or Selected.Status lte "2s")>
 					
@@ -1051,11 +1052,11 @@ password="#SESSION.dbpw#">
 								class="regularxl"	
 								style="text-align:center;"												
 								Default="#st#"
-								AllowBlank="True">	
+								AllowBlank="True">							
+								
 					
 					</td>
-					</tr></table>
-					
+					</tr></table>					
 										
 				<cfelse>			
 					
@@ -1066,6 +1067,18 @@ password="#SESSION.dbpw#">
 				</cfif>			
 				
 			<cfelse>
+			
+				  <table>
+					<tr class="labelmedium2">									
+						<td style="padding-left:4px">												
+							<a href="javascript:decision('ReviewStatus_#CurrentRow#','#object.ObjectKeyValue1#','#personno#','#flowaction#','#status#','#wfinal#')">
+							<cf_tl id="Record decision">
+							</a>
+						</td>																	
+					</tr>
+					</table>		
+			
+			    <!--- we do allow to select now : Hanno 25/9/2023
 	
 			    <cfif (PreventSelection.recordcount eq "0" or Validation.recordcount eq "1") and 
 				  (Selected.recordcount eq "0" or Status eq "9" or Selected.Status gte "2" or Selected.Status lte "2s")>
@@ -1088,15 +1101,17 @@ password="#SESSION.dbpw#">
 					 
 				</cfif>
 				
+				---> 
+				
 			</cfif>
 			
 		</td>			
 		
 		</tr>
 		
-		<!--- next line --->
+		<!--- next line is hidden as this is not relevant during evaluation process --->		
 		
-		<cfif dialog neq "score">
+		<cfif dialog neq "score" and dialog neq "TEST">
 					
 			<cfif Remarks neq "">
 			
@@ -1106,52 +1121,57 @@ password="#SESSION.dbpw#">
 				</tr>
 				
 			</cfif>
-		
+			
+			 <!--- addition contextual view -------------------------------- --->		
 			 <!--- check if there is are any other candidacy for this person --->
+			 <!--- --------------------------------------------------------- --->
 			 
-			<cfinvoke component  = "Service.Process.Applicant.Vacancy"  
-			   method            = "Candidacy" 
-		   	   Owner             = "#Mission.MissionOwner#"
-			   DocumentNo        = "#Object.ObjectKeyValue1#" 
-			   PersonNo          = "#personno#"	
-			   Status            = ""   
-			   returnvariable    = "OtherCandidates">	    
+			 <cfif url.wparam eq "INIT" or getAdministrator("#mission.Mission#") eq "1">
+			 
+				<cfinvoke component  = "Service.Process.Applicant.Vacancy"  
+				   method            = "Candidacy" 
+			   	   Owner             = "#Mission.MissionOwner#"
+				   DocumentNo        = "#Object.ObjectKeyValue1#" 
+				   PersonNo          = "#personno#"	
+				   Status            = ""   
+				   returnvariable    = "OtherCandidates">	    
+					
+				<cfif OtherCandidates.recordcount gte 0>
 				
-			<cfif OtherCandidates.recordcount gte 0>
+					<tr>				
+						<td colspan="10">		
+					    <table width="100%">
+							<cfloop query="OtherCandidates">
+							<tr><td class="labelmedium2" style="padding-left:10px;font-size:15px"><cfif currentrow eq "1"><font color="FF0000"><cf_tl id="Attention">:</font></cfif></td>
+							 <td class="labelmedium2" style="font-size:15px">							
+							 <a href="javascript:showdocument('#OtherCandidates.DocumentNo#')">
+							 <b>#Status#</b><cf_tl id="for">: #OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# #OtherCandidates.FunctionalTitle#</a>
+						     </td>
+							</tr>
+							</cfloop>
+						</table>				
+						</td>
+					</tr>
+						
+				</cfif>
+				
+				<cfif stop eq "1" and Selected.EntityClass neq "">
+				
+					<tr>				
+						<td colspan="10">
+					    <table width="100%">
+							<tr><td class="labelmedium2" style="padding-left:10px;font-size:15px">							
+								<font color="FF0000"><cf_tl id="Attention">:</font> 
+								<a href="javascript:showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')">
+								<b><cf_tl id="This candidate has already a recruitment track." class="Message"></a></b>
+						    	</td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+						
+				</cfif>
 			
-				<tr>				
-					<td colspan="10">				
-				    <table width="100%">
-						<cfloop query="OtherCandidates">
-						<tr><td class="labelmedium2" style="padding-left:10px;font-size:17px">				    
-						<font color="FF0000"><cf_tl id="Attention">:</font>
-						 <a href="javascript:showdocument('#OtherCandidates.DocumentNo#')">
-						 #Status#<cf_tl id="for">: <b>#OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# #OtherCandidates.FunctionalTitle#</a></b>
-					     </td>
-						</tr>
-						</cfloop>
-					</table>				
-					</td>
-				</tr>
-					
-			</cfif>
-			
-			<cfif stop eq "1" and EntityClass neq "">
-			
-				<tr>				
-					<td colspan="10">
-				    <table width="100%">
-						<tr><td class="labelmedium2" style="padding-left:10px;font-size:17px">
-							
-							<font color="FF0000"><cf_tl id="Attention">:</font> 
-							<a href="javascript:showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')">
-							<b><cf_tl id="This candidate has already a recruitment track." class="Message"></a></b>
-					    	</td>
-						</tr>
-					</table>
-					</td>
-				</tr>
-					
 			</cfif>
 			
 			<cfquery name="getActivity" 
@@ -1204,8 +1224,7 @@ password="#SESSION.dbpw#">
 			
 			<cfelse>
 			
-				<!--- MARK and CLOSE show subactions to be visible here which are tracked partially in the workflow object --->
-							
+				<!--- MARK and CLOSE show subactions to be visible here which are tracked partially in the workflow object --->						
 								
 				<cfif getActivity.recordcount gte "1">	
 					
@@ -1242,8 +1261,11 @@ password="#SESSION.dbpw#">
 </cfif>
 
 </td></tr>
-
-<tr><td style="height:15px"></td></tr>
+					  
+<cfinclude template="../../../Tools/EntityAction/Report/DocumentAttach.cfm">			
+<cfset setattachment = "1"> 
+	
+<tr><td style="height:10px"></td></tr>	
 
 </table>     
 

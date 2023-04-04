@@ -465,7 +465,7 @@
 								     size      = "8"
 								     style     = "text-align:right;"
 								     maxlength = "10"
-									 onchange  = "ColdFusion.navigate('#SESSION.root#/warehouse/application/stock/transfer/setQuantity.cfm?transactionid=#transaction.transactionid#&field=transferquantity#url.id#&meter='+document.getElementById('transfermeter#url.id#').value+'&initial='+this.value+'&final='+document.getElementById('transferfinal#url.id#').value,'transferprocess')" 
+									 onchange  = "ptoken.navigate('#SESSION.root#/warehouse/application/stock/transfer/setQuantity.cfm?transactionid=#transaction.transactionid#&field=transferquantity#url.id#&meter='+document.getElementById('transfermeter#url.id#').value+'&initial='+this.value+'&final='+document.getElementById('transferfinal#url.id#').value,'transferprocess')" 
 									 class     = "regularxl">
 									 
 							</td>	
@@ -483,7 +483,7 @@
 								     size      = "8"
 								     style     = "text-align:right;"
 								     maxlength = "10"
-									 onchange  = "ColdFusion.navigate('#SESSION.root#/warehouse/application/stock/transfer/setQuantity.cfm?transactionid=#transaction.transactionid#&field=transferquantity#url.id#&meter='+document.getElementById('transfermeter#url.id#').value+'&initial='+document.getElementById('transferinitial#url.id#').value+'&final='+this.value,'transferprocess');" 				 
+									 onchange  = "ptoken.navigate('#SESSION.root#/warehouse/application/stock/transfer/setQuantity.cfm?transactionid=#transaction.transactionid#&field=transferquantity#url.id#&meter='+document.getElementById('transfermeter#url.id#').value+'&initial='+document.getElementById('transferinitial#url.id#').value+'&final='+this.value,'transferprocess');" 				 
 									 class     = "regularxl">
 									 
 							</td>	

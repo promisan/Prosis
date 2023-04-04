@@ -516,8 +516,19 @@
 	<tr>				
    	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer" title="Once this action is due, the action will be presented for the actor under the [My Clearances] function">My Clearances</td>
 	 <TD>
+	  <table><tr><td>
 	   <INPUT type="checkbox" class="radiol" name="EnableMyClearances" id="EnableMyClearances" value="1" <cfif Get.EnableMyClearances eq "1">checked</cfif>> 
-	 </td>			
+	 </td>	
+	 
+	 <td class="labelmedium fixlength" style="padding-left:5px"><cf_tl id="Open this step directly instead of object"></td>
+							
+	 <td style="padding-left:4px">
+		  <input type="checkbox" class="radiol" name="NotificationTarget" id="NotificationTarget" value="1" <cfif Get.NotificationTarget eq "1">checked</cfif>> </td>								
+	 </td>	
+	 
+	 </tr></table>
+	 </td>
+	 		
 	</tr>
 	
 	<cfif Get.enableNotification eq "1">
@@ -589,12 +600,7 @@
 				 			</cfloop>
 						</select>				
 						</td>
-						<td class="labelmedium fixlength" style="padding-left:5px"><cf_tl id="Open step"></td>
-							
-						<td style="padding-left:4px">
-						  <input type="checkbox" class="radiol" name="NotificationTarget" id="NotificationTarget" value="1" <cfif Get.NotificationTarget eq "1">checked</cfif>> </td>								
-						</td>
-						
+												
 						<cfif entity.DocumentPathName neq "">
 							<td width="10%" class="labelmedium" style="padding-left:13px" title="Include source object attachments"><cf_tl id="Attachment"></td>
 							<td width="5%"><input type="checkbox" class="radiol" name="NotificationAttachment" id="NotificationAttachment" value="1" <cfif Get.NotificationAttachment eq "1">checked</cfif>> </td>		

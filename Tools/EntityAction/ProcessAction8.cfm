@@ -53,6 +53,8 @@
 		
 </cfif>
 
+
+
 <script language="JavaScript">
 	
 	<cfif URL.Process neq "">	
@@ -95,7 +97,8 @@
 	option="#option#"
 	
 	--->
-
+	
+	
 <cfinclude template="ProcessActionScript.cfm">	
 
 <cfif action.processmode eq "1">
@@ -103,16 +106,18 @@
 	<cf_screentop scroll="yes"	   	    
 	   band="No" 
 	   layout="webapp" 
-	   bootstrap="yes"
+	   bootstrap="no"
 	   height="100%" 		   	  
 	   banner="gray" 	
 	   bannerforce="Yes"
 	   html="no"	   
 	   jquery="Yes"	   
 	   label="#Object.ObjectReference#: #Action.ActionDescription#">
-	   
-    <cf_divscroll>	
-		<cfinclude template="ProcessAction8Content.cfm">		
+	   	   
+    <cf_divscroll>		
+				
+		<cfinclude template="ProcessAction8Content.cfm">	
+					
 	</cf_divscroll>
 		
 	<cfset AjaxOnLoad("function(){window.parent.ProsisUI.setWindowTitle('#Action.ActionDescription# #Action.ActionReference# [#Action.ActionCode#]','','gray');}")>		
@@ -129,7 +134,7 @@
 	   line="no" 	  
 	   html="no"
 	   jquery="Yes"	   
-	   label="#Object.ObjectReference#: #Action.ActionDescription#">
+	   label="#Object.ObjectReference#: #Action.ActionDescription#">	   
 
 	<cf_layoutscript>
 				
@@ -207,9 +212,9 @@
 	   label="#Object.ObjectReference#: #Action.ActionDescription#">
 	   		
     	<cf_divscroll>	
-			<cfinclude template="ProcessAction8Content.cfm">		
+		
+			<cfinclude template="ProcessAction8Content.cfm">						
+		
 		</cf_divscroll>
 		
 </cfif>		
-
-

@@ -382,103 +382,107 @@
 			   
 			   </cfif>
 			   
-			   <cfif Check.recordcount eq "0">
-						  
-				   <cfquery name="Insert" 
-					 datasource="AppsEmployee" 
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-						 INSERT INTO PersonGroup
-							 (PersonNo,
-							  GroupCode,
-							  GroupListCode, 
-							  <cfif eff neq "NULL">
-							  DateEffective,
-							  </cfif>
-							  OfficerUserId,
-							  OfficerLastName,
-							  OfficerFirstName)
-						 VALUES
-							 ('#Form.PersonNo#', 
-							  '#Code#', 
-							  '#ListCode#', 
-							  <cfif eff neq "NULL">
-							  #eff#,
-							  </cfif>
-							  '#SESSION.acc#', 
-							  '#SESSION.last#', 
-							  '#SESSION.first#') 
-					</cfquery>
-				
-				<cfelse>
-				
-				  <cfif eff neq "NULL">
-								 			   					
-					  <cfquery name="Update" 
-						datasource="AppsEmployee" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							UPDATE PersonGroup
-							SET    GroupListCode = '#ListCode#',
-							       DateEffective = #eff#
-							WHERE  PersonNo      = '#Form.PersonNo#'
-							AND    GroupCode     = '#Code#'
-					   </cfquery>			
-				   
-				   <cfelse>
-				   
-					    <cfquery name="Update" 
-						datasource="AppsEmployee" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							UPDATE PersonGroup
-							SET    GroupListCode = '#ListCode#'
-							WHERE  PersonNo      = '#Form.PersonNo#'
-							AND    GroupCode     = '#Code#'
-					   </cfquery>		
-				   
-				   </cfif>
-																
-				<cfif ActionCode neq "">
-				
-					<cfquery name="check" 
-						datasource="AppsEmployee" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							SELECT * 
-							FROM   Ref_Action
-							WHERE  ActionCode = '#ActionCode#'							
-					</cfquery>		
+			   <cfif listCode neq "">
+			   
+				   <cfif Check.recordcount eq "0">
+							  
+					   <cfquery name="Insert" 
+						 datasource="AppsEmployee" 
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+							 INSERT INTO PersonGroup
+								 (PersonNo,
+								  GroupCode,
+								  GroupListCode, 
+								  <cfif eff neq "NULL">
+								  DateEffective,
+								  </cfif>
+								  OfficerUserId,
+								  OfficerLastName,
+								  OfficerFirstName)
+							 VALUES
+								 ('#Form.PersonNo#', 
+								  '#Code#', 
+								  '#ListCode#', 
+								  <cfif eff neq "NULL">
+								  #eff#,
+								  </cfif>
+								  '#SESSION.acc#', 
+								  '#SESSION.last#', 
+								  '#SESSION.first#') 
+						</cfquery>
 					
-					<cfif check.operational eq "1">				
-													
-						<cfquery name="New" 
-						datasource="AppsEmployee" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						   	SELECT  Description
-							FROM    Ref_PersonGroupList
-							WHERE   GroupCode     = '#code#' 
-							AND     GroupListCode = '#ListCode#'
-					    </cfquery>
-														
-						<cfinvoke component   = "Service.Process.Employee.PersonnelAction"  
-						   method             = "ActionRecord" 
-						   PersonNo           = "#Form.PersonNo#"			  
-						   ActionStatus       = "0" <!--- confirmed irreversable --->
-						   ActionDescription  = "#Memo#"				   
-						   ActionCode1        = "#ActionCode#"
-						   Field1             = "#code#"
-						   Field1Effective    = "#Effective#"
-						   Field1New          = "#New.Description#"
-						   Field1Old          = "#Prior.Description#"
-						   Field1Description  = "#Memo#">	
+					<cfelse>
+					
+					  <cfif eff neq "NULL">
+									 			   					
+						  <cfquery name="Update" 
+							datasource="AppsEmployee" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								UPDATE PersonGroup
+								SET    GroupListCode = '#ListCode#',
+								       DateEffective = #eff#
+								WHERE  PersonNo      = '#Form.PersonNo#'
+								AND    GroupCode     = '#Code#'
+						   </cfquery>			
 					   
-					 </cfif>
+					   <cfelse>
+					   
+						    <cfquery name="Update" 
+							datasource="AppsEmployee" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								UPDATE PersonGroup
+								SET    GroupListCode = '#ListCode#'
+								WHERE  PersonNo      = '#Form.PersonNo#'
+								AND    GroupCode     = '#Code#'
+						   </cfquery>		
+					   
+					   </cfif>
+																
+						<cfif ActionCode neq "">
+						
+							<cfquery name="check" 
+								datasource="AppsEmployee" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+									SELECT * 
+									FROM   Ref_Action
+									WHERE  ActionCode = '#ActionCode#'							
+							</cfquery>		
+							
+							<cfif check.operational eq "1">				
+															
+								<cfquery name="New" 
+								datasource="AppsEmployee" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+								   	SELECT  Description
+									FROM    Ref_PersonGroupList
+									WHERE   GroupCode     = '#code#' 
+									AND     GroupListCode = '#ListCode#'
+							    </cfquery>
+																
+								<cfinvoke component   = "Service.Process.Employee.PersonnelAction"  
+								   method             = "ActionRecord" 
+								   PersonNo           = "#Form.PersonNo#"			  
+								   ActionStatus       = "0" <!--- confirmed irreversable --->
+								   ActionDescription  = "#Memo#"				   
+								   ActionCode1        = "#ActionCode#"
+								   Field1             = "#code#"
+								   Field1Effective    = "#Effective#"
+								   Field1New          = "#New.Description#"
+								   Field1Old          = "#Prior.Description#"
+								   Field1Description  = "#Memo#">	
+							   
+							 </cfif>
+						 
+						 </cfif>
 				 
-				 </cfif>
+				    </cfif> 
 				 
-			</cfif>	   
+			   </cfif>	   
 				  				   
 		  </cfloop>
 		  

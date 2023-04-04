@@ -166,7 +166,7 @@
 			 WHERE    A.ObjectId      = '#Object.ObjectId#' 
 			 AND      U.Disabled      = 0
 			 AND      A.ActionCode    = '#Action.ActionCode#' 
-			 AND      A.AccessLevel   > '0' 
+			 AND      A.AccessLevel   >= '0' 
 			 	 
 			 UNION 
 		 

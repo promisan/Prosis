@@ -136,10 +136,12 @@
                     align         = "right",                   
 					field         = "Days",
 					search        = "number"}>		
+					
 
 <cfset itm = itm+1>		
 <cf_tl id="Status" var="vSta">							
-<cfset fields[itm] = {label       = "#vSta#",                   
+<cfset fields[itm] = {label       = "S",   
+	                labelfilter   = "#vSta#",
 					field         = "ActionStatus",				
 					formatted     = "Rating",
 					column        = "common",
@@ -173,6 +175,26 @@
 					width       = "20",
 					formatted   = "numberformat(AmountOutstanding,',.__')",
 					search      = "number"}>	
+	
+	
+<cfset itm = itm+1>		
+	<cf_tl id="Description" var="1">				
+	<cfset fields[itm] = {label      = "#lt_text#",    
+	                    rowlevel     = "2",
+					    colspan      = "6",                
+						field        = "Description",					
+						labelfilter  = "#lt_text#",
+						search       = "text"}>				
+		
+<cfset itm = itm+1>		
+<cf_tl id="Step" var="1">				
+<cfset fields[itm] = {label       = "#lt_text#",                    
+					field         = "ActionDescriptionDue",	
+	                rowlevel     = "2",
+				    colspan      = "3",   
+					labelfilter   = "#lt_text#",
+					filtermode    = "3",    
+					search        = "text"}>			
 					
 <table height="100%" width="100%">
 

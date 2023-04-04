@@ -531,6 +531,8 @@
 			  </script>
 			  			  
 			  <table>
+			  
+			   				
 			 			  	
 			  <cfloop index="att" from="1" to="10" step="1">
 			   
@@ -579,7 +581,20 @@
 										'#session.first#')					  		
 							</cfquery>	
 							
-							<tr class="labelmedium" style="height:10px">							 
+							<tr class="labelmedium" style="height:10px">	
+							
+							    <cfif att eq "1">
+								
+								<td class="hide">
+			  
+			  				      <input type="checkbox" class="radiol"
+								     name  = "ActionMailAttachment" 
+									id    = "ActionMailAttachment" 
+									value = "0" checked>			
+									
+								</td>	
+								
+								</cfif>							 
 											   
 						        <td style="padding-right:4px">								
 						        <input type="checkbox" class="radiol"

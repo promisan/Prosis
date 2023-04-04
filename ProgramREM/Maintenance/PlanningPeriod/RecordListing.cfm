@@ -63,7 +63,7 @@ password="#SESSION.dbpw#">
 	
 	<input type="hidden" name="dialog" id="dialog" value="0">
 	
-	<tr class="labelmedium2 line">
+	<tr class="labelmedium2 fixlengthlist fixrow">
 	    <td></td>
 	    <td>Aud.</td>	
 		<td>Code</td>
@@ -78,7 +78,7 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="SearchResult" group="PeriodClass">
 		
-	<tr class="line labelmedium2"><td style="height:30px" colspan="10" class="labelmedium">#PeriodClass#</td></tr>
+	<tr class="line labelmedium2"><td style="height:30px" colspan="10">#PeriodClass#</td></tr>
 	
 	<cfoutput>
 	
@@ -91,7 +91,7 @@ password="#SESSION.dbpw#">
 		WHERE  Period = '#Period#'
 		</cfquery>
 	    
-		<tr class="labelmedium2 line navigation_row">
+		<tr class="labelmedium2 line navigation_row fixlengthlist">
 			<td width="20" align="center" style="padding-top:1px;">
 				  <cf_img icon="open" navigation="Yes" onclick="recordedit('#period#')">
 		  	 </td>		  
@@ -100,20 +100,20 @@ password="#SESSION.dbpw#">
 				 <cf_img icon="expand" toggle="Yes" onclick="listing('#Period#','i#Currentrow#');">
 			</td>			
 			
-			<td class="labelit">#period#</td>
+			<td>#period#</td>
 			
-			<td class="labelit"><!---#Description#---></td>
-			<td class="labelit">#DateFormat(DateEffective,CLIENT.DateFormatShow)#&nbsp;-&nbsp;#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>
-			<td class="labelit">
+			<td><!---#Description#---></td>
+			<td>#DateFormat(DateEffective,CLIENT.DateFormatShow)#&nbsp;-&nbsp;#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>
+			<td>
 			   <cfloop query="Check">#Mission#<cfif currentrow neq recordcount>,</cfif></cfloop>
 			    <cfif check.recordcount eq "0">
 			    <a href="javascript:recordedit('#period#')"><font color="FF8040">Associate a mission/period</a><b>
 			   </cfif>
 			</td>
-			<td class="labelit" align="center"><cfif IncludeListing eq "1">Yes<cfelse>No</cfif></td>
-			<td class="labelit" align="center"><cfif isPlanningPeriod eq "1">Both<cfelse>Edition only</cfif></td>	
-			<td class="labelit">#OfficerFirstName# #OfficerLastName#</td>
-			<td class="labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
+			<td align="center"><cfif IncludeListing eq "1">Yes<cfelse>No</cfif></td>
+			<td align="center"><cfif isPlanningPeriod eq "1">Both<cfelse>Edition only</cfif></td>	
+			<td>#OfficerFirstName# #OfficerLastName#</td>
+			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
 	    </tr>
 			
 		<tr class="hide" id="d#Period#" name="d#Period#">

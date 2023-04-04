@@ -119,13 +119,16 @@
 	<cfelse>
 
 		<script>
+			/*
+			console.log('--------------------------------');
 			console.log("#UCASE(TRIM(Get.ItemBarCode))#");
 			console.log("#url.item#");
 			console.log("#url.uom#");
 			console.log(#oToPrint#);
 			console.log(#url.fqty#);
 			console.log(#url.fbarcode#);
-			//printLabelEPL("#UCASE(TRIM(Get.ItemBarCode))#","#url.item#","#url.uom#",#oToPrint#,#url.fqty#,#url.fbarcode#);
+			*/
+			printLabelEPL("#UCASE(TRIM(Get.ItemBarCode))#","#url.item#","#url.uom#",#oToPrint#,#url.fqty#,#url.fbarcode#);
 		</script>
 
 	</cfif>

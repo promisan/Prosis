@@ -646,6 +646,7 @@
    		   		   <cfset ratio = "#SettleInitial#/100">
 				   
 				   CASE WHEN D.AllowSplit = '1' THEN ROUND(D.DiffCalc*#ratio#,2) ELSE  <!--- 1 we pay a portion : if the entitlement is from a prior month we should pay in full ?--->
+
 				   CASE WHEN D.AllowSplit = '2' THEN ROUND(D.DiffCalc,2) ELSE          <!--- 2 we pay all from prior period, attenion 2 has been filtered from entitlement --->
 				   CASE WHEN D.AllowSplit = '4' THEN ROUND(D.DiffCalc,2) ELSE          <!--- 4 we pay all what we can --->
 			                                      0 END END END, 					   <!--- safeguard --->	
@@ -665,7 +666,13 @@
 		
 		<!--- Hanno we show A00 as zero if it applies to the same month --->
 		WHERE   (abs(DiffCalc) > 0.02 OR abs(DiffPay) > 0.02 
-		                       OR (PayrollItem = 'A00' AND #CALCEND# = #SALEND#))
+		           OR (PayrollItem = 'A00' AND #CALCEND# = #SALEND# AND D.Personno IN (SELECT PersonNo 
+					                                                                   FROM   userTransaction.dbo.sal#SESSION.thisprocess#OnBoard 
+																					   WHERE  PositionNo IN (SELECT PositionNo 
+																						                     FROM  Employee.dbo.Position 
+																											 WHERE  Mission = '#Form.Mission#')
+																					   )
+					 ))
 		
 		<cfif processmodality eq "InCycleBatch">	
 			    AND     D.PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#Catchup)	

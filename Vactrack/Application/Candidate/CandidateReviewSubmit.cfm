@@ -26,12 +26,13 @@ upon the descision : workflow create --->
 		<cfloop index="Rec" from="1" to="#Form.Row#">
 		
 					
-			<cfparam name="FORM.ReviewStatus_#Rec#" default="">
-			<cfparam name="FORM.EntityClass_#Rec#"  default="">
-			<cfparam name="FORM.ReviewDate_#Rec#"   default="">
-			<cfparam name="FORM.ReviewMemo_#Rec#"   default="">
-			<cfparam name="FORM.ReviewScore_#Rec#"  default="">
-			<cfparam name="FORM.ReviewId_#Rec#"     default="">
+			<cfparam name="FORM.ReviewStatus_#Rec#"   default="">
+			<cfparam name="FORM.EntityClass_#Rec#"    default="">
+			<cfparam name="FORM.ReviewDate_#Rec#"     default="">
+			<cfparam name="FORM.ReviewMemo_#Rec#"     default="">
+			<cfparam name="FORM.ReviewScore_#Rec#"    default="">
+			<cfparam name="FORM.ReviewId_#Rec#"       default="">
+			<cfparam name="FORM.CandidateClass_#Rec#" default="">
 			
 			<cfset memo        = Evaluate("FORM.ReviewMemo_" & #Rec#)>
 			<cfset class       = Evaluate("FORM.EntityClass_" & #Rec#)>
@@ -41,6 +42,7 @@ upon the descision : workflow create --->
 		    <cfset personNo    = Evaluate("FORM.PersonNo_" & #Rec#)>
 		    <cfset reviewId    = Evaluate("FORM.ReviewId_" & #Rec#)>
 			<cfset revdate     = Evaluate("FORM.ReviewDate_" & #Rec#)>
+			<cfset canclass    = Evaluate("FORM.CandidateClass_" & #Rec#)>
 			
 			<cfif revdate eq "">
 			
@@ -48,7 +50,7 @@ upon the descision : workflow create --->
 				
 			<cfelse>
 			
-				 <CF_DateConvert Value="#dateformat(revdate,client.dateformatshow)#">
+				 <CF_DateConvert Value="#revdate#">
 				 <cfset dte = dateValue>
 						
 			</cfif>
@@ -68,12 +70,16 @@ upon the descision : workflow create --->
 						UPDATE DocumentCandidate
 						SET   Status                 = '#Form.ReviewStatus#',
 						      StatusDate             = #dte#,
+							  <cfif canclass neq "">
+							  CandidateClass         = '#canclass#', 
+							  </cfif>
 							  StatusOfficerUserId    = '#SESSION.acc#',
 							  StatusOfficerLastName  = '#SESSION.last#',
 							  StatusOfficerFirstName = '#SESSION.first#'     
 						WHERE DocumentNo   =  '#Key1#'
 						  AND PersonNo     =  '#PersonNo#'  
 						  AND Status < '3' or Status = '9' 
+						  
 				    </cfquery>	
 				
 				<cfelse>
@@ -84,6 +90,7 @@ upon the descision : workflow create --->
 					datasource="AppsVacancy" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
+					
 						SELECT TOP 1 ObjectId, EntityClass
 						FROM Organization.dbo.OrganizationObject
 						WHERE ObjectKeyValue1 = '#Key1#'

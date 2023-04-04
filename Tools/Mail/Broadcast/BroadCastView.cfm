@@ -112,7 +112,7 @@ function saveSettings(){
 		
 		<cf_screentop label="#SESSION.welcome# Mail Broadcast" 
 	   		height="99%"     	  
-	   		html="yes"
+	   		html="no"
 	   		banner="gray"
 	   		line="no"   
 	   		close = "parent.ColdFusion.Window.hide('BroadcastWindow')"

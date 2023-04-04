@@ -1,5 +1,5 @@
-
-<cfoutput>
+<cftry>
+    <cfoutput>
 
 <cfset vType = "accordion">
 <cfset vHeight = "18">
@@ -733,4 +733,8 @@
 </cf_layout>							
 	
 			
-</cfoutput>			
+</cfoutput>
+<cfcatch>
+	<cfdump var="#cfcatch#">
+</cfcatch>
+</cftry>

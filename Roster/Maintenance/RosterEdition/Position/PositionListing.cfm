@@ -17,6 +17,7 @@ datasource="AppsSelection"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 
+
 	SELECT    P.Mission, 
 			  P.MandateNo,	
 	          P.PostGrade, 
@@ -32,6 +33,13 @@ password="#SESSION.dbpw#">
 			   WHERE  SubmissionEdition = SP.SubmissionEdition
 			  -- AND    Mission           = P.Mission
 			   AND    ReferenceNo         = SP.Reference) as FunctionId,
+			   
+			   (SELECT TOP 1 DocumentNo
+			   FROM   FunctionOrganization
+			   WHERE  SubmissionEdition = SP.SubmissionEdition
+			  -- AND    Mission           = P.Mission
+			   AND    ReferenceNo         = SP.Reference) as DocumentNo, 
+			   
 			  
 			  F.FunctionDescription as PositionDescription,
 			  P.PostType, 
@@ -219,7 +227,7 @@ password="#SESSION.dbpw#">
 										
 						<td style="padding-left:5px" id="title#positionno#" style="cursor:pointer">				   				    	
 						    <a href="javascript:editeditionposition('#positionno#','#url.submissionedition#','#qSystem.SystemFunctionId#')" class="navigation_action">
-						   	<font color="0080C0" id="#positionno#_title"><cfif FunctionDescription eq "">#PositionDescription#<cfelse>#FunctionDescription#</cfif></font>										
+						   	<font id="#positionno#_title"><cfif FunctionDescription eq "">#PositionDescription#<cfelse>#FunctionDescription#</cfif></font>										
 							</a>	
 												
 						</td>
@@ -228,7 +236,7 @@ password="#SESSION.dbpw#">
 					
 				   <cfelse>
 				   
-			   		  <font color="0080C0" id="#positionno#_title">
+			   		  <font id="#positionno#_title">
 						 <cfif FunctionDescription eq "">#PositionDescription#<cfelse>#FunctionDescription#</cfif>
 				   </cfif>	
 					
@@ -236,7 +244,7 @@ password="#SESSION.dbpw#">
 				  
 				   <td>
 				   <cfif qExercise.actionStatus eq "0">
-				  		<a href="javascript:EditPosition('#getPosition.Mission#','#getPosition.MandateNo#','#positionno#','listing')"><font color="0080C0">#SourcePostNumber#</font></a>
+				  		<a href="javascript:EditPosition('#getPosition.Mission#','#getPosition.MandateNo#','#positionno#','listing')">#SourcePostNumber#</a>
 				   <cfelse>
 				   		#SourcePostNumber#
 				   </cfif>
@@ -288,22 +296,26 @@ password="#SESSION.dbpw#">
 				       <table width="100%">
 					   
 					   <tr class="labelmedium fixlengthlist" style="height:20px">
+					   
 					   <td id="reference_#positionno#" align="right" style="padding-right:10px">				  
 					   		
-					   <cfif reference eq "" and qExercise.actionStatus eq "0">
-					  
-						  	<input type="checkbox" name="groupreference" value="#positionno#">
+						   <cfif reference eq "" and qExercise.actionStatus eq "0">
+						  
+							  	<input type="checkbox" name="groupreference" value="#positionno#">
+								
+									 
+							<cfelse>
 							
-								 
-						<cfelse>
-						
-								<cfif functionid neq "">
-								<a href="javascript:details('#functionid#')" class="navigation_action">#reference#</a>
-								<cfelse>
-								#reference#
-								</cfif>
-							
-						</cfif>		 
+									<cfif functionid neq "">								
+									<a href="javascript:details('#functionid#')" title="Open candidate bucket" class="navigation_action">#reference#</a>
+									<cfelse>								
+									#reference#
+									</cfif>
+									<cfif documentNo neq "">
+									| <a href="javascript:showdocument('#documentno#')" title="Open recruitment track">#documentNo#</a>
+									</cfif>
+								
+							</cfif>		 
 						
 					   </td>
 					   </tr>

@@ -77,12 +77,12 @@
 		<TR class="line labelmedium2 fixrow fixlengthlist">
 			<td></td>
 			<td></td>
-  		    <td><cf_tl id="Entity"></td>
+  		    <td><cf_tl id="Date"></td>
   		    <td><cf_tl id="Position"></td>  
 		    <td><cf_tl id="Trigger">|<cf_tl id="Event Action"></td>  
-			<td><font color="808080"><cf_tl id="Effective"></td>  			
-			<td><font color="808080"><cf_tl id="Expiration"></td>
-			<td><cf_tl id="Officer"></td>
+			<td><font color="808080"></td>  			
+			<td><font color="808080"><cf_tl id="Source"></td>
+			<td align="right"><cf_tl id="Officer"></td>
 			<td></td>			
 		</TR>
 		
@@ -139,6 +139,7 @@
 						   PE.ActionStatus,		
 						   PE.EventCode,		  
 						   PE.EventTrigger,
+						   PE.Source,
 						   PE.ReasonCode,
 						   PE.ReasonListCode,
 						   (   SELECT GroupListCode+' '+Description 
@@ -165,12 +166,14 @@
 				</cfquery>
 			
 				<cfif EventsAll.recordcount neq "0">
+				
+				    <tr class="fixrow2"><td colspan="9" style="padding-left:4px;height:40px;font-size:20px"><b>#Mission#</td></tr>
 					 		 		
 					<cfloop query="EventsAll">
 					
 					<TR class="labelmedium2 navigation_row fixlengthlist" style="height:20px">		 
 					
-					        <td style="max-width:20px;padding-top:1px">
+					        <td style="max-width:20px;padding-top:0px">
 						   
 						   	<cfif EntityClass neq "">
 						   			
@@ -186,7 +189,7 @@
 												   
 						   </td>  
 										
-						   <td style="max-width:20px">
+						   <td style="max-width:20px;padding-right:10px">
 						   		<cfif ActionStatus eq "0" or ActionStatus eq "1">
 								
 							   		<cf_img icon="edit" 
@@ -194,7 +197,8 @@
 			   							onClick="eventedit('#eventid#','person','0')">
 										
 								<cfelseif ActionStatus eq "3">
-																
+									
+									<!--- 							
 								    <cfif getAdministrator("#mission#")>
 									
 									<cf_img icon="open" 
@@ -202,19 +206,20 @@
 			   							onClick="eventedit('#eventid#','person','0')">
 										
 									<cfelse>
+									--->
 									
-									<img src="#session.root#/Images/check.gif" 
-									   alt="" width="15" height="20" border="0">
+									<img src="#session.root#/Images/check.png" style="cursor:hand" onclick="eventview('#eventid#','person','0')"
+									   alt="" width="25" height="25" border="0">
+									<!---   
 									</cfif>   
-								<!--- closed --->		
+									--->
+									
 							    </cfif>
 						   </td>
 						
-						  
-						   
-						   <td>#Mission#</td>
+						   <td>#dateformat(created,client.dateformatshow)#</td>
 						   <td><a href="javascript:ViewPosition('#PositionNo#')"><cfif SourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif></a></td>
-			               <TD colspan="3">
+			               <TD colspan="2">
 			               		<font color="808080">#TriggerDescription#:&nbsp;</font>#EventDescription#
 			               		<cfif ReasonDescription neq "">
 									&nbsp;-&nbsp;#ReasonDescription#									               			
@@ -223,7 +228,8 @@
 								<a href="javascript:showdocument('#documentno#')">(#DocumentNo#)</a></font>
 								</cfif>
 			               	</TD>
-							<td>#officerLastName#</td>		               	
+							<td>#source#</td>
+							<td align="right">#officerLastName#</td>		               	
 							<td>
 			
 								<cfinvoke component="Service.Access"  
@@ -255,9 +261,11 @@
 					</TR>		
 				
 				    <cfif ActionDateEffective neq "" or ActionDateExpiration neq "" or remarks neq "">			
-						<tr class="labelmedium2 line" style="height:20px">
+						<tr class="labelmedium2 line navigation_row_child" style="height:20px">
 						    <td colspan="2"></td>
-							<td colspan="3" style="background-color:f1f1f1;padding-left:7px;font-size:12px">#remarks#</font></td>					
+							<td colspan="7" style="background-color:##dadada50;padding-left:7px;font-size:12px">#remarks#</td>	
+							
+							<!---				
 							<td style="padding-left:4px" valign="top">
 								#dateformat(ActionDateEffective,client.dateformatshow)#	
 							</td>				
@@ -265,7 +273,8 @@
 								<cfif actionDateExpiration gt ActionDateEffective>
 								#dateformat(ActionDateExpiration,client.dateformatshow)#	
 								</cfif>
-							</td>	
+							</td>
+							--->	
 							<td></td>			
 							<td></td>
 						</tr>	

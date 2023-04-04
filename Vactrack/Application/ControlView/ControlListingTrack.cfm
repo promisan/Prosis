@@ -1,6 +1,7 @@
 
 <cfparam name="URL.Mission"           default="">
 <cfparam name="URL.HierarchyRootUnit" default="">
+<cfparam name="URL.Actor"             default="">
 <cfparam name="URL.HierarchyCode"     default="">
 <cfparam name="URL.OrgUnitName"       default="">
 <cfparam name="URL.Status"            default="0">
@@ -63,7 +64,7 @@
 			if( _CF_error_messages.length == 0 ) {
 			    _cf_loadingtexthtml='';	
 				Prosis.busy('yes')	
-				ptoken.navigate('ControlListingTrackResult.cfm?systemfunctionid=#url.systemfunctionid#&Criteria=Yes&Entity=#URL.Entity#&Mission=#URL.Mission#&HierarchyRootUnit=#URL.HierarchyRootUnit#&HierarchyCode=#URL.HierarchyCode#&Mode=#URL.Mode#&Status=#URL.Status#&Parent=#URL.Parent#','dDetails','','','POST','fCriteria');
+				ptoken.navigate('ControlListingTrackResult.cfm?systemfunctionid=#url.systemfunctionid#&Criteria=Yes&Entity=#URL.Entity#&Mission=#URL.Mission#&HierarchyRootUnit=#URL.HierarchyRootUnit#&HierarchyCode=#URL.HierarchyCode#&Mode=#URL.Mode#&Status=#URL.Status#&Parent=#URL.Parent#&actor=#url.actor#','dDetails','','','POST','fCriteria');
 			}	
 		 
 		 }
@@ -168,7 +169,7 @@
 		
 		    <table height="100%" width="100%" align="center">			
 			<tr>
-				<td colspan="3" valign="top" id="dDetails" style="height:100%">					
+				<td colspan="3" valign="top" id="dDetails" style="height:100%">									
 				   <cfinclude template = "ControlListingTrackResult.cfm">					
 				</td>
 			</tr>
@@ -179,7 +180,7 @@
 		
 		<cf_layoutarea  position="center" name="centerbox">		
 		    
-			  <cfif url.parent eq "All">
+			  <cfif url.parent eq "All" and url.status eq "0">
 		      <table height="100%" width="100%">					  
 				<tr>
 					<td colspan="2" valign="top" id="tracklistingcontent" style="padding-top:4px;height:100%">					

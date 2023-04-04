@@ -1,5 +1,5 @@
 
-<cf_screentop html="No" scroll="Yes">
+<cf_screentop html="No" scroll="Yes" jquery="Yes">
 
 <cfparam name="URL.ID2"       default="Template">
 <cfparam name="URL.ID3"       default="0000">
@@ -21,8 +21,9 @@
 		
 	<script language="JavaScript">
 		
-		function Selected(orgunit,orgunitcode, mission,orgunitname,orgunitclass)  {					  
-		     
+		function selectunit(orgunit,orgunitcode,mission,orgunitname,orgunitclass)  {	
+		   			  
+		    			
 		    if (parent.parent.applyunit) {	
 				parent.parent.applyunit(orgunit)
 				///parent.parent.applyOrgUnit(orgunit,orgunitcode,mission,orgunitname,orgunitclass);
@@ -36,7 +37,6 @@
 				
 	</script> 
 	
-
 </cfoutput>
 
 <cf_dialogOrganization>
@@ -65,7 +65,7 @@
 	    ORDER BY O.HierarchyCode 
 	</cfquery>
 	
-	<table cellspacing="0" width="100%">
+	<table cellspacing="0" width="100%" class="navigation_table">
 		
 		<cfoutput query="SearchResult">
 			

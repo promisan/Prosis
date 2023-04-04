@@ -159,10 +159,13 @@
 		    clearTimeout(bounceTimer);
 		     
 	  }
-	}		   
-	   
-	   
-	
+	}
+
+
+	function initMap() {
+		// code to initialize your map here
+	}
+
 	</script>
 	
 </cfoutput>	

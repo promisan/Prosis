@@ -45,11 +45,11 @@
 
 <cf_tl id="Do you want to reschedule" var="txt">
 
-<cfajaximport tags="cfmap,cfdiv" params="#{googlemapkey='#client.googleMAPId#'}#">	 
-
 <!---
-<cfinclude template="../Notification/SMTP/SMTPScript.cfm">
+<cfajaximport tags="cfmap,cfdiv" params="#{googlemapkey='#client.googleMAPId#'}#">	 
 --->
+
+<cfajaximport tags="cfdiv">	 
 
 <cfinclude template="WorkPlanViewMenu.cfm">
 
@@ -133,7 +133,7 @@
 								
 					<tr><td valign="top">
 				
-						<cf_tl id="Medical Manager" var="1">				
+						<cf_tl id="Follow-up Manager" var="1">				
 						<cf_ViewTopMenu label="#url.mission# #lt_text#" background="gray">
 				
 					</td>

@@ -232,18 +232,30 @@ we do not reprocess the workflow status table --------------------- --->
 							 FROM     Organization.dbo.Ref_EntityActionPublish 
 							 WHERE    ActionCode = O.ActionCode
 							 AND      ActionPublishNo = O.ActionPublishNo) as ActionDescriptionDue,		
-							 							  
+							 
+							(SELECT   ActionReference
+							 FROM     Organization.dbo.Ref_EntityActionPublish 
+							 WHERE    ActionCode = O.ActionCode
+							 AND      ActionPublishNo = O.ActionPublishNo) as ActionReference,		
+							
+							<!--- show people that received a mail to act ---> 							  
 							(SELECT   DISTINCT U.LastName+'  '
 			                 FROM     Organization.dbo.OrganizationObjectMail AS OM INNER JOIN
 			                          System.dbo.UserNames AS U ON OM.Account = U.Account AND U.AccountType = 'Individual'
 			                 WHERE    OM.eMailType != 'Reminder' 
 							 AND      OM.ObjectId   = O.ObjectId 
-							 AND      OM.ActionCode = O.ActionCode 
-			                 FOR XML PATH ( '' )) as NotifiedActor,						 
-							 									 
+							 AND      OM.ActionCode = O.ActionCode  FOR XML PATH ( '' )) as NotifiedActor,			
+							 
+						    O.OfficerUserId     as ActionUserId,
+							O.OfficerLastName   as ActionLastName,
+							O.OfficerFirstName  as ActionFirstName,
+							O.OfficerDate       as ActionDate,
+							O.OfficerActionDate as ActionActionDate,	  
+										 							 									 
 							R.ParentCode,	
 							O.ActionMemo,						
-							getDate() as TimeStamp							
+							getDate() as TimeStamp	
+													
 					<cfif attributes.mailfields eq "No">				
 					INTO    userQuery.dbo.#Attributes.Table#
 					<cfelse>	
@@ -270,6 +282,11 @@ we do not reprocess the workflow status table --------------------- --->
 								 WHERE    ActionCode = O.ActionCode
 								 AND      ActionPublishNo = O.ActionPublishNo) as ActionDescriptionDue,		
 								 
+								(SELECT   ActionReference
+								 FROM     Organization.dbo.Ref_EntityActionPublish 
+								 WHERE    ActionCode = O.ActionCode
+								 AND      ActionPublishNo = O.ActionPublishNo) as ActionReference,		
+								 
 							    (SELECT   DISTINCT U.LastName+'  '
 			                     FROM     Organization.dbo.OrganizationObjectMail AS OM INNER JOIN
 			                              System.dbo.UserNames AS U ON OM.Account = U.Account AND U.AccountType = 'Individual'
@@ -277,6 +294,12 @@ we do not reprocess the workflow status table --------------------- --->
 							     AND      OM.ObjectId   = O.ObjectId 
 							     AND      OM.ActionCode = O.ActionCode 
 			                     FOR XML PATH ( '' )) as NotifiedActor,		
+								 
+								O.OfficerUserId     as ActionUserId,
+							    O.OfficerLastName   as ActionLastName,
+							    O.OfficerFirstName  as ActionFirstName,
+							    O.OfficerDate       as ActionDate,
+							    O.OfficerActionDate as ActionActionDate,	  
 							  										 
 								R.ParentCode,	
 								O.ActionMemo,						
@@ -346,7 +369,7 @@ we do not reprocess the workflow status table --------------------- --->
 						   AP.NotificationGlobal,
 						   AP.NotificationFly,
 						   AP.DueMailCode,
-						   AP.ActionReference,
+						   <!---AP.ActionReference,--->
 						   AP.ActionOrder,
 						   P.Owner        AS ParentOwner,
 						   P.ListingOrder AS ParentOrder, 

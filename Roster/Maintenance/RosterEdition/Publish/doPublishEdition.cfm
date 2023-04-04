@@ -27,21 +27,18 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 
 	SELECT SE.*, C.EntityClass AS TrackWF
-	FROM   Ref_SubmissionEdition SE
-		   INNER JOIN Ref_ExerciseClass C
-		   ON SE.ExerciseClass = C.ExcerciseClass
+	FROM   Ref_SubmissionEdition SE INNER JOIN 
+	       Ref_ExerciseClass C  ON SE.ExerciseClass = C.ExcerciseClass
 	WHERE  SubmissionEdition = '#SubmissionEdition#'
 	
 </cfquery>
 
 <cfif Edition.RecordCount eq 0>
 
-		 <cf_message message = "Problem, submission #url.submissionedition# could not be found."
-			     return = "back">
-				 <cfabort>
+	 <cf_message message = "Problem, submission #url.submissionedition# could not be found." return = "back">
+	 <cfabort>
 
 </cfif>
-
 
 <cfquery name="Check" 
 datasource="AppsSelection" 
@@ -182,193 +179,194 @@ password="#SESSION.dbpw#">
 			
 			<cfif getPrior.recordcount eq "0">		 		
 			
-			<cfquery name="InsertDocument" 
-			datasource="AppsSelection" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				INSERT INTO Vacancy.dbo.Document
-			         (DocumentNo,
-					 DocumentNoTrigger,
-					 Status,
-					 FunctionNo, 
-					 FunctionalTitle, 
-					 OccupationalGroup,
-					 OrganizationUnit,
-					 Mission,
-					 Owner,
-					 PostNumber,
-					 PositionNo,
-					 DueDate,
-					 PostGrade,
-					 GradeDeployment,
-					 EntityClass,
-					 Remarks,
-					 Source,
-					 OfficerUserId,
-					 OfficerUserLastName,
-					 OfficerUserFirstName)
-			  	VALUES ('#LastNo.DocumentNo#',
-			          '0',
-			          '0',
-					  '#FunctionNo#',
-			          '#Function.FunctionDescription#',
-					  '#Function.OccupationalGroup#',
-					  '#Post.OrgUnitName#',
-					  '#Post.MissionOperational#',
-					  '#Edition.Owner#',
-					  '#Post.MissionOwner#',
-					  '#Post.SourcePostNumber#',
-					  '#Post.PositionNo#',
-					  '#Edition.DateEffective#',
-					  '#Post.PostGrade#',
-		  			  '#Post.PostGrade#',
-					  '#Edition.TrackWF#',
-					  '#Edition.EditionDescription#',
-					  'Edition',
-					  '#SESSION.acc#',
-			    	  '#SESSION.last#',		  
-				  	  '#SESSION.first#')
-			  </cfquery>
+				<cfquery name="InsertDocument" 
+				datasource="AppsSelection" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					INSERT INTO Vacancy.dbo.Document
+				         (DocumentNo,
+						 DocumentNoTrigger,
+						 DocumentType,
+						 Status,
+						 FunctionNo, 
+						 FunctionalTitle, 
+						 OccupationalGroup,
+						 OrganizationUnit,
+						 Mission,
+						 Owner,
+						 PostNumber,
+						 PositionNo,
+						 DueDate,
+						 PostGrade,
+						 GradeDeployment,
+						 EntityClass,
+						 Remarks,
+						 Source,
+						 OfficerUserId,
+						 OfficerUserLastName,
+						 OfficerUserFirstName)
+				  	VALUES ('#LastNo.DocumentNo#',
+				          '0',
+						  '#DocumentType#',
+				          '0',
+						  '#FunctionNo#',
+				          '#Function.FunctionDescription#',
+						  '#Function.OccupationalGroup#',
+						  '#Post.OrgUnitName#',
+						  '#Post.MissionOperational#',
+						  '#Edition.Owner#',					  
+						  '#Post.SourcePostNumber#',
+						  '#Post.PositionNo#',
+						  '#Edition.DateEffective#',
+						  '#Post.PostGrade#',
+			  			  '#Post.PostGrade#',
+						  '#Edition.TrackWF#',
+						  '#Edition.EditionDescription#',
+						  'Edition',
+						  '#SESSION.acc#',
+				    	  '#SESSION.last#',		  
+					  	  '#SESSION.first#')
+				  </cfquery>
 			  
-			  <cfif PublishMode eq "1"> 
-				<!--- Applicant.dbo.FunctionOrganization (Bucket) + FunctionOrganizationNotes (text of JO in english/french) --->
-				
-					<cf_assignid>
+				  <cfif PublishMode eq "1"> 
+					<!--- Applicant.dbo.FunctionOrganization (Bucket) + FunctionOrganizationNotes (text of JO in english/french) --->
 					
-					<cfquery name="Organization" 
-				    datasource="AppsSelection" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					
-						SELECT OrganizationCode
-						FROM   Organization.dbo.Organization
-						WHERE  OrgUnit = '#Post.OrgUnitOperational#'
-						AND    OrganizationCode IN (SELECT OrganizationCode FROM Ref_Organization)
-					
-					</cfquery>
-					
-					<cfif Organization.OrganizationCode neq "">
-					    <cfset org = Organization.OrganizationCode>
-					<cfelse>
-						<cfset org = "[ALL]">
-					</cfif>
-		
-				   <cfquery name="InsertFunctionOrganization" 
-				    datasource="AppsSelection" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-		
-					   INSERT INTO FunctionOrganization (
-							 FunctionId,
-							 FunctionNo,
-							 OrganizationCode,
-							 SubmissionEdition,
-			      			 GradeDeployment,
-			      			 DocumentNo,
-			      			 ReferenceNo,
-			      			 Mission,
-			      			 DateEffective,
-			      			 DateExpiration,
-			      			 Status,
-			      			 OfficerUserId,
-			      			 OfficerLastName,
-			      			 OfficerFirstName)
-						VALUES (
-							'#rowguid#',
-							'#FunctionNo#',
-							'#org#',
-							'#SubmissionEdition#',
-							<cfif Grade.GradeDeployment neq "">
-							'#Grade.GradeDeployment#',
-							<cfelse>
-							NULL,
-							</cfif>
-							'#LastNo.DocumentNo#',
-							'#Reference#',
-							'#Post.MissionOperational#',
-							'#Edition.DateEffective#',
-							'#Edition.DateExpiration#',
-							'1',
-							'#SESSION.Acc#',
-							'#SESSION.Last#',
-							'#SESSION.First#'
-						)
+						<cf_assignid>
 						
-					</cfquery>				
-					
-					<!--- post to competencies as well 16/8/2014 --->
+						<cfquery name="Organization" 
+					    datasource="AppsSelection" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						
+							SELECT OrganizationCode
+							FROM   Organization.dbo.Organization
+							WHERE  OrgUnit = '#Post.OrgUnitOperational#'
+							AND    OrganizationCode IN (SELECT OrganizationCode FROM Ref_Organization)
+						
+						</cfquery>
+						
+						<cfif Organization.OrganizationCode neq "">
+						    <cfset org = Organization.OrganizationCode>
+						<cfelse>
+							<cfset org = "[ALL]">
+						</cfif>
+			
+					   <cfquery name="InsertFunctionOrganization" 
+					    datasource="AppsSelection" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+			
+						   INSERT INTO FunctionOrganization (
+								 FunctionId,
+								 FunctionNo,
+								 OrganizationCode,
+								 SubmissionEdition,
+				      			 GradeDeployment,
+				      			 DocumentNo,
+				      			 ReferenceNo,
+				      			 Mission,
+				      			 DateEffective,
+				      			 DateExpiration,
+				      			 Status,
+				      			 OfficerUserId,
+				      			 OfficerLastName,
+				      			 OfficerFirstName)
+							VALUES (
+								'#rowguid#',
+								'#FunctionNo#',
+								'#org#',
+								'#SubmissionEdition#',
+								<cfif Grade.GradeDeployment neq "">
+								'#Grade.GradeDeployment#',
+								<cfelse>
+								NULL,
+								</cfif>
+								'#LastNo.DocumentNo#',
+								'#Reference#',
+								'#Post.MissionOperational#',
+								'#Edition.DateEffective#',
+								'#Edition.DateExpiration#',
+								'1',
+								'#SESSION.Acc#',
+								'#SESSION.Last#',
+								'#SESSION.First#'
+							)
+							
+						</cfquery>				
+						
+						<!--- post to competencies as well 16/8/2014 --->
+											
+					    <cfquery name="PositionParentProfile" 
+					    datasource="AppsSelection" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							INSERT INTO FunctionOrganizationCompetence
+									(FunctionId,CompetenceId,Officeruserid,OfficerLastName,OfficerFirstName)
+							SELECT '#rowguid#',
+							       CompetenceId,
+								   Officeruserid,
+								   OfficerLastName,
+								   OfficerFirstName
+							FROM   Ref_SubmissionEditionPositionCompetence
+							WHERE  PositionNo        = '#PositionNo#'
+							AND    SubmissionEdition = '#SubmissionEdition#' 
+						</cfquery>					
+					 
+					    <!--- cross reference to Document ---->
+					    <cfquery name="PositionParentProfile" 
+					    datasource="AppsSelection" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							UPDATE Vacancy.dbo.Document
+							SET    FunctionId = '#rowguid#'
+							WHERE  DocumentNo = '#LastNo.DocumentNo#'
+						</cfquery>
+					 
+					   <cfquery name="PositionParentProfile" 
+					    datasource="AppsSelection" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+								SELECT *
+								FROM   Employee.dbo.PositionParentProfile
+								WHERE  PositionParentId = '#Post.PositionParentId#'
+						</cfquery>
+						
+						<cfloop query="PositionParentProfile">
+							
+								<cfquery name="InsertFunctioNotes" 
+							    datasource="AppsSelection" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
 										
-				    <cfquery name="PositionParentProfile" 
-				    datasource="AppsSelection" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						INSERT INTO FunctionOrganizationCompetence
-								(FunctionId,CompetenceId,Officeruserid,OfficerLastName,OfficerFirstName)
-						SELECT '#rowguid#',
-						       CompetenceId,
-							   Officeruserid,
-							   OfficerLastName,
-							   OfficerFirstName
-						FROM   Ref_SubmissionEditionPositionCompetence
-						WHERE  PositionNo        = '#PositionNo#'
-						AND    SubmissionEdition = '#SubmissionEdition#' 
-					</cfquery>					
-				 
-				    <!--- cross reference to Document ---->
-				    <cfquery name="PositionParentProfile" 
-				    datasource="AppsSelection" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						UPDATE Vacancy.dbo.Document
-						SET    FunctionId = '#rowguid#'
-						WHERE  DocumentNo = '#LastNo.DocumentNo#'
-					</cfquery>
-				 
-				   <cfquery name="PositionParentProfile" 
-				    datasource="AppsSelection" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-							SELECT *
-							FROM   Employee.dbo.PositionParentProfile
-							WHERE  PositionParentId = '#Post.PositionParentId#'
-					</cfquery>
+										INSERT INTO FunctionOrganizationNotes 
+												(FunctionId,
+												 LanguageCode,
+												 TextAreaCode,
+												 ProfileNotes,
+												 OfficerUserId,
+												 OfficerLastName,
+												 OfficerFirstName,
+												 Created)
+										VALUES(
+											'#rowguid#',
+											'#LanguageCode#',
+											'#TextAreaCode#',
+											'#JobNotes#',
+											'#SESSION.Acc#',
+											'#SESSION.Last#',
+											'#SESSION.First#',
+											getdate()
+										)
+										
+								</cfquery>
+							
+						</cfloop>
 					
-					<cfloop query="PositionParentProfile">
-						
-							<cfquery name="InsertFunctioNotes" 
-						    datasource="AppsSelection" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-									
-									INSERT INTO FunctionOrganizationNotes 
-											(FunctionId,
-											 LanguageCode,
-											 TextAreaCode,
-											 ProfileNotes,
-											 OfficerUserId,
-											 OfficerLastName,
-											 OfficerFirstName,
-											 Created)
-									VALUES(
-										'#rowguid#',
-										'#LanguageCode#',
-										'#TextAreaCode#',
-										'#JobNotes#',
-										'#SESSION.Acc#',
-										'#SESSION.Last#',
-										'#SESSION.First#',
-										getdate()
-									)
-									
-							</cfquery>
-						
-					</cfloop>
-				
-						
-			  <cfelseif PublishMode eq "0">
-				<!--- Generates entries into (so-called direct flow, which is to be discussed) --->
-				
-		      </cfif>
+							
+				  <cfelseif PublishMode eq "0">
+					<!--- Generates entries into (so-called direct flow, which is to be discussed) --->
+					
+			      </cfif>
 							  
 				 <cfoutput> <!--- Groupig by Ref_SubmissionEditionPosition.Reference --->
 				 

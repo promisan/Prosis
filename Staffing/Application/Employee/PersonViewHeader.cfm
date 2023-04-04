@@ -210,7 +210,7 @@
                           
                            <tr class="fixlengthlist">   
                               <td class="labelit" style="padding-top:1px"><font color="808080"><cf_tl id="Nationality">:</td>   
-                              <td class="labelmedium" style="height:20px;font-size:14px">
+                              <td>
 							  <table>
 							  <tr class="labelmedium" style="height:20px;font-size:14px">
 							  <td>#Nationality.Name#</td>
@@ -462,7 +462,7 @@
 					
                      <table width="100%">   
 					 
-					 	 <cfif employee.eMailaddress eq "">
+					 	 <cfif employee.eMailaddress neq "">
 					 	 <tr class="fixlengthlist">   
            
                               <td class="labelit"><font color="808080"><cf_tl id="Corporate mail">:</td>              

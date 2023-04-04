@@ -14,6 +14,8 @@
 			<tr>
 			<td align="center" style="border-radius:6px;height:40px;min-width:40px;padding:3px;background-color:##B0D8FF50">
 			
+			<!---
+						
 			 <cfif FunctionIcon eq "World">
 	             <img src="#client.virtualdir#/Images/world.jpg"       width="34" height="34" #att#>
 			 <cfelseif FunctionIcon eq "HowTo">
@@ -94,11 +96,45 @@
 				<cf_img icon="bullet">
 	          </cfif>
 			  
+			  --->
+			  
+			 <cfif FunctionIcon eq "HowTo">
+	             <img src="#client.virtualdir#/Images/manual.png"      height="34" width="34" #att#>
+			 <cfelseif FunctionIcon eq "Time" >
+			     <img src="#client.virtualdir#/Images/timesheet.jpg"   height="34" width="34" #att#>	
+			 <cfelseif FunctionIcon eq "Schedule">
+			     <img src="#client.virtualdir#/Images/schedule.png"    width="35" height="35" #att#>					 		        
+			 <cfelseif FunctionIcon eq "Locate">
+	             <img src="#client.virtualdir#/Images/search2.png"     width="36" height="36" #att#>	
+			  <cfelseif FunctionIcon eq "Log">
+	             <img src="#client.virtualdir#/Images/Log_icon.png"    width="36" height="36" #att#>		 					
+			 <cfelseif FunctionIcon eq "Builder">
+	             <img src="#SESSION.root#/Images/logos/listing.png"    width="36" height="36" #att#>		 
+			 <cfelseif FunctionIcon eq "Monitor">
+	             <img src="#client.virtualdir#/Images/monitoring2.png" #att# width="36" height="36" >		 
+			 <cfelseif FunctionIcon eq "User">
+	             <img src="#client.virtualdir#/Images/access1.gif"     #att# height="34" width="34" #att#>	
+			 <cfelseif FunctionIcon eq "Tree">
+	             <img src="#client.virtualdir#/Images/Tree.png"        #att# height="34" width="34" #att#>	
+			 <cfelseif FunctionIcon eq "Workflow">
+			      <img src="#client.virtualdir#/Images/Logos/User/WorkFlow.png" height="34" width="34" #att#>				
+			 <cfelseif FunctionIcon eq "Report">				 
+	              <img src="#SESSION.root#/Images/logos/system/reports.png" #att# width="35" height="35"> 		 
+			 <cfelseif FunctionIcon eq "List">			 
+	              <img src="#client.virtualdir#/Images/logos/listing.png" #att# width="38" height="36"> 	 	 			
+			 <cfelseif FunctionIcon eq "Audit">	
+	              <img src="#client.virtualdir#/Images/audit.png?8" #att# width="31" height="31">				  
+			 <cfelseif FunctionIcon eq "Dataset">			 
+			     <img src="#client.virtualdir#/Images/dataset.png"   #att# height="34" width="34">	  
+			 <cfelse>
+				<cf_img icon="bullet">
+	          </cfif>
+			  
 			  </td></tr></table>
 			  </td></tr></table>
 		
 		<cfelse>
-		
+				
 			<!--- Icons for reports --->
 			<cfif FunctionIcon eq "PDF">
 			     <img src="#client.virtualdir#/Images/report6.gif"   #att# height="34" width="34">

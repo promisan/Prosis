@@ -34,9 +34,9 @@
 						WHERE    Source = 'vac'
 						AND      SourceId = '#Doc.DocumentNo#' 
 						AND      AssignmentStatus IN ('0', '1') 
-						AND      AssignmentType = 'Actual'
+						AND      AssignmentType = 'Actual' 
 	                  </cfquery>
-					 					  
+					  		 					  
 					  <cfquery name="Onboard" 
 						datasource="AppsEmployee" 
 						username="#SESSION.login#" 
@@ -243,6 +243,21 @@
 				<cfoutput><b>#Doc.PostGrade# (#Doc.GradeDeployment#)
 				<input type="hidden" name="postgrade" value="#Doc.PostGrade#">
 				</cfoutput>
+				</td>
+				
+				<cfquery name="DocTpe" 
+					datasource="AppsVacancy" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">	
+					    SELECT   *
+						FROM     Ref_DocumentType
+						WHERE Code = '#doc.documenttype#'					
+                 </cfquery>		
+				 
+				<td style="padding-left:13px">Type: <b><cfoutput>#doctpe.description#</cfoutput></td>
+				
+				<input type="hidden" name="DocumentType" value="#doc.documenttype#">
+				
 			<cfelse>
 			   <td> 
 			   <select name="PostGrade" required="Yes" class="regularxl">
@@ -305,50 +320,22 @@
 				</cfquery>
 				
 				<cfif JO.Recordcount eq "1">
-				
-						<!--- to be replace with new VA document --->
-						<cfquery name="VAtext" 
-						datasource="AppsVacancy" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						    SELECT TOP 1 *
-						    FROM   stAnnouncement
-							WHERE  VacancyNo = '#JO.ReferenceNo#'
-						</cfquery>
-						
+										
 					 <tr class="labelmedium2 fixlengthlist line">	
 				
 					 <td style="padding-left:3px"><cf_tl id="Recruitment bucket">:</td>
 				     <TD colspan="3"> 
 					 <table><tr class="labelmedium2 fixlengthlist">
-					 				 
-					  <cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
-						
-							<cfif VAtext.VacancyNo eq "">	
-							
-							    <cfoutput> 						
-								<td>
-								<A href="javascript:va('#JO.FunctionId#');">#JO.ReferenceNo#</a>
-								</td>
-								
-								<cfif JO.DateEffective gt "01/01/2000">
-								<td style="padding-left:4px">
-									#dateformat(JO.DateEffective,client.dateformatshow)# - #dateformat(JO.DateExpiration,client.dateformatshow)#
-								</td>	
-								</cfif>	
-								</cfoutput>
-								
-							</cfif>
-						
-					  <cfelse>
-					  			   
+					 					  			   
 							<cfoutput>
 							
-							<td style="padding-right:2px">
-								
-							 <button name="btnFunction"  type="button" style="width:18px;height:18px" onClick="details('#JO.FunctionId#')"> 						
-								
+							<cfif AccessHeader eq "EDIT" or AccessHeader eq "ALL">
+							
+							<td style="padding-right:2px" title="Recruitment bucket">								
+							 <button name="btnFunction"  type="button" style="width:18px;height:18px" onClick="details('#JO.FunctionId#')"> 														
 							</td>
+							
+							</cfif>
 							<td style="padding-left:3px;font-size:15px">
 								<cfif JO.recordcount neq "0">
 									<A href="javascript:va('#JO.FunctionId#');">#JO.ReferenceNo#</a>
@@ -366,8 +353,11 @@
 							</td>
 								
 						    </cfoutput>
-							 					 
+							 		
+							<!--- UN only --->
+												 
 							<cftry>
+							
 							<cfquery name="CrossReference" 
 							datasource="AppsVacancy" 
 							username="#SESSION.login#" 
@@ -384,8 +374,7 @@
 							<cfcatch></cfcatch>
 							
 							</cftry>
-										     											
-					   </cfif>	
+							
 					   
 					   </td></tr>
 					  </table>

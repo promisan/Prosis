@@ -58,8 +58,6 @@
 
             var config = qz.configs.create("ProsisPrinter");
 
-            //BX,Y,Rotation,CodeType,Narrow,WideBar,Height,PrintHumanReadable (B=Yes,N=No), data.
-            //122
             var x = 0;
             var y = 0;
             var str = ""; 
@@ -76,8 +74,10 @@
                 }
             }                                 
 
+            //BX,Y,Rotation,CodeType,Narrow,WideBar,Height,PrintHumanReadable (B=Yes,N=No), data.
             //'B'+x+',10,0,9,3,2,80,B,"'+barcode+'"\n', -- COD93
             //'B'+x+',10,0,E30,3,N,80,B,"'+barcode+'"\n', -- EAN13
+            //'B0,0,0,E30,3,7,150,N,"'+barcode+'"\n', --ORIGINAL
             //https://www.servopack.de/support/zebra/EPL2_Manual.pdf
             //B0,26,0,E30,3,7,50,B
 
@@ -93,15 +93,21 @@
                 '\nN\n',
                 'q350\n', //  q=width in dots - check printer dpi
                 'Q90\n', // Q=height in dots - check printer dpi
-                'B0,0,0,E30,3,7,150,N,"'+barcode+'"\n',
+                'B0,10,0,9,4,2,150,N,"'+barcode+'"\n',
                 'A0,165,0,3,1,1,N,"'+vCode+'"\n',
                 'P1\n'
             ];
 
+            //Regular label
             for (i = 0; i < countlabels; i++) {
-                qz.print(config, data1).catch(function(e) { console.error(e); }).finally(function() {
-                    if (printbarcode) qz.print(config, data2).catch(function(e) { console.error(e); });
-                });
+                qz.print(config, data1).catch(function(e) { console.error(e); });
+            }
+            
+            if (printbarcode) { 
+                //Barcode label
+                for (i = 0; i < countlabels; i++) {
+                    qz.print(config, data2).catch(function(e) { console.error(e); });
+                }
             }
             
         }

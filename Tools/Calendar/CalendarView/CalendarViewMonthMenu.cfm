@@ -1,5 +1,8 @@
 
-<cfparam name="url.showToday" default="0">
+<cfparam name="url.showToday"    default="0">
+<cfparam name="url.showRefresh"  default="1">
+<cfparam name="url.showPrint"    default="0">	
+
 <CF_DateConvert Value="#url.pdate#">
 <cfset dateSelOb = dateValue>
 <cfset dateob = createDate(year(dateSelOb), 1, 1)>

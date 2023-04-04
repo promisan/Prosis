@@ -70,14 +70,14 @@ function bucketsta() {
 		        expand="Yes">	  
 	   
     <cf_UItreeitem value="prf"
-		        display="<span style='font-size:14px' class='labelit'>Bucket Job Profile</span>"
+		        display="<span style='font-size:14px' class='labelit'>Job Announcement text</span>"
 				parent="bck"			
 				href="javascript:bucketreq()"							
 				target="right"
 		        expand="No">	
 				
 	 <cf_UItreeitem value="ann"
-		        display="<span style='font-size:14px' class='labelit'>Announcement Text</span>"
+		        display="<span style='font-size:14px' class='labelit'>Job Profile text</span>"
 				parent="bck"			
 				href="javascript:bucketann()"							
 				target="right"

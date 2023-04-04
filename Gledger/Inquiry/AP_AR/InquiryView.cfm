@@ -58,8 +58,29 @@
 					 
 	</cf_layoutarea>		
 	
-	<cf_layoutarea size="520" maxsize="30%" minsize="30%"  
-       position="left" name="myleft" collapsible="true" splitter="true">	
+	<cfquery name="AccessLeftmenu"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+		FROM   Journal J
+		WHERE  Operational = 1		
+		AND   TransactionCategory IN (#preservesinglequotes(journalfilter)#)		
+		AND   Mission = '#URL.Mission#'
+		<cfif getAdministrator(url.mission) eq "1">	
+				<!--- no filtering --->
+		<cfelse>	
+				AND Journal IN (SELECT ClassParameter 
+				                FROM   Organization.dbo.OrganizationAuthorization 
+						        WHERE  UserAccount = '#SESSION.acc#' 
+								  AND  AccessLevel IN ('2') <!--- all --->
+				                  AND  Role = 'Accountant') 
+		</cfif>		
+	</cfquery>
+	
+	<cfif AccessLeftmenu.recordcount gte "1">
+	
+	    <cf_layoutarea size="520" maxsize="30%" minsize="30%" position="left" name="myleft" collapsible="true" splitter="true">	
 	   
 	   		<cf_divscroll style="width:100%;height:100%">   
 			
@@ -75,16 +96,13 @@
 						<tr><td bgcolor="ffffff" align="center" style="padding:2px;padding-bottom:4px;" valign="top">	
 							<cfinclude template="ShowAccount.cfm">						
 						</td>
-						</tr>	
-						
-						
+						</tr>						
 															
 						<tr>
 						<td valign="top" height="30" bgcolor="ffffff">
 							<cfinclude template="ShowJournal.cfm">
 						</td>
-						</tr>	
-						
+						</tr>							
 						
 						<tr><td valign="top" style="padding:1px;width:520" id="graph">						
 							<cfinclude template="ShowAging.cfm">
@@ -92,8 +110,9 @@
 						
 						<tr><td bgcolor="ffffff" height="100" align="center" valign="top" id="payee">
 						    <cfinclude template="ShowPayee.cfm">						
-						</td></tr>	
+						</td></tr>		
 						
+											
 						
 					</table>			
 					
@@ -104,24 +123,30 @@
 				
 			</cf_divscroll>	
 			
-</cf_layoutarea>
+     </cf_layoutarea>
+	 
+	<cfelse>
+	
+		<cfset url.init = "0"> 
+	 
+	</cfif>
 
-<cf_layoutarea  style="height:100%" size="70%" maxsize="70%" minsize="70%" position="center" name="mylisting">
+	<cf_layoutarea  style="height:100%" size="70%" maxsize="70%" minsize="70%" position="center" name="mylisting">
+	
+		<table width="100%" height="100%">
+		<tr><td valign="top" height="100%" style="padding:5px">		
+			<cf_divScroll overflowx="yes" id="listbox">		
+				<cf_securediv bind="url:InquiryListing.cfm?init=1&mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#" 
+				style="height:100%; width:100%;">				
+			</cf_divScroll>	
+		</td></tr>
+		</table>	
+	
+	</cf_layoutarea>	
 
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
-	<tr><td valign="top" height="100%" style="padding:5px">		
-		<cf_divScroll overflowx="yes" id="listbox">		
-			<cf_securediv bind="url:InquiryListing.cfm?init=1&mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#" 
-			style="height:100%; width:100%;">				
-		</cf_divScroll>	
-	</td></tr>
-	</table>	
-
-</cf_layoutarea>	
-
-<cf_layoutarea  style="height:100%" size="200" collapsible="true" position="right" initcollapsed="yes" name="person">
-	 <cfinclude template="ShowPerson.cfm">
- </cf_layoutarea>	
+	<cf_layoutarea  style="height:100%" size="200" collapsible="true" position="right" initcollapsed="yes" name="person">
+		 <cfinclude template="ShowPerson.cfm">
+	 </cf_layoutarea>	
 
 </cf_layout>
 

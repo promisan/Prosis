@@ -333,7 +333,7 @@ password="#SESSION.dbpw#">
 				
 				         <tr>
 						    <td colspan="2" align="center" valign="top" style="padding-right:6px;">			
-							<cf_mapshow scope="embed" zoomlevel="10" mode="edit" width="260" height="140" latitude="#get.Latitude#" longitude="#get.Longitude#">					
+							<cf_mapshow scope="embed" zoomlevel="10" mode="edit" width="360" height="240" latitude="#get.Latitude#" longitude="#get.Longitude#">					
 						    </td>
 						</tr>
 					

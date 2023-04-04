@@ -60,6 +60,7 @@
 			WHERE     Warehouse = '#url.warehouse#'								
 </cfquery>
 
+
 <cfif Form.Category eq "">
 
 		<cfif get.ModeSetItem eq "Category">

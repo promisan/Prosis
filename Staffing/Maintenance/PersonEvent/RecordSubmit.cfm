@@ -5,6 +5,7 @@
 <cfparam name="Form.ActionPeriod"   default="0">
 <cfparam name="Form.EnablePortal"   default="0">
 <cfparam name="Form.Missions"       default="">
+<cfparam name="Form.CodeOld"        default="">
 <cfparam name="ActionInstruction"   default="">
 
 <cfif ParameterExists(Form.Insert)> 
@@ -171,7 +172,7 @@
       password="#SESSION.dbpw#">
       SELECT *
       FROM  PersonEvent
-      WHERE PersonEvent = '#Form.CodeOld#' 
+      WHERE EventCode = '#Form.CodeOld#' 
     </cfquery>
 
     <cfif CountRec.recordCount gt 0>
@@ -212,10 +213,24 @@
 </cfif>	
 
 <cfoutput>
-<script language="JavaScript">
-   
-     window.close()	 
-	 opener.applyfilter('1','','#Form.CodeOld#')
-	         
-</script>  
+
+<cfif Form.CodeOld neq "" and not ParameterExists(Form.Delete)>
+	
+	<script language="JavaScript">
+	   
+	    window.close()	 
+		opener.applyfilter('1','','#Form.CodeOld#')
+		         
+	</script>  
+
+<cfelse>
+
+	<script language="JavaScript">
+
+	   window.close()	 
+   	   opener.applyfilter('1','','content')
+	
+	</script>
+
+</cfif>
 </cfoutput>

@@ -121,7 +121,7 @@ password="#SESSION.dbpw#">
 						   AND    AssignmentStatus IN ('0','1'))						
 	</cfif>
 	AND   LastName > '' 
-	AND   Disabled = 0
+	
 </cfquery>
 
 <cfset show = int((url.height-510)/19)>
@@ -180,7 +180,7 @@ password="#SESSION.dbpw#">
 						AND    PersonNo = U.PersonNo
 						AND    AssignmentStatus IN ('0','1'))						
 	</cfif>
-	AND    LastName > '' and Disabled = 0
+	AND    LastName > ''
 	ORDER BY #URL.IDSorting#	
 </cfquery>
 
@@ -259,7 +259,7 @@ password="#SESSION.dbpw#">
 						   </td>
 						   
 						   <cfif accounttype eq "Individual">
-						   <td>#LastName# <cfif firstname neq "">, #FirstName#</cfif></td>						   						   						   
+						   <td style="<cfif disabled eq '1'>background-color:##ffffaf50</cfif>">#LastName# <cfif firstname neq "">, #FirstName#</cfif></td>						   						   						   
 						   <td>#IndexNo#</td>	
 						   <td title="#emailaddress#">
 						   <cfif eMailAddress neq ""><a href="javascript:email('#eMailAddress#','','','','User','#Account#')"></cfif>#eMailAddress#					   

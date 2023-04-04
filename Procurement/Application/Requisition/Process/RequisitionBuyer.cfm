@@ -62,7 +62,7 @@
 
 function facttablexls1(control,format,box) {  
     // here I could capture the client variable if this is better for large selections 	
-	ColdFusion.navigate('RequisitionViewSelected.cfm','process','','','POST','buyer')	  	
+	ptoken.navigate('RequisitionViewSelected.cfm','process','','','POST','buyer')	  	
 	ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&box="+box+"&data=1&controlid="+control+"&format="+format, "facttable");
 }	
 
@@ -138,7 +138,7 @@ function processdata(txt,per) {
 				
 		if (confirm("#dyw# "+txt+" #srl# ?"))	{
 		    Prosis.busy('yes')
-			ColdFusion.navigate('RequisitionBuyerSubmit.cfm?mode=process&mission=#URL.Mission#&period='+per,'box','','','POST','buyer')
+			ptoken.navigate('RequisitionBuyerSubmit.cfm?mode=process&mission=#URL.Mission#&period='+per,'box','','','POST','buyer')
 		}
 				
 	}
@@ -163,7 +163,7 @@ function reqsearch() {
    fun   = document.getElementById('fundsel').value	   
    fund  = document.getElementById('fundcode').value	
   
-   ColdFusion.navigate('RequisitionBuyerPending.cfm?page='+pag+'&annotationid='+ann+'&buyer='+buy+'&mission=#url.mission#&period='+per+'&search='+val+'&unit='+unit+'&fun='+fun+'&fund='+fund,'contentbox1')
+   ptoken.navigate('RequisitionBuyerPending.cfm?page='+pag+'&annotationid='+ann+'&buyer='+buy+'&mission=#url.mission#&period='+per+'&search='+val+'&unit='+unit+'&fun='+fun+'&fund='+fund,'contentbox1')
 }  
 
 </script>
@@ -241,6 +241,7 @@ function reqsearch() {
 <tr><td height="3"></td></tr>
 
 <tr><td colspan="2" height="100%" valign="top">
+
     <cf_divscroll style="height:100%"id="box">
     <cfset url.process = "checkbox">
     <cfinclude template="RequisitionBuyerPrepare.cfm">	

@@ -277,7 +277,7 @@ AND		Operational = 1
 				</script>
 			<cf_UISignatureScript Mode = "Desktop">
 			<cf_UISignatureScript Mode = "Mobile">
-
+			<cf_UISignatureViewScript>
 		</cfif>
 
 

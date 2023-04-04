@@ -118,11 +118,9 @@
 	<!--- emtpty days --->
 	<cfoutput>#PADSTR#</cfoutput>
 	<cfset DW=TOPAD>
-	
-		
+			
 	<cfparam name="url.action" default="">
-	
-																						
+																							
 	<cfloop index="X" from="1" to="#DaysInMonth(DateOb)#">
 	
 	<cfset date=CreateDate(year(dateob),month(dateob),x)>
@@ -135,6 +133,7 @@
 			
 	<cfparam name="url.selecteddate" default="">	
     <cfparam name="url.conditionfly" default="">
+	<cfparam name="url.isDisabled"   default="1">	
 		
 	<cfif url.isDisabled eq 1>
 	

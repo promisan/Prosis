@@ -67,3 +67,5 @@ Request the user to logon with this temporary password. <br> <br>He/she will be 
 
 </table>
 
+<cf_MailUserAccountEnable
+		account="#URL.ID#">

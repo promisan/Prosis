@@ -16,7 +16,7 @@
 		          FROM      SalaryScaleLine AS SCL INNER JOIN
 		                    SalaryScale AS SC ON SCL.ScaleNo = SC.ScaleNo
 		          WHERE        (SCL.SalarySchedule = B.SalarySchedule) AND (SCL.ServiceLevel = B.ContractLevel) AND (SCL.ServiceStep = B.ContractStep) 
-		                     AND (SCL.ComponentName = 'Salario')
+		                     AND (SCL.ComponentName = 'Salario') AND (SalaryEffective <= B.PaymentDate)
 		          ORDER BY SCL.ScaleNo DESC) AS SalaryBase, 
 		
 		          Days, SLWOP, Suspend,

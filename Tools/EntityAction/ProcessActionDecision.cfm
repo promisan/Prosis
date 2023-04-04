@@ -14,7 +14,9 @@
  <tr><td height="4"></td></tr>
  <tr bgcolor="ffffff" height="50">
  
+    <!---
     <td height="29" width="90" style="padding-left:10px;padding-right:10px" class="fixlength labelmedium2">#Action.ActionDescription#:</td>
+	--->
  
     <td>	   
 	    <table id="processblock">
@@ -126,28 +128,31 @@
 					   
 					   </td>
 					    	
-					   <td class="labelmedium2" style="padding-top:4px;cursor: pointer;padding-right:5px" id="d1" onclick="document.getElementById('r1').click()">
-					   
-					      <img src="#SESSION.root#/Images/Send.png" width="32" height="32" alt="Go back to previous step" border="0" align="absmiddle">
-						  					   					   					   
-	                      <cf_tl id="#ActionGoToLabel#">
+					   <td class="labelmedium2" style="cursor: pointer;padding-right:5px" id="d1" onclick="document.getElementById('r1').click()">
+					      
+						  <table>
+						  <tr class="labelmedium2">
+						  <td><img src="#SESSION.root#/Images/Send.png" width="32" height="32" alt="Go back to previous step" border="0" align="absmiddle"></td>
+						  <td style="padding-bottom:1px"><cf_tl id="#ActionGoToLabel#"></td>
 						   
 					      <cfif Status eq "1">
 					  	    <cfset r = "regular">
 					      <cfelse>
 					        <cfset r = "hide">
 					      </cfif>
-					       
-						 <span class="#r#" id="d1a"></span>
+						  
+					      <td class="#r#" id="d1a"></td>
 						      
-						 <span class="#r#" id="d1b" style="padding-left:1px;padding-right:8px">					  
+						<td class="#r#" id="d1b" style="padding-left:1px;padding-right:8px">	  
+								  
 						   <select style="max-width:280px;border:0px;background-color:f1f1f1" name="ActionCodeOnHold" id="ActionCodeOnHold" class="regularxxl">
 							<cfloop query="Revert">
 							  <option value="#Revert.ActionCode#" style="font-size:12px;">: #ActionDescription# | #ActionReference# [#ActionCode#]</option>
 							</cfloop>
 						   </select>
 						   
-						 </span>
+						 </td></tr>
+						 </table>	
 						 
 						</td> 
 								   
@@ -194,7 +199,7 @@
 				        onClick="selectoption('d2n','2N');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Deny','processnow')">
 				</td>
 				        	
-				<td id="d2n" class="labelmedium2" style="padding:0 10px 0 0;cursor: pointer;" onclick="document.getElementById('r2n').click()">
+				<td id="d2n" class="labelmedium2 fixlength" style="padding:0 10px 0 0;cursor: pointer;" onclick="document.getElementById('r2n').click()">
 				   
 				    <img src="#SESSION.root#/Images/Deny.png" width="24" height="24" alt="No, denied" border="0" align="absmiddle">
 					
@@ -219,7 +224,7 @@
 				   
 			   </td>
 			        	
-			   <td id="d2y" class="labelmedium2" style="padding:0 4px 0 0;cursor: pointer;" onclick="document.getElementById('r2y').click()">
+			   <td id="d2y" class="labelmedium2 fixlength" style="padding:0 4px 0 0;cursor: pointer;" onclick="document.getElementById('r2y').click()">
 				   
 				   <img src="#SESSION.root#/Images/Approve.png" width="24" height="24" alt="Yes, agreed" border="0" align="absmiddle">
 				   
@@ -261,8 +266,7 @@
 			   </cfif>	
 	   
 	    </cfif>
-		
-		
+			
 	      
 	   <td align="right" id="processnow" style="padding-left:10px">
 	     
@@ -359,7 +363,7 @@
 		
 		<cfif getAccess.recordcount eq "1">
 		
-			<tr>
+			<tr class="labelmedium2">
 			<td></td>
 			<td colspan="1" style="color:red;height:15px;background-color:ffffff;font-size:15px">
 			<b>Attention</b> : By confirming, I certify that the above decision was approved by #getaccess.firstName# #getAccess.lastName#.								

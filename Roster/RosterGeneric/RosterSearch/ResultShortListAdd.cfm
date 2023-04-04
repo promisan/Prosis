@@ -39,10 +39,20 @@
 			 FROM   Document
 			 WHERE  DocumentNo = '#Select.SearchCategoryId#'
 	    </cfquery>	 
+		
+		<cfquery name="Mission" 
+	     datasource="AppsOrganization" 
+	     username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+			 SELECT *
+			 FROM   Ref_Mission
+			 WHERE  Mission = '#document.Mission#'
+	    </cfquery>	 
 		  
 		<!--- add to short list of vacancy --->
 	    	 
 		<cfset cnt = 0>
+		<cfset prior = "0">
 		 
 		<cfparam name="Form.Select" default="">			  
 		 	 
@@ -61,22 +71,22 @@
 			 <!--- we check if the status has to be 0, 1 or 2 based on the workflow for that track --->
 			 
 			  <cfquery name="Workflow" 
-	    	 datasource="AppsVacancy" 
+	    	 datasource="AppsOrganization" 
 		     username="#SESSION.login#" 
 	    	 password="#SESSION.dbpw#">
-			 SELECT   TOP (1) ActionDialogParameter
-             FROM     Ref_EntityActionPublish
-             WHERE    ActionPublishNo IN
-                             (SELECT      ActionPublishNo
-                               FROM       OrganizationObjectAction
-                               WHERE      ObjectId = (SELECT ObjectId 
-							                          FROM OrganizationObject 
-													  WHERE ObjectKeyValue1 = '#docno#' 
-													  AND EntityCode = 'Vacdocument' 
-													  AND (Operational = 1)
-							 )						  
-			 AND      ActionDialogParameter <> ''
-             ORDER BY ActionOrder
+				 SELECT   TOP (1) ActionDialogParameter
+	             FROM     Ref_EntityActionPublish
+	             WHERE    ActionPublishNo IN
+	                             (SELECT      ActionPublishNo
+	                               FROM       OrganizationObjectAction
+	                               WHERE      ObjectId = (SELECT ObjectId 
+								                          FROM OrganizationObject 
+														  WHERE ObjectKeyValue1 = '#docno#' 
+														  AND EntityCode = 'Vacdocument' 
+														  AND Operational = 1)
+								 )						  
+				 AND      ActionDialogParameter <> ''
+	             ORDER BY ActionOrder
 			 </cfquery>
 			 
 			 <cfif workflow.actionDialogParameter eq "MARK">
@@ -126,6 +136,24 @@
 					 WHERE  R.PersonNo = '#Item#' 
 					 AND    R.SearchId =  '#URL.ID1#'					
 			     </cfquery>
+				 				 
+				 <!--- this is to alert if a candidate has a recently selection : Hanno 17/3/2023
+				 
+					 <cfinvoke component  = "Service.Process.Applicant.Vacancy"  
+					   method            = "Candidacy" 
+				   	   Owner             = "#Mission.MissionOwner#"
+					   DocumentNo        = "#docno#" 
+					   PersonNo          = "#item#"	
+					   Status            = ""   
+					   returnvariable    = "OtherCandidates">	   	 
+					 
+					  <cfif OtherCandidates.recordcount gte "1"> 
+					  
+					      <cfset prior = "1">
+					   
+					  </cfif>		
+				  
+				  --->	 
 			 
 			 </cfif>
 			 
@@ -139,26 +167,12 @@
 			      alert("Notification, You have not selected any candidates.")			 			 			  	
 			 </script>	
 			
-		 <cfelse>			 
-		 				 
-			 <cfquery name="Check" 
-		     datasource="AppsVacancy" 
-		     username="#SESSION.login#" 
-		     password="#SESSION.dbpw#">
-				 SELECT DISTINCT DocumentNo
-				 FROM   DocumentCandidate
-				 WHERE  PersonNo IN (#PreserveSingleQuotes(FORM.Select)#)
-				 AND    DocumentNo IN (SELECT DocumentNo 
-				  		               FROM   Document 
-								   	   WHERE  Status = '0')
-				 AND    DocumentNo != '#docno#'
-				 AND    Status = '2s'
-			 </cfquery>		
-			 		 
+		 <cfelse>		
+		      
 						 
 			 <cfoutput>	
 			 
-			 <cfif Check.recordCount gt "0">
+			 <cfif prior eq "1">
 									 
 				 <script language="javascript">		
 				      				     

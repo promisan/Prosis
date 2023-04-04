@@ -298,19 +298,18 @@
 								ISNULL((   
 									SELECT ROUND(SUM(ITx.TransactionQuantity),5)
 									FROM   ItemTransaction ITx WITH (NOLOCK)
-									WHERE  ITx.ItemNo = I.ItemNo
-									AND    ITx.Mission = MI.Mission
+									WHERE  ITx.ItemNo   = I.ItemNo
+									AND    ITx.Mission  = MI.Mission
+									AND    ITx.Warehouse IN (SELECT Warehouse FROM Warehouse WHERE WarehouseClass = '002')
 									AND    ITx.WorkorderId IS NULL
-									AND    ITx.TransactionId NOT IN	
-											(
+									AND    ITx.TransactionId NOT IN	(
 												SELECT	Ix.TransactionId
 												FROM	Warehouse AS Wx WITH (NOLOCK)
 														INNER JOIN ItemTransaction AS Ix WITH (NOLOCK)
 															ON Wx.Warehouse = Ix.Warehouse 
 															AND Wx.LocationReceipt = Ix.Location
 												WHERE	Ix.TransactionType = '1' 
-												AND		Ix.TransactionId NOT IN 
-														(SELECT ITVx.TransactionId FROM ItemTransactionValuation AS ITVx WITH (NOLOCK)) 
+												AND		Ix.TransactionId NOT IN (SELECT ITVx.TransactionId FROM ItemTransactionValuation AS ITVx WITH (NOLOCK)) 
 											)
 								), 0) as OnHand
 									

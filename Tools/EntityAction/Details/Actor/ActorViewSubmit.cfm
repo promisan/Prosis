@@ -21,12 +21,33 @@
 
 </cfif>
 
+<script>
+	Prosis.busy('no')
+</script>
+
+<table width="100%"><tr><td>
+
+<cfinclude template="ActorViewContent.cfm">
+
+</td></tr>
+
+<cfoutput>
+<tr class="labelmedium">
+     <td style="font-size:22px;font-weight:bold;padding-top:15px" align="center">Thank you for your submission #session.first#, you may close this screen now.</td>
+</tr>
+</cfoutput>
+</table>
+
+
+
+<!---
+
 <cfoutput>
 <script>
-   Prosis.busy('no')
-   alert('#session.root#/tools/entityaction/details/actor/setResult.cfm?objectid=#url.objectid#&actioncode=#url.actioncode#')
-   ptoken.navigate('#session.root#/tools/entityaction/details/actor/setResult.cfm?objectid=#url.objectid#&actioncode=#url.actioncode#','resultuser')
-   
+   Prosis.busy('no')  
+   ptoken.navigate('#session.root#/tools/entityaction/details/actor/ActorView.cfm?objectid=#url.objectid#&actioncode=#url.actioncode#','resultuser')   
 </script>
 </cfoutput>
+
+--->
 	

@@ -595,30 +595,7 @@
 				 FROM   Organization.dbo.OrganizationObjectAction OA WITH (NOLOCK)
 				 WHERE  OA.ObjectId = '#Object.ObjectId#' 
 			 </cfquery>				 
-			 
-			 <cfquery name="Update" 
-			 datasource="#attributes.Datasource#"
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">
-				 UPDATE Organization.dbo.OrganizationObject 
-				 SET    ObjectFilter    = '#Attributes.ObjectFilter#',
-						<cfif Attributes.ProgramCode neq "">
-						    ProgramCode     = '#Attributes.ProgramCode#', 
-					    </cfif> 							
-				        <cfif len(Attributes.ObjectURL) lte 200 and len(Attributes.ObjectURL) gte 10>
-				            ObjectURL       = '#Attributes.ObjectURL#',
-						</cfif>
-				  		<cfif Attributes.ParentObjectId neq "">
-						    ParentObjectId = '#Attributes.ParentObjectId#', 
-					    </cfif> 	
-						<cfif Attributes.ObjectDue neq "">
-						ObjectDue        = '#Attributes.ObjectDue#',
-						</cfif>
-						ObjectReference  = '#Attributes.ObjectReference#',
-				        ObjectReference2 = '#Attributes.ObjectReference2#'	  
-				  WHERE ObjectId    = '#Object.ObjectId#'   
-				  AND   Operational  = 1  
-			 </cfquery>				 
+						 
 			 			 
 			 <cfset objectid = "#Object.Objectid#">
 			 
@@ -666,41 +643,38 @@
 			 </cfif>	
 			 
 			 --->
-		
-			 <cfif Object.OrgUnit neq Attributes.OrgUnit and Attributes.OrgUnit neq "">
 			 
-			 	<cftry>
-		
-				 <cfquery name="Update" 
-					 datasource="#attributes.Datasource#"
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-						 UPDATE Organization.dbo.OrganizationObject 
-						 SET    Orgunit      = '#Attributes.OrgUnit#',
-						        Mission      = '#Attributes.Mission#'											
-						 WHERE  ObjectId     = '#Object.ObjectId#'   
-						 AND    Operational  = 1 
-					 </cfquery>		
+			 
 					 
-				 <cfcatch></cfcatch>
-					 
-				 </cftry>
-					 
-			 </cfif>	
-							 
-			 <cfif Attributes.PersonEMail neq Object.PersonEMail>
-
-				 <cfquery name="Update" 
-				 datasource="#attributes.Datasource#"
-				 username="#SESSION.login#" 
-				 password="#SESSION.dbpw#">
-				 UPDATE Organization.dbo.OrganizationObject 
-				 SET    PersonEMail = '#Attributes.PersonEMail#'		
-				 WHERE  ObjectId    = '#Object.ObjectId#'   
-				 AND    Operational  = 1 
-			 </cfquery>		 
-		 
-			 </cfif>
+			 <cfquery name="Update" 
+			 datasource="#attributes.Datasource#"
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+				 UPDATE Organization.dbo.OrganizationObject
+				 SET    ObjectFilter    = '#Attributes.ObjectFilter#',
+						<cfif Attributes.ProgramCode neq "">
+						    ProgramCode     = '#Attributes.ProgramCode#', 
+					    </cfif> 							
+				        <cfif len(Attributes.ObjectURL) lte 200 and len(Attributes.ObjectURL) gte 10>
+				            ObjectURL       = '#Attributes.ObjectURL#',
+						</cfif>
+				  		<cfif Attributes.ParentObjectId neq "">
+						    ParentObjectId = '#Attributes.ParentObjectId#', 
+					    </cfif> 	
+						<cfif Attributes.ObjectDue neq "">
+						ObjectDue        = '#Attributes.ObjectDue#',
+						</cfif>
+						<cfif Object.OrgUnit neq Attributes.OrgUnit and Attributes.OrgUnit neq "">
+						Orgunit          = '#Attributes.OrgUnit#',
+						Mission          = '#Attributes.Mission#',	
+						</cfif>
+						ObjectReference  = '#Attributes.ObjectReference#',
+				        ObjectReference2 = '#Attributes.ObjectReference2#',
+						PersonEMail      = '#Attributes.PersonEMail#'		  
+				  WHERE ObjectId    = '#Object.ObjectId#'   
+				  AND   Operational  = 1  
+			 </cfquery>		
+						 
 			 						
 		</cfif>		
 	

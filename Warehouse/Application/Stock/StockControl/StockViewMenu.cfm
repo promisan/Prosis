@@ -95,7 +95,7 @@
 
 <cfif unit neq "" or getAdministrator("#url.mission#") eq "1">
 
-<table width="100%" height="100%" border="0" cellspacing="0" class="tree" cellpadding="0" align="left">
+<table width="100%" height="100%" class="tree" cellpadding="0" align="left">
 	   
 	<tr>
 		<td align="left" valign="top">

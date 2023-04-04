@@ -12,14 +12,20 @@ password="#SESSION.dbpw#">
 
 <script language="JavaScript">
 	
-	function rostersearch(action,actionid,ajaxid) {  
-		ProsisUI.createWindow('mycandidate', 'Identify Candidates', '',{x:100,y:100,height:document.body.clientHeight-20,width:document.body.clientWidth-20,modal:true,resizable:false,center:true})    					
-	    ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Identify/DocumentCandidate.cfm?mode=vacancy&wActionId='+actionid+'&docno=#Doc.DocumentNo#&functionno=#Doc.FunctionNo#','mycandidate')
+	function rostersearch(action,actionid,ajaxid,param) {  	
+		ProsisUI.createWindow('mycandidate', 'Identify Candidates', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    					
+	    ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Identify/DocumentCandidate.cfm?wparam='+param+'&mode=vacancy&wActionId='+actionid+'&docno=#Doc.DocumentNo#&functionno=#Doc.FunctionNo#','mycandidate')
 	}
 	
 	function personprofile(doc,per) {
-		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateProfile.cfm?documentno=#Object.ObjectKeyValue1#&PersonNo='+per,'detailbox')
-		expandArea('mybox','detailbox')
+	
+	    if (document.getElementById('detailbox')) {
+	    	ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateProfile.cfm?documentno=#Object.ObjectKeyValue1#&PersonNo='+per,'detailbox')
+		    expandArea('mybox','detailbox')
+		} else {
+		  	ProsisUI.createWindow('detailbox', 'Profile', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    					
+			ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateProfile.cfm?documentno=#Object.ObjectKeyValue1#&PersonNo='+per,'detailbox')	
+		}
 	}	
 
 </script>

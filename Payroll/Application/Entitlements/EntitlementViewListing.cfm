@@ -104,7 +104,7 @@
 				   DependentId, 
 				   SalarySchedule, 
 				   (
-				    SELECT   SalaryTrigger
+				    SELECT   TOP 1 SalaryTrigger
 					FROM     Ref_PayrollComponent
 					WHERE    PayrollItem = F.PayrollItem
 					) as SalaryTrigger,

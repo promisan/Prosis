@@ -39,13 +39,13 @@
 
 <form method="post" name="postrequest" id="postrequest" height="98%">
 
-<table width="100%" height="100%" bgcolor="white">
+<table width="100%" height="98%" bgcolor="white">
 
 <tr><td id="process" align="center"></td></tr>
 
 <tr><td valign="top">
 	
-	<table width="96%" align="center" class="formpadding">
+	<table width="96%" class="formpadding">
 	
 	    <cfif url.status eq "1">
 		
@@ -61,11 +61,11 @@
 			<input type="radio" class="radiol" name="actionstatusselect" id="actionstatusselect" 
 				onclick="document.getElementById('actionstatusselected').value='1p'" value="1p" checked>
 				</td>
-				<td style="padding-left:5px;font-size:20px"><cf_tl id="Submit to reviewer"></td>
+				<td style="padding-left:5px;font-size:19px"><cf_tl id="Submit to reviewer"></td>
 				<td style="padding-left:5px">
 			<input type="radio" class="radiol" name="actionstatusselect" id="actionstatusselect" 
 				onclick="document.getElementById('actionstatusselected').value='1f'" value="1f"></td>
-				<td style="padding-left:5px;font-size:20px"><cf_tl id="Save as Forecast"> ( <cf_tl id="submit later"> )	</td></tr></table>
+				<td style="padding-left:5px;font-size:19px"><cf_tl id="Save as Forecast"> ( <cf_tl id="submit later"> )	</td></tr></table>
 					
 			</td>		
 			</tr>
@@ -175,7 +175,7 @@
 		   <cfset url.fun = "">
 		   <cfset previous = "">
 		   
-		   <table width="100%" cellspacing="0" cellpadding="0">
+		   <table width="100%">
 		   
 		   <cfoutput query="Requisition" group="EntryClass">
 		   
@@ -240,7 +240,7 @@
 			  		<table width="100%">
 					<tr><td valign="top" style="padding-top:1px" class="labelit"><cf_tl id="Comments">:</td>
 					<td width="90%" style="padding-top:4px">
-					    <textarea style="width:100%;padding:4px;font-size:12px" 
+					    <textarea style="width:100%;padding:4px;font-size:14px" 
 					     rows="5" id="RequisitionPurpose_#entryclass#" 
 						 name="RequisitionPurpose_#entryclass#" 
 						 class="regular"></textarea>

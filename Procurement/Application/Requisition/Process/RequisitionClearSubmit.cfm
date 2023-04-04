@@ -695,10 +695,13 @@
 
 <cfif Object.ObjectKeyValue1 eq "">
 
+    <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/>   
+
 	<script>  	 
 	   
 	    Prosis.busy('no')    				
-		#ajaxLink('RequisitionClearPending.cfm?role=#url.role#&message=#message#&mission=#URL.Mission#&period=#URL.Period#')#
+		#ajaxLink('RequisitionClearPending.cfm?role=#url.role#&message=#message#&mission=#URL.Mission#&period=#URL.Period#&mid=#mid#')#
 		try { 
 		refreshtree('#url.mission#','#url.period#','#url.role#');
 		se = opener.document.getElementById('button_#URL.Role#') 		

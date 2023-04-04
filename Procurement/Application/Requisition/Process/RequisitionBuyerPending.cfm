@@ -328,8 +328,7 @@
 		<tr><td colspan="2" class="line"></td></tr>
 		
 		<tr>
-			<td colspan="2" height="100%" style="padding-left:15px">
-			
+			<td colspan="2" height="100%" style="padding-left:15px">						
 				<cfinclude template="RequisitionListing.cfm">
 			</td>
 		</tr>		

@@ -230,7 +230,7 @@
 	</td>
 
 	<tr class="labelmedium2">
-		<TD style="height:24">Menu Icon:</TD>
+		<TD style="height:34px">Menu Icon:</TD>
 	<TD>
 
 	<table cellspacing="0" cellpadding="0">
@@ -250,15 +250,18 @@
 					onChange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/SubmenuImages.cfm?functionicon='+this.value,'showicon')">
 
 			<option value="Main"    selected>Default</option>
-				<option value="Report"   <cfif Line.FunctionIcon eq "Report">selected</cfif>>Report</option>
-				<option value="DataSet"  <cfif Line.FunctionIcon eq "Dataset">selected</cfif>>Dataset</option>
-				<option value="Monitor"  <cfif Line.FunctionIcon eq "Monitor">selected</cfif>>Monitor</option>
-				<option value="Schedule" <cfif Line.FunctionIcon eq "Schedule">selected</cfif>>Schedule</option>
-				<option value="List"     <cfif Line.FunctionIcon eq "List">selected</cfif>>List</option>
-				<option value="Log"      <cfif Line.FunctionIcon eq "Log">selected</cfif>>Log</option>
-				<option value="Audit"    <cfif Line.FunctionIcon eq "Audit">selected</cfif>>Audit</option>
-				<option value="Workflow" <cfif Line.FunctionIcon eq "Workflow">selected</cfif>>Workflow</option>
-				<option value="Tree"     <cfif Line.FunctionIcon eq "Tree">selected</cfif>>Tree</option>
+				<option value="Report"    <cfif Line.FunctionIcon eq "Report">selected</cfif>>Report</option>
+				<option value="DataSet"   <cfif Line.FunctionIcon eq "Dataset">selected</cfif>>Dataset</option>
+				<option value="Monitor"   <cfif Line.FunctionIcon eq "Monitor">selected</cfif>>Monitor</option>
+				<option value="Schedule"  <cfif Line.FunctionIcon eq "Schedule">selected</cfif>>Schedule</option>
+				<option value="Builder"   <cfif Line.FunctionIcon eq "Builder">selected</cfif>>Builder</option>
+				<option value="List"      <cfif Line.FunctionIcon eq "List">selected</cfif>>List</option>
+				<option value="Log"       <cfif Line.FunctionIcon eq "Log">selected</cfif>>Log</option>
+				<option value="User"      <cfif Line.FunctionIcon eq "User">selected</cfif>>User</option>
+				<option value="Roster"    <cfif Line.FunctionIcon eq "Roster">selected</cfif>>Roster</option>
+				<option value="Audit"     <cfif Line.FunctionIcon eq "Audit">selected</cfif>>Audit</option>
+				<option value="Workflow"  <cfif Line.FunctionIcon eq "Workflow">selected</cfif>>Workflow</option>
+				<option value="Tree"      <cfif Line.FunctionIcon eq "Tree">selected</cfif>>Tree</option>
 				<option value="HowTo"     <cfif Line.FunctionIcon eq "HowTo">selected</cfif>>Manual</option>
 
 <!---

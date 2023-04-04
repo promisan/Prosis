@@ -31,7 +31,6 @@
  <cfset URL.ActionID = "#Attributes.ActionId#">
  
  
- 
  <cfquery name="Object" 
 	datasource="appsOrganization" 
 	username="#SESSION.login#" 
@@ -63,7 +62,8 @@
 	AND       A.ActionCode      = AA.ActionCode
 	AND       C.EntityCode      = O.EntityCode
 	AND       C.EntityClass     = O.EntityClass
-	AND       A.ActionId        = '#Attributes.ActionId#' 	
+	AND       A.ActionId        = '#Attributes.ActionId#' 
+	
 	
 </cfquery>	
 
@@ -290,6 +290,7 @@
             Ref_Mission R ON OO.Mission = R.Mission INNER JOIN
             Ref_AuthorizationRoleOwner Own ON R.MissionOwner = Own.Code		
 	WHERE   OO.ObjectId = '#Object.ObjectId#'		
+	
  </cfquery>	
  
  <cfquery name="Param" 
@@ -299,34 +300,39 @@
  	SELECT  *
 	FROM    System.dbo.Parameter
  </cfquery>	
- 
- 
+  
  <cfif mailfrom neq "">
     <cfset mailFromName  = "#mailfromname#">  
 	<cfset mailFrom      = "#mailfrom#">
 	<cfset mailReply     = "#mailfrom#">  	
+	
  <cfelseif Object.MailFrom neq "">
     <cfset mailFromName  = "#Object.MailFrom#">  
 	<cfset mailFrom      = "#Object.MailFromAddress#">
 	<cfset mailReply     = "">	
+	
  <cfelseif client.eMail neq ""> 
     <cfset mailFromName  = "#SESSION.first# #SESSION.last#">
  	<cfset mailFrom      = "#client.eMail#">
 	<cfset mailReply     = "#mailfrom#">	
+	
  <cfelseif client.eMailExt neq "">
     <cfset mailFromName  = "#SESSION.first# #SESSION.last#">
     <cfset mailFrom      = "#client.eMailExt#">
 	<cfset mailReply     = "#mailfrom#">
+	
  <cfelseif FromAddress.EMailAddress neq "">
  	<cfset mailFromName  = "#FromAddress.Description#">
     <cfset mailfrom      = "#FromAddress.EMailAddress#">  
 	<cfset mailReply     = "#mailfrom#">
+	
  <cfelse>
     <cfset mailFromName  = "#Param.DefaultEMail#">
     <cfset mailfrom      = "#Param.DefaultEMail#">  
 	<cfset mailReply     = "#mailfrom#">
+	
  </cfif>
- 
+  
 <!--- ---------------- --->
 <!--- ----- FAIL  ----- --->
 <!--- ----------------- ---> 
@@ -523,7 +529,7 @@
 							 FROM     OrganizationObjectActionAccess A INNER JOIN
 									  System.dbo.UserNames U ON A.UserAccount = U.Account
 							 WHERE    A.ObjectId      = '#Object.ObjectId#' 					
-							 AND      A.AccessLevel   > '0' 
+							 AND      A.AccessLevel   >= '0' 
 							 AND      U.Disabled = 0
 											 	 				  
 					</cfquery>
@@ -561,7 +567,7 @@
 								 FROM     OrganizationObjectActionAccess A 
 								 WHERE    A.ObjectId      = '#Object.ObjectId#' 
 								 AND      A.ActionCode    = '#Object.ActionCode#' 
-								 AND      A.AccessLevel   > '0' 								 
+								 AND      A.AccessLevel   >= '0' 								 
 								 
 							)	 
 							
@@ -668,9 +674,7 @@
 		</cfswitch>
 	
 	</cfif>
-	
-	
-		
+			
 	<!--- check if user turned off the validation for this entity, 
 	if not record is found let it go through --->
 	
@@ -818,6 +822,8 @@
 			</cfswitch>	
 		
 		</cfif>
+		
+		
 						 
 		<!--- ----------------------------------- --->
 		<!--- ------------ATTACHMENTS ----------- --->
@@ -847,17 +853,36 @@
 		 			</cfif>	 
 					
 					<cfif attributes.sendAttPrior eq "1">					
+					
+					    <cfif Object.ActionViewMemo eq "Prior">
+						
+							<cfquery name="Prior" 
+							 datasource="AppsOrganization"
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+								 SELECT   *
+								 FROM     OrganizationObjectAction
+								 WHERE    Objectid = '#Object.Objectid#'
+								 AND      ActionFlowOrder < (SELECT       ActionFlowOrder
+	                             		                     FROM         OrganizationObjectAction
+			                                                 WHERE        ActionId   = '#Object.ActionId#')
+								 ORDER BY ActionFlowOrder DESC							  							
+							</cfquery> 
+												
+						<cfelse>					
 										
-						<cfquery name="Prior" 
-						 datasource="AppsOrganization"
-						 username="#SESSION.login#" 
-						 password="#SESSION.dbpw#">
-							 SELECT       TOP 1 ActionId
-		                     FROM         OrganizationObjectAction
-		                     WHERE        ObjectId   = '#Object.ObjectId#' 
-							 AND          ActionCode = '#Object.ActionViewMemo#'
-		                     ORDER BY     Created DESC
-						</cfquery> 
+							<cfquery name="Prior" 
+							 datasource="AppsOrganization"
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+								 SELECT       TOP 1 ActionId
+			                     FROM         OrganizationObjectAction
+			                     WHERE        ObjectId   = '#Object.ObjectId#' 
+								 AND          ActionCode = '#Object.ActionViewMemo#' 
+			                     ORDER BY     Created DESC
+							</cfquery> 
+						
+						</cfif>
 					
 						<cfif prior.recordcount eq "1">
 						
@@ -1065,6 +1090,8 @@
 				<cfelse>
 					<cfset fromm = "#mailfrom#">
 				</cfif>
+				
+				
 							
 				<!--- adjusted the failto for Exchange issue at promisan --->
 				
@@ -1087,8 +1114,7 @@
 								
 				<!--- ----------- --->
 				<!--- now we send --->
-				<!--- ----------- --->
-			
+				<!--- ----------- --->			
 				
 				<cfif Mail.MailTo eq "Recipient">
 				
@@ -1281,8 +1307,8 @@
 					  
 					</cfloop>	
 									
-				<cfelse>					
-												
+				<cfelse>	
+											
 						<cfmail FROM        = "#fromm#"
 								TO          = "#mailto#"
 								CC          = "#SendCC#"

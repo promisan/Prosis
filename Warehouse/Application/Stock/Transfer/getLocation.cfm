@@ -21,6 +21,8 @@
  
 <cfoutput>
 
+
+
 <cfif conversion eq "0">		
  	 
 	 <cfquery name="Default"
@@ -32,11 +34,11 @@
              WHERE    Warehouse = '#url.warehouse#'
 			 AND      ItemNo = '#Transaction.ItemNo#'
 			 AND      Location != '#Transaction.Location#'
-			  AND   Location NOT IN (SELECT LocationReceipt 
-			                        FROM   Warehouse 
-									WHERE  Warehouse = '#url.warehouse#') 
+			 AND      Location NOT IN (SELECT LocationReceipt 
+			                           FROM   Warehouse 
+							   		   WHERE  Warehouse = '#url.warehouse#') 
 			 AND      Operational = 1
-			 ORDER BY PickingOrder
+			 ORDER BY Location
      </cfquery>   
 	 
 	 <!--- we get the locations and but show the location that have stock for this item first --->

@@ -502,14 +502,14 @@ password="#SESSION.dbpw#">
 								
 								<cf_tl id="Select the person recorded for the Invoice" var="1">
 															
-							  	<cfinput type   = "text" 
-									  name      = "customerinvoiceselect" id="customerinvoiceselect"	
-									  onfocus   = "document.getElementById('customerselectbox').className ='hide';" 
-									  onblur    = "this.style.border='0px solid silver';forceSelect(this, 'customerinvoiceidselect');"			 
-									  style     = "padding-left:4px;;background-image:linear-gradient(to bottom,##ffffff,##ffffff);padding-left:3px;width:90px;height:26;font-size:14px" 	
+							  	<cfinput type      = "text" 
+									  name         = "customerinvoiceselect" id="customerinvoiceselect"	
+									  onfocus      = "document.getElementById('customerselectbox').className ='hide';" 
+									  onblur       = "this.style.border='0px solid silver';forceSelect(this, 'customerinvoiceidselect');"			 
+									  style        = "padding-left:4px;text-align:center;background-image:linear-gradient(to bottom,##ffffff,##ffffff);padding-left:3px;width:80px;height:26;font-size:14px" 	
 									  autocomplete = "off"			  									  							  	  
-									  onkeyup   = "searchcombo('#get.mission#','#url.warehouse#','','customerinvoice',this.value,'up','','##customerinvoiceidselect_val');"
-									  onkeydown = "searchcombo('#get.mission#','#url.warehouse#','','customerinvoice',this.value,'down','','##customerinvoiceidselect_val');">
+									  onkeyup      = "searchcombo('#get.mission#','#url.warehouse#','','customerinvoice',this.value,'up','','##customerinvoiceidselect_val');"
+									  onkeydown    = "searchcombo('#get.mission#','#url.warehouse#','','customerinvoice',this.value,'down','','##customerinvoiceidselect_val');">
 								  							  
 								  </td>
 								

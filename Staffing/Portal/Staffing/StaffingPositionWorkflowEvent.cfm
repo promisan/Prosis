@@ -117,9 +117,7 @@ password="#SESSION.dbpw#">
 			</table>
 	
 	<cfelse>
-	
-		<cfif mde neq "spa">
-		
+			
 			<table style="width:100%">
 				<tr class="labelmedium" style="height:18px">
 				<cfoutput>
@@ -139,9 +137,7 @@ password="#SESSION.dbpw#">
 					</a> 
 				</cfoutput>
 				</tr>
-			</table>
-		
-		</cfif>
+			</table>	
 		
 	 </cfif>	
 	

@@ -139,6 +139,7 @@
 						#Action.ActionCode#</td>
 					</cfif>
 				   <td width="70"  id="y#Action.ActionCode#">
+				   #Action.ActionLeadTime#d
 				    <!--- not needed anymore
 				    <cfset pre = "Action.">
 				    <cfinclude template="FlowViewDisplay.cfm">					 
@@ -243,7 +244,7 @@
 					</cfif>
 					</td>
 					
-					<td align="right" id="y#Action.ActionCode#"></td>					
+					<td align="right" id="y#Action.ActionCode#">#Action.ActionLeadTime#d</td>					
 					
 					<td align="right" id="z#Action.ActionCode#">
 					

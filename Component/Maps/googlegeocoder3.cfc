@@ -1,12 +1,12 @@
 <cfcomponent output="false">
 
 	  <cffunction name="googlegeocoder3" returntype="query" access="public">
-	    <cfargument name="address" required="false" type="string" default="">
-	    <cfargument name="latlng" required="false" type="string" default="">
-	    <cfargument name="language" required="false" type="string" default="">
-	    <cfargument name="bounds" required="false" type="string" default="">
-	    <cfargument name="region" required="false" type="string" default="">
-	    <cfargument name="sensor" required="false" type="boolean" default="false">
+	    <cfargument name="address"     required="false" type="string"  default="Aruba">
+	    <cfargument name="latlng"      required="false" type="string"  default="">
+	    <cfargument name="language"    required="false" type="string"  default="">
+	    <cfargument name="bounds"      required="false" type="string"  default="">
+	    <cfargument name="region"      required="false" type="string"  default="">
+	    <cfargument name="sensor"      required="false" type="boolean" default="false">
 	    <cfargument name="ShowDetails" required="false" type="boolean" default="false">
 	
 	   <cfif arguments.ShowDetails>
@@ -24,7 +24,7 @@
 			  	  
 		    <cfelse>
 			
-		      <cfset variables.base_url = "http://maps.google.com/maps/api/geocode/xml?">
+		      <cfset variables.base_url = "https://maps.google.com/maps/api/geocode/xml?">
 		      <cfif len(trim(arguments.address)) is not 0>
 		        <cfset variables.address_string = urlEncodedFormat(arguments.address)>
 		        <cfset variables.final_url = variables.base_url & "address=" & variables.address_string>
@@ -42,8 +42,18 @@
 		      <cfif len(trim(arguments.region)) is not 0>
 		        <cfset variables.final_url = variables.final_url & "&region=" & arguments.region>
 		      </cfif>
+			  
+			  <!---
+			  <cfoutput>
+			  #variables.final_url#&key=#client.googlemapid#
+			  </cfoutput>
+			  --->
 		
-			  <cfhttp url="#variables.final_url#" result="variables.resultxml">
+			  <cfhttp url="#variables.final_url#&key=#client.googlemapid#" result="variables.resultxml">
+			  
+			  <!---
+			  <cfoutput>-----<cfdump var="#variables.resultxml#">-----</cfoutput>
+			  --->
 		
 			  <cfset variables.parsed_result = xmlParse(variables.resultxml.fileContent)>	  	  	  
 		
@@ -54,8 +64,9 @@
 		      <cfset variables.temp = QuerySetCell(variables.geocode_query, "Status", variables.parsed_result.GeocodeResponse.status.xmltext)>
 			  
 		      <cfset variables.result_status = variables.parsed_result.GeocodeResponse.status.xmltext>
-		
-		      <cfif StructKeyExists(variables.parsed_result.GeocodeResponse, "result")>
+			 
+		      <cfif StructKeyExists(variables.parsed_result.GeocodeResponse, "result")>			  
+			  
 		  	    <cfloop from="1" to="#ArrayLen(variables.parsed_result.GeocodeResponse.result)#" index="counter">  
 		          <cfset variables.type_list = "">
 		          <cfloop from="1" to="#ArrayLen(variables.parsed_result.GeocodeResponse.result[counter].type)#" index="type_counter">

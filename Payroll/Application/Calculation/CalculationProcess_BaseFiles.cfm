@@ -67,6 +67,7 @@ password="#SESSION.dbpw#">
 	 SELECT PersonNo,
 	        MIN(DateEffective)      as AssignmentEffective,
 		    MAX(DateExpiration)     as AssignmentExpiration,
+						
 			MAX(OrgUnitOperational) as OrgUnit,  <!--- provision only if there are double records, very unlikely --->
 			MAX(PositionNo)         as PositionNo
 			

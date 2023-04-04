@@ -420,7 +420,7 @@ password="#SESSION.dbpw#">
 	   
 	   <cfif preparationMode eq "SSA">
 	     
-	   	 <select name="contractor" id="contractor" class="regularxxl" style="width:200px" onChange="reloadForm(document.getElementById('period').value,this.value)">
+	   	 <select name="contractor" id="contractor" class="regularxxl" style="width:400px" onChange="reloadForm(document.getElementById('period').value,this.value)">
 		      <option value=""><cf_tl id="select"></option>
 			  <cfoutput query="Contractor">
 			     <option value="#PersonNo#,#personclass#" <cfif url.contractor eq "#PersonNo#,#PersonClass#"> SELECTED</cfif>>#FirstName# #LastName# <cfif personclass eq "applicant">[<cf_tl id="Candidate">]</cfif></option>
@@ -429,7 +429,8 @@ password="#SESSION.dbpw#">
 	   
 	   <cfelse>
 	   
-	    <select name="contractor" id="contractor" class="regularxxl" style="width:200px" onChange="reloadForm(document.getElementById('period').value,this.value)">
+	   
+	    <select name="contractor" id="contractor" class="regularxxl" style="width:400px" onChange="reloadForm(document.getElementById('period').value,this.value)">
 		      <option value=""><cf_tl id="select"></option>
 			  <cfoutput query="Contractor">
 			     <option value="#OrgUnitVendor#,vendor" <cfif vendor eq OrgUnitVendor> SELECTED</cfif>>#OrgUnitName#</option>
@@ -601,9 +602,9 @@ password="#SESSION.dbpw#">
 	<cfparam name="PurchaseRemarks" default="">
 	
 	<tr>
-		   <td class="labelmedium2" valign="top" style="padding-top:3px;padding-left:10px"><cf_tl id="Remarks">:</b></td>
+		   <td class="labelmedium2" valign="top" style="padding-top:3px;padding-left:50px"><cf_tl id="Remarks">:</td>
 		   <td>
-		      <textarea style="width:100%;height:40;padding:3px;font-size:13px" class="regular" name="Remarks"><cfoutput>#Purchaseremarks#</cfoutput></textarea>
+		      <textarea style="width:100%;height:40;padding:4px;font-size:14px" class="regular" name="Remarks"><cfoutput>#Purchaseremarks#</cfoutput></textarea>
 		   </td>
 		</tr>
 	

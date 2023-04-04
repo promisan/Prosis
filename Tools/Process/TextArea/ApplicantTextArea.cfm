@@ -89,129 +89,133 @@
 			
 			<cfoutput query="Notes">
 			
-			<cfif norows neq "">
-				<cfset ht =  NoRows*15>				
-			<cfelse>
-				<cfset ht =  attributes.height>
-			</cfif>	
-			
-			<tr><td style="height:4px"></td></tr>		
+			    <cfif attributes.mode eq "View" and evaluate(attributes.fieldoutput) eq "">
 				
-			<tr>
-			   
-				<td colspan="2">
-
-				    <table width="100%">
-					<tr>					
-						<td align="left" style="<cfif attributes.mode eq 'edit'>border:1px solid silver;border-bottom:0px</cfif>;background-color:f1f1f1;height:40px;padding-left:4px">  
-							<table>
-								<tr>
-									<cfif attributes.mode eq "View" and attributes.toggle eq "Yes">
-										<td> <cf_img icon="expand" toggle="yes" onclick="toggleTextArea('div_#Code#')"> </td>
-									</cfif>
-									<td style="font-size:20px" class="<cfif attributes.mode eq 'View'>labelmedium<cfelse>labelmedium</cfif>">
-										#Description#
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>	
+				<cfelse>
 									
-					<cfif explanation neq "">
-						<tr><td align="left" style="padding-left:6px" class="labelit">#Explanation#</td></tr>
-					</cfif>
-					
-					<cfif attributes.mode eq "View">
+				<cfif norows neq "">
+					<cfset ht =  NoRows*15>				
+				<cfelse>
+					<cfset ht =  attributes.height>
+				</cfif>	
+			
+				<tr><td style="height:4px"></td></tr>		
+				
+				<tr>
+				   
+					<td colspan="2">
+	
+					    <table width="100%">
+						
+							<tr>					
+								<td align="left" style="<cfif attributes.mode eq 'edit'>border:1px solid silver;border-bottom:0px solid silver;background-color:f1f1f1<cfelse>font-weight:bold</cfif>;height:36px;padding-left:4px">  
+									<table>
+										<tr>
+											<cfif attributes.mode eq "View" and attributes.toggle eq "Yes">
+												<td> <cf_img icon="expand" toggle="yes" onclick="toggleTextArea('div_#Code#')"> </td>
+											</cfif>
+											<td style="font-size:17px;<cfif attributes.mode neq 'edit'>font-weight:bold</cfif>" class="labelmedium">#Description#</td>
+										</tr>
+									</table>
+								</td>
+							</tr>	
 											
-						<tr class="linedotted">
-						<td align="left" class="labelmedium2" colspan="2" style="padding-left:5px;padding-top:2px; <cfif attributes.toggle eq 'Yes'>display:none;</cfif>" id="div_#Code#">
-						     <!---
-							 <cf_paragraph>
-							 --->
-								<cfif evaluate(attributes.fieldoutput) eq "">
-								   -N/A-
-								<cfelse>
-									#ParagraphFormat(evaluate(attributes.fieldoutput))#
-								</cfif>	
-							<!---	
-							</cf_paragraph>
-							--->
-						</td>
-						</tr>
-					</cfif>
-					
-					</table>
-				</td>
-				
-				<cfif attributes.mode eq "edit">
-				
-					</tr>
-					
-					<tr>					
-									   				
-					<cfif Attributes.Format eq "Text">
-					
-					 <td colspan="3" syule="padding-top:5px" align="center" id="div_#Code#">	
-					 																					
-						<textarea style="height:#ht#;width:100%;font-size:13px;padding:3px;border:1px solid silver" name="#Code#_#Attributes.languageCode#"  id="#Code#_#Attributes.languageCode#"
-						 class="regular">#evaluate(attributes.fieldoutput)#</textarea>		
-						 			   
-					<cfelse>
-					
-					   <td colspan="3" align="center" style="border: 0px solid Silver;padding-right:2px"> 
-					   		  <cfif Evaluate(attributes.fieldoutput) eq "" and attributes.PathDefault neq "">							  			  
-							  	<cfset url.languagecode = Attributes.languagecode>
-								<cfinclude template="../../../Custom#attributes.PathDefault##CODE#.cfm">
-							  <cfelse>
-							 	<cfset vText = evaluate(attributes.fieldoutput)>
-							  </cfif>	
-							  
-							 <cfif attributes.Format eq "RichTextFull">
-								  <cfset rt = "Full">	
-							 <cfelseif attributes.Format eq "Mini">
-								  <cfset rt = "Mini">			  							
-							 <cfelse>
-							  	  <cfset rt = "Basic">	  
-							 </cfif>		
-							  
-							 <cfif attributes.height neq "100%">							  
-								  <cfset ht = attributes.height>							  
-							 <cfelse>							  
-								  <cfset ht = "290">							  
-							 </cfif>																		
-							  
-							 <cfif findNoCase("cf_nocache",cgi.query_string) or attributes.ajax eq "Yes"> 
-							  					    							  
-								  <cf_textarea name="#Code#_#Attributes.languageCode#" 
-								     toolbar="#rt#" 									 
-									 color="ffffff" 
-									 height="#ht#" 
-									 resize="false"><cf_paragraph>#vText#</cf_paragraph></cf_textarea>																
-								 
-							 <cfelse>
-							 							 							 
-								  <cf_textarea name="#Code#_#Attributes.languageCode#" 
-								     toolbar="#rt#" 
-									 init="Yes" 
-									 color="ffffff" 
-									 height="#ht#" 
-									 resize="false"><cf_paragraph>#vText#</cf_paragraph></cf_textarea>		
-							 							 
-							 </cfif>	 
-												
-						</cfif>
-												
+							<cfif explanation neq "">
+								<tr><td align="left" style="padding-left:6px" class="labelit">#Explanation#</td></tr>
+							</cfif>
+							
+							<cfif attributes.mode eq "View">
+													
+								<tr>
+								<td align="left" class="labelmedium2" colspan="2" style="padding-left:5px;padding-top:2px; <cfif attributes.toggle eq 'Yes'>display:none;</cfif>" id="div_#Code#">
+								     <!---
+									 <cf_paragraph>
+									 --->
+										<cfif evaluate(attributes.fieldoutput) eq "">
+										   -N/A-
+										<cfelse>
+											#ParagraphFormat(evaluate(attributes.fieldoutput))#
+										</cfif>	
+									<!---	
+									</cf_paragraph>
+									--->
+								</td>
+								</tr>
+							</cfif>
+						
+						</table>
 					</td>
+					
+					<cfif attributes.mode eq "edit">
+					
+						</tr>
+					
+						<tr>					
+									   				
+						<cfif Attributes.Format eq "Text">
+						
+						 <td colspan="3" syule="padding-top:5px" align="center" id="div_#Code#">	
+						 																					
+							<textarea style="height:#ht#;width:100%;font-size:13px;padding:3px;border:1px solid silver" name="#Code#_#Attributes.languageCode#"  id="#Code#_#Attributes.languageCode#"
+							 class="regular">#evaluate(attributes.fieldoutput)#</textarea>		
+							 			   
+						<cfelse>
+						
+						   <td colspan="3" align="center" style="border: 0px solid Silver;padding-right:2px"> 
+						   
+						   		  <cfif Evaluate(attributes.fieldoutput) eq "" and attributes.PathDefault neq "">							  			  
+								  	<cfset url.languagecode = Attributes.languagecode>
+									<cfinclude template="../../../Custom#attributes.PathDefault##CODE#.cfm">
+								  <cfelse>
+								 	<cfset vText = evaluate(attributes.fieldoutput)>
+								  </cfif>	
+								  
+								 <cfif attributes.Format eq "RichTextFull">
+									  <cfset rt = "Full">	
+								 <cfelseif attributes.Format eq "Mini">
+									  <cfset rt = "Mini">			  							
+								 <cfelse>
+								  	  <cfset rt = "Basic">	  
+								 </cfif>		
+								  
+								 <cfif attributes.height neq "100%">							  
+									  <cfset ht = attributes.height>							  
+								 <cfelse>							  
+									  <cfset ht = "290">							  
+								 </cfif>																		
+								  
+								 <cfif findNoCase("cf_nocache",cgi.query_string) or attributes.ajax eq "Yes"> 
+								  					    							  
+									  <cf_textarea name="#Code#_#Attributes.languageCode#" 
+									     toolbar="#rt#" 									 
+										 color="ffffff" 
+										 height="#ht#" 
+										 resize="false"><cf_paragraph>#vText#</cf_paragraph></cf_textarea>																
+									 
+								 <cfelse>
+								 							 							 
+									  <cf_textarea name="#Code#_#Attributes.languageCode#" 
+									     toolbar="#rt#" 
+										 init="Yes" 
+										 color="ffffff" 
+										 height="#ht#" 
+										 resize="false"><cf_paragraph>#vText#</cf_paragraph></cf_textarea>		
+								 							 
+								 </cfif>	 
+													
+							</cfif>
+												
+					   </td>
 				
-				</cfif>
+				  </cfif>
 				
-			</tr>			
+			</tr>		
+			
+			</cfif>	
 					
 			</cfoutput>
 			
-			</table>
-						
-		
+			</table>	
 				
 	<cfelse>
 	

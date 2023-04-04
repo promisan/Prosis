@@ -84,7 +84,11 @@ password="#SESSION.dbpw#">
 				password="#SESSION.dbpw#">		
 				  SELECT *
 				  FROM  CustomerTaxCode
+				  <cfif url.drillid neq "">
 				  WHERE CustomerId = '#url.drillid#'
+				  <cfelse>
+				  WHERE 1=0
+				  </cfif>
 				  AND   Source = 'Tax'
 			</cfquery>		
 			 
@@ -118,7 +122,11 @@ password="#SESSION.dbpw#">
 				password="#SESSION.dbpw#">		
 				  SELECT *
 				  FROM  CustomerTaxCode
+				    <cfif url.drillid neq "">
 				  WHERE CustomerId = '#url.drillid#'
+				  <cfelse>
+				  WHERE 1=0
+				  </cfif>
 				  AND   Source = 'Civilian'
 			 </cfquery>		  
 			 

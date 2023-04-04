@@ -12,6 +12,8 @@
 </cfif>
 --->
 
+ <cfset ref = evaluate("Form.TaxCodeTax")>
+
 <cfquery name="Parameter" 
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
@@ -59,8 +61,8 @@ password="#SESSION.dbpw#">
 			OrgUnit,
 			</cfif>
 			CustomerName,
-			CustomerDOB,			
-			Reference,			
+			CustomerDOB,		
+						
 			<cfif Form.PhoneNumber neq "">
 			PhoneNumber,
 			</cfif>
@@ -96,8 +98,7 @@ password="#SESSION.dbpw#">
 			'#Form.OrgUnit#',
 			</cfif>
 			'#Form.CustomerName#',
-			#DOB#,			
-			'#ref#',
+			#DOB#,						
 			<cfif Form.PhoneNumber neq "">
 			'#Form.PhoneNumber#',
 			</cfif>

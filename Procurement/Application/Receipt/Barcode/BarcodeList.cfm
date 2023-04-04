@@ -64,7 +64,8 @@
                             <cfquery name="GetDistinctPrices" dbtype="query">
                                 SELECT DISTINCT 
                                         PriceSchedule, 
-                                        PriceScheduleDescription
+                                        PriceScheduleDescription,
+                                        FieldDefault
                                 FROM   	GetPrices
                                 ORDER BY ListingOrder ASC
                             </cfquery>
@@ -79,7 +80,7 @@
                                                 id="fprice#priceschedule#" 
                                                 value="#priceschedule#"
                                                 style="height:15px; width:15px;" 
-                                                checked>
+                                                <cfif fieldDefault eq 1>checked</cfif>>
                                         </td>
                                         <td class="labelmedium" style="padding-left:5px;"><label for="fprice#priceschedule#">#PriceScheduleDescription#</label></td>
                                     </tr>

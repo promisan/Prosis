@@ -13,11 +13,12 @@
 <cfoutput>
 		
 	<script>
-		document.getElementById('orgunit').value       = '#get.OrgUnit#'	
-		document.getElementById('parentorgunit').value = '#get.OrgUnitCode#'
-		document.getElementById('mission').value       = '#get.Mission#'
-		document.getElementById('orgunitnameparent').value = '#get.OrgUnitName#'
-		document.getElementById('orgunitclass').value   = '#get.OrgUnitClass#'		
+	   
+		document.getElementById("orgunit").value        = '#get.OrgUnit#'				
+		document.getElementById("orgunitname").value    = '#get.OrgUnitName#'
+		<!--- document.getElementById("orgunitcode").value    = '#get.OrgUnitCode#' --->		
+		document.getElementById("orgunitclass").value   = '#get.OrgUnitClass#'
+		
 	</script>	
 
 </cfoutput>

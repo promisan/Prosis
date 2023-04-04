@@ -1,7 +1,9 @@
 
+<cfparam name="url.domain" default="JobProfile">
+
 <cf_ApplicantTextArea
 		Table           = "FunctionOrganizationNotes" 
-		Domain          = "JobProfile"
+		Domain          = "#url.domain#"
 		FieldOutput     = "ProfileNotes"
 		Mode            = "save"
 		Key01           = "FunctionId"

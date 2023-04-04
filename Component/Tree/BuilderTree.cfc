@@ -501,8 +501,8 @@
 
 						</cfif>
 
-						<cfif len(val) gt 20>
-							<cfset dis = "#left(val,20)#..">
+						<cfif len(val) gt 80>
+							<cfset dis = "#left(val,80)#..">
 						<cfelse>
 							<cfset dis = val>
 						</cfif>

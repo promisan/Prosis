@@ -274,10 +274,10 @@
 	  <tr><td>
 	  	<table width="100%"><tr>
 		<td>
-		  <table width="200" align="center" style="border:1px solid silver">
+		  <table width="100%" align="center" style="border:1px solid silver">
 		<tr>
 		
-		<td width="170">
+		<td title="Search for quote order">
 		
 		<input type="text" 
 		   name="searchme" 
@@ -300,9 +300,7 @@
 	  </cfoutput>
 	  
 	  <tr><td id="findme"></td></tr>
-	  
-	 <tr><td height="1" class="linedotted"></td></tr>
-	  
+	  	  
 	  <cfquery name="Check" 
 	  datasource="AppsQuery" 
 	  username="#SESSION.login#" 
@@ -331,9 +329,7 @@
 				</td></tr></table>					
 				
 	  </td></tr>	
-	  
-	   <tr><td height="1" class="linedotted"></td></tr>
-					
+	  					
 	  <cfelse>
    		<tr><td height="40" align="center" class="labelmedium"><cf_tl id="Alert"></b>:<cf_tl id="REQ036">!</td></tr>
 		 <tr><td height="1" class="linedotted"></td></tr>

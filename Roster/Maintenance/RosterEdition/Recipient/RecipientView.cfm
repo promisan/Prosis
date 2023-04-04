@@ -70,14 +70,14 @@ password="#SESSION.dbpw#">
 		
 </cfif>
 
-<TR>
+<TR class="line">
 	<TD></TD>
 	<TD height="30">
 		<table>
 			<tr>				
-				<td class="labelmedium" id="ltypesrecipients"><cf_tl id="Addressee Selection"></td>
+				<td class="labelmedium2 fixlength" id="ltypesrecipients"><cf_tl id="Addressee Selection"></td>
 				<cfset link = "#SESSION.root#/roster/maintenance/rosteredition/Recipient/RecipientAddressType.cfm?submissionedition=#url.submissionedition#">			
-				<TD  class="labelmedium" style="padding-right:40px" id="dTypesRecipients">
+				<TD class="labelmedium" style="padding-top:1px" id="dTypesRecipients">
 				<cf_securediv bind="url:#link#" id="types">
 				</TD>
 			</tr>
@@ -85,8 +85,6 @@ password="#SESSION.dbpw#">
 	</TD>
 	
 </TR>
-
-<tr><td colspan="3" class="linedotted"></td></tr>
 
 <tr><td class="hide" id="recipientprocess"></td></tr>
 
@@ -96,8 +94,8 @@ password="#SESSION.dbpw#">
 		<table>
 			<tr>				
 				<td class="labelmedium" id="lrecipients"><cf_tl id="Recipients"></td>
-				<td style="padding-left:7px" class="labelmedium"><a href="javascript:recipientselectall('#url.submissionedition#')">[Select all]</a></td>
-				<td style="padding-left:5px" class="labelmedium"><a href="javascript:recipientremoveall('#url.submissionedition#')">[Remove all]</a></td>
+				<td style="padding-left:7px" class="labelmedium2"><a href="javascript:recipientselectall('#url.submissionedition#')">[Select all]</a></td>
+				<td style="padding-left:5px" class="labelmedium2"><a href="javascript:recipientremoveall('#url.submissionedition#')">[Remove all]</a></td>
 			</tr>
 		</table>
 	</TD>

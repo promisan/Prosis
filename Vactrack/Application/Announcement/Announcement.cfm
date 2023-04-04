@@ -1,9 +1,11 @@
 
-<cf_param name="URL.ID"          default="" 	type="String">
-<cf_param name="URL.Header"      default="Yes" 	type="String">
-<cf_param name="URL.Apply"       default="0" 	type="String">
-<cf_param name="URL.ApplicantNo" default=""	 	type="String">
-<cf_param name="URL.Mode"        default="View" type="String">
+<cf_param name="URL.ID"          default="" 	    type="String">
+<cf_param name="URL.Header"      default="Yes" 	    type="String">
+<cf_param name="URL.External"    default="1" 	    type="String">
+<cf_param name="URL.Apply"       default="0" 	    type="String">
+<cf_param name="URL.ApplicantNo" default=""	 	    type="String">
+<cf_param name="URL.Mode"        default="View"     type="String">
+<cf_param name="URL.Domain"      default="JobProfile" type="String">
 
 <cf_tl id="Job Description" var="label">
 
@@ -16,7 +18,7 @@
 		jquery    = "Yes"
 		label     = "#label#" 		
 		scroll    = "Yes"		
-		menuPrint = "Yes"
+		menuPrint = "No"
 		menuClose = "Yes">
 				
 		<cf_textareascript>
@@ -35,9 +37,9 @@
 </cfif> 
 
 <cfquery name="VA"
-         datasource="AppsSelection"
-         username="#SESSION.login#"
-         password="#SESSION.dbpw#">
+        datasource="AppsSelection"
+        username="#SESSION.login#"
+        password="#SESSION.dbpw#">
          SELECT *
          FROM   FunctionOrganization F1, 
 		        Ref_SubmissionEdition E, 
@@ -72,7 +74,14 @@
          SELECT *
          FROM   FunctionOrganizationNotes 
 		 WHERE  FunctionId = '#URL.ID#' 
+		 AND    TextAreaCode IN (SELECT Code FROM Ref_TextArea WHERE TextAreaDomain = '#url.domain#')
 </cfquery>
+
+<cfif VAText.recordcount eq "0">
+
+	<cfset url.domain = "Position">
+
+</cfif>
 
 <cfquery name="Owner"
          datasource="AppsSelection"
@@ -83,13 +92,13 @@
 		 WHERE  Owner = '#VA.Owner#' 
 </cfquery>
 
+<cfif FileExists("#SESSION.rootPath#\Custom\#Owner.PathVacancyText#") and url.apply neq "1" and url.external eq "1">
 
-<cfif FileExists("#SESSION.rootPath#\Custom\#Owner.PathVacancyText#") and url.apply neq "1">
+       <!--- disalbed --->
 
 	   <table border="0" bgcolor="ffffff" height="100%" width="95%" align="center">
-	   <tr><td height="100%" width="100%" style="padding:20px">	  
-	   
-	     	   	  
+	   <tr><td height="100%" width="100%" style="padding:10px">	  
+	   	 	   	     	   	  						  
 		      <!--- custom path --->			  
 				  	   	      
 			<cfset URL.ID1 = VA.ReferenceNo>						
@@ -100,100 +109,87 @@
 	  </table>	
 		
 <cfelse>
-		
+
+    <cf_divscroll>
+	
 	<cfoutput query = "VA">
 		
-	   <table border="0" cellpadding="0" cellspacing="0" width="96%" align="center" class="formpadding">
-	   	    		 
-		<cfif PostSpecific eq "1">
-		
-		<tr class="labelmedium">
-	        <td width="160" style="padding-left:3px" align="left">Position specific:</b></td>
-	        <td width="80%" align="left"><cfif PostSpecific eq "1">Yes<cfelse>No</cfif><td>
-		</tr>		
-		
-		</cfif>
-		
-		<cfif VA.Announcement eq "1">   	
-	
-			<tr class="labelmedium">
-		        <td align="left" style="padding-left:3px">Post date:</td>
-		        <td align="left">#Dateformat(DateEffective, "#CLIENT.DateFormatShow#")#<td>
+	   <table width="98%" align="center" class="formpadding">
+	   
+	   	   	    		 
+			<cfif PostSpecific eq "1">
+			
+			<tr class="labelmedium2" style="height:20px">
+		        <td style="padding-left:3px" align="left">Position specific:</b></td>
+		        <td><cfif PostSpecific eq "1">Yes<cfelse>No</cfif><td>
 			</tr>		
 			
-			 <tr class="labelmedium">
-		        <td width="130" style="padding-left:3px" align="left">Reference No:</b></td>
-		        <td align="left"><cfif ReferenceNo eq "">n/a<cfelse>#ReferenceNo#</cfif><td>
-			</tr>	
-		
-		    <cfif DateExpiration neq "">
-				<tr class="labelmedium">
-			        <td align="left" style="padding-left:3px">Expiration date:</td>
-			        <td align="left">#Dateformat(DateExpiration, "#CLIENT.DateFormatShow#")#<td>
-				</tr>		
 			</cfif>
-		
-		     <tr class="labelmedium">
-		        <td align="left" style="padding-left:3px"><cf_tl id="Title">:</td>
-		        <td align="left" colspan="1">#FunctionDescription# - #GradeDeployment#</td>
-		     </tr>
 			
-			 <tr class="labelmedium">
-		        <td align="left" style="padding-left:3px"><cf_tl id="Area">:</td>
-		        <td align="left" colspan="1">#OrganizationDescription#</td>
-		     </tr>
-		 
-			 <tr><td height="3"></td></tr>
-			 <tr><td height="1" colspan="3" class="linedotted"></td></tr>
-			 <tr><td height="2"></td></tr>
-			 
-		 </cfif>			
-		 
-		 <cfif url.applicantNo neq "undefined">
-		  
-			 <cfif Applicant.recordcount gte "1">
-				  
-				  <tr class="labelmedium">
-			        <td align="left" style="padding-left:3px">Applicant:</b></td>
-			        <td align="left" colspan="1">#Applicant.FirstName# #Applicant.LastName#</td>
+			<cfif VA.Announcement eq "1">   	
+		
+				<tr class="labelmedium2" style="height:20px">
+			        <td style="padding-left:3px"><cf_tl id="Effective">:</td>
+			        <td>#Dateformat(DateEffective, "#CLIENT.DateFormatShow#")#</td>				
+			        <td style="padding-left:3px"><cf_tl id="Reference">:</b></td>
+			        <td><cfif ReferenceNo eq "">n/a<cfelse>#ReferenceNo#</cfif></td>
+				</tr>	
+			
+			    <cfif DateExpiration neq "">
+					<tr class="labelmedium2" style="height:20px">
+				        <td style="padding-left:3px"><cf_tl id="Expiration">:</td>
+				        <td>#Dateformat(DateExpiration, "#CLIENT.DateFormatShow#")#</d>
+					</tr>		
+				</cfif>
+			
+			     <tr class="labelmedium2" style="height:20px">
+			        <td style="padding-left:3px"><cf_tl id="Title">:</td>
+			        <td>#FunctionDescription# - #GradeDeployment#</td>			     
+			        <td style="padding-left:3px"><cf_tl id="Area">:</td>
+			        <td>#OrganizationDescription#</td>
 			     </tr>
+			 				 
 				 
-				 <cfloop query="Applicant">
-				 
-					 <tr class="labelmedium">
-				        <td align="left" style="padding-left:3px">Date:</b></td>
-				        <td align="left" colspan="1">#dateformat(DocumentDate, CLIENT.DateFormatShow)#</td>
-				     </tr>
-					   
-					 <tr class="labelmedium">
-				        <td align="left" style="padding-left:3px">#DocumentType#:</b></td>
-				        <td align="left" colspan="1">#DocumentText#</td>
-				     </tr>
-				 
-				 </cfloop>
-				 
-				 <tr><td height="3"></td></tr>
-				 <tr><td height="1" colspan="3" class="line"></td></tr>
-				 <tr><td height="2"></td></tr>
+			 </cfif>			
+		 
+			 <cfif url.applicantNo neq "undefined">
 			  
-			  </cfif>
+				 <cfif Applicant.recordcount gte "1">
+					  
+					  <tr class="labelmedium2" style="height:20px">
+				        <td style="padding-left:3px"><cf_tl id="Candidate">:</b></td>
+				        <td>#Applicant.FirstName# #Applicant.LastName#</td>
+				     </tr>
+					 
+					 <cfloop query="Applicant">
+					 
+						 <tr class="labelmedium2" style="height:20px">
+					        <td style="padding-left:3px">Date:</b></td>
+					        <td>#dateformat(DocumentDate, CLIENT.DateFormatShow)#</td>					     
+					        <td style="padding-left:3px">#DocumentType#:</b></td>
+					        <td>#DocumentText#</td>
+					     </tr>
+					 
+					 </cfloop>
+									  
+				  </cfif>
+				  
+			  </cfif>	  
 			  
-		  </cfif>	  
-		  
-		  </cfoutput>	
+		 		  
+		  </cfoutput>			
 		  		 			   
 		  <cfif VA.postSpecific eq "1">
 		  		  
 		    <cfif URL.Mode eq "Edit">		
-			
-		  	    
-		   		<cfform action="AnnouncementSubmit.cfm?ID=#URL.ID#" method="post" name="gjp" id="gjp">
+					  	    
+		   		<cfform action="AnnouncementSubmit.cfm?ID=#URL.ID#&domain=#url.domain#" method="post" name="gjp" id="gjp">
 				
-				  <tr><td align="left" colspan="3">
+				  <tr><td align="left" colspan="6">
 		  
 				     <cf_ApplicantTextArea
 						Table           = "FunctionOrganizationNotes" 
-						Domain          = "JobProfile"
+						Domain          = "#url.domain#"
 						FieldOutput     = "ProfileNotes"
 						Mode            = "#URL.Mode#"
 						Format          = "Mini"
@@ -208,9 +204,9 @@
 				  returnvariable="Access">
 				  
 				<tr><td height="4"></td></tr>
-				<tr><td height="1" colspan="2" class="linedotted"></td></tr>
+				<tr><td height="1" colspan="6" class="linedotted"></td></tr>
 				<tr><td height="4"></td></tr>
-				<tr><td height="35" colspan="2" align="center">
+				<tr><td height="35" colspan="6" align="center">
 								
 				<input type="button" name="Close" class="button10g" style="width:150px;height:23px" onclick="window.close()" value="Close profile">&nbsp;
 				<cfif Access eq "EDIT" or Access eq "ALL"> 
@@ -222,16 +218,15 @@
 					
 			<cfelse>				
 			  
-			    <tr><td colspan="4" align="left">		
+			    <tr><td colspan="6" align="left">		
 				
 				     <cf_ApplicantTextArea
 						Table           = "FunctionOrganizationNotes" 
-						Domain          = "JobProfile"
+						Domain          = "#url.domain#"
 						FieldOutput     = "ProfileNotes"				
 						Mode            = "#URL.Mode#"						
 						Key01           = "FunctionId"
-						Key01Value      = "#URL.ID#">
-						
+						Key01Value      = "#URL.ID#">						
 																
 				</td></tr>
 				
@@ -241,9 +236,9 @@
 					  returnvariable="Access">		
 											  					  		  		  
 					<cfif (Access eq "EDIT" or Access eq "ALL") and URL.Apply eq "0">       
-					<tr><td colspan="4" align="center">
+					<tr><td colspan="6" align="center">
 					<cfoutput>
-						<input type="button" class="button10g" style="width:100px;height:25px" onclick="ptoken.open('#SESSION.root#/vactrack/application/Announcement/Announcement.cfm?ID=#URL.ID#&Mode=EDIT','VA','left=20, top=20, width=#CLIENT.width-60#, height=800, status=yes, toolbar=no, location=no, scrollbars=yes, resizable=no')" value="Maintain">
+						<input type="button" class="button10g" style="width:200px;height:25px" onclick="ptoken.open('#SESSION.root#/vactrack/application/Announcement/Announcement.cfm?domain=#url.domain#&ID=#URL.ID#&Mode=EDIT','VA','left=20, top=20, width=#CLIENT.width-60#, height=800, status=yes, toolbar=no, location=no, scrollbars=yes, resizable=no')" value="Maintain">
 					</cfoutput>	
 					</td></tr>
 					</cfif>									
@@ -253,9 +248,8 @@
 		  <cfelse>
 		  
 		  	  <cfif VA.Announcement eq "1">
-			  
-		  
-				  <tr><td colspan="4">
+			  		  
+				  <tr><td colspan="6">
 				  				  
 						  	<cfquery name="Check"
 				         datasource="AppsSelection"
@@ -271,7 +265,7 @@
 						  		  
 						    <cf_ApplicantTextArea
 								Table           = "FunctionOrganizationNotes" 
-								Domain          = "JobProfile"
+								Domain          = "#url.domain#"
 								FieldOutput     = "ProfileNotes"				
 								Mode            = "#URL.Mode#"
 								Format          = "RichText"
@@ -282,7 +276,7 @@
 								  
 						   <cf_ApplicantTextArea
 								Table           = "FunctionTitleGradeProfile" 
-								Domain          = "JobProfile"
+								Domain          = "#url.domain#"
 								FieldOutput     = "ProfileNotes"
 								Mode            = "#URL.Mode#"
 								Key01           = "FunctionNo"
@@ -297,7 +291,7 @@
 			   </cfif>
 				 
 		  </cfif>	
-		  
+		  		  
 		  <cfif VA.FunctionId neq "">
 		
 			<cfoutput>
@@ -317,6 +311,8 @@
 		</cfif>
 				  	 
 	    </table>
+		
+	</cf_divscroll>	
 					
 </cfif>
 

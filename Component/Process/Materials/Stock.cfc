@@ -50,6 +50,17 @@
 				FROM   ItemUoMMission
 				WHERE  ItemNo = '#ItemNo#' AND UoM = '#UoM#' AND Mission = '#Mission#'
 		</cfquery>
+				
+				
+		<cfquery name="Item"
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT   * 			 				 
+				FROM     Item								
+				WHERE    ItemNo = '#ItemNo#' 				
+		</cfquery>
+
 		
 		<!---
 		
@@ -94,7 +105,7 @@
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				
-				SELECT    SUM(TransactionQuantity) AS Total
+				SELECT    ROUND(SUM(TransactionQuantity),#Item.ItemPrecision#) AS Total
 				FROM      ItemTransaction
 				WHERE     1=1
 				<cfif Mission neq "">
@@ -137,7 +148,7 @@
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				SELECT    SUM(TransactionQuantity) AS Total
+				SELECT    ROUND(SUM(TransactionQuantity),#Item.ItemPrecision#) AS Total
 				FROM      ItemTransaction
 				WHERE     1=1
 				<cfif Mission neq "">
@@ -176,7 +187,7 @@
 				SELECT    R.RequestId, 
 				          RequestedQuantity as Requested,
 						  
-				          (SELECT ISNULL(SUM(TransactionQuantity),0)
+				          (SELECT ISNULL(ROUND(SUM(TransactionQuantity),#Item.ItemPrecision#),0)
 						   FROM   ItemTransaction
 						   WHERE  Requestid = R.RequestId
 						   AND    TransactionQuantity < 0 ) as Issued  

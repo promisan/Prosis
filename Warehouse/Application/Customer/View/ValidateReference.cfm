@@ -12,7 +12,9 @@
 			 SELECT * 
 			 FROM   Customer
 			 WHERE  Reference   = '#URL.Reference#'
+			 <cfif url.customerid neq "">
 			 AND    CustomerId != '#URL.CustomerId#'
+			 </cfif>
 			 AND    Reference  != ( SELECT CustomerDefaultReference FROM Ref_ParameterMission WHERE Mission = '#url.mission#' )
 	
 	</cfquery>

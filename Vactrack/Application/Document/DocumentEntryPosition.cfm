@@ -14,6 +14,7 @@
 		       P.OrgUnitAdministrative,
 			   P.PostType,
 			   P.SourcePostNumber,
+			   P.PositionParentId,
 			   P.PostGrade,
 			   P.Positionno,
 			   P.FunctionNo,
@@ -23,6 +24,8 @@
 		WHERE  P.PositionNo         = '#url.id1#' 
 		AND    P.OrgUnitOperational = O.OrgUnit 
 </cfquery>
+
+
 
 <cfquery name="Mission" 
 	datasource="AppsOrganization" 
@@ -39,7 +42,8 @@
    orgunitadministrative = "#Position.OrgUnitAdministrative#" 
    orgunit               = "#Position.OrgUnit#" 
    posttype              = "#Position.PostType#"
-   returnvariable        = "accessTrack">	       
+   returnvariable        = "accessTrack">	  
+    
    
 <cfif accessTrack.status eq "0">
 
@@ -79,8 +83,8 @@
 					<input type="hidden" name="Mission" value="<cfoutput>#Position.Mission#</cfoutput>"
 				    </cfoutput>
 				</td>
-				</TR>		
-						
+				
+				</TR>							
 				
 				<cfif Position.SourcePostNumber eq "">	
 				
@@ -91,6 +95,10 @@
 					    <input type="hidden" name="SourcePostnumber" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>">								
 		
 					</td>
+					<TD class="labelmedium"><cf_tl id="Post grade">:</TD>
+				    <TD>
+					<input type="text" class="regularxl" style="background-color:f1f1f1;text-align: center;" value="<cfoutput>#Position.PostGrade#</cfoutput>" name="postgrade" size="10" maxlength="10" readonly>
+					</TD>
 					</TR>	
 				
 				<cfelse>
@@ -101,41 +109,17 @@
 					    <input class="regularxl" style="background-color:f1f1f1;text-align: center;" type="text" name="SourcePostnumber" size="10" maxlength="20" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>" readonly>								
 						<input type="hidden" name="positionno" value="<cfoutput>#Position.PositionNo#</cfoutput>">	
 					</td>
+					<TD class="labelmedium"><cf_tl id="Post grade">:</TD>
+				    <TD>
+					<input type="text" class="regularxl" style="background-color:f1f1f1;text-align: center;" value="<cfoutput>#Position.PostGrade#</cfoutput>" name="postgrade" size="10" maxlength="10" readonly>
+					</TD>
 					</TR>	
 				
 				</cfif>	
-				
-				<TR>
-			    <TD class="labelmedium"><cf_tl id="Type">:</TD>
-			    
-				 <cfquery name="DocTpe" 
-						datasource="AppsVacancy" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">	
-					    SELECT   *
-						FROM     Ref_DocumentType
-						ORDER BY ListingOrder						
-	                  </cfquery>		
-				<td>				
-				<select name="DocumentType" required="Yes" class="regularxl">
-				    <cfoutput query="DocTpe">
-						<option value="#Code#">#Description#</option>
-					</cfoutput>
-			    </select>			
-				</td>
-				
-				</TR>		
-								
-				<TR>
-			    <TD class="labelmedium"><cf_tl id="Post grade">:</TD>
-			    <TD>
-				<input type="text" class="regularxl" style="background-color:f1f1f1;text-align: center;" value="<cfoutput>#Position.PostGrade#</cfoutput>" name="postgrade" size="10" maxlength="10" readonly>
-				</TD>
-				</TR>	
-						
+										
 			    <TR>
 			    <TD class="labelmedium"><cf_tl id="Functional title">:</TD>
-			    <TD>
+			    <TD colspan="3">
 				
 					<table style="border:1px solid silver">
 					<tr><td style="height:15px;padding:0px">
@@ -181,15 +165,15 @@
 			    <TR>
 			    
 			    <td class="labelmedium"><cf_tl id="Unit">:</td>
-				<td><input type="text" name="OrgUnit" style="background-color:f1f1f1;text-align: center;" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" readonly size="70" maxlength="80" class="regularxl">		
+				<td colspan="3"><input type="text" name="OrgUnit" style="background-color:f1f1f1;text-align: center;" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" readonly size="70" maxlength="80" class="regularxl">		
 				</td>
 				</TR>		
 				
-				<tr class="xxhide"> 		
+				<tr class="hide"> 		
 				
-				<TD class="labelmedium"><cf_uitooltip tooltip="Expected onboarding date refers to the deadline that a department has to fullfill this vacancy"><cf_tl id="Expected onboarding date">:</cf_uitooltip></td>
+				<TD class="labelmedium" style="cursor:pointer" title="Expected onboarding date refers to the deadline that a department has to fullfill this vacancy"><cf_tl id="Expected onboarding date">:</td>
 			    
-				<td>
+				<td colspan="3">
 					
 				  <cfset end = DateAdd("m",  2,  now())> 
 				
@@ -205,14 +189,12 @@
 				</TR>	
 									   			
 				<TR bgcolor="ffffff" class="line">
-			    <TD colspan="2" style="padding-right:15px;padding-bottom:4px">			
+			    <TD colspan="4" style="padding-right:15px;padding-bottom:4px">			
 				    <cf_tlhelp SystemModule = "Vacancy" Class = "General" HelpId = "recint" LabelId = "Instructions">			 			
 				</TD>	
 				
 				<!--- hidden by Hanno 24/11/2020 --->
 				
-				
-					
 				<cfquery name="Deployment" 
 				datasource="AppsSelection" 
 				username="#SESSION.login#" 
@@ -253,7 +235,7 @@
 					
 			    <!--- Field: DeploymentLevel --->
 			    <TR>
-			    <td class="labelmedium"><cf_tl id="Roster Level">:</td>
+			    <td colspan="3" class="labelmedium"><cf_tl id="Roster Level">:</td>
 					
 				<td><cfselect name="GradeDeployment" class="regularxl">
 				    <option value="">n/a</option>
@@ -271,26 +253,63 @@
 				</cfif>			
 			    
 			    <TR>
-			    <TD class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Workflow modality">:</TD>
-			    <TD>   
+			    <TD class="labelmedium" valign="top" style="padding-top:3px;padding-left:5px;height:48px">
 				
-					<cfset list = accesstrack.tracks>
-				 		
-					<table>		
-						<cfset row = "0">
-					    <cfoutput query="list">		
-						<cfset row = row+1>
-						<cfif row eq "1"><tr style="height:16px"></cfif>
-						<td>
-						<input type="radio" name="EntityClass" class="radiol" value="#EntityClass#" <cfif currentRow eq "1">checked</cfif>>
-						</td><td class="labelmedium2" style="height:15px;padding-left:5px">#EntityClassName#</td>
-						<cfif row eq "1">
-						</tr>
-						<cfset row = "0">
+								
+				<!--- other --->
+				
+				<cfquery name="opentracks" 
+					datasource="AppsVacancy" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					SELECT     D.*
+					FROM       DocumentPost AS DP INNER JOIN
+				               Employee.dbo.Position AS P ON DP.PositionNo = P.PositionNo INNER JOIN
+				               [Document] AS D ON DP.DocumentNo = D.DocumentNo
+				    WHERE      P.PositionParentId = '#Position.PositionParentid#' 
+					AND        D.Status = '0'
+				</cfquery>	
+				
+				<cfset htpe = quotedValueList(opentracks.documenttype)>
+				
+				 <!--- show only valid options based on the matrix through the entrity class --->
+				 
+				<cfset list = accesstrack.tracks>
+								 
+				 <cfset track = quotedvalueList(list.EntityClass)>
+								 			    
+				 <cfquery name="DocTpe" 
+						datasource="AppsVacancy" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">	
+					    SELECT   *
+						FROM     Ref_DocumentType
+						WHERE 1=1
+						<cfif track neq "">						
+						AND   Code IN (SELECT Code 
+						               FROM   Ref_DocumentTypeMatrix 
+								       WHERE  EntityClass IN (#preservesingleQuotes(track)#))
+						
+						</cfif>		
+						<cfif htpe neq "">		  
+						AND      Code NOT IN (#preservesingleQuotes(htpe)#)				  
 						</cfif>
-						</cfoutput>
-					</table>
-										
+						ORDER BY ListingOrder						
+	             </cfquery>		
+								
+				<select name="DocumentType" required="Yes" class="regularxxl" style="font-weight:bold;background-color:ffffaf;font-size:18px;height:38px" 
+				    onchange="ptoken.navigate('<cfoutput>#session.root#/vactrack/application/document/getTrack.cfm?id1=#url.id1#</cfoutput>&documenttype='+this.value,'thisworkflow')">
+				    <cfoutput query="DocTpe">
+						<option value="#Code#">#Description#</option>
+					</cfoutput>
+			    </select>			
+				</td>
+								
+			    <TD colspan="3" id="thisworkflow">   
+								   
+					<cfset url.documenttype = doctpe.code>					
+				    <cfinclude template="getTrack.cfm">
+																			
 				</TD>
 				</TR>	
 				
@@ -298,15 +317,15 @@
 				   
 				<TR class="hide">
 					<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
-					 <TD>
+					 <TD colspan="3">
 					 <textarea style="width:95%;padding:3px;font-size:14px" rows="2" name="Remarks" class="regular" maxlength="200"  onkeyup="return ismaxlength(this)"></textarea>
 					</TD>
 				</TR>
 				
-				<tr><td height="1" colspan="2" class="line"></td></tr>
+				<tr><td height="1" colspan="4" class="line"></td></tr>
 						
 				<TR>
-					<td height="30" colspan="2" align="center" class="labelmedium">		
+					<td height="30" colspan="4" align="center" class="labelmedium">		
 					
 					<cfquery name="PostGradeValidation" 
 						datasource="AppsSelection" 

@@ -116,7 +116,7 @@ password="#SESSION.dbpw#">
 	<TD class="labelmedium"><cf_tl id="Period">:</TD>
 			
 	<td valign="top">
-	<select name="Period" id="Period" size="1" class="regularxl">
+	<select name="Period" id="Period" size="1" class="regularxxl">
 	    <option value="" selected>All</option>
 	    <cfoutput query="tPeriod">
 		<option value="#Period#">#Period#</option>
@@ -130,15 +130,15 @@ password="#SESSION.dbpw#">
 	datasource="AppsPurchase" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-    SELECT *
-    FROM Status
-	WHERE StatusClass = 'Purchase'
-	AND Status IN (SELECT ActionStatus FROM Purchase WHERE Mission = '#url.mission#')
+	    SELECT *
+	    FROM   Status
+		WHERE  StatusClass = 'Purchase'
+		AND    Status IN (SELECT ActionStatus FROM Purchase WHERE Mission = '#url.mission#')
 	</cfquery>	
 	
 	<td>
 	
-		<select name="ActionStatus" id="ActionStatus" size="1" class="regularxl">
+		<select name="ActionStatus" id="ActionStatus" size="1" class="regularxxl">
 	
 		    <option value="" selected>All</option>
 		    <cfoutput query="Status">
@@ -151,7 +151,7 @@ password="#SESSION.dbpw#">
 	<TR>
 	<TD class="labelmedium"><cf_tl id="OrderNo">:</TD>
 	<td colspan="1">	
-	<input type="text" name="purchaseNo" id="purchaseNo" class="regularxl" value="" size="17">
+	<input type="text" name="purchaseNo" id="purchaseNo" class="regularxxl" value="" size="17">
 	</td>
 	<TD class="labelmedium"><cf_tl id="Issued after">:</TD>
 	<TD>	
@@ -159,7 +159,7 @@ password="#SESSION.dbpw#">
 	 <cf_intelliCalendarDate9
 		FieldName="datestart" 
 		Default=""
-		class="regularxl"
+		class="regularxxl"
 		AllowBlank="True">	
 		
 	</TD>
@@ -170,7 +170,7 @@ password="#SESSION.dbpw#">
 	<TD class="labelmedium"><cf_tl id="Order type">:</TD>
 			
 	<td align="left" valign="top">
-	<select name="ordertype" id="ordertype" size="1" class="regularxl">
+	<select name="ordertype" id="ordertype" size="1" class="regularxxl">
 	    <option value="" selected><cfoutput>#vAll#</cfoutput></option>
 	    <cfoutput query="ordertype">
 		<option value="#Ordertype#">#Ordertype#</option>
@@ -181,7 +181,7 @@ password="#SESSION.dbpw#">
 	<TD class="labelmedium"><cf_tl id="Order Class">:</TD>
 			
 	<td align="left" valign="top">
-	<select name="orderclass" id="orderclass" size="1" class="regularxl">
+	<select name="orderclass" id="orderclass" size="1" class="regularxxl">
 	    <option value="" selected><cfoutput>#vAll#</cfoutput></option>
 	    <cfoutput query="class">
 		<option value="#OrderClass#">#Description#</option>
@@ -198,14 +198,14 @@ password="#SESSION.dbpw#">
 	<TD class="labelmedium"><cf_tl id="Vendor code">:</TD>
 			
 	<td align="left" valign="top">
-	<cfinput type="Text" name="orgunit" class="regularxl" validate="integer" required="No" size="10">
+	<cfinput type="Text" name="orgunit" class="regularxxl" validate="integer" required="No" size="10">
 	</td>	
 	
 	<TD class="labelmedium"><cf_tl id="Vendor name">:</TD>
 			
 	<td align="left" valign="top">
 		
-	    <select name="orgunitvendor" id="orgunitvendor" style="width:180px" size="1" class="regularxl">
+	    <select name="orgunitvendor" id="orgunitvendor" style="width:180px" size="1" class="regularxxl">
 		<option value="" selected><cfoutput>#vAll#</cfoutput></option>
 	    <cfoutput query="Vendor">
 			<option value="#OrgUnit#">#OrgUnitName#</option>
@@ -220,14 +220,14 @@ password="#SESSION.dbpw#">
 	<tr>
 	<TD class="labelmedium"><cf_tl id="Requisition">:</TD>
 	<TD>	
-	<input type="text" name="requisitionno" id="requisitionno" class="regularxl" value="" size="20">
+	<input type="text" name="requisitionno" id="requisitionno" class="regularxxl" value="" size="20">
 	</TD>
 	</tr>
 	
 	<TR>
 	<TD class="labelmedium"><cf_tl id="Order Item">:</TD>
 	<td>	
-	<input type="text" style="width:200px" name="orderitem" id="orderitem" class="regularxl" value="" size="40">
+	<input type="text" style="width:200px" name="orderitem" id="orderitem" class="regularxxl" value="" size="40">
 	</td>
 	<td class="labelmedium"><cf_tl id="Employee">:</td>		
 			
@@ -245,7 +245,7 @@ password="#SESSION.dbpw#">
 	
 	<td>
 	
-	<select name="personno" id="personno" size="1" class="regularxl">
+	<select name="personno" id="personno" size="1" class="regularxxl">
 		<option value="" selected><cfoutput>#vAll#</cfoutput></option>
 	    <cfoutput query="Person">
 			<option value="#PersonNo#">#LastName#, #FirstName#</option>
@@ -266,7 +266,7 @@ password="#SESSION.dbpw#">
 
 <tr><td class="line"></td></tr>
 
-<tr><td align="center" style="padding:6px">
+<tr><td align="center" style="padding:2px">
 
 <cfoutput>
 	<input type="reset"  class="button10g" value="#vReset#" style="width:130;height:23">

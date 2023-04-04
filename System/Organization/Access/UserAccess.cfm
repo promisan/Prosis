@@ -790,15 +790,15 @@ WHERE   Role = '#URL.ID#'
 				<tr>
 				
 				 <td colspan="1" height="30" class="labelmedium" style="padding-left:10px">				
-				  Roll access down to unit (childen) within the staffing period
+				  Roll down access to unit (childen) within the staffing period
 				 </td>
 				
 				 <td align="right" style="padding-left:10px;padding-right:20px" colspan="2" class="labelmedium">
 					<table><tr><td>
-					<input type="radio" style="height:18px;width:18px" name="Rolldown" id="Rolldown" value="1" ></td>
+					<input type="radio" style="height:18px;width:18px" name="Rolldown" id="Rolldown" value="1" checked ></td>
 					<td class="labelmedium" style="padding-left:5px"><cf_tl id="Yes"></td>
 					<td style="padding-left:7px">
-					<input type="radio" style="height:18px;width:18px"  name="Rolldown" id="Rolldown" value="0" checked></td>
+					<input type="radio" style="height:18px;width:18px"  name="Rolldown" id="Rolldown" value="0"></td>
 					<td class="labelmedium" style="padding-left:5px;padding-right:10px"><cf_tl id="No"></td>
 					</tr>
 					</table>

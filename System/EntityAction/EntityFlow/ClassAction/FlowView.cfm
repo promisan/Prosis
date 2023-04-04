@@ -20,7 +20,7 @@
 </cfquery>	
 
 <cfif url.scope eq "object">
-  
+ 
    <cf_screentop height="100%"    
         scroll="no" 
 		layout="webapp" 
@@ -42,21 +42,32 @@
 	<cf_screenbottom layout="webapp">
 
 <cfelse>
-
-	 <cf_screentop height="100%"    
-        scroll="yes" 
-		layout="webapp" 
-	    jquery="Yes" 
-		html="No"		
-		label="Workflow for #Class.EntityDescription#">
 	
 	<HTML><HEAD>
 		<TITLE>Workflow Preview</TITLE>
-	</HEAD>
-		
+	</HEAD>	
+	
+	<cfoutput>		
 	<body onLoad="window.focus()">
-	<link href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>" rel="stylesheet" type="text/css">
+	<link href="#SESSION.root#/#client.style#" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="#SESSION.root#/Scripts/jQuery/jquery.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../../../print.css" media="print">
+	
+	
+	<link rel="stylesheet" href="https://nova.un.org//scripts/kendoui/styles/kendo.common.min.css" />
+	<link rel="stylesheet" href="https://nova.un.org//scripts/kendoui/styles/kendo.default-v2.min.css" />
+	<link rel="stylesheet" href="https://nova.un.org//scripts/kendoui/styles/kendo.default.mobile.min.css" />
+
+    <link rel="stylesheet" href="https://nova.un.org//scripts/kendoui/styles/kendo.rtl.min.css"/>
+    <link rel="stylesheet" href="https://nova.un.org//scripts/kendoui/styles/kendo.silver.min.css"/>
+
+	<script src="https://nova.un.org//scripts/kendoui/js/kendo.all.min.js"></script>
+	
+	<cfajaximport>
+	<cf_UIGadgets>	
+	<cf_SystemScript>
+	
+	</cfoutput>
 	
 	<cf_dialogsystem>
 	

@@ -2,9 +2,48 @@
 <cfoutput>
 
 <table width="100%">
-<tr><td style="height:40px;background-color:6688aa;color:white" align="center">More details #url.selecteddate#</td></tr>
+<tr><td style="height:40px;color:white" align="center">
 
-<tr><td class="labelmedium2">Quick details to be discussed with Giorgia / Ruy</td></tr>
+<table class="formpadding formspacing"><tr>
+
+<cfloop index="status" list="0,0a,0b,0d,1,9">
+
+		<cfswitch expression="#Status#">
+								
+			<cfcase value="0">
+			    <cfset ti = "New">
+			    <cfset cl = "yellow">
+			</cfcase>								
+			<cfcase value="0a">
+			    <cfset ti = "Posting start">
+			    <cfset cl = "00FFFF">
+			</cfcase>
+			<cfcase value="0b">
+			     <cfset ti = "Posting end">
+			    <cfset cl = "lime">
+			</cfcase>
+			<cfcase value="0d">
+			     <cfset ti = "Action">
+			    <cfset cl = "silver">
+			</cfcase>
+			<cfcase value="1">
+			     <cfset ti = "Completed">
+			    <cfset cl = "green">
+			</cfcase>
+			<cfcase value="9">
+		     <cfset ti = "Cancelled">
+			    <cfset cl = "red">
+			</cfcase>
+		
+		</cfswitch>		
+								
+		<td class="labelmedium" style="border-radius:6px;border:1px solid gray;text-align:center;width:100px;background-color:#cl#">#ti#</td>	
+
+</cfloop>
+
+</tr></table>
+
+</td></tr>
 
 </table>
 

@@ -37,7 +37,7 @@
 
 <cf_tl id="Item search" var="1">
 
-<cf_screentop label="#lt_text#" close="parent.ColdFusion.Window.destroy('mystock',true)" jquery="Yes" height="100%" line="no" html="no" scroll="yes" layout="webapp" banner="gray">
+<cf_screentop label="#lt_text#" close="parent.ColdFusion.Window.destroy('mystock',true)" jquery="Yes" height="100%" line="no" html="no" scroll="no" layout="webapp" banner="gray">
 
 <!--- End Prosis template framework --->
 
@@ -45,11 +45,11 @@
 
 	<cfparam name="url.itemmaster" default="">
 
-	<form name="locform" style="height:98%">
+	<form name="locform" style="height:100%">
 	
 		<input type="hidden" name="itemmaster" value="#trim(url.itemmaster)#">
 	
-	    <table height="98%" class="formspacing" width="97%" border="0" align="center">
+	    <table height="98.5%" class="formspacing" width="97%" align="center">
 					
 		<!--- Field: Item.ItemColor=CHAR;20;FALSE --->
 	

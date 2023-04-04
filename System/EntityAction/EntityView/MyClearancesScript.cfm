@@ -22,6 +22,10 @@
 	   ptoken.open("#SESSION.root#/ActionView.cfm?id=" + id, id);	   
 	}
 	
+	function processaction(id) {
+	   ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessActionView.cfm?header=1&windowmode=window&ajaxid=&process=&id="+id+"&myentity=" + id, id);	   
+	}
+		
 	function entity() {
        ptoken.open("#SESSION.root#/system/entityaction/entityview/EntityView.cfm", "entity");
     }

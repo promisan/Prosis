@@ -47,6 +47,7 @@ password="#SESSION.dbpw#">
 				   AND     JournalSerialNo = H.JournalSerialNo) = 1 THEN 'Issued' ELSE 'NA' END) AS Invoiced,
 								  
 				  </cfif>
+				  
 				  H.TransactionDate, H.TransactionPeriod, H.AccountPeriod, 
 				  H.TransactionCategory, 
 	              H.MatchingRequired, H.ReferenceOrgUnit, H.ReferencePersonNo, H.Reference, H.ReferenceName, H.ReferenceNo, H.ReferenceId, 
@@ -131,11 +132,11 @@ password="#SESSION.dbpw#">
 
 <cf_tl id="Source" var="1">
 <cfset fields[itm] = {label      = "#lt_text#",                   
-					field      = "TransactionSource",
-					filtermode = "2",
-					column     = "common",
-					display   = "No",
-					search     = "text"}>						
+					field        = "TransactionSource",
+					filtermode   = "2",
+					column       = "common",
+					display      =  "No",
+					search       = "text"}>						
 					
 <cfset itm = itm+1>
 <cf_tl id="Date" var="1">								
@@ -154,8 +155,7 @@ password="#SESSION.dbpw#">
 					column        = "common",									
 					align         = "center",
 					display       = "No"}>												
-							
-				
+								
 <cfif journal.TransactionCategory eq "Receivables">
 
     <cfset itm = itm+1>		
@@ -192,7 +192,9 @@ password="#SESSION.dbpw#">
 						
 	</cfif>					
 					
-</cfif>							
+</cfif>		
+
+				
 
 <cfset itm = itm+1>		
 <cf_tl id="Relation" var="1">				
@@ -241,20 +243,29 @@ password="#SESSION.dbpw#">
 </cfif>		
 
 <cfif url.idstatus neq "Pending">
-
-<cfset itm = itm+1>	
-<cf_tl id="Status" var="1">						
-<cfset fields[itm] = {label       = "S", 	
-                    LabelFilter   = "#lt_text#",				
-					field         = "ActionStatus",					
-					filtermode    = "3",    
-					width         = "8",					
-					align         = "center",
-					formatted     = "Rating",
-					ratinglist    = "0=Yellow,1=Green,9=Red"}>					
+	
+	<cfset itm = itm+1>	
+	<cf_tl id="Status" var="1">						
+	<cfset fields[itm] = {label       = "S", 	
+	                    LabelFilter   = "#lt_text#",				
+						field         = "ActionStatus",					
+						filtermode    = "3",    
+						width         = "8",					
+						align         = "center",
+						formatted     = "Rating",
+						ratinglist    = "0=Yellow,1=Green,9=Red"}>		
+						
+	<cfset itm = itm+1>		
+	<cf_tl id="Description" var="1">				
+	<cfset fields[itm] = {label      = "#lt_text#",    
+	                    rowlevel     = "2",
+					    colspan      = "9",                
+						field        = "Description",					
+						labelfilter  = "#lt_text#",
+						search       = "text"}>										
 
 </cfif>
-					
+				
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label     = "Id",    					
 					display    = "No",					

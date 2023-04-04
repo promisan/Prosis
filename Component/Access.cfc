@@ -1366,8 +1366,7 @@
 					FROM   Organization.dbo.OrganizationObjectActionAccess 
 					WHERE  UserAccount    IN (#preserveSingleQuotes(usr)#)  
 					AND    ActionCode     = '#ActionCode#' 
-					AND    ObjectId       = '#ObjectId#' 					
-									
+					AND    ObjectId       = '#ObjectId#' 								
 					</cfquery>
 				
 				</cfif>
@@ -1380,11 +1379,12 @@
 	            <CFSET AccessLevel = qAccess.AccessLevel>
 				<cfif AccessLevel eq "2">
 					  <cfset AccessLevel = "2">
+				<cfelseif AccessLevel eq "0">
+					  <cfset AccessLevel = "0">	  
 				<cfelse>
 					  <cfset AccessLevel = "1">	  
 				</cfif>
-	        </cfif>	  
-					
+	        </cfif>	  				
 						
 			<!--- NEW a provision to prevent processing your own steps accross the board --->
 			

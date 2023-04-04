@@ -73,6 +73,15 @@
 			ptoken.navigate('UserPortalSubmit.cfm?id='+id+'&value='+value+'&account='+account,'tdInitUserPortalSubmit');
 		}
 		
+		function purgemember(grp,acc,row) {
+			if (confirm("Do you want to remove this member ?")) {	
+				Prosis.busy('yes')				
+				_cf_loadingtexthtml = '';				
+				ptoken.navigate('../Membership/MemberPurge.cfm?row='+row+'&mode=user&id1='+grp+'&acc=' + acc,'contentbox')		
+				_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";	
+			}
+	     }	
+		
 	</script>
 
 </cfoutput>

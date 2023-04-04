@@ -24,10 +24,8 @@
 
 	<cfif embed eq "0">
 
-		<cf_divscroll>
-		
-		<cfinclude template="TransactionListingLinesContent.cfm">		
-				
+		<cf_divscroll>		
+		<cfinclude template="TransactionListingLinesContent.cfm">						
 		</cf_divscroll>
 		
 	<cfelse>

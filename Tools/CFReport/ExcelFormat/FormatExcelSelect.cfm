@@ -26,6 +26,8 @@
 				<cfif tbl eq "">
                     <cfset tbl = evaluate("CLIENT.#variablename#")>
                 </cfif>   
+				
+				
 				    		   
 		   <cfelse>		 
 		     

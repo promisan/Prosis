@@ -110,7 +110,7 @@
 	</tr>
 		
 	<tr class="labelmedium2">
-	<td style="font-size:20px;height:40px">write your signature</td>
+	<td style="font-size:20px;height:34px">write your signature</td>
 	</tr>
 	
 	<td>

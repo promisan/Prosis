@@ -382,10 +382,13 @@
 
 <cfoutput>
 
+     <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/>  
+
 	<script>
 	    Prosis.busy('no')
 		refreshtree('#url.mission#','#url.period#','#url.role#');
-		#ajaxLink('RequisitionCertifyPending.cfm?process=radio&message=#message#&mission=#URL.Mission#&period=#URL.Period#')#
+		#ajaxLink('RequisitionCertifyPending.cfm?process=radio&message=#message#&mission=#URL.Mission#&period=#URL.Period#&mid=#mid#')#
 		try { 
 		se = opener.document.getElementById('button_#URL.Role#') 		
 		se.click() } catch(e) {}

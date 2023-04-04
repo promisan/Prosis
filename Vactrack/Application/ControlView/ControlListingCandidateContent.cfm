@@ -59,9 +59,9 @@
 <cfset itm = itm + 1>	
 <cf_tl id="Status" var = "1">					
 <cfset fields[itm] = {labelfilter    = "#lt_Text#", 	
-                      label          = "S",				
-					  field          = "Status"}>	
-					  
+                      label          = "S",		
+					  align          = "center",		
+					  field          = "Status"}>						  
 					  					  
 <cfset itm = itm + 1>	
 <cf_tl id="Type" var = "1">						
@@ -95,13 +95,29 @@
 					  search         = "text",
 					  filtermode     = "3"}>	
 --->					  
-
 					  			  
 <cfset itm = itm + 1>						
 <cfset fields[itm] = {label          = "Title",                     
 					  field          = "FunctionalTitle", 													
 					  search         = "text", 
 					  filtermode     = "2"}>	
+
+<cfset itm = itm+1>	
+<cf_tl id="Selection" var = "1">		
+<cfset fields[itm] = {label          = "#lt_text#",                    
+     				 labelfilter     = "Selection date",
+					 field           = "SelectionDate",	
+					 align           = "Center",	
+					 display         = "1",													
+					 formatted       = "dateformat(SelectionDate,'#CLIENT.DateFormatShow#')"}>		
+					 				  
+<cfset itm = itm + 1>						
+<cfset fields[itm] = {label          = "Class",                     
+                      labelfilter    = "Class",     
+					  field          = "CandidateClassName", 
+					  column         = "common",														
+					  search         = "text", 
+					  filtermode     = "3"}>						  	  
 					  
 <cfset itm = itm + 1>						
 <cfset fields[itm] = {label          = "S",                     
@@ -183,7 +199,6 @@
 						  filtermode     = "3"}>	
 						  
 </cfif>	
-
 
 			  					  
 					  

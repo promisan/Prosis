@@ -17,7 +17,7 @@
 
 <script language="JavaScript">
 	
-	function Selected(orgunit,orgunitcode, mission,orgunitname,orgunitclass)  {					  
+	function selectunit(orgunit)  {		   	  
 	     
 	    if (parent.parent.applyunit) {	
 			parent.parent.applyunit(orgunit)

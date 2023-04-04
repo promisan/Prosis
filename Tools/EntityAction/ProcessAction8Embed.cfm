@@ -94,9 +94,10 @@ insurance dialog.
 	   <cfset showProcess = "1">
 	  	   	   
 	   <cfif embed.documentMode neq "Ajax">
-	   	  	  	   				   
-		  	<cfform onsubmit="return false" method= "POST" name= "formembed" style="height:99%">				
-			    		   	   		
+	   	      	   	  	  	   				   
+		  	<cfform onsubmit="return false" method= "POST" name= "formembed" style="height:99%">		
+			
+					    		   	   		
 				<table style="height:100%;width:100%">
 								 	   		
 				   <!--- traditional form which can be submitted directly or as part of the submit process --->
@@ -105,7 +106,8 @@ insurance dialog.
 					 					 
 					  <tr>
 						<td colspan="2" valign="top" style="height:100%">	
-						
+							
+
 							<cfdiv id="dialog" style="height:100%">
 									
 							     <cfset url.WParam = Action.ActionDialogParameter>
@@ -116,15 +118,17 @@ insurance dialog.
 								 <cfset url.id = tempvaraction>		
 								 
 							</cfdiv>	  
+
 							
 					  	</td>
 					 </tr>			
 					
 					 <cfoutput>	 
+					 
 						 <tr>
 							 <td align="center">	
 							 
-							    <cf_tl id="Continue and Save" var="mytext">
+							    <cf_tl id="Save and Continue" var="mytext">
 													 				 										 		 
 							    <input type = "button" 
 								class       = "button10g" 
@@ -136,13 +140,15 @@ insurance dialog.
 												
 							 </td>
 						 </tr>
+						 
 					 </cfoutput>	
 					 
 					 <tr><td height="2"></td></tr>			 
 				 	  				    	 
 				</table>
-			
+							
 			 </cfform>
+			 		
 				 
 	  <cfelse>	  
 	  	  	  	   
@@ -151,50 +157,65 @@ insurance dialog.
 		<table width="100%" height="99%">  	
 		
 			 <tr>
-				<td colspan="2" height="99%" valign="top">	
+				<td colspan="2" height="99%" valign="top" align="center">	
 																			
 					<cfdiv id="dialog" style="height:100%">
 												
 					     <cfset url.WParam = Action.ActionDialogParameter>
 						 <cfset t = URL.ID>
-						 					 
+						 			 
 					     <cfinclude template="../../#Embed.DocumentTemplate#"> 
-						 						 
+						 					 						 
 						 <cfset url.id = t>		
 						 
-					</cfdiv>	  
+						 <cfparam name="url.scope" default="">
+						 <cfif url.scope eq "portalaction">		
+						 <!--- the dialog is shown directly in the portal based on a prvided link --->				 
+						 <input type="button" class="button10g" styel="width:200px;height:25px;font:18px" name="Close" value="Close" onclick="parent.window.close()">						 
+						 </cfif>
+						 												 
+					</cfdiv>					
+					
 					
 			  	</td>
 			 </tr>
 			 
 			 <cfoutput>	 
 			 
-				 <tr>
-					 <td align="right" height="25" style="padding-top:3px;padding-right:20px">	
-					 					 
-					 <cfif url.ajaxid eq "">
-					   	   <cfset pr = url.id>
-					   <cfelse>
-					       <cfset pr = url.ajaxid> 		   
-					   </cfif>
-					   
-					   <cfparam name="boxno" default="1">
-						
-					   <cfset nextbox = boxno+1>
-					   					   					   					   					   					 		 
-					    <input type = "button" 
-						class       = "button10g" 
-						style       = "width:260px;height:35px;font-size:15px;background-color:1A8CFF;color:white;"
-						name        = "EmbedSave" 
-						id          = "EmbedSave"
-						value       = "Next" 
-						onclick     = "document.getElementById('menu#nextbox#').click()">	
-										
-					 </td>
-				 </tr>
+			 <cfparam name="buttonNext" default="1"> <!--- is variable that you can included in the template --->
+			 
+			     <cfif buttonNext eq "1">
+				 		 
+					 <tr>
+						 <td align="right" height="25" style="padding-top:3px;padding-right:20px">	
+						 					 
+						 <cfif url.ajaxid eq "">
+						   	   <cfset pr = url.id>
+						   <cfelse>
+						       <cfset pr = url.ajaxid> 		   
+						   </cfif>
+						   
+						   <cfparam name="boxno" default="1">
+							
+						   <cfset nextbox = boxno+1>
+						   					   					   					   					   					 		 
+						    <input type = "button" 
+							class       = "button10g" 
+							style       = "width:260px;height:35px;font-size:15px;background-color:1A8CFF;color:white;"
+							name        = "EmbedSave" 
+							id          = "EmbedSave"
+							value       = "Next" 
+							onclick     = "document.getElementById('menu#nextbox#').click()">	
+											
+						 </td>
+					 </tr>
+				 
+				 </cfif>
 				 
 			 </cfoutput>	
 			 
 		 </table>	 		
 				  
 	  </cfif>	
+	  
+  

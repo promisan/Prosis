@@ -5,7 +5,9 @@
 <cfparam name="SESSION.Authent"  default="">
 <cfparam name="url.mid"          default="">
 <cfparam name="url.showLogin" 	 default="0">
-<cf_param name="url.tab" 		 default="">
+<cfparam name="url.tab" 		 default="">
+<cfparam name="url.target" 		 default="0">
+
 
 <!--- check the contextual access for this user --->
 
@@ -30,19 +32,26 @@
 		AND		Operational		= 1
 </cfquery>
 
-<cfset url.mission = "">
-<cfif isDefined("client.mission")>
-	<cfset url.mission = client.mission>
-</cfif>
+
 <cfif url.mission eq "">
-	<cfset url.mission = SelfService.functionCondition>
+
+    <cfif isDefined("client.mission")>
+		<cfset url.mission = client.mission>
+	</cfif>
+	
+	<cfif url.mission eq "">
+		
+		<cfset url.mission = SelfService.functionCondition>
+		
+	</cfif>
+	
 </cfif>
 
 <cfif SESSION.authent neq 1 or qProcess.Total eq 0 or AccessRight eq "DENIED">
 	
 	<cfoutput>
-		<script language="JavaScript">
-			parent.window.location = "public.cfm?id=#url.id#&mission=#url.mission#&showLogin=#url.showLogin#&tab=#url.tab#";
+		<script language="JavaScript">		
+			parent.window.location = "public.cfm?id=#url.id#&mission=#url.mission#&showLogin=#url.showLogin#&tab=#url.tab#&target=#url.target#";
 		</script>
 	</cfoutput>
 
@@ -53,7 +62,7 @@
 	<cfset url.showNavigationOnFirstPage 	= "1">
 	<cfset url.showReload					= "1">
 	<cfset url.mission						= "#SelfService.functionCondition#">
-
+		
 	<!--- HTML5 --->
 	<!DOCTYPE html>
 

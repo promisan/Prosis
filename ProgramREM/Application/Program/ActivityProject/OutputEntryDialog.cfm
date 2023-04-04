@@ -42,13 +42,15 @@ password="#SESSION.dbpw#">
 
 <cf_tl id="Deliverable / Milestone" var="1">
 
+<!---
 <cf_screentop label="#lt_text#" height="100" html="No" layout="webapp" user="no" banner="gray">
+--->
 
 <cfform method="POST" name="outputform" style="99%">
 
 <cfoutput>
 
-<table width="100%" height="97%" bgcolor="white" cellspacing="0" cellpadding="0">
+<table width="100%" height="97%">
 
     <tr><td height="5"></td></tr>
 	

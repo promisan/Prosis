@@ -36,8 +36,7 @@
 <cfif Embed.DocumentTemplate neq "">
    	   	  
 	   <!--- preload code for dialog embedded workflow --->
-	
-	   	   	  	   
+		   	   	  	   
 	   <cfif Embed.DocumentMode eq "Ajax">		
 	  	   	   	   	   
 		   <!--- disabled as embedding now within a iframe to prevent outbreak of long pages 		   
@@ -80,8 +79,7 @@
 							
 		   </cfif>			
 		 							
-		<cfelse>
-		
+		<cfelse>		
 				
 		   <cfset boxno = boxno+1>
 		   
@@ -91,8 +89,7 @@
 	   		   <cfset cl = "regular">	   
 		   </cfif>  
 		  
-		   <cfif menumode eq "menu">
-		   
+		   <cfif menumode eq "menu">		   
 		   			
 		   <cf_menutab item       = "#boxno#" 
 			            iconsrc    = "logos/system/entryform.png"  
@@ -158,11 +155,14 @@
 		
 	   <cfif embed.documentMode eq "Ajax">
 	   
-		    <!--- load script for embedded forms --->
+		    <!--- load script for embedded forms : not needed as this is loaded at the start 3/2/2023
 	   					 			 
 			<cfajaximport tags="cfform,cfinput-autosuggest,cfdiv">
 			<cf_ActionListingScript>
 			<cf_FileLibraryScript>
+			
+			--->
+			
 			<cf_DetailsScript>		
 											 
 			<cfinclude template="../Input/TextAjax/InputRichTextScript.cfm">
@@ -344,6 +344,3 @@
 	   </script>
    
    </cfif>
-   
-
-  

@@ -84,8 +84,7 @@
 									longitude = "#lng#"
 									country	  = "#getAddress.country#"
 									city	  = "#getAddress.AddressCity#"
-									address	  = "#getAddress.Address#">							
-									
+									address	  = "#getAddress.Address#">		
 									
 					</td>
 					
@@ -331,8 +330,8 @@
 				     required="#Attributes.emailRequired#" value="#getAddress.emailaddress#" 
 					 message="Please enter a valid eMail address" 
 					 validate="email" 
-					 size="30" 
-					 maxlength="40" 
+					 size="60" 
+					 maxlength="60" 
 					 class="regularxl enterastab">
 					 
 				<cfelse>
@@ -383,9 +382,7 @@
 	 </cfquery>
 	 	 
 	 <cfif CLIENT.googlemap eq "1" and (Form.cLatitude eq "" or Form.cLongitude eq "")>
-	 
-	 
-
+	
 	 		<cfinvoke component="service.maps.googlegeocoder3" 
 	          	method="googlegeocoder3" 
 				returnvariable="details">	 

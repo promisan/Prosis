@@ -32,13 +32,13 @@
 	
 <cfoutput query="Action">	
 
-	<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="ffffff">
+	<table width="98%" align="center" bgcolor="ffffff">
 	
     <tr><td height="6"></td></tr>
      		
 	<tr><td>
 		
-	<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="ffffff">
+	<table width="100%" align="center" bgcolor="ffffff">
 	
 	<cfquery name="EmbedFlow" 
 		datasource="AppsOrganization" 
@@ -164,7 +164,7 @@
 		--->	
 			
 		<tr><td colspan="2">
-							
+									
 		<cfform action="ProcessActionSubmit.cfm?windowmode=#url.windowmode#&wfmode=8&process=#URL.Process#&ID=#URL.ID#&ajaxId=#url.ajaxid#" 
 		  name="processaction"  id="processaction">		
 					  
@@ -318,7 +318,7 @@
 					  			   
 			   	</cfif>	 
 				
-											
+															
 				</table>
 												
 			</cfform>	
@@ -352,12 +352,18 @@
 		<!--- keep outside the BASE form --->
 		
 		<!--- Element 1 of 3 Embedded Custom dialog Functions --->	
-							
-			
-	 	<cfinclude template="ProcessActionFunction.cfm">	
+		
+		<cfparam name="setaction" default="0">							
+		<cfif setaction eq "0">	
+		 	<cfinclude template="ProcessActionFunction.cfm">	
+		</cfif>
 						
 		<!--- Element 1b of 3 ATTACHMENT DOCUMENT --->		  					  
-	    <cfinclude template="Report/DocumentAttach.cfm">	
+		
+		<cfparam name="setattachment" default="0">
+        <cfif setattachment eq "0">
+		    <cfinclude template="Report/DocumentAttach.cfm">	
+		</cfif>
 							
 		<cfquery name="Action" 
 		  datasource="AppsOrganization"

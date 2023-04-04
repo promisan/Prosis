@@ -202,7 +202,6 @@ AND        E.DateEffective   <= #SALEND#
 AND        EntitlementClass IN ('Rate','Percentage','Amount') 
 AND        P.PayrollDays != 0
 
-
 UNION 
 
 <!--- explicitly granted entitlements NOT  contract related and based on explicit entry --->
@@ -271,8 +270,7 @@ AND        E.SalarySchedule = P.SalarySchedule
 AND        E.RecordStatus = '1'  <!--- Status         = '2' --->
 AND        NOT EXISTS (SELECT   'X'
                        FROM     Employee.dbo.PersonContract
-                       WHERE    ContractId = E.ContractId
-					   AND      RecordStatus = '1') 
+                       WHERE    ContractId = E.ContractId  )  <!--- AND RecordStatus = '1' removed --->
 AND        (E.DateExpiration >= #SALSTR# OR E.DateExpiration IS NULL) 
 AND        E.DateEffective   <= #SALEND#
 AND        EntitlementClass IN ('Rate','Percentage','Amount') 
@@ -394,8 +392,15 @@ AND       E.SalaryTrigger NOT IN (SELECT SalaryTrigger
 <!--- ------------------------------------------------------------------- 		--->
 <!--- in principle any correction should bring -/+ value, but for 0 no poing 	---> 
 AND       ABS(P.WorkDays) >0
-	
-						 
+								 
+</cfquery>
+
+
+<cfquery name="get" 
+datasource="AppsPayroll" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT * FROM userTransaction.dbo.sal#SESSION.thisprocess#Entitlements	
 </cfquery>
 
 <!--- now we do an effort to define the entitlement days properly based on the period of the leg that triggers them 
@@ -431,6 +436,8 @@ password="#SESSION.dbpw#">
 	    OR DateExpiration is NULL
 </cfquery>
 
+
+
 <cfquery name="Entitlement2" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
@@ -438,6 +445,11 @@ password="#SESSION.dbpw#">
 	DELETE FROM userTransaction.dbo.sal#SESSION.thisprocess#Entitlements
 	WHERE  DateExpiration < DateEffective	
 </cfquery>
+
+
+
+
+
 
 <!--- ---------------------------------------------------------------------- --->
 <!--- we populate records that clearly map to the leg ---------------------- --->

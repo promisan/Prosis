@@ -68,15 +68,16 @@
 <script language="JavaScript">
 
     <!--- set label --->
-	document.getElementById('actiondatelabeleffective').innerHTML = '#event.ActionPeriodLabel#'
+	document.getElementById('actiondatelabeleffective').innerHTML  = '#event.ActionPeriodLabel#'
 	document.getElementById('actiondatelabelexpiration').innerHTML = '#event.ActionPeriodLabel#'
-	
-	
+		
 	<!--- show/hide expiration --->
 	<cfif Event.ActionPeriod eq "1">	        
 	   		document.getElementById("expirybox").className = "labelmedium"   
+			document.getElementById("effectivebox").className = "labelmedium"
 	<cfelse>
 			document.getElementById("expirybox").className = "hide" 	
+			document.getElementById("effectivebox").className = "hide"
 	</cfif>
 	
 	<!--- show/hide unit/position --->
@@ -106,12 +107,9 @@
 		AND    Mission = '#url.mission#'			
 </cfquery>
 
-
-
 <script>
   ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode=#url.triggercode#&eventcode=#url.eventcode#&eventid=#url.eventid#&preason=','dCondition');
 </script>
-
 
 <cfif getInstruction.SubmissionMode eq "0">
  
@@ -139,7 +137,6 @@
 </cfif>
 
 
-
 <cfif getInstruction.Instruction neq "">
 
   <script>  
@@ -148,11 +145,13 @@
   
  <cfelse>
  
- 	<script>
+ 	<script>	
 		document.getElementById('myinstruction').innerHTML = ""
 	</script> 
 
 </cfif>
+
+
 
 </cfoutput>
 
@@ -164,10 +163,12 @@
     </script>
     
 	<cfoutput>
+	
+	 <!--- #GroupListCode# --->
 			
 		<select name="reasoncode" id="reasoncode" class="regularxxl" style="width:95%">
 			<cfloop query="qReasons">
-				<option value="#GroupListCode#" <cfif qCurrentEvent.ReasonListCode eq GroupListCode OR GroupListCode eq url.preason>selected</cfif>>#GroupListCode#-#Description#</option>
+				<option value="#GroupListCode#" <cfif qCurrentEvent.ReasonListCode eq GroupListCode OR GroupListCode eq url.preason>selected</cfif>>#Description#</option>
 			</cfloop>
 		<select>			
 		<input type="hidden" id="GroupCode" name="GroupCode" value="#qEvent.ReasonCode#">

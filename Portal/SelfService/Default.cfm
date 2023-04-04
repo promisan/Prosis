@@ -1,11 +1,12 @@
-	
+
+
 <!--- default client parameters --->
 <cfinclude template="LogonClient.cfm">
 
 <!--- added by hanno on 14/9/2011 --->
 <cfparam name="url.mission" 		default="">
 
-<!--- the purchase of this template is to pass thru to the correct portal opning page --->
+<!--- the purchase of this template is to pass thru to the correct Prosis portal opening page --->
 
 <cfquery name="SelfService" 
 	datasource="AppsSystem" 
@@ -54,18 +55,12 @@
 	   	<cfinclude template="Basic/Logon.cfm">		
 	     
 	<cfelseif selfservice.functiontarget eq "extended">	
-	   	<cfinclude template="Extended/Default.cfm">	   
-	   
-	<cfelseif lcase(selfservice.functiontarget) eq "html5">	
-
-	
-		<cfinclude template="HTML5/Default.cfm">
-	
-	   
-	<cfelse>	
-	
-	 	<cfinclude template="Basic/Logon.cfm">	
-	 
+	   	<cfinclude template="Extended/Default.cfm">	   	   
+	<cfelseif lcase(selfservice.functiontarget) eq "html5">			
+		<cfinclude template="HTML5/Default.cfm">	
+	<cfelse>		
+	    <!--- default is not HTML5 --->
+	    <cfinclude template="HTML5/Default.cfm">		 		 
 	</cfif>
 
 </cfif>

@@ -73,27 +73,27 @@ password="#SESSION.dbpw#">
 		    <cfset cls = "">	
 				      
 			<cfif CurrentDocument eq "">
-			     <TR class="highlight1">
+			     <TR>
 		    <cfelse>
-			     <TR class="highlight1">
+			     <TR >
 		    </cfif> 			  
 			 
-			<td style="padding:2px">
-			   			   						  						   
-				<table style="width:280px;background-color:ffffff" class="formpadding">
+			<td style="padding:1px;border:1px solid silver">
+						   			   						  						   
+				<table style="width:280px;" class="formpadding">
 						
 					<tr class="labelmedium2 line">
-					<td style="border-radius:4px;text-align:center;background-color:ffffff;font-weight:normal;font-size:20px" colspan="2">
-					<table>
-					<tr>
-					<td style="padding-left:5px;padding-right:8px"><img src="#session.root#/images/documentedit.png" style="height:30px;width:30px" alt="" border="0"></td>
-					<td class="fixlength" title="#DocumentDescription#"	style="padding-top:0px;font-weight:normal;font-size:17px">#DocumentDescription#</td>
+					<td style="text-align:center;background-color:e1e1e1;font-weight:normal;font-size:20px" colspan="2">
+					<table style="width:100%">
+					<tr style="background-color:e1e1e1">
+					<td style="padding-left:5px;padding-right:8px"><img src="#session.root#/images/documentedit.png" style="border-radius:10px;height:22px;width:22px" alt="" border="0"></td>
+					<td class="fixlength" title="#DocumentDescription#"	style="padding-top:0px;font-weight:normal;font-size:15px">#DocumentDescription#</td>
 					</tr>
 					</table>					
 					</td>					
 					</tr>
 						
-					<tr class="labelmedium2" style="height:35px;">
+					<tr class="labelmedium2" style="height:35px;background-color:ffffff">
 											
 						<td colspan="2" id="docoption#documentid#" align="center">
 						

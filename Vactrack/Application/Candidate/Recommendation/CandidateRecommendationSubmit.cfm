@@ -2,85 +2,138 @@
 <!--- candidate recommendation --->
 
 <cfparam name="form.reviewstatus"  default="#url.wfinal-1#">
-<cfparam name="form.reviewcontent" default="">
-	
-<cfquery name="UpdateCandidate" 
-	datasource="AppsVacancy" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		UPDATE DocumentCandidate
-		SET    Status                  = '#form.ReviewStatus#',		       
-		       StatusDate              = getDate(),
-			   StatusOfficerUserId     = '#SESSION.acc#',
-			   StatusOfficerLastName   = '#SESSION.last#',
-			   StatusOfficerFirstName  = '#SESSION.first#'
-		WHERE  DocumentNo              =  '#url.documentno#'
-		AND    PersonNo                =  '#url.personno#'  
-		AND    Status < '3' or Status = '9' 
-</cfquery>	
+<cfparam name="form.reviewcontent" default="NA">
 
-<!--- entry in the review table --->
-			 
- <cfquery name="Check" 
-	 datasource="AppsVacancy" 
-	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">
-		SELECT *
-		FROM  DocumentCandidateReview
-		WHERE DocumentNo     = '#url.documentno#'
-		AND   PersonNo       = '#url.personno#'	 
-		AND   ActionCode     = '#url.ActionCode#'  
- </cfquery>	
-		 
- <cfif Check.Recordcount eq "1">
- 
-	 <cfquery name="Update" 
-		datasource="AppsVacancy" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		UPDATE DocumentCandidateReview
-		SET    ReviewMemo    = '#Form.Reviewmemo#',			
-		       ReviewContent = '#form.ReviewContent#',			 
-		       ReviewDate    = getDate(),
-			   ReviewStatus  = '#Form.ReviewStatus#',
-			   ActionStatus  = '1'
-		WHERE  DocumentNo    = '#url.documentno#'
-		AND    PersonNo      = '#url.personno#'	 
-		AND    ActionCode    = '#url.ActionCode#' 
-	</cfquery>
- 
- <cfelse>
- 
-	 <cfquery name="Insert" 
-		datasource="AppsVacancy" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		INSERT INTO DocumentCandidateReview
-				 (DocumentNo,
-				  PersonNo,		  
-				  ActionCode,	
-				  ReviewContent,						
-				  ReviewMemo,
-				  ReviewStatus,
-				  ReviewDate, 
-				  ActionStatus,							 
-				  OfficerUserId,
-				  OfficerLastName,
-				  OfficerFirstName)
-		 VALUES ('#url.documentno#', 
-				 '#url.PersonNo#',		  
-				 '#url.ActionCode#',	
-				 '#form.ReviewContent#',						  
-				 '#form.Reviewmemo#',
-				 '#Form.ReviewStatus#',
-				  getDate(),
-				 '1',							
-				 '#SESSION.acc#',
-				 '#SESSION.last#',		  
-				 '#SESSION.first#')
-		</cfquery>
+<cfif form.reviewContent eq "">
+
+    <table style="width:100%"><tr><td align="center" class="labelmedium2" style="font-size:16px;padding-top:5px;color:red">Attention: <b><cf_tl id="Please provide a justification"></td></tr></table>    
+    <cfabort>
 	
 </cfif>
+
+<cfquery name="getCandidates" 
+	datasource="appsVacancy" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT  A.*, DC.Status			   
+		FROM    DocumentCandidate DC INNER JOIN
+                Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo INNER JOIN
+                Ref_Status S ON DC.Status = S.Status    				   	   
+		WHERE   DC.DocumentNo = '#url.documentNo#'		
+		AND     S.Class = 'Candidate' 
+		AND     DC.Status IN ('#url.wfinal-1#','#url.wfinal#')	 
+</cfquery>
+
+
+<cfloop query="getCandidates">
+
+    <cfparam name="Form.ReviewStatus#personno#" default="#url.wfinal-1#">
+    <cfparam name="Form.Priority#personno#"     default="">
+	
+	<cfset sta = evaluate("Form.ReviewStatus#personno#")>
+	<cfset pri = evaluate("Form.Priority#personno#")>
+			
+	<cfquery name="UpdateCandidate" 
+		datasource="AppsVacancy" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			UPDATE DocumentCandidate
+			SET    Status                  = '#sta#',	
+			       <cfif sta eq url.wfinal>
+				   CandidateOrder          = '0',
+				   <cfelse>	
+			       CandidateOrder          = '#pri#',        
+				   </cfif>
+			       StatusDate              = getDate(),
+				   StatusOfficerUserId     = '#SESSION.acc#',
+				   StatusOfficerLastName   = '#SESSION.last#',
+				   StatusOfficerFirstName  = '#SESSION.first#'
+			WHERE  DocumentNo              =  '#url.documentno#'
+			AND    PersonNo                =  '#personno#'  
+			AND    Status < '3' or Status = '9' 
+	</cfquery>	
+	
+	<!--- entry in the review table for the selected candidate only --->
+	
+	<cfif sta eq url.wfinal>
+	
+	     <cfset cot = form.ReviewContent> <!--- general text on the processs --->
+		 
+	<cfelse>
+	
+		<cfset cot = "">
+		
+	</cfif>		 
+				 
+	 <cfquery name="Check" 
+		 datasource="AppsVacancy" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+			SELECT *
+			FROM  DocumentCandidateReview
+			WHERE DocumentNo     = '#url.documentno#'
+			AND   PersonNo       = '#personno#'	 
+			AND   ActionCode     = '#url.ActionCode#'  
+	 </cfquery>	
+				 
+	 <cfif Check.Recordcount eq "1">
+		 
+		 <cfquery name="Update" 
+				datasource="AppsVacancy" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				UPDATE DocumentCandidateReview
+				SET    ReviewMemo    = '#Form.Reviewmemo#',	
+				       <cfif form.ReviewContent neq "NA">		
+				       ReviewContent = '#form.ReviewContent#',			 
+					   </cfif>
+				       ReviewDate    = getDate(),
+					   ReviewStatus  = '#sta#',
+					   ActionStatus  = '1'
+				WHERE  DocumentNo    = '#url.documentno#'
+				AND    PersonNo      = '#personno#'	 
+				AND    ActionCode    = '#url.ActionCode#' 
+			</cfquery>
+		 
+	 <cfelse>
+		 
+		 <cfquery name="Insert" 
+			datasource="AppsVacancy" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				INSERT INTO DocumentCandidateReview
+						 (DocumentNo,
+						  PersonNo,		  
+						  ActionCode,	
+						  ReviewContent,						
+						  ReviewMemo,
+						  ReviewStatus,
+						  ReviewDate, 
+						  ActionStatus,							 
+						  OfficerUserId,
+						  OfficerLastName,
+						  OfficerFirstName)
+				 VALUES ('#url.documentno#', 
+						 '#PersonNo#',		  
+						 '#url.ActionCode#',	
+						 <cfif form.ReviewContent neq "NA">
+						 '#form.ReviewContent#',   <!--- explanation for this candidate --->		
+						 <cfelse>
+						 NULL,
+						 </cfif>				  
+						 '#form.Reviewmemo#',  <!--- general text of the process --->
+						 '#sta#',
+						  getDate(),
+						 '1',							
+						 '#SESSION.acc#',
+						 '#SESSION.last#',		  
+						 '#SESSION.first#')
+				</cfquery>
+			
+		</cfif>
+	
+
+</cfloop>
 
 <!--- add candidates to buckets for roster search --->
 
@@ -101,19 +154,6 @@ password="#SESSION.dbpw#">
 	FROM    Ref_SubmissionEdition
 	WHERE   SubmissionEdition = '#fun.submissionedition#'
 </cfquery>
-
-<!---
-
-<cfquery name="Class" 
-datasource="AppsSelection" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	SELECT ExerciseClass
-	FROM   Ref_SubmissionEdition
-	WHERE  SubmissionEdition = '#Form.Edition#'
-</cfquery>
-
---->
 
 <cfparam name="Form.FunctionId" type="any" default="">
 
@@ -346,7 +386,7 @@ password="#SESSION.dbpw#">
 	<script>
 	ProsisUI.closeWindow('decisionbox')
     <cfif form.reviewstatus eq url.wfinal>		
-	document.getElementById('status#url.personno#').innerHTML = 'Recommended'
+	document.getElementById('status#url.personno#').innerHTML = 'Proposed'
 	document.getElementById('status#url.personno#').className = 'highlight2'
 	<cfelse>
 	document.getElementById('status#url.personno#').innerHTML = ''	

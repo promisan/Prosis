@@ -69,9 +69,9 @@ password="#SESSION.dbpw#">
 				  
 		         I.UoMDescription, 
 				 I.ItemBarCode,
-				 C.CommissionMode,				 
-				 (
-				 	SELECT    ISNULL(SUM(TransactionQuantity),0) as OnHand
+				 C.CommissionMode,		
+				 M.ItemPrecision,		 
+				 ( 	SELECT    ISNULL(SUM(TransactionQuantity),0) as OnHand
     			 	FROM      Materials.dbo.ItemTransaction
 			     	WHERE     Warehouse       = T.Warehouse
 			     	AND       ItemNo          = I.ItemNo
@@ -79,8 +79,7 @@ password="#SESSION.dbpw#">
 					<!--- added 12/4/2021 --->   	
 					AND       WorkorderId is NULL						   		      
 				 ) as OnHand,
-				 (
-				 	SELECT    ISNULL(SUM(TransactionQuantity),0) as OnHand
+				 ( 	SELECT    ISNULL(SUM(TransactionQuantity),0) as OnHand
     			 	FROM      Materials.dbo.ItemTransaction
 			     	WHERE     Mission         = W.Mission
 					AND       ItemNo          = I.ItemNo
@@ -181,11 +180,13 @@ password="#SESSION.dbpw#">
 							<cfelse>
 									
 								<cfset vStockAll = OnHandAll>
+								
+								<cf_precision number="#ItemPrecision#">
 						        
 								<cfif TransactionQuantity gt vStockAll>
-									<font color="FF0000">#numberformat(vStockAll,'_')#</font>
+									<font color="FF0000">#numberformat(vStockAll,'#pformat#')#</font>
 								<cfelse>
-									#numberformat(vStockAll,'_')# 
+									#numberformat(vStockAll,'#pformat#')# 
 								</cfif>		
 																
 								<!--- reorder quantity of the parent warehouse --->
@@ -280,11 +281,13 @@ password="#SESSION.dbpw#">
 								</span>									
 																	
 							</cfif>
+							
+							<cf_precision number="#ItemPrecision#">
 					
 							<cfif TransactionQuantity gt OnHand>
-								<font color="FF0000">#numberformat(vStock,'_')#</font>
+								<font color="FF0000">#numberformat(vStock,'#pformat#')#</font>
 							<cfelse>							
-								#numberformat(vStock,'_')# 
+								#numberformat(vStock,'#pformat#')# 
 							</cfif>		
 
 							
@@ -296,10 +299,14 @@ password="#SESSION.dbpw#">
 								
 				<td align="right" style="min-width:50px;padding-top:2px;" valign="top">
 				
+				  <cf_precision number="#ItemPrecision#"> 
+				
 				   <cfif BatchNo eq "">
+				   
+				   <cfset sc = "ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?warehouse=#url.warehouse#&line=#currentrow#&id=#transactionid#&action=quantity&addressId=#url.AddressId#&value='+this.value,'processline')">
 				
 				    <input type="text" 
-					 style = "background-color:fff;width:55px;text-align:center;border:1px solid silver;" 
+					 style = "background-color:fff;width:55px;text-align:center;border:1px solid gray;" 
 					 id    = "TransactionQuantity_#currentrow#"
 					 class = "regularxxl enterastab TransactionQuantity_#transactionid#"
 					 <cfif vLast eq currentrow>
@@ -312,17 +319,17 @@ password="#SESSION.dbpw#">
 					 value = "#TransactionQuantity#"
 					 name  = "TransactionQuantity_#currentrow#"
 					 <cfif currentrow eq 1>autofocus</cfif>
-					 onkeyup="ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?warehouse=#url.warehouse#&line=#currentrow#&id=#transactionid#&action=quantity&addressId=#url.AddressId#&value='+this.value,'processline')">
+					 onkeyup="#sc#" onblur="#sc#">
 					 
 				   <cfelse>
 				   
-				   #numberformat(TransactionQuantity,'_')#
+				   #numberformat(TransactionQuantity,'#pformat#')#
 				   
 				   </cfif>	 
 
 				</td>						
 				
-				<td align="right" style="min-width:100px;padding-top:2px;" valign="top">				
+				<td align="right" style="min-width:100px;padding-top:1px;" valign="top">				
 								
 					<cfif SalesPrice eq "0">
 						<cfset cl = "FF8080">
@@ -333,7 +340,7 @@ password="#SESSION.dbpw#">
 					<table width="100%"><tr><td align="right">
 					
 					<input type="text" 
-					 style = "background-color:#cl#;width:75px;text-align:right;padding-right:2px;border:1px solid silver" 
+					 style = "background-color:#cl#;width:75px;text-align:right;padding-right:2px;border:1px solid gray" 
 					 id    = "SalesPrice_#currentrow#"
 					 class = "regularxxl enterastab SalesPrice_#transactionid#"
 					 <cfif vLast eq currentrow>

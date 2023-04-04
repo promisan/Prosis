@@ -205,7 +205,7 @@
 		<td>
 		
 			<table>
-			<tr class="labelmedium" style="height:18px">
+			<tr class="labelmedium2 fixlengthlist" style="height:18px">
 			
 			<cfif url.id eq "STA">
 			   <!---

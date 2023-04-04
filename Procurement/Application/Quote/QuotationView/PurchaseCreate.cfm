@@ -48,7 +48,7 @@
 	<cfif JobOpen.recordcount gte "1" and Vendor.Recordcount gte "1" and url.workflow eq "0">			
 	
 	<cfoutput>
-	<table width="99%" align="center" cellspacing="0" cellpadding="0">
+	<table width="99%" align="center">
 	   
 	    <tr>
 		<td class="labelmedium" style="height:40px">

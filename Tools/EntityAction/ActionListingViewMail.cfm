@@ -2,12 +2,17 @@
 <cfparam name="mailattachment" default="">
 <cfparam name="url.actionid" default="">
 <cfparam name="url.objectid" default="">
+<cfparam name="url.last"     default="0">
 
 <cfquery name="Mail" 
  	datasource="AppsOrganization"
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
+	 <cfif url.last eq "0">
 	 SELECT   *
+	 <cfelse>
+	 SELECT   TOP 1 *
+	 </cfif>
 	 FROM     OrganizationObjectActionMail
 	 <cfif url.actionid neq "">
 	 WHERE    ActionId = '#URL.ActionId#'		

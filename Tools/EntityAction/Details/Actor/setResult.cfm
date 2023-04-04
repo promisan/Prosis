@@ -44,9 +44,9 @@
    <tr>
   
    <td class="labelmedium2" style="font-size:35px">#totalYes#</td>
-    <td class="labelmedium2" style="padding-top:8px;font-size:25px">:<cf_tl id="Yes"></td>
+    <td class="labelmedium2" style="padding-top:12px;font-size:20px">:<cf_tl id="Endorsed"></td>
 	<td class="labelmedium2" style="padding-left:20px;font-size:35px;color:red">#totalNo#</td>
-    <td class="labelmedium2" style="padding-top:8px;font-size:25px">:<cf_tl id="No"></td>
+    <td class="labelmedium2" style="padding-top:12px;font-size:20px">:<cf_tl id="Not endorsed"></td>
    </tr>
 </table>
 </cfoutput>

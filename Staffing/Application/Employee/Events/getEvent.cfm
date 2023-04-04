@@ -74,11 +74,18 @@
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 		SELECT Code,
-		       Description
+		       Description,
+			   (CASE WHEN EnablePortal = 1 THEN 'P' ELSE 'B' END) as Modality
 		FROM   Ref_PersonEvent RPE 
 		WHERE  Code IN (SELECT EventCode 
 		                FROM   Ref_PersonEventTrigger 
-						WHERE  EventTrigger = '#url.triggercode#')
+						WHERE  EventTrigger = '#url.triggercode#'
+						<cfif url.scope eq "Inquiry">
+						AND    ActionImpact = 'Inquiry'
+						<cfelse>
+						AND    ActionImpact = 'Action'
+						</cfif>
+						)
 		<cfif URL.mission neq "">
 		AND    Code IN (SELECT PersonEvent 
 			            FROM   Ref_PersonEventMission 
@@ -92,6 +99,7 @@
 		<cfif url.portal eq "1">
 		AND   (EnablePortal = 1 or Code = '#qEvent.EventCode#')
 		</cfif>
+		
 		ORDER BY ListingOrder	
 		
 </cfquery>
@@ -103,7 +111,8 @@
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
 			SELECT Code,
-			       Description
+			       Description,
+				   (CASE WHEN EnablePortal = 1 THEN 'P' ELSE 'B' END) as Modality
 			FROM   Ref_PersonEvent RPE 
 			WHERE  Code IN (SELECT EventCode 
 			                FROM   Ref_PersonEventTrigger 
@@ -131,14 +140,19 @@
 
 	<select name="eventcode" id="eventcode" class="regularxxl" style="width:95%"
     	onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?portal=#url.portal#&mission=#url.mission#&triggercode='+document.getElementById('triggercode').value+'&eventcode='+this.value+'&eventid='+'&preason=#url.preason#','dReason')">
-</cfoutput>
-	<cfif qEvent.recordcount eq "0" and qEvents.recordcount gte "1">
+		
+	<cfif qEvent.recordcount eq "0" and qEvents.recordcount gte "2">
 	<option value=""><cf_tl id="Please select">...</option>
 	</cfif>
-	<cfoutput query="qEvents">
-		<option value="#Code#" <cfif Code eq qEvent.EventCode OR Code eq url.pevent>selected</cfif>>#Description#</option>
-	</cfoutput>
-<select>
+	<cfloop query="qEvents">
+		<option value="#Code#" <cfif Code eq qEvent.EventCode OR Code eq url.pevent>selected</cfif>>#modality# #Description#</option>
+	</cfloop>
+
+    <select>
+	
+
+	
+</cfoutput>	
 
 <cfoutput>		
 
@@ -205,5 +219,9 @@
 </cfloop>
 
 </cfoutput>	
+
+<cfif qEvents.recordcount eq "1">
+  <cfset AjaxOnLoad("checkinstruction")> 
+</cfif>
 
 <cfset AjaxOnLoad("checkreason")>

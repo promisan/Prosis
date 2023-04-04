@@ -322,8 +322,52 @@ password="#SESSION.dbpw#">
 					WHERE    Mission = '#getWhs.Mission#'	
 					ORDER BY CustomerName
 				</cfquery>
+				
+	<tr><td style="padding-left:10px" height="20" class="labelmedium"><cf_tl id="Sale pick order">:</td>
+	
+	<cfoutput>
+	<td>  
+	    <table><tr><td>
+		<select name="PickingOrder" id="pickorder" class="regularxxl">
+			<option value="" <cfif get.pickingOrder eq "">selected</cfif>>Set per item</option>
+			<option value="0" <cfif get.pickingOrder eq "0">selected</cfif>>Disabled for sale</option>
+			<cfloop index="itm" from="1" to="9" step="1">
+			<option value="#itm#" <cfif get.pickingOrder eq itm>selected</cfif>>pickorder: #itm#</option>	
+			</cfloop>
+		</select>
+		
+		</td>
+		
+		<td style="padding-left:3px"><input onclick="ptoken.navigate('setPickingOrder.cfm?warehouse=#url.warehouse#&location=#url.location#&pickingOrder='+document.getElementById('pickorder').value,'sync')" style="width:60px" type="button" name="Sync" value="Sync" class="button10g"></td>
+		<td id="sync" style="padding-left:5px"></td>
+		
+		</tr></table>
+		
+		</td>
+	
+	     <!---
+		   	<cfinput type="Text"
+			       name="ListingOrder"
+			       value="#get.PickingOrder#"
+				   class="regularxl"
+			       validate="integer"
+			       required="Yes"
+				   message="Please enter an order value" 
+			       visible="Yes"
+			       enabled="Yes"
+			       typeahead="No"
+			       size="1"
+			       maxlength="2"
+				   style="text-align:center">
+				   
+				   --->
+					   			   
+	</td>
+	</cfoutput>
+			
+	</tr>			
 						
-	<tr><td style="padding-left:10px" height="20" class="labelmedium"><cf_tl id="Pickorder Priority">:</td>
+	<tr><td style="padding-left:10px" height="20" class="labelmedium"><cf_tl id="Listing Order">:</td>
 	
 	<td>
 	

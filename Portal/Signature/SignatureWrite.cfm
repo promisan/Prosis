@@ -10,6 +10,15 @@
 			WHERE  Account = '#account#'
 		</cfquery>
 		
+<cfelse>
+
+		<cfquery datasource="AppsSystem" name="qUpdate">
+			UPDATE UserNames
+			SET    Signature = NULL,
+				   SignatureModified = getDate()
+			WHERE  Account = '#account#'
+		</cfquery>
+		
 </cfif>
 
 <cfoutput>

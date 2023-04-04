@@ -30,7 +30,7 @@
 	 SELECT   *
 	 FROM     OrganizationAuthorization 
 	 WHERE    Role = 'Support'
-	 AND      UserAccount = '#Param.account#' xxxx
+	 AND      UserAccount = '#Param.account#' 
 </cfquery>
 
 <!--- do not send mail if in trial mode unless it is an addmin --->

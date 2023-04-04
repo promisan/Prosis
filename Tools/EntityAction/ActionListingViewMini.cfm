@@ -286,10 +286,15 @@
 					</td>
 					
 				</cfif>
+				
+				
+				<cfif attributes.chatenable eq "1">
 					
 				<td align="center" title="Messenger" style="border-left:1px solid gray;padding-top:2px;height:100%;min-width:30px;max-width:30px;color:white;background-color:silver">		
 				     <img src="#client.root#/images/chat.png" style="width:16px;height:16px" border="0" onclick="workflowchat('#objectid#')">											 
 				</td>				
+				
+				</cfif>
 												
 			</tr>	
 										

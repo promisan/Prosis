@@ -110,10 +110,16 @@ datasource="AppsInit">
 	
 		<cfcatch>
 		
-		<cfparam name="check.recordcount" default="0">
-		
-		<!--- nada --->
+		<cfquery name="check" 
+					datasource="AppsSystem">
+					SELECT   *
+					FROM     UserNames 
+					WHERE    1=0	
+			</cfquery>	
 			
+			<cfset to = "">
+			<cfset ccto = "">	
+				
 	
 		</cfcatch>
 

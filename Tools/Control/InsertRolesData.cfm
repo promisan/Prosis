@@ -1400,6 +1400,7 @@
 	          DocumentType="dialog" 
 			  DocumentCode="ADD"
 			  DocumentDescription="Identify candidates"
+			  DocumentStringList="LIMITED,FULL"
 			  DocumentTemplate="Vactrack/Application/Candidate/Identify/Document.cfm"			  			  
 			  DocumentMode="Ajax">			  			
 		
@@ -1420,7 +1421,7 @@
 			  DocumentCode="REV"
 			  DocumentDescription="Review Candidates"
 			  DocumentTemplate="Vactrack/application/candidate/CandidateReview.cfm"
-			  DocumentStringList="MARK,TEST,SCORE,INTERVIEW,SELECT,INIT,CLOSE"
+			  DocumentStringList="VIEW,MARK,TEST,SCORE,INTERVIEW,SELECT,INIT,CLOSE"
 			  DocumentMode="Embed">		
 			  
 		<cf_insertEntityDocument

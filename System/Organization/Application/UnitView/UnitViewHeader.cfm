@@ -38,18 +38,17 @@ password="#SESSION.dbpw#">
 	  AND  MandateNo = '#Org.MandateNo#'
 </cfquery>
 
-<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+<table width="100%">
 
   <tr class="noprint">
   
-    <td height="40" style="height:45px;font-size:25px;padding-left:15px" class="labelmedium">
+    <td height="40" style="height:45px;font-size:25px;padding-left:4px" class="labelmedium fixlength">
 	<cfoutput>
 	#Org.OrgUnitName#
 	</cfoutput>
     </td>
 	
-	<td align="right" bgcolor="ffffff" style="height:34;padding-right:20px">
-	
+	<td align="right" bgcolor="ffffff" style="height:34;padding-right:10px">	
 		
 	    <cfif access eq "EDIT" or access eq "ALL">
 		
@@ -67,11 +66,11 @@ password="#SESSION.dbpw#">
 	</td>
   </tr> 	
  
-  <tr><td colspan="2" style="padding-left:20px;padding-right:20px">
+  <tr><td colspan="2" style="padding-left:5px;padding-right:5px">
   
   	<table width="100%"><tr><td style="border:1px solid silver">
   
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+    <table width="100%" align="center">
 	 		 
 	 <tr>
 	 <td valign="top">
@@ -80,21 +79,21 @@ password="#SESSION.dbpw#">
 		
 			 <cfoutput query="Org"> 		 
 							  		
-		     <tr style="height:20px">
-		        <td bgcolor="E6E6E6" style="padding-left:5px;width:15%" class="labelit"><cf_tl id="Name">:</td>
+		     <tr style="height:20px" class="fixlengthlist">
+		        <td bgcolor="E6E6E6" style="padding-left:5px;width:15%" class="labelit"><cf_tl id="Name"></td>
 				<cfif URL.scope eq "Portal">
 		        	<td  style="padding-left:5px;font-size:14px" class="labelit">#OrgUnitName# (#OrgUnitCode#)</td>
 				<cfelse>
-					<td  style="padding-left:5px;font-size:14px" class="labelit"><a href="javascript:editOrgUnit('#URL.ID#')">#OrgUnitName# <cfif OrgUnitNameShort neq "">[#OrgUnitNameShort#]</cfif></a></td>
+					<td  style="padding-left:5px;font-size:14px" title="#OrgUnitName#" class="labelit"><a href="javascript:editOrgUnit('#URL.ID#')">#OrgUnitName# <cfif OrgUnitNameShort neq "">[#OrgUnitNameShort#]</cfif></a></td>
 				</cfif>
 		     </tr>
 					  		
 			 <tr style="height:20px">
-		        <td bgcolor="E6E6E6"  style="width:10%;padding-left:5px;" class="labelit"><cf_tl id="Part of">:</b></td>
+		        <td bgcolor="E6E6E6"  style="width:10%;padding-left:5px;" class="labelit"><cf_tl id="Part of"></td>
 		        <td>
 				
 					<table cellspacing="0" cellpadding="0">
-					<tr>
+					<tr class="fixlengthlist">
 					<td style="padding-left:5px;font-size:14px" class="labelit">#Root.OrgUnitName#</td>
 					 <cfif URL.scope neq "Portal">
 				          <td  style="padding-left:5px;font-size:14px" class="labelit">&nbsp;#Mission# [#MandateNo#]</td>
@@ -109,19 +108,19 @@ password="#SESSION.dbpw#">
 		  
 	  </td>
 		  
-	  <td valign="top">
+	  <td valign="top" style="height:100%">
 		  
 			 <cfif URL.scope neq "Portal">
 			 
-			 <table width="100%" class="formpadding">			 
+			 <table height="100%" width="100%" class="formpadding">			 
 				
-			    <tr>
-		        	<td bgcolor="E6E6E6" style="padding-left:5px;" class="labelit"><cf_tl id="Effective">:</td>
+			    <tr class="fixlengthlist">
+		        	<td bgcolor="E6E6E6" style="padding-left:5px;" class="labelit"><cf_tl id="Effective"></td>
 		        	<td class="labelit"  style="padding-left:5px;font-size:14px">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
 		      	</tr>
 			  
-			    <tr>
-		        	<td bgcolor="E6E6E6" style="padding-left:5px;" class="labelit"><cf_tl id="Expiration">:</td>
+			    <tr class="fixlengthlist">
+		        	<td bgcolor="E6E6E6" style="padding-left:5px;" class="labelit"><cf_tl id="Expiration"></td>
 		        	<td class="labelit" style="padding-left:5px;font-size:14px">#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
 		      	</tr>		  
 	      	</table>

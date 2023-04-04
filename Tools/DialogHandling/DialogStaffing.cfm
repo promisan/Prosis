@@ -4,7 +4,6 @@
 <cfset root = "#SESSION.root#">
 
 <cf_calendarscript>
-<cfajaximport tags="cfwindow">
 
 <script>
  

@@ -307,7 +307,7 @@ function reissue(vacno) {
 	}
 
 function va(fun) {
-		ptoken.open(root + "/Vactrack/Application/Announcement/Announcement.cfm?header=yes&ID="+fun, fun);
+		ptoken.open(root + "/Vactrack/Application/Announcement/Announcement.cfm?external=0&header=yes&ID="+fun, fun);
 	}
 	
 function reinstate(vacno,persno) {

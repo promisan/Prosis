@@ -37,6 +37,11 @@ password="#SESSION.dbpw#">
 			OrgUnitOperator   = NULL,
 			</cfif>
 			EnableReference   = '#Form.EnableReference#',
+			<cfif form.PickingOrder neq "">
+			PickingOrder      = '#Form.PickingOrder#',
+			<cfelse>
+			PickingOrder      = NULL,
+			</cfif>
 		    ListingOrder      = '#Form.Listingorder#',
 			TransferAsIssue   = '#Form.TransferAsIssue#',
 			Operational       = '#Form.Operational#',		
@@ -64,6 +69,20 @@ password="#SESSION.dbpw#">
 	WHERE   Warehouse = '#url.warehouse#'
 	AND     Location = '#url.location#'	
 </cfquery>
+
+<cfif form.PickingOrder neq "">
+	
+	<cfquery name="set" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		UPDATE ItemWarehouseLocation
+		SET    PickingOrder = '#Form.pickingOrder#'
+		WHERE  Warehouse = '#url.warehouse#'
+		AND    Location = '#url.location#'	
+	</cfquery>
+
+</cfif>
 
 <cfinclude template="LocationEdit.cfm">
 

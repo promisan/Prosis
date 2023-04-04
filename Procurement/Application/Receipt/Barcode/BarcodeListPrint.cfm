@@ -33,4 +33,5 @@
     </cfif>
 </cfoutput>
 
-<cf_securediv bind="url:#session.root#/warehouse/maintenance/item/uom/uomlabel/itemUoMLabelButtonEPL.cfm?directprint=1#vParams#" />
+<cfparam name="url.mid" default="">
+<cf_securediv bind="url:#session.root#/warehouse/maintenance/item/uom/uomlabel/itemUoMLabelButtonEPL.cfm?mid=#url.mid#&directprint=1#vParams#">

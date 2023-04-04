@@ -479,22 +479,19 @@
 			</tr>
 			
 			<cfif URL.ID neq "">
-			
-			<tr class="hide"><td colspan="2" style="padding-left:16x;padding-right:6px" id="myinstruction"></td></tr>	
-			
+						
+			     <tr class="hide"><td colspan="2" style="padding-left:16x;padding-right:6px" id="myinstruction"></td></tr>				
 			
 			<cfelse>
 			
-			<tr><td colspan="2" style="padding-left:16x;padding-right:6px" id="myinstruction"></td></tr>	
+			     <tr><td colspan="2" style="padding-left:16x;padding-right:6px" id="myinstruction"></td></tr>	
 			
-			</cfif>					
-			
+			</cfif>				
 
 			<tr id="reasonbox" class="labelmedium2 hide">				
 				<td style="padding-left:3px" width="20%"><cf_tl id="Reason">:</td>
 			    <td style="padding-left:0px" id="dReason"></td> 								
-			</tr>
-			
+			</tr>			
 								
 			<tr class="hide"><td colspan="2" id="assignmentbox" style="padding-left:30px;padding-right:30px">
 				<cf_securediv bind="url:#session.root#/staffing/Application/Employee/Events/getAssignment.cfm?positionno=#qEvent.PositionNo#">															
@@ -508,7 +505,7 @@
 			
 			<cfif url.scope neq "inquiry">		
 									
-			<tr class="labelmedium2">
+			<tr class="labelmedium2" id="effectivebox">
 				
 				<td style="padding-left:3px" width="20%"><span id="actiondatelabeleffective"></span><cf_tl id="Effective">:</td>
 				<td style="padding-left:0px">				
@@ -533,18 +530,17 @@
 			
 			<cfelse>
 			
-				<tr class="hide"><td>			
+				<tr class="hide" id="effectivebox"><td>			
 				<span id="actiondatelabeleffective"></span>
 				<input type="hidden" name="ActionDateEffective" id="ActionDateEffective" value="#DateFormat(now(),'#CLIENT.DateFormatShow#')#">
-					</td></tr>	
+				</td></tr>	
 			
 			</cfif>
 			
 			<tr id="expirybox" class="hide">
 				
 				<td style="padding-left:3px" width="20%"><span id="actiondatelabelexpiration"></span><cf_tl id="Expiration">:</td>
-				<td style="padding-left:0px">	
-					
+				<td style="padding-left:0px">						
 							
 					<cf_space spaces="38">	
 						
@@ -721,29 +717,41 @@
 				
 				<td colspan="2" align="center">
 				  <table class="formspacing">
+				  
 				  	<tr>				  
 					<td>		
 					
 						<cf_tl id="Close" var="1">		
-						  <input type="button"
+						<input type="button"
 						   name="Close" 
 						   id="close"
 						   value="#lt_text#" 
 						   style="width:140;height:25px" 
 						   class="button10g" 
 						   onclick="try { ProsisUI.closeWindow('evdialog',true) } catch(e) {}">
+						   
 					</td>
+					
 					<td id="submitform">
 					
-					 <cf_tl id="Submit" var="1">
+					 <cfif url.portal eq "0">
+						 <cf_tl id="Submit" var="1">
+					 <cfelseif url.scope eq "Inquiry">	
+					      <cf_tl id="Submit" var="1">
+					 <cfelse>
+					      <cf_tl id="Initiate" var="1">
+					 </cfif>	   
 										
-						  <input type="button"
-						   name="Submit" 						   
-						   value="#lt_text#" 
-						   style="width:140;height:25px" 
-						   class="button10g" 
-						   onclick="javascript:eventsubmit('#URL.Id#','#url.box#','#url.portal#','#url.scope#')">						
+					 <input type="button"
+					   name="Submit" 						   
+					   value="#lt_text#" 
+					   style="width:140;height:25px" 
+					   class="button10g" 
+					   onclick="javascript:eventsubmit('#URL.Id#','#url.box#','#url.portal#','#url.scope#')">						
+					   
 					</td>	
+					</tr>
+					
 				  </table>
 				</td>
 							

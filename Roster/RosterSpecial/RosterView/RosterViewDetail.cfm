@@ -71,7 +71,7 @@
 			F.FunctionRoster, 
 			F.DocumentNo, 
 			F.ReferenceNo,
-			F.ReferenceName,
+			
 			F.PostSpecific,
 			F.Status,		
 			<cfif SESSION.isAdministrator eq "Yes" or findNoCase(url.owner,SESSION.isOwnerAdministrator)>
@@ -181,15 +181,13 @@
 			  F.EditionOrder,
 			  F.PostSpecific,
 			  F.ListingOrder, 
-	          F.SubmissionEdition, 
-			  F.ReferenceName,
+	          F.SubmissionEdition, 			  
 			  F.EditionDescription, 	
 			  F.Mission,
 			  F.LocationCode,	 
 			  F.FunctionRoster, 
 			  F.DocumentNo, 
-			  F.ReferenceNo,
-			  F.ReferenceName,
+			  F.ReferenceNo,			  
 			  F.Status	
 			  
 	 ORDER BY F.EditionOrder,
@@ -632,7 +630,7 @@
 			<td class="cellcontent" style="min-width:60px"> 
 				#left(GradeDeployment,12)#</td>		
 			
-			<td width="45%" class="cellcontent" style="min-width:200px">
+			<td width="45%" class="cellcontent fixlength" style="min-width:200px">
 							
 			    <cfif URL.search eq "0">
 				    
@@ -653,15 +651,13 @@
 				
 			</td>							
 			
-			<td class="cellcontent" style="min-width:60px;padding-right:4px">
+			<td class="cellcontent fixlength" style="min-width:60px;padding-right:4px">
 			    <cfif ReferenceNo neq "Direct">
-			    <A href="javascript:va('#functionId#')">#ReferenceNo#</a>
-				<cfelse>
-				#ReferenceName#
+			    <A href="javascript:va('#functionId#')">#ReferenceNo#</a>				
 				</cfif>
 			</td>
 			
-			<td width="16%" class="cellcontent" style="border-right:1px solid silver;">
+			<td width="16%" class="cellcontent fixlength" style="border-right:1px solid silver;">
 			
 			<cfif PostSpecific eq "0">			
 				<font color="gray">Generic</font>			

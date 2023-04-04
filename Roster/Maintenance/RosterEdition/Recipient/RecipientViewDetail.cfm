@@ -1,6 +1,5 @@
 <cfparam name="URL.OrgUnit" default="">
 
-
 <cfif URL.OrgUnit neq "">
 
 	<cfquery name="Check" 
@@ -67,65 +66,65 @@ password="#SESSION.dbpw#">
 
 <table width="100%">
 
-<tr valign="top">
-	
-	<td>
-	
-		<table width="100%" valign="top">
+	<tr valign="top">
 		
-			<cfset vTotal = 4>
-			<cfset row    = 0>
+		<td>
+		
+			<table width="100%" valign="top">
 			
-			<cfloop query="qRecipients">
-			
-				<cfset row = row+1>
-			
-				<cfif row eq 1>
-					<tr height="20px" align="left" valign="center">
-				</cfif>
+				<cfset vTotal = 4>
+				<cfset row    = 0>
 				
-				<cfif OrgUnitNameShort neq "">
-					<cfset vOrgName = OrgUnitNameShort>
-				<cfelse>	
-					<cfset vOrgName = OrgUnitName>
-				</cfif>
+				<cfloop query="qRecipients">
 				
-				<cfif operational eq 1>
-					<cfset class="white">
-					<cfset display="#vOrgName#">
-					<cfset TotalActive = TotalActive + 1>
-				<cfelse>
-					<cfset class="f4f4f4">					
-					<cfset display="#vOrgName#">					
-				</cfif>
+					<cfset row = row+1>
 				
-				<td width="1%" bgcolor="#class#" style="padding-left:5px;border-left:1px dotted silver">
-				    
-					<cfif valid gt "0">
-						<cfif operational eq 1>
-							<input type="checkbox" class="radiol" onclick="recipient(this.checked,'#URL.SubmissionEdition#','#OrgUnit#')" checked>
-						<cfelse>
-							<input type="checkbox" class="radiol" onclick="recipient(this.checked,'#URL.SubmissionEdition#','#OrgUnit#')">
-						</cfif>
+					<cfif row eq 1>
+						<tr height="20px" align="left" valign="center">
 					</cfif>
-				</td>	
 					
-				<td width="24%" bgcolor="#class#" class="labelmedium" style="padding-right:5px;padding-left:5px;border-right:1px dotted silver">
-					<a href="##" onclick="getUnitAddress('#orgUnit#','#url.submissionedition#')">#display#</a>&nbsp;[#valid#<cfif sent gt "0"><font size="3" color="blue"><b>|#sent#</cfif>]	
-				</td>
+					<cfif OrgUnitNameShort neq "">
+						<cfset vOrgName = OrgUnitNameShort>
+					<cfelse>	
+						<cfset vOrgName = OrgUnitName>
+					</cfif>
 					
-				<cfif row eq 4>
-					</tr>		
-					<cfset row = 0>		
-				</cfif>	
-				
-			</cfloop>
+					<cfif operational eq 1>
+						<cfset class="white">
+						<cfset display="#vOrgName#">
+						<cfset TotalActive = TotalActive + 1>
+					<cfelse>
+						<cfset class="f4f4f4">					
+						<cfset display="#vOrgName#">					
+					</cfif>
+					
+					<td width="1%" bgcolor="#class#" style="padding-left:5px;border-left:1px dotted silver;height:20px">
+					    
+						<cfif valid gt "0">
+							<cfif operational eq 1>
+								<input type="checkbox" onclick="recipient(this.checked,'#URL.SubmissionEdition#','#OrgUnit#')" checked>
+							<cfelse>
+								<input type="checkbox" onclick="recipient(this.checked,'#URL.SubmissionEdition#','#OrgUnit#')">
+							</cfif>
+						</cfif>
+					</td>	
+						
+					<td bgcolor="#class#" class="labelmedium fixlength" style="height:20px;padding-right:5px;padding-left:5px;border-right:1px dotted silver">
+						<a href="##" onclick="getUnitAddress('#orgUnit#','#url.submissionedition#')">#display#</a>&nbsp;[#valid#<cfif sent gt "0"><font size="3" color="blue"><b>|#sent#</cfif>]	
+					</td>
+						
+					<cfif row eq 4>
+						</tr>		
+						<cfset row = 0>		
+					</cfif>	
+					
+				</cfloop>
+			
+			</table>
+			
+		</TD>
 		
-		</table>
-		
-	</TD>
-	
-</tr>	
+	</tr>	
 	
 </table>
 

@@ -7,6 +7,7 @@
 		
 	<cfset actiondescription  = Evaluate("#Tree#.ActionDescription")>
 	<cfset actionreference	  = Evaluate("#Tree#.ActionReference")>	
+	<cfset actionleadtime	  = Evaluate("#Tree#.ActionLeadTime")>	
 	<cfset parcode            = Evaluate("#Tree#.Parent")>
 	<cfset link               = Evaluate("#Tree#.ActionCode")>
 	<cfset type               = Evaluate("#Tree#.ActionType")>
@@ -31,8 +32,6 @@
      </cfif>
 	 AND      Operational = 1
 	</cfquery>	
-	
-			
 			
 	<cfset order = order + 1>
 	
@@ -57,7 +56,7 @@
      datasource="AppsOrganization"
      username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-		 SELECT   ActionCode, ActionDescription, ActionType, ActionGoTo <!--- , ActionSendBack --->
+		 SELECT   ActionCode, ActionDescription, ActionType, ActionGoTo, ActionleadTime <!--- , ActionSendBack --->
 		 FROM     #tbl#
 		 WHERE    ActionParent = '#link#' 
 		 <cfif PublishNo eq "">	   
@@ -69,7 +68,7 @@
 		 AND      Operational = 1
 		 
 		UNION
-		 SELECT   ActionCode, ActionDescription, ActionType, ActionGoTo <!--- , ActionSendBack --->
+		 SELECT   ActionCode, ActionDescription, ActionType, ActionGoTo, ActionleadTime <!--- , ActionSendBack --->
 		 FROM     #tbl#
 		 WHERE    ActionCode  = '#link#' 
 		 <cfif PublishNo eq "">	   
@@ -89,7 +88,7 @@
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-	 SELECT   ActionCode, ActionDescription, ActionType
+	 SELECT   ActionCode, ActionDescription, ActionType, ActionleadTime
 	 FROM     #tbl#
 	 WHERE    ActionParent = '#link#' 
 	 <cfif #PublishNo# eq "">	   
@@ -222,6 +221,7 @@
 				</td>
 				
 				<td class="labelit" width="1%" align="right" id="y#val#">
+				#ActionLeadTime#d
 				<!---
 				 <cfif ActionReference neq "">
 				 	<font face="Calibri" size="2">

@@ -227,7 +227,7 @@ password="#SESSION.dbpw#">
 	  	    <cfselect name="BirthNationality" required="No" class="regularxl enterastab">
 			<option value="" ></option>
 		    <cfloop query="Nation">
-			<option value="#Code#" <cfif qLast.BirthNationality eq  Code>selected</cfif>>#Name#</option>
+			<option value="#Code#" <cfif qLast.BirthNationality eq Code>selected</cfif>>#Name#</option>
 			</cfloop>
 		    </cfselect>		
 			
@@ -279,8 +279,7 @@ password="#SESSION.dbpw#">
 					
 	  	    <cfselect name="RecruitmentCountry" required="No" class="regularxl enterastab" style="width:140px">
 			    <cfloop query="Nation">
-				<option value="#Code#" <cfif qLast.BirthNationality eq  Code>selected</cfif>>#Name#
-				</option>
+				<option value="#Code#" <cfif qLast.RecruitmentCountry eq Code>selected</cfif>>#Name#</option>
 				</cfloop>
 		    </cfselect>		
 			

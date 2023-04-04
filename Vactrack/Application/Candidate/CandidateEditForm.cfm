@@ -169,14 +169,15 @@
 				
 				 <cfoutput>
 					 <cfif GetPost.SourcePostNumber eq ""><cf_tl id="Internal"><cfelse>#GetPost.SourcePostNumber#</cfif>
-					 <input type="hidden" name="postnumber" value="#GetPost.SourcePostNumber#">
+					 <input type="hidden" name="postnumber" value="#GetPost.PositionNo#">
 		     	 </cfoutput>
 				 	
 				<cfelse>
 						
-			 	    <select name="PostNumber">				
+			 	    <select name="PostNumber" style="border:0px;Border-left:1px solid silver;border-right:1px solid silver">	
+					    <option value="">Select</option>			
 					    <cfoutput query="GetPost">							
-				    		<option value="#SourcePostNumber#" <cfif getCandidateStatus.PostNumber is SourcePostNumber>selected</cfif>>
+				    		<option value="#PositionNo#" <cfif getCandidateStatus.PositionNo is PositionNo>selected</cfif>>
 				    		<cfif SourcePostNumber eq "">Internal<cfelse>#SourcePostNumber#</cfif>
 							</option>					
 						</cfoutput>

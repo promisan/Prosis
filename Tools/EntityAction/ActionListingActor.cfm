@@ -312,7 +312,6 @@
 			</td>
 			
 			
-			
 			</tr></table>
 			</td>
 			<td align="right">
@@ -431,6 +430,11 @@
 			ORDER BY Type, U.LastName, U.FirstName, A.ClassParameter
 		
 		</cfquery>		
+		
+		<cfoutput>
+		<tr><td id="actorflyrefresh" 
+		     onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.ActionCode#&Group=#url.group#&assist=#url.assist#','#url.box#')"></td></tr>
+		</cfoutput>
 	
 		<cfif Actor.recordCount eq "0">
 			
@@ -447,43 +451,44 @@
 				
 			<cfset r = 0>
 			<cfset c = 0>
-			
+						
 			<cfoutput query="actor" group="type">
 				
-			<cfif type eq "Document">
+				<cfif type eq "Document">
+				
+				<tr>
+				
+				<td colspan="2" height="100%" valign="top">
+				
+				<table width="100%" height="100%" id="#URL.ActionCode#_#type#">
+				
+				<cfelse>
+				
+				<tr><td align="left" style="padding-left:20px;font-size:12px;cursor:pointer" 
+				    colspan="2" 
+					onClick="javascript:document.getElementById('#URL.ActionCode#_#type#').className='regular';">
+				   <a><font color="808080">CLICK HERE <cf_tl id="view Inherited access through ROLE granted authorization"></font></a>
+				</td></tr>
+				
+				<tr>
+				
+				<td colspan="2" valign="top">		
+						
+				<table width="96%" border="0" align="center" id="#URL.ActionCode#_#type#" class="hide formpadding">	
+				
+				</cfif>		
 			
-			<tr>
-			
-			<td colspan="2" height="100%" valign="top">
-			
-			<table width="100%" height="100%" id="#URL.ActionCode#_#type#">
-			
-			<cfelse>
-			
-			<tr><td align="left" style="padding-left:20px;font-size:12px;cursor:pointer" 
-			    colspan="2" 
-				onClick="javascript:document.getElementById('#URL.ActionCode#_#type#').className='regular';">
-			   <a><font color="808080">CLICK HERE <cf_tl id="view Inherited access through ROLE granted authorization"></font></a>
-			</td></tr>
-			
-			<tr>
-			
-			<td colspan="2" valign="top">				
-			<table width="96%" border="0" align="center" id="#URL.ActionCode#_#type#" class="hide formpadding">	
-			
-			</cfif>		
-			
-			<tr style="height:1px">		
-			 	<td width="4%"></td>
-				<td width="28%"></td>
-				<td width="1%"></td>
-				<td width="4%"></td>
-				<td width="28%"></td>
-				<td width="1%"></td>
-				<td width="4%"></td>
-				<td width="28%"></td>
-				<td width="1%"></td>
-			</tr> 
+				<tr style="height:1px">		
+				 	<td width="4%"></td>
+					<td width="28%"></td>
+					<td width="1%"></td>
+					<td width="4%"></td>
+					<td width="28%"></td>
+					<td width="1%"></td>
+					<td width="4%"></td>
+					<td width="28%"></td>
+					<td width="1%"></td>
+				</tr> 
 			 		 
 			<cfoutput group="LastName">
 			
@@ -516,18 +521,18 @@
 					 <font color="gray">	
 					 
 					 	<table>
+						
 						 <tr class="labelmedium">
-						 <td style="height:17px">					 			
-						 #LastName# <cfif firstname neq "">, #FirstName#</cfif> <cfif accesslevel eq "0"><font size="1" color="808080">[<cf_tl id="Assistant">]</font></cfif>						 
-						 </td>
+						 <td style="height:17px">#LastName# <cfif firstname neq "">, #FirstName#</cfif> <cfif accesslevel eq "0"><font size="1" color="808080">[<cf_tl id="Assistant">]</font></cfif></td>
 						 					 
 						 <cfparam name="url.group" default="">						
-						 <td style="padding-left:4px;padding-top:2px;padding-right:5px">	
 						 
-						 <cfif url.mode eq "Insert">						 	
-						   <cf_img icon="delete"							  
-						   onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.ActionCode#&Group=#url.group#&account=#Account#&assist=#url.assist#','#url.box#')">
-						  </cfif> 					   
+						 <td style="padding-left:4px;padding-top:2px;padding-right:5px">	
+						 						 
+							 <cfif url.mode eq "Insert">						 	
+							   <cf_img icon="delete"							  
+							   onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.ActionCode#&Group=#url.group#&account=#Account#&assist=#url.assist#','#url.box#')">
+							 </cfif> 
 						   
 						 </td>
 						 
@@ -538,13 +543,13 @@
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">	 
 							    SELECT 	  *
-								FROM   Ref_EntityClassActionAccess
-								WHERE  EntityCode  = '#Object.EntityCode#'
-								AND    EntityClass = '#Object.EntityClass#'
-								AND    ActionCode  = '#url.ActionCode#'
-								AND    Mission     = '#Object.Mission#'
-								AND    UserAccount = '#SESSION.acc#'		
-								AND    UserAccountGranted = '#account#'
+								FROM      Ref_EntityClassActionAccess
+								WHERE     EntityCode  = '#Object.EntityCode#'
+								AND       EntityClass = '#Object.EntityClass#'
+								AND       ActionCode  = '#url.ActionCode#'
+								AND       Mission     = '#Object.Mission#'
+								AND       UserAccount = '#SESSION.acc#'		
+								AND       UserAccountGranted = '#account#'
 							 </cfquery>
 																		 
 							 <cfif checkfavorite.recordcount eq "0">

@@ -32,9 +32,10 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 	UPDATE DocumentCandidate
 	SET    Remarks             = '#Form.Remarks#',
+	       PositionNo          = '#Form.PostNumber#',
 	       DateArrivalExpected = #arr#	
-	WHERE DocumentNo        = '#Form.DocumentNo#'	
-	AND   PersonNo          = '#Form.PersonNo#'
+	WHERE  DocumentNo          = '#Form.DocumentNo#'	
+	AND    PersonNo            = '#Form.PersonNo#' 
 </cfquery>
 
-<cf_compression>
+

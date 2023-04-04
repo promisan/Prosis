@@ -42,7 +42,7 @@
   
 </cfif> 
 
-<cfajaximport tags="cfchart,cfform,cfwindow,cfdiv">
+<cfajaximport tags="cfchart,cfform,cfdiv">
 <cf_presentationScript>
 	
 <cfparam name="client.warehouseselected" default="">

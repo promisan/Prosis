@@ -147,6 +147,7 @@
 <cfparam name="Attributes.ObjectDue"         default="">
 <cfparam name="Attributes.ParentObjectId"    default="">
 <cfparam name="Attributes.Questionaire"      default="No">
+<cfparam name="Attributes.ChatEnable"        default="1">
 
 <cfquery name="getQuestionaire" 
 	datasource="#attributes.Datasource#" 

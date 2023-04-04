@@ -1,7 +1,7 @@
 
 <cfoutput>
 
-	<tr class="labelmedium navigation_row line fixlengthlist">
+	<tr class="labelmedium2 navigation_row line fixlengthlist">
 	
 		<td style="padding-top:4px;padding-left:4px;padding-right:4px;width:50px">
 		
@@ -19,16 +19,15 @@
 						  height="14" 
 						  border="0" 
 						  align="middle" 
-						  onClick="Selected('#OrgUnit#','#OrgUnitCode#','#Mission#','#OrgUnitName#','#OrgUnitClass#')">
+						  onClick="selectunit('#OrgUnit#')">
 				    </a>
 				
 				</cfcase>
 				
 				<cfdefaultcase>
-								   
-				   <cf_img icon="select" navigation="Yes"
-				   onclick="Selected('#OrgUnit#','#OrgUnitCode#','#Mission#','#OrgUnitName#','#OrgUnitClass#')">
-						
+				
+				   <cf_img icon="select" navigation="Yes" tooltip="Select" onclick="selectunit('#OrgUnit#')">
+				  						
 				</cfdefaultcase>
 			
 			</cfswitch>
@@ -41,3 +40,6 @@
     </tr>
 
 </cfoutput>
+
+<cfset ajaxonload("doHighlight")>
+

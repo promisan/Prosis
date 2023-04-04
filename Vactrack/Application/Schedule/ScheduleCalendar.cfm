@@ -6,7 +6,9 @@
 
   <cf_calendarscript>
   <cf_calendarviewscript>
-
+  
+  <cf_listingscript>
+   
   <cfoutput>
 
    <script>
@@ -27,33 +29,60 @@
 	  FROM   Ref_Mission
 	  WHERE  Mission = '#url.mission#'
   </cfquery>	  
-
+  
 <table width="100%" height="100%">
 			  
-	<tr><td valign="top" style="padding-left:10px;padding-right:10px">		
+	<tr><td valign="top" style="padding-left:10px;padding-right:10px;">		
+		    
+	<cfif url.id eq "REC">  
+	
+			<cfparam name="client.selecteddate" default="#now()#">
+			<cfparam name="url.hierarchycode" default="">
+			
+			<cfif client.selecteddate lt (now()-300)>
+			   <cfset client.selecteddate = now()>
+			</cfif>	
+			
+			<cfparam name="url.selecteddate" default="#client.selecteddate#">								
+						
+			<cf_calendarView 
+			   title          = "#get.MissionName#"	
+			   selecteddate   = "#url.selecteddate#"
+			   relativepath   =	"../../.."				
+			   autorefresh    = "0"				   
+			   preparation    = ""	    				  
+			   content        = "Vactrack/Application/Schedule/Recruitment/ScheduleCalendarDate.cfm"			   		  
+			   target         = "Vactrack/Application/Schedule/Recruitment/ScheduleCalendarSummary.cfm"
+			   condition      = "mission=#get.mission#&systemfunctionid=#url.systemfunctionid#&hierarchycode=#url.hierarchycode#"		   
+			   cellwidth      = "fit"
+			   cellheight     = "90">		
+	
+	<cfelseif url.id eq "EVT">	
 	
 		<cfparam name="client.selecteddate" default="#now()#">
-		<cfparam name="url.hierarchycode" default="">
-		
-		<cfif client.selecteddate lt (now()-300)>
-		   <cfset client.selecteddate = now()>
-		</cfif>	
-		
-		<cfparam name="url.selecteddate" default="#client.selecteddate#">								
-							
-		<cf_calendarView 
-		   title          = "#get.MissionName#"	
-		   selecteddate   = "#url.selecteddate#"
-		   relativepath   =	"../../.."				
-		   autorefresh    = "0"				   
-		   preparation    = ""	    				  
-		   content        = "Vactrack/Application/Schedule/ScheduleCalendarDate.cfm"			   		  
-		   target         = "Vactrack/Application/Schedule/ScheduleCalendarSummary.cfm"
-		   condition      = "mission=#get.mission#&systemfunctionid=#url.systemfunctionid#&hierarchycode=#url.hierarchycode#"		   
-		   cellwidth      = "fit"
-		   cellheight     = "90">
+			<cfparam name="url.hierarchycode" default="">
 			
+			<cfif client.selecteddate lt (now()-300)>
+			   <cfset client.selecteddate = now()>
+			</cfif>	
+			
+			<cfparam name="url.selecteddate" default="#client.selecteddate#">								
+								
+			<cf_calendarView 
+			   title          = "#get.MissionName#"	
+			   selecteddate   = "#url.selecteddate#"
+			   relativepath   =	"../../.."				
+			   autorefresh    = "0"				   
+			   preparation    = ""	   			   				  
+			   content        = "Vactrack/Application/Schedule/PersonEvent/ScheduleCalendarDate.cfm"			   		  
+			   target         = "Vactrack/Application/Schedule/PersonEvent/ScheduleCalendarSummary.cfm"
+			   condition      = "mission=#get.mission#&systemfunctionid=#url.systemfunctionid#&hierarchycode=#url.hierarchycode#"		   
+			   cellwidth      = "fit"
+			   cellheight     = "55">		
+	
+	</cfif>	
 	</td></tr> 
 
 </table>
+
  

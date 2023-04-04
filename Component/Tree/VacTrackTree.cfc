@@ -145,7 +145,7 @@
 						<cfset s.parent  = "root">
 						<cfset s.display = "<span class='labelmedium' style='padding-top:1px;font-weight:bold;padding-bottom:1px;font-size:17px'>#mis# [#total#]</span>">
 						<cfset s.href    = "ControlListingTrack.cfm?ID=MIS&Mission=#Mis#&Status=0&Entity=Both&Parent=All">
-						<cfset s.target  = "right">
+						<cfset s.target  = "right">						
 						<cfset s.expand  = true/>
 						<cfset arrayAppend(result,s)/>						
 
@@ -154,6 +154,7 @@
 				</cfloop>
 
 				<cfelseif find("_status",vmid) eq 0 and
+				        find("_actor",vmid) eq 0 and
 						find("_schedule",vmid) eq 0 and
 						find("_events",vmid) eq 0 and
 						find("_stage",vmid) eq 0 and
@@ -223,7 +224,6 @@
 						<cfset s.expand   = "true"/>
 						<cfset s.leafnode = false/>
 						<cfset arrayAppend(result,s)/>		
-						
 						
 					
 					</cfoutput>
@@ -311,7 +311,7 @@
 						<cfset s = StructNew()>
 						<cfset s.value   = "#mis#_stage,0">
 						<cfset s.parent  = "#mis#_pending">
-						<cfset s.display = "<span class='labelit' style='color:6688aa;font-size:15px'>#vStg#</span>">
+						<cfset s.display = "<span class='labelit' style=';font-size:15px'>#vStg#</span>">
 						<cfset s.expand="true"/>
 						<cfset s.leafnode=false/>
 						<cfset arrayAppend(result,s)/>
@@ -319,12 +319,22 @@
 						<cf_tl id="Track by Organization" var="vOrg">		
 		
 						<cfset s = StructNew()>
-						<cfset s.value   = "#mis#_org">
+						<cfset s.value   = "#mis#_org,0">
 						<cfset s.parent  = "#mis#_pending">
-						<cfset s.display = "<span class='labelit' style='color:6688aa;font-size:15px'>#vOrg#</span>">
+						<cfset s.display = "<span class='labelit' style='font-size:15px'>#vOrg#</span>">
 						<cfset s.expand="true"/>
 						<cfset s.leafnode=false/>
-						<cfset arrayAppend(result,s)/>						
+						<cfset arrayAppend(result,s)/>		
+						
+						<cf_tl id="Track by Actor" var="vAct">		
+		
+						<cfset s = StructNew()>
+						<cfset s.value   = "#mis#_actor,0">
+						<cfset s.parent  = "#mis#_pending">
+						<cfset s.display = "<span class='labelit' style='font-size:15px'>#vAct#</span>">
+						<cfset s.expand="true"/>
+						<cfset s.leafnode=false/>
+						<cfset arrayAppend(result,s)/>							
 				
 				
 				<cfelseif find("_stage",vmid) neq 0>
@@ -378,6 +388,8 @@
 							<cfset arrayAppend(result,s)/>
 		
 						</cfloop>
+						
+						<!--- candidate --->
 		
 						<cfquery name="Parent"
 								datasource="AppsOrganization"
@@ -411,6 +423,75 @@
 							<cfset arrayAppend(result,s)/>
 		
 						</cfloop>
+						
+				<cfelseif find("_actor",vmid) neq 0>
+
+						<cfset clist = replace(vmid,"_actor","")>
+						<cfset i="1">
+		
+						<cfloop list="#clist#" index="element" delimiters = ",">
+							<cfswitch expression="#i#">
+								<cfcase value="1">
+									<cfset mis = element>
+								</cfcase>
+								<cfcase value="2">
+									<cfset sta = element>
+								</cfcase>
+							</cfswitch>
+							<cfset i = i + 1>
+						</cfloop>
+						
+						<cfquery name="Mission"
+						datasource="AppsOrganization"
+						username="#SESSION.login#"
+						password="#SESSION.dbpw#">
+						SELECT *
+						FROM   Ref_Mission
+						WHERE  Mission = '#mis#'
+						</cfquery>
+						
+						<cfquery name="Mandate"
+							datasource="AppsOrganization"
+							maxrows=1
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT    *
+							FROM     Ref_Mandate
+							WHERE    Mission = '#mis#'
+							ORDER BY MandateDefault DESC, MandateNo DESC
+						</cfquery>
+		
+						<cfquery name="Actor"
+								datasource="AppsVacancy"
+								username="#SESSION.login#"
+								password="#SESSION.dbpw#">								
+								SELECT T.ActionReference, count(DISTINCT D.DocumentNo) as Total
+								FROM   Document D 
+									   INNER JOIN DocumentPost DP                  ON D.DocumentNo = DP.DocumentNo 
+									   INNER JOIN Employee.dbo.Position P          ON DP.PositionNo = P.PositionNo
+									   INNER JOIN Organization.dbo.Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+									   INNER JOIN userQuery.dbo.#session.acc#_#Mission.MissionPrefix#_VacancyTrack as T ON D.DocumentNo = T.ObjectKeyValue1
+								WHERE  D.Mission        = '#mis#'
+								AND    O2.MandateNo     = '#Mandate.MandateNo#'
+								AND    D.Status = '0'	
+								GROUP BY T.ActionReference									
+						</cfquery>		
+		
+						<cfloop query="Actor">
+		
+							<cfset s = StructNew()>
+							<cfset s.value   =  "#ActionReference#">
+							<cfset s.parent  =  "#vmid#_actor">
+							<cfset s.img     =  "#SESSION.root#/Images/select.png">
+							<cfset s.display =  "<span class='labelit' style='height:10px;font-size:12px'>#ActionReference# [#total#]</span>">
+							<cfset s.href    =  "ControlListingTrack.cfm?ID=MIS&Mission=#mis#&Status=#Sta#&Entity=VacDocument&Actor=#ActionReference#&systemfunctionid=#systemfunctionid#">
+							<cfset s.target  =  "right">
+							<cfset s.expand  =  "true"/>
+							<cfset s.leafnode=true/>
+							<cfset arrayAppend(result,s)/>
+		
+						</cfloop>							
+										
 				
 				<cfelseif find("_schedule",vmid) neq 0>
 				
@@ -482,8 +563,21 @@
 					</cfloop>								
 
 				<cfelseif find("_org",vmid) neq 0>
-
-						<cfset mis = replace(vmid,"_org","")>
+				
+    					<cfset clist = replace(vmid,"_org","")>
+						<cfset i="1">
+												
+						<cfloop list="#clist#" index="element" delimiters = ",">
+							<cfswitch expression="#i#">
+								<cfcase value="1">
+									<cfset mis = element>
+								</cfcase>
+								<cfcase value="2">
+									<cfset sta = element>
+								</cfcase>
+							</cfswitch>
+							<cfset i = i + 1>
+						</cfloop>
 						
 						<cfquery name="Mission"
 							datasource="AppsOrganization"
@@ -933,7 +1027,7 @@
 
 				   <cfset mis = replace(vmid,"_can","")>
 				   
-				   <cfloop index="yr" list="2022,2021,2020,2019">		
+				   <cfloop index="yr" list="2023,2022,2021,2020,2019">		
 
 						<cfset s2 = StructNew()>
 						<cfset s2.value    = "#yr#">

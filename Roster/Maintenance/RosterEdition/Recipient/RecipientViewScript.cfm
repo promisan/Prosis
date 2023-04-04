@@ -9,8 +9,6 @@
 
 <cf_dialogOrganization>
 
-<script type="text/javascript" src="#SESSION.root#/Scripts/jQuery/jquery.js"></script>
-
 <script language="JavaScript">
 
 function recipient(op,id,org) {    

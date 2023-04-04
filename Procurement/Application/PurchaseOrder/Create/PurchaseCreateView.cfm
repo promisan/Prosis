@@ -8,31 +8,21 @@
 
 <!--- End Prosis template framework --->
 
-<cfparam name="url.jobno" default="">
+<cfparam name="url.jobno"    default="">
 <cfparam name="url.actionId" default="">
-<cfparam name="url.header" default="no">
+<cfparam name="url.header"   default="no">
+<cfparam name="url.mid"      default="">
 
 <cfoutput>
 	
 	<cf_tl id="Record Obligation" var="vRecord">
 	<cf_tl id="Select lines to be included in the obligation for the selected contractor" var="vSelectMessage">
-	
-	<!---
-	<cf_screenTop height="100%" 
-	   layout="webapp" 
-	   bannerheight="60"
-	   banner="gray"	   	   
-	   label="#vRecord#" 
-	   close="ColdFusion.Window.destroy('mydialog',true)"
-	   option="#vSelectMessage#"
-	   scroll="no">
-	   --->
-	   
+		   
 	<table width="100%" height="100%">
 		<tr>		
 			<td valign="top">
 									
-				<iframe src="#SESSION.root#/Procurement/Application/PurchaseOrder/Create/PurchaseCreate.cfm?Header=no&ActionId=#URL.actionId#&Jobno=#url.jobno#&Mission=#URL.Mission#"
+				<iframe src="#SESSION.root#/Procurement/Application/PurchaseOrder/Create/PurchaseCreate.cfm?Header=no&ActionId=#URL.actionId#&Jobno=#url.jobno#&Mission=#URL.Mission#&mid=#url.mid#"
 			        name="right"
 			        id="right"
 			        width="100%"
@@ -43,9 +33,6 @@
 			</td>
 		</tr>
 	</table>
-	<!---
-	<cf_screenbottom layout="webapp">
-	--->
-
+	
 </cfoutput>
 

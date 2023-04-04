@@ -59,7 +59,7 @@
         document.passwordform.onsubmit()
         if( _CF_error_messages.length == 0 ) {
             <cfif Attributes.context eq "Desktop">
-                 ptoken.navigate('#vDirectory#UserPasswordSubmit.cfm?portalid=#URL.portalid#&mission=#URL.mission#','dprocess','','','POST','passwordform')
+                 ptoken.navigate('#session.root#/System/UserPasswordSubmit.cfm?portalid=#URL.portalid#&mission=#URL.mission#','dprocess','','','POST','passwordform')
             <cfelse>
                 ptoken.navigate('#session.root#/portal/mobile/UserPasswordSubmit.cfm','mainContainer','','','POST','passwordform')
             </cfif>

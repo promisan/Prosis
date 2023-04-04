@@ -30,12 +30,14 @@
 	  )	  
 </cfquery>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/> 
 
-<table width="96%" cellspacing="0" cellpadding="0" align="right" class="formpadding">
+<table width="96%" align="right" class="formpadding">
 	<cfoutput query="result">
-	<tr>
-	   <td class="labelit">#currentrow#.</td>
-	   <td class="labelit"><a href="RequisitionViewBuyerOpen.cfm?ID=JOB&ID1=#JobNo#" target="right" title="#Description#"><font color="2894FF">#CaseNo# (#jobNo#)</a></td>
+	<tr class="labelmedium2 linedotted">
+	   <td>#currentrow#.</td>
+	   <td><a href="RequisitionViewBuyerOpen.cfm?ID=JOB&ID1=#JobNo#&mid=#mid#" target="right" title="#Description#">#CaseNo# (#jobNo#)</a></td>
 	</tr>
 </cfoutput>
 </table>

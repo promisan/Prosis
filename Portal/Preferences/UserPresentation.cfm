@@ -84,7 +84,8 @@ WHERE Account = '#SESSION.acc#'
 			<option value="Orange" <cfif Pref_Color eq "Orange">selected</cfif>><cf_tl id="Orange"></option>
 			<option value="White" <cfif Pref_Color eq "White">selected</cfif>><cf_tl id="White"></option>
 			<option value="Blue" <cfif Pref_Color eq "Blue">selected</cfif>><cf_tl id="Blue"></option>
-		</select>	
+			<option value="Green" <cfif Pref_Color eq "Green">selected</cfif>><cf_tl id="Green"></option>
+		</select>
 		</cfoutput> 
 	</TD>
 	</TR>

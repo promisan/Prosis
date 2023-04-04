@@ -89,19 +89,21 @@
 					   <!--- prior selection but not expired yet --->	  
 					   (DC.Status = '3' AND D.Status = '1' AND DC.StatusDate > '#seldate#')
 					   )
+					   
+			   AND     D.DocumentType IN (SELECT Code FROM Ref_DocumentType WHERE SelectionDays = 1)
 
 			   <cfif Owner neq "">							  
 			   AND     D.Owner = '#Owner#'
 			   </cfif>
 			   
-			   AND   D.Mission IN (SELECT Mission FROM  Organization.dbo.Ref_Mission WHERE Operational = 1)
+			   AND     D.Mission IN (SELECT Mission FROM  Organization.dbo.Ref_Mission WHERE Operational = 1)
 			   
 			   <cfif documentNo neq "">
 			   AND     D.DocumentNo != '#documentno#'
 			   </cfif>
 			   
 			   <cfif PersonNo neq "">
-			   AND     (
+			   AND    (
 			          DC.PersonNo  = '#PersonNo#' <cfif Person.IndexNo neq "">or A.IndexNo = '#Person.IndexNo#'</cfif>
 					  )
 			   </cfif>
@@ -135,6 +137,8 @@
 						  Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo
 						  
 				  WHERE   D.Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)
+				  
+				  AND     D.DocumentType IN (SELECT Code FROM Ref_DocumentType WHERE SelectionDays = 1)
 			  				    
 				  <cfif documentNo neq "">
 				   AND     D.DocumentNo != '#documentno#'

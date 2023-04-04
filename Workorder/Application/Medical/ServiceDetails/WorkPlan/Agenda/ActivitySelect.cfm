@@ -36,8 +36,6 @@
 	</cfif>
 </cfif>
 
-
-
 <cfquery name="Unit" 
 	 datasource="AppsWorkOrder" 
 	 username="#SESSION.login#" 

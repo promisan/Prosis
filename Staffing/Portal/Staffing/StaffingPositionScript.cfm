@@ -40,11 +40,12 @@
 			document.getElementById('FunctionDescription').value = description					 
 			ProsisUI.closeWindow('myfunction')
 		}		
-		
-		function va(fun) {
-			ptoken.open('#SESSION.root#/Vactrack/Application/Announcement/Announcement.cfm?header=yes&ID='+fun, fun);
-		}
-		
+				
+        function va(fun) {
+		    ProsisUI.createWindow('jotext', 'Job Opening text', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    	
+		    ptoken.navigate('#session.root#/Vactrack/Application/Announcement/Announcement.cfm?header=No&external=0&ID='+fun, 'jotext');
+    	}
+			
 		function rostersearch(action,actionid,ajaxid) {    
 		    ptoken.open("#SESSION.root#/Roster/RosterGeneric/RosterSearch/Search1ShortList.cfm?mode=vacancy&wActionId="+actionid, "search"+ajaxid, "left=35, top=35, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes")	
 	    }
@@ -62,13 +63,22 @@
 			per = document.getElementById('personno');			
 	    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?personno='+per.value+'&portal=1&triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value,'dEvent')
 	    }    
+		
+		function checkinstruction() {		
+	 	    mis     = document.getElementById('mission');
+	   		evt     = document.getElementById('eventcode');		
+		   	ptoken.navigate('#session.root#/Staffing/Application/Employee/Events/getInstruction.cfm?eventcode='+evt.value+'&mission='+mis.value,'myinstruction')						
+			document.getElementById('myinstruction').className = 'regular'
+			
+		}
 	
 	    function checkreason() {
 			tc = document.getElementById('triggercode');
 			ev = document.getElementById('eventcode');
 			rid = document.getElementById('eventid');		
-	    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dReason');
-			ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dCondition');  
+			mis = document.getElementById('mission');	
+	    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?mission='+mis.value+'&triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dReason');
+			ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?mission='+mis.value+'&triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value,'dCondition');  
 	    }
 		
 		function eventsubmit(id,box) {
@@ -88,6 +98,7 @@
 			pbx = document.getElementById('positionbox');	
 			rbx = document.getElementById('requisitionbox');
 			ebx = document.getElementById('expirybox');		
+			efx = document.getElementById('effectivebox');		
 			
 			if (pos.value=='' && pbx.className!= 'hide') {		   
 				alert('Please specify a position.');			
@@ -103,7 +114,7 @@
 				alert('Please specify Event Date.');
 			} else if (ded.value == '')  {		    
 				alert('Please specify Due Date.');
-			} else if (eff.value == '')  {		    
+			} else if (eff.value == '' && efx.className!= 'hide')  {		    
 				alert('Please specify Action effective Date.');	
 			} else if (exp.value == '' && ebx.className!= 'hide') {		    
 				alert('Please specify Action expiration Date.');		
@@ -111,7 +122,6 @@
 	    		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?portal=1&box='+box+'&eventid='+id,'process','','','POST','eventform')		
 			}
 		}
-	
 	</script>
 
 </cfoutput>

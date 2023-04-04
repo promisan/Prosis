@@ -31,7 +31,7 @@
 					
 	<cfelse>
 					 
-	    <cfset setlink = "_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Tools/SelectLookup/ItemExtended/ItemList.cfm?show=#show#&search='+this.value+'&module=#url.module#&link=#link#&filter1=#url.filter1#&filter1value=#url.filter1value#&filter2=#url.filter2#&filter2value=#url.filter2value#&close=#url.close#&des1=#url.des1#&box=#url.box#&onhand='+document.getElementById('onhand').checked,'itemlisting')">	
+	    <cfset setlink = "_cf_loadingtexthtml='';Prosis.busyRegion('yes','itemlisting'); ptoken.navigate('#SESSION.root#/Tools/SelectLookup/ItemExtended/ItemList.cfm?show=#show#&search='+this.value+'&module=#url.module#&link=#link#&filter1=#url.filter1#&filter1value=#url.filter1value#&filter2=#url.filter2#&filter2value=#url.filter2value#&close=#url.close#&des1=#url.des1#&box=#url.box#&onhand='+document.getElementById('onhand').checked,'itemlisting')">	
 							
 			<tr>						
 			
@@ -50,7 +50,7 @@
 						   name    = "Search" 
 						   id      = "Search" 
 						   style   = "border:1px inset gray;width:300px; height:33px;font-size:25px;!important"
-						   onkeyup = "if (window.event.keyCode == '13') {#setlink#;};if (window.event.keyCode == '8') {#setlink#};"						  
+						   onkeyup = "if (window.event.keyCode == '13') {#setlink#;};"						  
 						   class   = "regularxxl">
 						   
 						  

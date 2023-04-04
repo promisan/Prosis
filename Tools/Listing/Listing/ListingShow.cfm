@@ -88,7 +88,7 @@
 												
 			<cfif attributes.filtershow neq "No" and tree.recordcount gte "1">
 				<cf_tl id="Filter" var="tlOptions">
-				<cf_layoutArea position="left" overflow="hidden" name="mytree" collapsible="true" size="190px" minsize="190px" maxsize="260px">					   												
+				<cf_layoutArea position="left" overflow="hidden" name="mytree" collapsible="true" size="260px" minsize="190px" maxsize="260px">
 					<cfdiv id="divListingMenuTree" style="height:100%; width:100%" 
 					   bind="url:#session.root#/tools/listing/listing/ListingTree.cfm?height=#url.height#&box=#attributes.box#_content&systemfunctionid=#url.systemfunctionid#&FunctionSerialNo=1">					
 				</cf_layoutArea>

@@ -1,13 +1,37 @@
 
 <!--- candidate recommendation --->
 
-<cfquery name="doc" 
-	datasource="appsVacancy" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	    SELECT  *	   
-		FROM    Document				   	   
-		WHERE   DocumentNo = '#url.documentNo#'		 		 	 
+<cfquery name="Doc" 
+datasource="appsVacancy" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT  D.*,
+	        Org.OrgUnitNameShort, 
+			
+			( SELECT TOP 1 Fund
+			  FROM   Employee.dbo.PositionParentFunding
+			  WHERE  PositionParentId = P.PositionParentId 
+			  ORDER BY DateEffective DESC ) as Fund,		
+			 
+			( SELECT EntityClassNameShort
+			  FROM   Organization.dbo.Ref_EntityClass as R 
+			  WHERE  R.EntityClass = D.EntityClass AND R.EntityCode ='VacDocument' ) as EntityClassNameShort,
+			
+									
+	        F.FunctionId     as VAId, 
+			F.ReferenceNo    as VAReferenceNo,
+			F.DateEffective  as VAEffective,
+			F.DateExpiration as VAExpiration,
+			P.SourcePostNumber,
+			P.OrgUnitOperational,
+			P.FunctionDescription
+			
+    FROM  	Document D 
+	        INNER JOIN Applicant.dbo.FunctionOrganization F  ON D.FunctionId = F.FunctionId
+    		INNER JOIN Employee.dbo.Position as P            ON P.PositionNo = D.PositionNo   <!--- Hanno : we should use documentposition so be on the alert --->
+			INNER JOIN Organization.dbo.Organization as Org  ON Org.OrgUnit  = P.OrgUnitOperational						
+			
+    WHERE 	D.DocumentNo = '#url.documentNo#' 
 </cfquery>
 
 <cfquery name="fun" 
@@ -19,6 +43,7 @@
 		WHERE   DocumentNo = '#doc.documentNo#'		 		 	 
 </cfquery>
 
+
 <cfquery name="get" 
 	datasource="appsVacancy" 
 	username="#SESSION.login#" 
@@ -28,7 +53,24 @@
                 Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo INNER JOIN
                 Ref_Status S ON DC.Status = S.Status    				   	   
 		WHERE   DC.DocumentNo = '#url.documentNo#'		 
-		AND     DC.PersonNo   = '#url.personno#'		 
+		AND     DC.PersonNo   = '#url.personno#'	
+		AND     S.Class = 'Candidate' 	 
+</cfquery>
+
+<!--- we show all candidates here now for easy comparison --->
+
+<cfquery name="getCandidates" 
+	datasource="appsVacancy" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT   A.*, DC.Status			   
+		FROM     DocumentCandidate DC INNER JOIN
+                 Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo INNER JOIN
+                 Ref_Status S ON DC.Status = S.Status    				   	   
+		WHERE    DC.DocumentNo = '#url.documentNo#'		
+		AND      S.Class = 'Candidate' 
+		AND      DC.Status IN ('#url.wfinal-1#','#url.wfinal#')	 
+		ORDER BY CandidateOrder
 </cfquery>
 
 <cfoutput>
@@ -41,38 +83,21 @@
 	
 	<cf_divscroll>
 	
-		<table width="98%">
+		<table width="98%" border="0">
 		
 		<tr><td id="myprocess"></td></tr>
 		
-		<tr class="labelmedium line">
-		<td style="height:40px;font-size:18px"><cf_tl id="Candidate">:</td>
-		<td style="width:80%;font-size:18px">
-		    <cfoutput>
-			<table>
-			    <tr class="labelmedium2">
-				<td style="font-weight:bold;padding-top:2px;padding-left:14px;font-size:20px">#get.FirstName# #get.LastName#</td>
-				<td style="padding-top:2px;padding-left:14px;font-size:18px"><cf_tl id="Recommended for selection">:</td>
-				<td style="padding-left:4px">
-				<input class = "Radiol" 
-				       style = "height:21px;width:21px" 
-					   type  = "checkbox" 
-					   name  = "ReviewStatus" id="ReviewStatus" 
-					   value = "#url.wFinal#" <cfif get.Status gte url.wFinal>checked</cfif> style="cursor:pointer">					
-	    		</td>
-				
-			    </tr>
-			</table>
-			</cfoutput>
-		</tr>
-			
-						
-		<!--- make listing for this person by excluding existing selections if not '9' --->
-				
+		 <tr>
+		 <td style="font-weight:bold;padding-top:4px;height:35px;font-size:18px;padding-right:10px"><cf_tl id="Reason for recommendation"></td>
+		 
+		 <td style="font-size:15px;min-width:300px" align="right">	
+			Position : #Doc.SourcePostNumber# #Doc.PostGrade# #Doc.FunctionDescription# of #DOC.Mission#/#Doc.OrgUnitNameShort# for fund #doc.Fund#
+		</td></tr>
 		
+		<!--- make listing for this person by excluding existing selections if not '9' --->
 		
 		<tr class="labelmedium">
-		<td colspan="2" style="min-width:260px;padding-top:4px;height:40px;font-size:18px;padding-right:10px" colspan="1"><cf_tl id="Reason for recommendation">:
+		<td colspan="2" style="min-width:260px;padding-top:4px;height:40px;font-size:18px;padding-right:10px">
 		<span style="font-size:12px;color:gray">Please briefly explain the selection process and why the candidate is considered to be the most suitable
 		for the position based on <cfif get.Gender eq "F">her<cfelse>his</cfif> acquired experience versus the requirements of the job <b>(don't type out the PHP
 		but provide a brief assessment on what the candidate brings to the job)</b>. Please describe efforts made to attract a wide pool of female candidates with
@@ -81,7 +106,7 @@
 		</tr>
 		
 		<tr class="labelmedium">
-		<td colspan="2" valign="top" align="center" style="padding-top:10px;padding-bottom:10px">
+		<td colspan="2" valign="top" align="center" style="padding-left:5px;padding-top:5px;padding-bottom:8px;padding-right:20px">
 		
 		 <cfquery name="Check" 
 		 datasource="AppsVacancy" 
@@ -94,9 +119,83 @@
 			AND   ActionCode = '#url.ActionCode#'  
 		 </cfquery>	
 		 
-		 <textarea style="padding:5px;border:1px solid silver;background-color:f1f1f1;height:100px;width:98%;font-size:13px;" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
+		 <textarea style="padding:5px;border:1px solid silver;background-color:f1f1f1;height:68px;width:98%;font-size:13px;" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
 		
 		</td>
+		</tr>
+		
+		<tr class="labelmedium">
+		
+		<td style="width:80%;font-size:18px" colspan="2">
+		   
+			<table style="width:100%">
+			
+			    <tr class="line">
+				<td style="font-size:14px;padding-left:4px;width:30px"></td>
+				<td style="font-size:14px;padding-left:4px"><cf_tl id="Candidate"></td>
+				<td style="font-size:14px;padding-left:4px"><cf_tl id="Select"></td>
+				<td style="font-size:14px;padding-left:4px"><cf_tl id="Priority"></td>
+			
+			    <cfloop query="getCandidates">
+				
+									
+					<cfquery name="get" 
+						datasource="appsVacancy" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						    SELECT  A.*, DC.Status, DC.CandidateOrder			   
+							FROM    DocumentCandidate DC INNER JOIN
+					                Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo INNER JOIN
+					                Ref_Status S ON DC.Status = S.Status    				   	   
+							WHERE   DC.DocumentNo = '#url.documentNo#'		 
+							AND     DC.PersonNo   = '#personno#'	
+							AND     S.Class = 'Candidate' 	 
+					</cfquery>
+					
+				    <tr class="labelmedium2 line" style="height:30px">
+					<td style="padding-left:5px;padding-bottom:3px">
+					<input type="radio" class="radiol" <cfif url.personno eq personno>checked</cfif> name="Inspect" value="Inspect" onclick="Prosis.busy('yes');ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Recommendation/CandidateInspection.cfm?documentno=#url.documentno#&PersonNo=#PersonNo#&actioncode=#url.actioncode#','inspectionbox')">
+					</td>
+					<td style="padding-top:2px;padding-left:14px;font-size:17px">
+					#FirstName# #LastName# (#gender#)
+					
+					<!---
+					<select name="candidateselect" class="regularxxl" onchange="Prosis.busy('yes');ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Recommendation/CandidateRecommendation.cfm?wparam=#url.wparam#&DocumentNo=#url.documentNo#&PersonNo='+this.value+'&ActionCode=#url.actioncode#&wfinal=#url.wfinal#&status=#url.status#','decisionbox')">	>
+						
+							<option value="#PersonNo#" <cfif personNo eq url.personno>selected</cfif>>#FirstName# #LastName#</option>
+						
+					</select>				
+					--->
+					</td>
+					
+					<td style="padding-left:4px;padding-bottom:2px">
+					
+					<input class = "Radiol" 
+					       style = "height:18px;width:18px" 
+						   type  = "checkbox" 
+						   name  = "ReviewStatus#personno#" id="ReviewStatus#personno#" 
+						   onclick="if (this.checked == true) { document.getElementById('person#personno#').className='hide' } else { document.getElementById('person#personno#').className='regular' }" 
+						   value = "#url.wFinal#" <cfif get.Status gte url.wFinal>checked</cfif> style="cursor:pointer">					
+		    		</td>
+					
+					<td>
+						<table>
+						<tr>
+						<td id="person#personno#" class="<cfif get.Status gte url.wFinal>hidden</cfif>">
+						<select name="priority#personno#" name="priority#personno#" class="regularxxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
+						<cfloop index="itm" from="1" to="#recordcount-1#" step="1">
+							<option value="#itm#" <cfif get.CandidateOrder eq itm>selected</cfif>>#itm#</option>
+						</cfloop>
+						</select>
+						</td></tr>
+						</table>
+														
+					</td>
+					
+				    </tr>
+				</cfloop>
+			</table>
+					
 		</tr>
 		
 		<cfif fun.recordcount eq "1">
@@ -179,27 +278,13 @@
 		
 		</cfif>
 		
-		<tr><td style="height:2px"></td></tr>			
-				
-		<cfquery name="subAction" 
-		datasource="AppsOrganization" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			SELECT       D.DocumentId, D.DocumentCode, D.DocumentDescription, D.DocumentOrder, D.DocumentTemplate
-			FROM         Ref_EntityActionDocument AS A INNER JOIN
-			             Ref_EntityDocument AS D ON A.DocumentId = D.DocumentId
-			WHERE        A.ActionCode = '#url.actioncode#'
-			AND          DocumentType = 'activity'
-			AND          DocumentMode = 'notify'
-			AND          D.Operational = 1
-			ORDER BY     D.DocumentOrder		
-		</cfquery>
+		<tr><td style="height:2px"></td></tr>		
 		
-		<cfloop query="subaction">		
-		<tr class="labelmedium"><td colspan="2">		
-		<cfinclude template="../../../../#DocumentTemplate#">		
-		</td></tr>		
-		</cfloop>
+		<tr><td id="inspectionbox" colspan="2">
+		
+		   <cfinclude template="CandidateInspection.cfm">
+			
+			</td></tr>
 				
 		</table>
 	
@@ -207,7 +292,8 @@
 	
 	</td></tr>
 	
-	<tr style="height:40px"><td colspan="2" align="center" style="padding-top:5px">
+	<tr style="height:40px">
+	<td colspan="2" align="center" style="padding-top:5px">
 		<table class="formspacing">
 		<tr>
 		<td><input type="button" value="Close" name="Close"   class="button10g" style="font-size:15px;height:28px;width:200px" 
@@ -223,4 +309,8 @@
 </form>
 
 </cfoutput>
+
+<script>
+	Prosis.busy('no')
+</script>
 

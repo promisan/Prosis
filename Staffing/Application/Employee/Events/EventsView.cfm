@@ -46,11 +46,11 @@
 				<cfset openmode = "show">
 				<cfinclude template="../PersonViewHeaderToggle.cfm">
 			</td></tr>
-			
+						
 			<tr><td valign="top" style="padding-left:10px;padding-right:10px;height:100%">
 				<cf_securediv id="eventdetail" bind="url:EventsListing.cfm?scope=#url.scope#&id=#url.id#" style="height:100%">
 			</td></tr>   
-			
+						
 		<cfelse>	
 		
 			<tr><td valign="top" style="padding-left:10px;padding-right:10px;height:100%">

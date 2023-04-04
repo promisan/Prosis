@@ -1169,7 +1169,7 @@
 							datasource="AppsVacancy" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
-							SELECT  PersonNo, LastName, FirstName, StatusDate
+							SELECT  PersonNo, LastName, FirstName, StatusDate, PositionNo
 							FROM    DocumentCandidate P
 							WHERE   DocumentNo = '#DocumentNo#' 
 							AND     Status IN ('2s','3')
@@ -1184,33 +1184,36 @@
 							<table>
 							
 							<cfloop query = "Candidate">
-							   <tr class="labelmedium2" style="<cfif candidate.recordcount gt '1'>height:20px</cfif>">
+							
+							   <cfset cpl = DateFormat(StatusDate, CLIENT.DateFormatShow)>
+							   
+							   <tr class="labelmedium2" style="<cfif candidate.recordcount gt '1'>height:20px</cfif>">						   
+							    
 							    <td>
 							    <a href="javascript:ShowCandidate('#Candidate.PersonNo#')" title="selected candidate">
-								#Candidate.FirstName# #Candidate.LastName#<cfif currentrow neq recordcount>;</cfif></a>
+								#Candidate.FirstName# #Candidate.LastName#</a> 
+								<cfif Candidate.PositionNo eq SearchResult.PositionNo><b>Eearmarked</b></cfif>
+								<cfif currentrow neq recordcount>;</cfif>								
 								
-								<cfset cpl = DateFormat(StatusDate, CLIENT.DateFormatShow)>
 								- #cpl#
 								
-								<cfquery name="Assignment" 
-									datasource="AppsVacancy" 
-									username="#SESSION.login#" 
-									password="#SESSION.dbpw#">
-										SELECT  TOP 1 *
-										FROM    Employee.dbo.PersonAssignment P
-										WHERE   Source        = 'vac'
-										AND     SourceId      = '#Tracks.DocumentNo#' 
-										AND     SourcePersonNo = '#PersonNo#'
-										AND     AssignmentStatus IN ('0','1')
-										AND     AssignmentType = 'Actual'
-										ORDER BY DateEffective
-								</cfquery>	
-								
-								<cfif Assignment.recordcount eq "1">
-								
-								&nbsp;&nbsp;<cf_tl id="Reporting date"> : #dateformat(Assignment.DateEffective,client.dateformatshow)#
-								
-								</cfif>
+									<cfquery name="Assignment" 
+										datasource="AppsVacancy" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+											SELECT  TOP 1 *
+											FROM    Employee.dbo.PersonAssignment P
+											WHERE   Source        = 'vac'
+											AND     SourceId      = '#Tracks.DocumentNo#' 
+											AND     SourcePersonNo = '#PersonNo#'
+											AND     AssignmentStatus IN ('0','1')
+											AND     AssignmentType = 'Actual'
+											ORDER BY DateEffective
+									</cfquery>	
+									
+									<cfif Assignment.recordcount eq "1">								
+									&nbsp;&nbsp;<cf_tl id="Reporting date"> : #dateformat(Assignment.DateEffective,client.dateformatshow)#								
+									</cfif>
 								
 								</td>
 								</tr>

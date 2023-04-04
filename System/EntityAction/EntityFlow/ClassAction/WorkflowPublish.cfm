@@ -101,6 +101,7 @@
 		ConditionValue,
 		ConditionField,    
 		ConditionMessage,
+		ConditionShow,
 		ConditionScript,		
 		OfficerUserId,
 		OfficerLastName,
@@ -166,6 +167,7 @@
 		ConditionValue,
 		ConditionField,    
 		ConditionMessage,
+		ConditionShow,
 		ConditionScript,
 		'#SESSION.acc#',
 		'#SESSION.last#', 
@@ -303,6 +305,7 @@
 				 ConditionValue,
 				 ConditionScript,
 				 ConditionMessage,
+				 ConditionShow,
 				 OfficerUserId,
 				 OfficerLastName,
 				 OfficerFirstName)
@@ -314,6 +317,7 @@
 				ConditionValue,
 				ConditionScript,
 				ConditionMessage,
+				ConditionShow,
 				'#SESSION.acc#',
 				'#SESSION.last#',
 				'#SESSION.first#'

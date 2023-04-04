@@ -256,7 +256,7 @@ password="#SESSION.dbpw#">
 			role="'AdminRoster','CandidateProfile','RosterClear'"
 			returnvariable="Access">			   
 			   
-		<cfif Access eq "EDIT">	   
+		<cfif Access eq "EDIT" or Access eq "ALL">	 
 		
 			<cfquery name="getSource" 
 				datasource="AppsSelection" 

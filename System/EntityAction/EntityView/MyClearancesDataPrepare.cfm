@@ -23,6 +23,7 @@
 				            E.EntityDescription,
 							P.ActionLeadTime, 
 							P.ActionTakeAction,
+							P.NotificationTarget,
 							O.EntityGroup,
 							O.Mission,
 							O.Owner,

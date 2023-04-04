@@ -133,9 +133,8 @@
 							datasource="AppsEmployee" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">									
-								SELECT    D.*, RC.EntityClassName 
-								FROM      Vacancy.dbo.Document D INNER JOIN
-										  Organization.dbo.Ref_EntityClass RC ON RC.EntityClass = D.EntityClass AND RC.EntityCode = 'VacDocument'		
+								SELECT    D.*, R.Description 
+								FROM      Vacancy.dbo.Document AS D INNER JOIN Vacancy.dbo.Ref_DocumentType AS R ON D.DocumentType = R.Code	
 								WHERE     D.DocumentNo = '#docno#' 
 						</cfquery>	
 				
@@ -149,9 +148,9 @@
 						</cfquery>			
 
 						<tr class="labelmedium2">					      						   
-					   	   <td class="fixlength" colspan="2" style="max-width:100px;padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;">#Track.entityclassName#</td>
+					   	   <td class="fixlength" colspan="2" style="max-width:100px;padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;">Through #Track.description#</td>
 						   
-						   <td align="right" style="padding-right:5px;color:green">						   					   
+						   <td align="right" style="padding-right:5px;color:green;font-size:13px">						   					   
 						   <cfif fo.recordcount eq "1"><A href="javascript:va('#FO.FunctionId#');">#FO.ReferenceNo#</a><cfelse>#docno#</cfif>
 						   </td>	
 						   				   	   	   		
@@ -168,7 +167,7 @@
 				   	
 					   <tr class="labelmedium2" style="height:20px">							   
 					   	   <td class="fixlength" style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;" colspan="2"><cf_tl id="Type of appointment"></td>
-					       <td align="right" style="padding-right:5px">#getContract.ContractType#</td>
+					       <td align="right" style="padding-right:5px;font-size:13px">#getContract.ContractType#</td>
 					   </tr>	
 					   
 					   <tr><td colspan="3" class="line"></td></tr>							   
@@ -176,11 +175,11 @@
 					   <tr class="labelmedium2" style="height:20px">
 						   <td class="fixlength" style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;"><cf_tl id="Grade">|<cf_tl id="Step"></td>
 						   <cfif getContractAdjustment.recordcount gte "1">
-						   <td class="fixlength"><font size="1">SPA</font> #getContractAdjustment.PostAdjustmentLevel# | #getContractAdjustment.PostAdjustmentStep#</td>
+						   <td class="fixlength" style="padding-right:5px;font-size:12px"><font size="1">SPA</font> #getContractAdjustment.PostAdjustmentLevel# | #getContractAdjustment.PostAdjustmentStep#</td>
 						   <cfelse>
 						   <td></td>
 						   </cfif>
-						   <td align="right" class="fixlength" style="padding-right:5px">#getContract.ContractLevel# | #getContract.ContractStep#</td>
+						   <td align="right" class="fixlength" style="padding-right:5px;font-size:13px">#getContract.ContractLevel# | #getContract.ContractStep#</td>
 					   </tr>
 						   				
 										   
@@ -216,7 +215,7 @@
 						   
 							   <tr class="labelmedium2" style="height:20px">
 								   <td class="fixlength" style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;" colspan="2"><cf_tl id="Appointment Expiry"></td>
-								   <td align="right" style="padding-right:5px">
+								   <td align="right" style="padding-right:5px;font-size:13px">
 								   
 								   <!--- check if there is an event for contract that has a later date --->
 								   
@@ -364,7 +363,7 @@
 						   <cfif getLastAssign.PositionNo neq PositionNo><b>*</b></cfif>	
 						   <cf_tl id="Assignment Expiry">					   				   
 						   </td>
-						   <td align="right" style="padding-right:5px">
+						   <td align="right" style="padding-right:5px;font-size:13px">
 						   	  <cfif getLastAssign.DateExpiration neq "">
 								   <cfif dateDiff("d",now(),getLastAssign.DateExpiration) lte 90>						   
 								       <span style="color:##FF0000;">#dateformat(getLastAssign.DateExpiration,client.dateformatshow)#</span>		

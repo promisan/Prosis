@@ -4,7 +4,7 @@
 
 <cfinclude template="../../../../Vactrack/Application/Document/Dialog.cfm">
 
-<cf_screenTop height="100%" title="#lt_text#" jQuery="Yes" border="0" band="No" scroll="no" html="No">
+<cf_screenTop height="100%" title="#lt_text#" jQuery="Yes" border="0" band="No" scroll="no" html="No" TreeTemplate="Yes">
    
 <cf_layoutscript>
 

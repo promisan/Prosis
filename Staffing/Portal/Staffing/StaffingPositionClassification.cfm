@@ -18,34 +18,34 @@ password="#SESSION.dbpw#">
 				
 		<cfif Parent.ApprovalPostGrade eq "">
 		
-			<tr class="labelmedium line">
+			<tr class="labelmedium2 line">
 				<td style="font-size:18px" align="center" colspan="2">Has NO prior classification recorded</td>		
 			</tr>
 		
 		<cfelse>
 											
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 				<td><cf_tl id="Classified as">:</td>
 				<td style="width:70%">#Parent.ApprovalPostGrade# #Parent.FunctionDescription#</td>
 			</tr>
 			
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 				<td><cf_tl id="Approval date">:</td>
 				<td style="width:70%"><cfif parent.ApprovalDate eq ""><cf_tl id="Not available"><cfelse>#dateformat(Parent.ApprovalDate,client.dateformatshow)#</cfif></td>
 			</tr>
 				
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 				<td><cf_tl id="Classification Code">:</td>
 				<td style="width:70%">#Parent.ApprovalReference#</td>
 			</tr>
 			
 			<cfif wfexist eq "1">
 			
-				<tr class="labelmedium line">
+				<tr class="labelmedium2 line">
 					<td style="font-size:18px" colspan="2" align="center">Has prior classification</td>		
 				</tr>
 				
-				<tr class="labelmedium">
+				<tr class="labelmedium2">
 					<td valign="top" style="padding-top:6px"><cf_tl id="Classification document">:</td>
 					<td>
 					<cf_filelibraryN

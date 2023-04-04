@@ -42,7 +42,7 @@
 		 
 			 <script>
 				 alert("You entered an Invalid target date.")
-				 ColdFusion.navigate('OutputEntryDialog.cfm?completed=0&programaccess=#url.programaccess#&id=#URL.ID#&outputid=#url.outputid#','outputdialog')
+				 ptoken.navigate('OutputEntryDialog.cfm?completed=0&programaccess=#url.programaccess#&id=#URL.ID#&outputid=#url.outputid#','outputdialog')
 			 </script>	 
 			 <cfabort>
 			 

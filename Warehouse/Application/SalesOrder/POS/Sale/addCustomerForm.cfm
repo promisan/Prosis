@@ -95,204 +95,208 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<cfform name="formcustomer" onsubmit="return false">
-
-<table width="100%" height="98%" border="0" bgcolor="white" cellspacing="0" cellpadding="0" align="center" class="formpadding">
- 	  
-  <tr class="xxxxhide" height="2"><td colspan="2" id="customerresult"></td></tr>
-      
-  <tr>
-    <td width="100%" class="header" valign="top">
+	<cfform name="formcustomer" onsubmit="return false">
+	
+	<table width="100%" height="98%" border="0" bgcolor="white" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	 	  
+	  <tr class="xxxxhide" height="2"><td colspan="2" id="customerresult"></td></tr>
+	      
+	  <tr>
+	    <td width="100%" class="header" valign="top">
+			
+	    <table border="0" width="93%" align="center" class="formpadding">
+				
+		<!--- Field: Name --->
+	    <TR class="labelmedium">
+		    <TD><cf_tl id="Name">: <font color="FF0000">*</font></TD>
+		    <TD>
+			
+				<cf_tl id="Please enter name" var="1" class="message">	
+				<cfinput type="Text" 
+				name="name" 
+				id="name" 
+				value="" 
+				class="regularxl enterastab" 
+				message="#lt_text#" 
+				required="Yes" 
+				onError="show_error_reference"
+				size="50" 
+				maxlength="60">
+				
+			</TD>
+		</TR>
 		
-    <table border="0" width="93%" align="center" class="formpadding">
-	
-	
-   		
-	<!--- Field: Name --->
-    <TR class="labelmedium">
-	    <TD><cf_tl id="Name">: <font color="FF0000">*</font></TD>
+		<tr class="labelmedium">
+			<td><cf_tl id="Tax Code"> :</td>
+			<td style="height:30px">
+			    <table>
+				<tr class="labelmedium">
+				<td style="padding-left:0px">
+				
+				<cfinput type     = "Text"
+			       name       = "TaxCodeTax"
+				   id         = "TaxCodeTax"
+			       value      = "#url.reference#"
+				   class      = "regularxl enterastab"
+			       required   = "No" 		   
+				   message    = "Invalid #lt_text#"		
+				   onError    = "show_error_reference"  
+				   onvalidate = "check_reference"
+				   onChange   = "getReferenceName()"
+				   size       = "12"
+			       maxlength  = "120">
+				
+				</td>
+				<td style="padding-left:4px"><cf_tl id="Tax"></td>
+				<td style="padding-left:7px">
+				<input type="text" name="TaxCodeCivilian" size="13" maxlength="13" class="regularxl enterastab"></td>
+				<td style="padding-left:4px"><cf_tl id="Civilian"></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<!---
+			
+	    <TR class="labelmedium">
+	    <TD><cf_tl id="Customer Reference">: <font color="FF0000">*</font></TD>
 	    <TD>
 		
-			<cf_tl id="Please enter name" var="1" class="message">	
-			<cfinput type="Text" 
-			name="name" 
-			id="name" 
-			value="" 
-			class="regularxl enterastab" 
-			message="#lt_text#" 
-			required="Yes" 
-			onError="show_error_reference"
-			size="50" 
-			maxlength="60">
+		<cf_tl id="Please enter" var="1" class="message">
 			
-		</TD>
-	</TR>
-	
-	<tr class="labelmedium">
-		<td><cf_tl id="Tax Code"> :</td>
-		<td style="height:30px">
-		    <table>
-			<tr class="labelmedium">
-			<td style="padding-left:0px">
-			
-			<cfinput type     = "Text"
-		       name       = "TaxCodeTax"
-			   id         = "TaxCodeTax"
+		<cfinput type     = "Text"
+		       name       = "reference"
+			   id         = "reference"
 		       value      = "#url.reference#"
 			   class      = "regularxl enterastab"
-		       required   = "No" 		   
-			   message    = "Invalid #lt_text#"		
+		       required   = "Yes" 		   
+			   message    = "#lt_text# #CLIENT.IndexNoName#"		
 			   onError    = "show_error_reference"  
 			   onvalidate = "check_reference"
 			   onChange   = "getReferenceName()"
 			   size       = "12"
 		       maxlength  = "120">
 			
+		</TD>
+		</TR>	
+		
+		--->
+				
+	    <!--- Field: BirthDate --->
+	    <TR class="labelmedium">
+		    <TD><cf_tl id="Birth date">:</TD>
+		    <TD>
+			
+				  <cf_intelliCalendarDate9
+					FieldName="DOB" 
+					Default=""									    
+					class="regularxl enterastab"		
+					AllowBlank="True">	
+				
+			</TD>
+		</TR>
+		
+		 <!--- Field: eMail --->
+	    <TR class="labelmedium">
+		    <TD><cf_tl id="eMail">: </TD>
+	    	<TD>
+			
+			<cf_tl id="Please enter a valid eMail" var="1" class="message">		
+			<cfinput type="Text" name="eMailAddress" class="regularxl enterastab" message="#lt_text#" validate="email" value="" required="No" size="40" maxlength="50">
+			
+			</TD>
+		</TR>
+			
+		
+	    <!--- Field: Phone No. --->
+	    <TR class="labelmedium">
+		    <cf_tl id="Please enter a PhoneNo" var="1" class="message">		
+		    <TD  title="#lt_text#"><cf_tl id="Phone No">:</TD>
+		    <TD>
+				
+				<cfinput type="Text" name="PhoneNumber" class="regularxl enterastab" message="#lt_text#" value="" required="No" size="30" maxlength="30">
+				
+			</TD>
+		</TR>
+				
+		 <!--- Field: Mobile No. --->
+	    <TR class="labelmedium">
+		    <cf_tl id="Please enter a MobileNo" var="1" class="message">	
+		    <TD title="#lt_text#"><cf_tl id="Mobile No">:</TD>
+		    <TD>			
+				<cfinput type="Text" name="MobileNumber" class="regularxl enterastab" message="#lt_text#" value="" required="No" size="30" maxlength="30">			
+			</TD>
+		</TR>
+		
+		<tr class="labelmedium">
+			<td><cf_tl id="Postal Code"> :</td>
+			<td>
+			
+			 <cf_textInput
+				  form      = "formcustomer"
+				  type      = "ZIP"
+				  mode      = "regularxl"
+				  name      = "PostalCode"
+			      value     = ""
+			      required  = "No"
+				  size      = "8"
+				  maxlength = "8"
+				  label     = "&nbsp;"
+				  style     = "text-align: center;">	
+						  
 			</td>
-			<td style="padding-left:4px"><cf_tl id="Tax"></td>
-			<td style="padding-left:7px">
-			<input type="text" name="TaxCodeCivilian" size="13" maxlength="13" class="regularxl enterastab"></td>
-			<td style="padding-left:4px"><cf_tl id="Civilian"></td>
-			</tr>
+		</tr>
+		
+		<tr class="labelmedium">
+			<td><cf_tl id="Tax Exemption"> :</td>
+			<td style="height:30px">
+			    <table>
+				<tr class="labelmedium">
+				<td style="padding-left:0px"><input name="TaxExemption" class="radiol enterastab" type="radio" value="1"></td>
+				<td style="padding-left:4px"><cf_tl id="Yes"></td>
+				<td style="padding-left:7px"><input name="TaxExemption" class="radiol enterastab" type="radio" value="0" checked></td>
+				<td style="padding-left:4px"><cf_tl id="No"></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+				   
+		<TR class="line">
+	        <td class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
+	        <TD><textarea style="border-radius:2px;width:95%;height:50;font-size:15;padding:4px" class="regular enterastab" name="Memo"></textarea> </TD>
+		</TR>
+		
+	    <tr><td colspan="2" height="30" align="center">  
+		
+			<table cellspacing="0" cellpadding="0" class="formspacing">
+				<tr>		
+					<td>			
+					<cf_tl id="Close" var="1">	
+					<input type="button" value="#lt_text#" class="button10g" style="width:150;height:26" onclick="parent.ProsisUI.closeWindow('customeradd',true)">			
+					</td>			
+					<td>					
+					<cf_tl id="Submit" var="1">
+					<input type="button" value="#lt_text#" class="button10g" style="width:150;height:26" onclick="validatecustomer('#url.mission#','#url.warehouse#','#url.mode#')">			
+					</td>			
+				</tr>
 			</table>
-		</td>
-	</tr>
+											               
+	     </td>
 	
-	<!---
-		
-    <TR class="labelmedium">
-    <TD><cf_tl id="Customer Reference">: <font color="FF0000">*</font></TD>
-    <TD>
-	
-	<cf_tl id="Please enter" var="1" class="message">
-		
-	<cfinput type     = "Text"
-	       name       = "reference"
-		   id         = "reference"
-	       value      = "#url.reference#"
-		   class      = "regularxl enterastab"
-	       required   = "Yes" 		   
-		   message    = "#lt_text# #CLIENT.IndexNoName#"		
-		   onError    = "show_error_reference"  
-		   onvalidate = "check_reference"
-		   onChange   = "getReferenceName()"
-		   size       = "12"
-	       maxlength  = "120">
-		
-	</TD>
-	</TR>	
-	
-	--->
-			
-    <!--- Field: BirthDate --->
-    <TR class="labelmedium">
-	    <TD><cf_tl id="Birth date">:</TD>
-	    <TD>
-		
-			  <cf_intelliCalendarDate9
-				FieldName="DOB" 
-				Default=""									    
-				class="regularxl enterastab"		
-				AllowBlank="True">	
-			
-		</TD>
-	</TR>
-	
-	 <!--- Field: eMail --->
-    <TR class="labelmedium">
-	    <TD><cf_tl id="eMail">: </TD>
-    	<TD>
-		
-		<cf_tl id="Please enter a valid eMail" var="1" class="message">		
-		<cfinput type="Text" name="eMailAddress" class="regularxl enterastab" message="#lt_text#" validate="email" value="" required="No" size="40" maxlength="50">
-		
-		</TD>
-	</TR>
-		
-	
-    <!--- Field: Phone No. --->
-    <TR class="labelmedium">
-	    <cf_tl id="Please enter a PhoneNo" var="1" class="message">		
-	    <TD  title="#lt_text#"><cf_tl id="Phone No">:</TD>
-	    <TD>
-			
-			<cfinput type="Text" name="PhoneNumber" class="regularxl enterastab" message="#lt_text#" value="" required="No" size="30" maxlength="30">
-			
-		</TD>
-	</TR>
-			
-	 <!--- Field: Mobile No. --->
-    <TR class="labelmedium">
-	    <cf_tl id="Please enter a MobileNo" var="1" class="message">	
-	    <TD title="#lt_text#"><cf_tl id="Mobile No">:</TD>
-	    <TD>			
-			<cfinput type="Text" name="MobileNumber" class="regularxl enterastab" message="#lt_text#" value="" required="No" size="30" maxlength="30">			
-		</TD>
-	</TR>
-	
-	<tr class="labelmedium">
-		<td><cf_tl id="Postal Code"> :</td>
-		<td>
-		
-		 <cf_textInput
-			  form      = "formcustomer"
-			  type      = "ZIP"
-			  mode      = "regularxl"
-			  name      = "PostalCode"
-		      value     = ""
-		      required  = "No"
-			  size      = "8"
-			  maxlength = "8"
-			  label     = "&nbsp;"
-			  style     = "text-align: center;">	
-					  
-		</td>
-	</tr>
-	
-	<tr class="labelmedium">
-		<td><cf_tl id="Tax Exemption"> :</td>
-		<td style="height:30px">
-		    <table>
-			<tr class="labelmedium">
-			<td style="padding-left:0px"><input name="TaxExemption" class="radiol enterastab" type="radio" value="1"></td>
-			<td style="padding-left:4px"><cf_tl id="Yes"></td>
-			<td style="padding-left:7px"><input name="TaxExemption" class="radiol enterastab" type="radio" value="0" checked></td>
-			<td style="padding-left:4px"><cf_tl id="No"></td>
-			</tr>
-			</table>
-		</td>
-	</tr>
-			   
-	<TR class="line">
-        <td class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
-        <TD><textarea style="border-radius:2px;width:95%;height:50;font-size:15;padding:4px" class="regular enterastab" name="Memo"></textarea> </TD>
-	</TR>
-	
-    <tr><td colspan="2" height="30" align="center">  
-	
-		<table cellspacing="0" cellpadding="0" class="formspacing">
-			<tr>		
-				<td>			
-				<cf_tl id="Close" var="1">	
-				<input type="button" value="#lt_text#" class="button10g" style="width:150;height:26" onclick="parent.ProsisUI.closeWindow('customeradd',true)">			
-				</td>			
-				<td>					
-				<cf_tl id="Submit" var="1">
-				<input type="button" value="#lt_text#" class="button10g" style="width:150;height:26" onclick="validatecustomer('#url.mission#','#url.warehouse#','#url.mode#')">			
-				</td>			
-			</tr>
 		</table>
-										               
-     </td>
-
-	</table>
-	
-	</td></tr>
 		
-</table>	
-
-</cfform>
+		</td></tr>
+			
+	</table>	
+	
+	</cfform>
 
 </cfoutput>
 
+<cfif url.reference neq "">
 
+	<script>
+		getReferenceName()
+	</script>
+
+</cfif>

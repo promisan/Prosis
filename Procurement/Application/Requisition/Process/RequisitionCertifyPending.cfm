@@ -222,7 +222,11 @@
 		
 		<CFIF requisition.recordcount gt "0">					
 			<tr><td colspan="2" style="height:40px" id="block" align="center">
-			   <input style="font-size:20px;width:240;height:30" type="button" onclick="processdata('process','#url.period#','#url.role#')" name="Submit" id="Submit" value="#lt_text#" class="button10g">
+			   <input style="font-size:18px;width:240;height:30" type="button" 
+			       onclick="processdata('process','#url.period#','#url.role#')" 
+				   name="Submit" 
+				   id="Submit" 
+				   value="#lt_text#" class="button10g">
 			</td></tr>
 		</cfif>		
 		

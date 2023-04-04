@@ -77,10 +77,14 @@
 			
 		<cfif Position.recordcount gte "1">
 		
+		<cfif url.id1 eq "">
+		
 		<TR class="line">
-		    <td colspan="8" style="height:40px;padding-left:10px;font-size:19px" class="labelmedium">
+		    <td colspan="9" style="height:40px;padding-left:10px;font-size:17px" class="labelmedium">
 			<font color="6688aa">The following position(s) were associated to this Recruitment track : <b><cfoutput>#URL.DocumentNo#</cfoutput></b></td>
 		</TR>
+		
+		</cfif>
 	
 		<cfoutput query="Position">
 		
@@ -90,12 +94,13 @@
 				  <cf_img icon="select" navigation="Yes" onclick="assignment('#URL.Source#','#PositionNo#','#URL.ApplicantNo#','#URL.PersonNo#','#URL.RecordId#','#URL.DocumentNo#');">										 
 				 </td>
 				 <td>#MandateNo#</td>
+				 <td>#OrgUnitNameShort#</td>
 			     <TD>#FunctionDescription#</TD>
 			     <TD>#PostGrade#</TD>
 			     <TD>#PostType#</TD>
 				 <TD><cfif SourcePostNumber eq "">#Positionno#<cfelse>#SourcePostNumber#</cfif></TD>
 			     <TD>#DateFormat(DateEffective, CLIENT.DateFormatShow)#</TD>
-			     <TD>#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>
+			     <TD><cfif dateExpiration lte now()><font color="FF0000"></cfif>#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>
 		   
 		   </tr> 
 			
@@ -124,7 +129,7 @@
 					<tr bgcolor="fffffaf" class="line labelmedium2 navigation_row_child">
 					   <td></td>
 					   <td align="center"></td>			   
-					   <td>#FullName#</td>
+					   <td colspan="2">#FullName#</td>
 					   <td>#Indexno#</td>
 					   <td></td>
 					   <td></td>

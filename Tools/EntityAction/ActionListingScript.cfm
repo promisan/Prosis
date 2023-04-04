@@ -303,7 +303,7 @@
 	   
 		if (confirm("Do you want to remove this person from the shortlist ?")) {		
 		    _cf_loadingtexthtml='';		  
-		    ptoken.navigate(template+'?line='+line+'&ajaxid=' + ajaxid + '&ID1=' + persno + '&personclass='+cls,'urldetail'+line)				       
+		    ptoken.navigate(template+'?line='+line+'&ajaxid=' + ajaxid + '&ID1=' + persno + '&wparam='+cls,'urldetail'+line)				       
 		}	
 	}	
 		

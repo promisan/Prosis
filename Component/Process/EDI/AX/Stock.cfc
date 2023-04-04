@@ -799,7 +799,8 @@
 				<cfif Make neq "">
 				AND         I.ItemBrand IN (#preservesinglequotes(make)#) 		
 				</cfif>
-				<cfif Category neq "" and itemNo eq "">
+				
+				<cfif Category neq "">
 				AND         I.ItemCategory LIKE '%#Category#' 
 				</cfif>				
 				
@@ -869,9 +870,11 @@
 				AND        PromotionPrice > 0
 				</cfif>
 				
-				ORDER BY ItemName, WarehouseName
+				ORDER BY ItemName, Warehouse DESC, WarehouseName
 																											
-			</cfquery>					
+			</cfquery>		
+			
+						
 							
 			<cfreturn stock>	
 		

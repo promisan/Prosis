@@ -39,7 +39,7 @@
 	  
        <tr bgcolor="#color#" class="line labelmedium">
 	    <td style="padding-left:4px;padding-right:2px"><input type="checkbox" name="HolidayId" id="HolidayId" value="#HolidayId#"></td>
-        <td style="padding-left:2px;padding-right:2px">#DateFormat(CalendarDate,"DD/MM")#</td>		
+        <td style="padding-left:2px;padding-right:2px">#DateFormat(CalendarDate,"dd/mm")#</td>		
         <td style="min-width:180px;padding-left:2px;padding-right:6px">#Description#</td>
 			
 		<cfif ClusterId neq "">		    

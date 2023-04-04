@@ -11,7 +11,7 @@
 <cf_screentop html="No" jquery="Yes">
 	
 <cfsavecontent variable="option">
-<button type="button" class="button10g" style="width:225px;height:25px" onClick="javascript:init()">Initialize</button>
+<button type="button" class="button10g" style="width:225px;height:27px" onClick="javascript:init()">Initialize</button>
 </cfsavecontent>	
 	
 <cfset Page         = "0">

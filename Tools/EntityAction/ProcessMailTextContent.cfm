@@ -172,18 +172,87 @@
 							<tr><td height="20" align="right"><b><cf_tl id="Subject">: </b></td><td height="20" style="padding-left:10px">#qObject.EntityDescription#</td></tr>					
 							<tr><td height="20" align="right"><b><cf_tl id="Action">: </b></td><td height="20" style="padding-left:10px">#ucase(Action.ActionDescription)#</td></tr>
 							<tr><td height="20" align="right"><b><cf_tl id="Reference">: </b></td><td height="20" style="padding-left:10px">#qObject.ObjectReference#</td></tr>
-							<tr><td height="20" align="right"><b><cf_tl id="Subject">: </b></td><td height="20" style="padding-left:10px">#qObject.ObjectReference2#</td></tr>
-		                    <tr style="height:40px"><td></td></tr>
 							
-							<!---
-							<cfset FileNo = round(Rand()*100)>		
-							--->
-										
+							<cfif qObject.PersonNo neq "" and qObject.Mission neq "">
+							
+								<cfquery name="OnBoard" 
+									 datasource="AppsEmployee"
+									 username="#SESSION.login#" 
+									 password="#SESSION.dbpw#">
+									 SELECT   P.*, O.OrgUnitName, O.OrgUnitNameShort
+									 FROM     PersonAssignment PA, Position P, Organization.dbo.Organization O
+									 WHERE    PersonNo   = '#qObject.PersonNo#' 
+									 AND      PA.PositionNo      = P.PositionNo
+									 AND      PA.DateEffective   <= getdate()	 
+									 AND      P.OrgUnitOperational = O.OrgUnit
+									 AND      P.Mission = '#qObject.mission#'						
+									 AND      PA.DateExpiration  >= getDate()						 
+									 AND      PA.AssignmentStatus IN ('0','1')
+									 <!---
+									 AND      PA.AssignmentClass = 'Regular'
+									 --->
+									 AND      PA.AssignmentType  = 'Actual'
+									 ORDER BY Incumbency DESC						
+								 </cfquery>  
+								 
+								 <cfif OnBoard.recordcount gte "1">
+							 
+								 <tr><td height="20" align="right"><b><cf_tl id="Unit">: </b></td><td height="20" style="padding-left:10px">#OnBoard.OrgUnitNameShort#</td></tr>
+								 		 							 
+								 
+									 <cfquery name="OnAssignment" 
+										 datasource="AppsEmployee"
+										 username="#SESSION.login#" 
+										 password="#SESSION.dbpw#">
+										 SELECT   O.OrgUnitName, O.OrgUnitNameShort
+										 FROM     PersonAssignment PA, Organization.dbo.Organization O
+										 WHERE    PersonNo   = '#qObject.PersonNo#' 
+										 AND      PA.DateEffective   <= getdate()	 
+										 AND      PA.OrgUnit = O.OrgUnit
+										 AND      O.Mission = '#qObject.mission#'						
+										 AND      PA.DateExpiration  >= getDate()						 
+										 AND      PA.AssignmentStatus IN ('0','1')
+										 <!---
+										 AND      PA.AssignmentClass = 'Regular'
+										 --->
+										 AND      PA.AssignmentType  = 'Actual'
+										 ORDER BY Incumbency DESC						
+									 </cfquery>  
+									 
+									 <cfif OnAssignment.recordcount gte "1" and OnAssignment.OrgUnitNameShort neq OnBoard.OrgUnitNameShort>
+									 
+									   <tr><td height="20" align="right"><b><cf_tl id="Assignment">: </b></td><td height="20" style="padding-left:10px">#OnAssignment.OrgUnitNameShort#</td></tr>								
+									 
+									 </cfif>	
+								 
+								 </cfif>								
+							
+							</cfif>
+														
+							<tr><td height="20" align="right"><b><cf_tl id="Subject">: </b></td><td height="20" style="padding-left:10px">#qObject.ObjectReference2#</td></tr>
+							
+							<cfquery name="qMemo" 
+							 datasource="AppsOrganization"  
+							 username="#SESSION.login#" 
+							 password ="#SESSION.dbpw#"> 
+								SELECT       TOP (1) ActionMemo
+								FROM         OrganizationObjectAction
+								WHERE        ObjectId = '#qObject.ObjectId#'
+								ORDER BY     OfficerDate DESC
+							</cfquery>
+							
+							<cfif qMemo.actionMemo neq "">
+							 <tr><td height="20" align="right"><b><cf_tl id="Comment">: </b></td><td height="20" style="padding-left:10px">#qMemo.ActionMemo#</td></tr>							
+							</cfif>
+														
+		                    <tr style="height:30px"><td></td></tr>
+																	
 							<cfif attributes.accesslevel eq "1">					
 							
 							<tr>
 								<td align="center" colspan="2">
-									<a style="box-shadow: inset 0 -4px 0 0 rgba(0, 0, 0, 0.2);background: ##3b97d3;	color: ##fafafa;height: 50px;padding: 20px 28px 18px;border-radius: 5px;font-size: 18px;font-weight: 600; text-transform: uppercase; line-height: 46px;text-decoration: none;" href="#SESSION.root#/ActionView.cfm?id=#qObject.Objectid#&actioncode=#Action.ActionCode#&target=#Action.NotificationTarget#">
+									<a style="box-shadow: inset 0 -4px 0 0 rgba(0, 0, 0, 0.2);background: ##3b97d3;	color: ##fafafa;height: 50px;padding: 20px 28px 18px;border-radius: 5px;font-size: 18px;font-weight: 600; text-transform: uppercase; line-height: 46px;text-decoration: none;" 
+									   href="#SESSION.root#/ActionView.cfm?id=#qObject.Objectid#&actioncode=#Action.ActionCode#&target=#Action.NotificationTarget#">
 									<cfif client.languageid eq "ENG">
 										Process &raquo;
 									<cfelseif client.languageid eq "ESP">
@@ -192,14 +261,13 @@
 									</a>
 								</td>
 							</tr>
-		                    <tr height="40px"><td></td></tr>
-							
+		                   
 							<cfelse>	
 											
 							<tr>
-								<td style="font-size:16px" height="20" align="center" colspan="2"><cf_tl id="Link">: <br />&nbsp;<a href="#SESSION.root#/ActionView.cfm?id=#qObject.Objectid#&actioncode=#Action.ActionCode#&target=#Action.NotificationTarget#">Press here to process</a></td>
+								<td style="font-size:16px" height="20" align="center" colspan="2"><cf_tl id="Link">:<br>&nbsp;<a href="#SESSION.root#/ActionView.cfm?id=#qObject.Objectid#&actioncode=#Action.ActionCode#&target=#Action.NotificationTarget#">Press here to process</a></td>
 							</tr>
-		                    <tr height="40px"><td></td></tr>
+		                    <tr style="height:30px"><td></td></tr>
 							
 							</cfif>					
 											

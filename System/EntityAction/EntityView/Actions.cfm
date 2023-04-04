@@ -31,7 +31,14 @@
 				  FROM     OrganizationObjectAction
 				  WHERE    ObjectId = OA.ObjectId
 				  AND      ActionStatus IN ('2','2Y','2N') 
-				  ORDER BY OfficerDate DESC) AS DateLast
+				  ORDER BY OfficerDate DESC) AS DateLast,
+				  
+			      (SELECT   TOP 1 OfficerDate 
+				  FROM     OrganizationObjectAction
+				  WHERE    ObjectId = OA.ObjectId
+				  AND      ActionStatus IN ('2','2Y','2N') 
+				  ORDER BY OfficerDate) AS DateFirst
+				  
 				  
 	 INTO       userQuery.dbo.#SESSION.acc#Action2_#FileNo#
 	 
@@ -97,8 +104,10 @@
 			O.Created as InceptionDate,
 			O.ObjectDue,
 			D.DateLast, 
+			D.DateFirst,
 			P.ActionDescription, 
 			P.ActionReference, 
+			P.NotificationTarget,
             OA.ActionStatus, 
 			OA.ActionFlowOrder, 
 			OA.ActionCode, 
@@ -173,15 +182,15 @@
                 <cf_tl id="Document Reference">
             </cf_mobileCell>
 
-            <cf_mobilecell class="col-md-1 col-sm-12 text-center" style="color:##808080;">
+            <cf_mobilecell class="col-md-1 col-sm-12 text-left" style="color:##808080;">
                 <cf_tl id="Action Overdue (hr)">
             </cf_mobileCell>
 
-            <cf_mobilecell class="col-md-1 col-sm-12 text-center" style="color:##808080;">
+            <cf_mobilecell class="col-md-1 col-sm-12 text-left" style="color:##808080;">
                 <cf_tl id="Workflow Overdue (day)">
             </cf_mobileCell>
 
-            <cf_mobilecell class="col-md-1 col-sm-12 text-center" style="color:##808080;">
+            <cf_mobilecell class="col-md-1 col-sm-12 text-left" style="color:##808080;">
                 <cf_tl id="Document Overdue (day)">
             </cf_mobileCell>
 			
@@ -201,11 +210,11 @@
 	    <cfset y = DateDiff("d", "#ObjectDue#", "#now()#")>			
 	</cfif>
 	
-	<cfif DateLast neq "">    
+	<cfif DateFirst neq "">    
 	    <!--- leadtime --->			
-	    <cfset x = DateDiff("d", "#DateLast#", "#now()#")>
+	    <cfset x = DateDiff("d", "#DateFirst#", "#now()#")>
 	    <!--- action time --->
-	    <cfset at = DateDiff("h", DateLast, now())>	
+	    <cfset at = DateDiff("h", DateFirst, now())>	
 	</cfif>
 	
 	<cfset vWarningColor = "##F15E5E">
@@ -218,59 +227,70 @@
 
         <cf_mobilecell class="col-xs-11">
 		
-            <cf_mobileRow style="cursor:pointer;">
-			
-                <cf_mobilecell class="col-md-1 col-sm-12" style="width:40px; padding-top:5px;">
-				    
-                            <cfif ActionStatus eq "2">        
+            <cf_mobileRow style="cursor:pointer;">			
+             
+                <cf_mobilecell class="col-md-8 col-sm-12">
+                    
+					<div style="font-size:17px">
+					
+					    <table><tr><td style="padding-right:8px">
+					
+					    <cfif ActionStatus eq "2">        
 							
                                 <cf_tl id="Document action has been completed" var="1">
                                 <i class="fas fa-check-square" title="#lt_text#" style="font-size:150%;"></i>
 								
                             <cfelse>
-                            
-                                <cfif DateLast neq "">
+							
+							 <cfif Notificationtarget eq "1">
+							      <cfset prc = "processaction('#actionid#')">
+							 <cfelse>
+							      <cfset prc = "process('#objectid#')">
+							 </cfif>
+							                            
+                                <cfif DateFirst neq "">
                                     
                                     <cfif x gt ActionLeadTime+5>
 
                                         <cf_tl id="Process this action" var="1">
-                                        <i class="fas fa-exclamation-triangle" onclick="process('#ObjectId#')" title="#lt_text#" style="font-size:150%; color:#vWarningColor#;"></i>
+                                        <i class="fas fa-exclamation-triangle" onclick="#prc#" title="#lt_text#" style="font-size:130%; color:#vWarningColor#;"></i>
                                         
                                     <cfelseif at gt ActionTakeAction and ActionTakeAction gt "0">
 
                                         <cf_tl id="Action overdue" var="1">
-                                        <i class="fas fa-exclamation-triangle" onclick="process('#ObjectId#')" title="#lt_text#" style="font-size:150%; color:#vWarningColor#;"></i>
+                                        <i class="fas fa-exclamation-triangle" onclick="#prc#" title="#lt_text#" style="font-size:130%; color:#vWarningColor#;"></i>
                                                         
                                     <cfelse>  
 															
-                                        <cf_img mode="open" onclick="process('#ObjectId#')">	
+                                        <cf_img mode="select" onclick="#prc#">	
 										
                                     </cfif>
                                     
                                 <cfelse>
 														
-                                    <cf_img mode="open" onclick="process('#ObjectId#')">	
+                                    <cf_img mode="select" onclick="#prc#">	
 									
                                 </cfif>
                                 
-                            </cfif>					
-
-                </cf_mobilecell>
-
-                <cf_mobilecell class="col-md-8 col-sm-12">
-                    
-					<div style="font-size:17px">
-					    <cfif url.scope neq "portal">
+                            </cfif>			
+					
+							</td>
+							
+							<td  style="font-size:16px">
+					
+						    <cfif url.scope neq "portal">
+		                        <cfif PersonNo neq "">
+		                            <cf_tl id="Click to view person details" var="1">
+		                            <span style="color:##0080C0;" onclick="localShowPerson(event,'#PersonNo#')" title="#lt_text#">
+		                        </cfif>							
+							</cfif>
+	                        <cfif ObjectReference neq "">#ObjectReference#:</cfif>
+	                        #ObjectReference2#
 	                        <cfif PersonNo neq "">
-	                            <cf_tl id="Click to view person details" var="1">
-	                            <span style="color:##0080C0;" onclick="localShowPerson(event,'#PersonNo#')" title="#lt_text#">
-	                        </cfif>							
-						</cfif>
-                        <cfif ObjectReference neq "">#ObjectReference#:</cfif>
-                        #ObjectReference2#
-                        <cfif PersonNo neq "">
-                            </span>
-                        </cfif>
+	                            </span>
+	                        </cfif>
+							
+							</td></tr></table>
                     </div>
 					
                     <div style="font-size:14px">
@@ -285,7 +305,7 @@
                         <span style="color:##DF8E3E;">#ActionDescription#</span>
                         
                         <cfif FlyAccess gte "1" or MailAccess gte "1">
-                        
+						                        
                             <cfquery name="Actor" 
                                 datasource="AppsOrganization"
                                 username="#SESSION.login#" 
@@ -313,7 +333,7 @@
 							<td style="padding-right:4px" id="process_#objectid#">		
 							<cf_tl id="Disable" var="1">	
 						    <input type="button" name="Disable" value="#lt_text#" class="button10g" 
-							  onclick="_cf_loadingtexthtml='';ptoken.navigate('setObjectOperational.cfm?objectid=#objectid#','process_#objectid#')" style="height:20px;width:86px">
+							  onclick="_cf_loadingtexthtml='';ptoken.navigate('setObjectOperational.cfm?objectid=#objectid#','process_#objectid#')" style="height:22px;width:86px">
 							</td>
 						</cfif>
 						
@@ -356,12 +376,13 @@
                     </cfif>	
                 </cf_mobileCell>
 
-                <cf_mobilecell class="col-md-1 col-sm-12 hidden-xs hidden-sm text-center">
+                <cf_mobilecell class="col-md-1 col-sm-12 hidden-xs hidden-sm text-right">
                     <cfif ActionStatus eq "1">
                     <span class=""><cf_tl id="On hold"></span>
                     <cfelse>
-                        <cfif DateLast neq "">               
-                            <cfset x = DateDiff("d", "#DateLast#", "#now()#")>
+                        <cfif DateFirst neq "">    
+           
+                            <cfset x = DateDiff("d", "#DateFirst#", "#now()#")>
                             <cfif x gt ActionLeadTime>
                                 <span style="color:#vWarningColor#;;font-size:16px">#numberformat(x-ActionLeadTime, ',')#</span>
                             </cfif>
@@ -373,16 +394,14 @@
                     <cfif ActionStatus eq "1">
                         <cf_tl id="Workflow Overdue">: <cf_tl id="On hold">
                     <cfelse>
-                        <cfif DateLast neq "">               
-                            <cfset x = DateDiff("d", "#DateLast#", "#now()#")>
-                            <cfif x gt ActionLeadTime>
-                                <cf_tl id="Workflow Overdue (day)">: <span style="color:#vWarningColor#;;font-size:16px">#numberformat(x-ActionLeadTime, ',')#</span>
-                            </cfif>
+                        <cfif DateFirst neq "">               
+                            <cfset x = DateDiff("d", "#DateFirst#", "#now()#")>
+                            <cf_tl id="Workflow start">:#dateformat(DateFirst,client.dateformatshow)# <cf_tl id="Leadtime">#ActionLeadTime# day  <cfif x gt ActionLeadTime><span style="color:#vWarningColor#;font-size:13px"><cf_tl id="Overdue"> #numberformat(x-ActionLeadTime, ',')# days</span></cfif>                           
                         </cfif>
                     </cfif>
                 </cf_mobileCell>
 
-                <cf_mobilecell class="col-md-1 col-sm-12 hidden-xs hidden-sm text-center">
+                <cf_mobilecell class="col-md-1 col-sm-12 hidden-xs hidden-sm text-right">
                     <cfif ObjectDue neq "">
 									
                         <cfif due gt 0>
@@ -400,8 +419,8 @@
                 <cf_mobilecell class="col-md-1 col-sm-12 visible-xs visible-sm">
                     <cfif ObjectDue neq "">				
                         <cfif due gt 0>
-							<span style="color:#vWarningColor#;;font-size:16px">
-                            <cf_tl id="Document Overdue (day)">: #numberformat(due, ',')#
+							<span style="color:#vWarningColor#;;font-size:15px">
+                            <cf_tl id="Document due"><b>#dateformat(ObjectDue,client.dateformatshow)#:</b><cf_tl id="Overdue in days"> #numberformat(due, ',')#
 							</span>
                         </cfif>
                     </cfif>

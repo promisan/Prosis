@@ -16,13 +16,13 @@
 	
 	<cf_UItree
 			id="Proc"
-			title="<span style='font-size:16px;color:gray;padding-bottom:3px' class='labellarge'>#vRequests#</span>"
+			title="<span style='font-size:16px' class='labellarge'>#vRequests#</span>"
 			expand="Yes">
 
 	<cf_tl id = "Advanced search" var ="vSearch">
 
 	<cf_UItreeitem value="Src"
-			display="<span style='padding-top:5px;padding-bottom:5px;font-size:17px;font-weight:bold'>#vSearch#</span>"
+			display="<span style='padding-top:3px;padding-bottom:4px;font-size:16px;font-weight:bold'>#vSearch#</span>"
 			parent="Proc"
 			target="right"
 			href="#Template#?Mission=#URL.Mission#&ID=LOC&ID1=Locate"
@@ -31,7 +31,7 @@
 	<cf_tl id = "Request status" var ="vStatus">
 
 	<cf_UItreeitem value="List"
-			display="<span style='font-size:17px;font-weight:bold;padding-top:5px;padding-bottom:5px;'>#vStatus#</span>"
+			display="<span style='font-size:16px;font-weight:bold;padding-top:3px;padding-bottom:3px;'>#vStatus#</span>"
 			parent="Proc"
 			expand="Yes">
 
@@ -258,7 +258,7 @@
 	<cf_tl id="Requesting unit" var="vUnit">
 
 	<cf_UItreeitem value="Org"
-			display="<span style='padding-top:5px;padding-bottom:5px;font-size:17px;font-weight:bold'>#vUnit#</span>"
+			display="<span style='padding-top:4px;padding-bottom:4px;font-size:16px;font-weight:bold'>#vUnit#</span>"
 			parent="Proc"
 			expand="No">
 

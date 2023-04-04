@@ -1,4 +1,6 @@
 
+<cfparam name="URL.Actor"             default="">
+
 <cfquery name="Mission"
 	datasource="AppsOrganization"
 	username="#SESSION.login#"
@@ -17,6 +19,7 @@
 		 Mission              = "#url.mission#"
 		 Mode                 = "table"
 		 table                = "#session.acc#_#mission.missionprefix#_VacancyTrack">		
+		
 
 <!--- this will return the active step of the workflow, however the workflow is
 likely to be split over 2 entities as each workflow has one or more
@@ -71,7 +74,11 @@ selected candidates which each have a track potentially assigned --->
 			 (SELECT DateEffective
 			  FROM   Applicant.dbo.FunctionOrganization
 			  WHERE  FunctionId = D.FunctionId)  as DatePosted, 
-	
+			  
+			  (SELECT count(*)
+			  FROM   Vacancy.dbo.DocumentPost
+			  WHERE  DocumentNo = D.DocumentNo)  as Positions,  
+			  
 			 (SELECT ActionDescription 
 			  FROM   Organization.dbo.Ref_EntityActionPublish EA, 
 			         Organization.dbo.OrganizationObject OO 
@@ -159,7 +166,13 @@ selected candidates which each have a track potentially assigned --->
 	 AND     T.ParentCode = '#URL.Parent#'
 	 </cfif> 
 	 
+	 <cfif url.Actor neq "">
+	 AND     T.ActionReference = '#url.actor#'
+	 </cfif>
+	 
 	 </cfoutput>
 	 		
 </cfsavecontent>
+
+
 

@@ -36,17 +36,15 @@
 </cfif>	
 
 <cfif url.orgunit eq "">		
-
 	<CF_DropTable dbName="AppsQuery" tblName="Inquiry_#url.mode#_#session.acc#">	
-
 <cfelse>
-
 	<CF_DropTable dbName="AppsQuery" tblName="Inquiry_#url.mode#_#session.acc#_#url.orgunit#">	
-
 </cfif>
 
-<cftransaction isolation="READ_UNCOMMITTED">
+<cf_wfpending entityCode="GLTransaction"  
+      table="#SESSION.acc#wfLedger" mailfields="No" IncludeCompleted="No">		
 
+<cftransaction isolation="READ_UNCOMMITTED">
 
 	<cfquery name="InitTable" 
 	datasource="AppsLedger" 
@@ -59,6 +57,9 @@
 						 P.JournalBatchNo, 
 						 P.Mission, 
 						 P.OrgUnitOwner, 
+						 
+						 (SELECT V.ActionDescriptionDue
+       				   FROM   userQuery.dbo.#SESSION.acc#wfLedger V WHERE ObjectkeyValue4 = P.TransactionId) as ActionDescriptionDue,	 
 						 
 						 P.TransactionSource, 
 						 P.TransactionDate, 
@@ -193,6 +194,6 @@
 						  )
 				
 	</cfquery>
-
+		
 
 </cftransaction>

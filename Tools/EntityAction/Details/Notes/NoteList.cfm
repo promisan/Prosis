@@ -1,4 +1,5 @@
 
+
 <cfparam name="url.mode"          default="regular">
 <cfparam name="url.detailedit"    default="yes">
 <cfparam name="url.box"           default="notecontainerdetail">
@@ -39,11 +40,13 @@ WHERE      ObjectId = '#URL.ObjectId#'
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
+	
 		SELECT   *
 		FROM     OrganizationObjectActionMail
-		WHERE    ObjectId = '#url.ObjectId#'
-		AND      SerialNo = 1 
+		WHERE    ObjectId  = '#url.ObjectId#'
+		AND      SerialNo  = 1 
 		AND      MailType != 'Action'
+		AND      Documentid is not NULL
 		<cfif client.mailfilter neq "" and url.actioncode eq "">
 		#preservesingleQuotes(client.mailfilter)#
 		<cfelseif url.actioncode neq "" and url.actioncode neq "undefined">
@@ -56,20 +59,17 @@ WHERE      ObjectId = '#URL.ObjectId#'
 		</cfif>		
 		<cfif url.filter neq "">
 			AND 
-			(
-			  MailSubject like '%#URL.filter#%'
-			  OR
-			  MailBody like '%#URL.filter#%'
+			( MailSubject like '%#URL.filter#%'
+			  OR MailBody like '%#URL.filter#%'
 			)
 		</cfif>
 		<cfif url.actionid neq "">
 			<cfif action.actionStatus neq "0">
 			 AND    Created <= '#Action.OfficerDate#' 
  			</cfif>
-		</cfif>
-		
-		
+		</cfif>		
 		ORDER BY Created DESC
+		
 </cfquery>	
 		
 <table width="98%" cellspacing="0" cellpadding="0" class="navigation_table">	 
@@ -158,17 +158,7 @@ WHERE      ObjectId = '#URL.ObjectId#'
 	
 	<cfif Notes.recordcount gt "0">
 	
-		<tr>
-		<td class="#cl#"><cf_space spaces="4"></td>
-		<td class="#cl#"><cf_space spaces="4"></td>
-		<td class="#cl#"><cf_space spaces="4"></td>
-		<td class="#cl#"><cf_space spaces="5"></td>
-		<td class="#cl#"><cf_space spaces="45"></td>
-		<td class="#cl#"><cf_space spaces="60"></td>			
-		<td class="#cl#"></td>					
-		<td class="#cl#"></td>
-		</tr>
-		
+				
 	<cfelse>
 	
 		<cfif url.detailedit eq "Yes"> 
@@ -181,16 +171,28 @@ WHERE      ObjectId = '#URL.ObjectId#'
 	
     <cfoutput query="Notes">
 	
+			<cfquery name="Item" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT    *
+				FROM      Ref_EntityDocumentItem
+				<cfif documentid neq "">
+				WHERE     DocumentId = '#documentid#' AND DocumentItem = '#documentitem#'
+				<cfelse>
+				WHERE 1=0				
+				</cfif>
+			</cfquery>	
+	
 			<cfset rowline = rowline+1>
 			
 			<cfdirectory action="LIST"
-             directory="#SESSION.rootDocumentPath#\#object.entitycode#\#attachmentid#"
-             name="attach" type="file" listinfo="name">	
+             directory="#SESSION.rootDocumentPath#\#object.entitycode#\#attachmentid#" name="attach" type="file" listinfo="name">	
 							
 			<cfif url.mode eq "regular">						        
-		    <tr id="r#rowline#" class="navigation_row" style="height:20px" onclick="show('#rowline#','#threadid#','#serialno#')">
+		    <tr id="r#rowline#" class="navigation_row fixlengthlist linedotted" style="height:20px" onclick="show('#rowline#','#threadid#','#serialno#')">
 			<cfelse>				
-			<tr id="r#rowline#" class="navigation_row" style="height:20px" onclick="show('#rowline#','#threadid#','#serialno#')">				
+			<tr id="r#rowline#" class="navigation_row fixlengthlist linedotted" style="height:20px" onclick="show('#rowline#','#threadid#','#serialno#')">				
 			</cfif>
 							
 			<td>
@@ -220,31 +222,27 @@ WHERE      ObjectId = '#URL.ObjectId#'
 			</TD>
 			
 			<td width="20" valign="top" style="padding-top:5px">
-				<cfif attach.recordcount gte "1">				
+				<cfif attach.recordcount gte "1" and attachmentid neq "">				
 					 <img src="#SESSION.root#/Images/paperclip2.gif" alt="attachment" border="0" align="absmiddle">
 			    </cfif>				
 			</td>								
 			
-			<td colspan="4">#OfficerFirstName# #OfficerLastName# <cfif MailSubject neq "">: #MailSubject#<cfelse>..</cfif></td>	
+			<td colspan="4">#OfficerFirstName# #OfficerLastName# <cfif item.documentItemName neq "">#item.documentItemName#</cfif> <cfif MailSubject neq "">: #MailSubject#<cfelse>..</cfif></td>	
 						
 			<td align="right" class="labelit">				
-			<cfif dateformat(maildate,CLIENT.DateFormatShow) neq dateformat(now(),CLIENT.DateFormatShow)>
-			#dateformat(MailDate,"DDD dd/mm")#
-			<cfelse>
-			#timeformat(Created,"HH:MM")#
-			</cfif>						
+				#dateformat(MailDate,"DD/MM/yyyy")# #timeformat(Created,"HH:MM")#									
 			</td>			
 			
 			<td width="3"></td>
 			
 			</tr>
-			
-			<cfif attach.recordcount gte "1">	
+						
+			<cfif attach.recordcount gte "1" and attachmentid neq "">	
 			
 			<tr style="height:1px" class="navigation_row_child">
 			
-			<td colspan="9" id="#attachmentid#">		
-					
+			<td colspan="9" id="#attachmentid#">	
+								
 				<cf_filelibraryN
 						DocumentPath="#Object.EntityCode#"
 						SubDirectory="#attachmentid#" 
@@ -283,9 +281,7 @@ WHERE      ObjectId = '#URL.ObjectId#'
 					
 					<cfdirectory action="LIST"
 		             directory="#SESSION.rootDocumentPath#\#object.entitycode#\#attachmentid#"
-		             name="attach"
-		             type="file"
-		             listinfo="name">		
+		             name="attach" type="file" listinfo="name">		
 					
 					<td>
 					 <cfif priority eq "1">

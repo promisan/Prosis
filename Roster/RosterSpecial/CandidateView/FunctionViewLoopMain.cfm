@@ -1,19 +1,19 @@
-<table width="100%" height="100%"  align="center">
+<table width="100%" height="100%" border="0" align="center">
 			
-		<tr><td height="100%" valign="top">
+		<tr><td valign="top" height="100%">
 		               
-		<table width="98%" border="0" align="center">
-							 			  
-			<tr><td height="4"></td></tr>
+		<table width="98%" height="100%" border="0" align="center">					
 			  
-			<tr>
-			<td style="height:30px" valign="top">			  
+			<tr style="height:40px">
+			<td valign="top">	
+					  
 			<table width="100%" border="0">
 			
 			    <tr class="line">
 				<td>
 				  
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+				<table width="100%" border="0" align="center">
+				
 					<cfoutput>	
 					
 					<tr class="labelmedium2 fixlengthlist"><td><cf_tl id="Edition">:</td>
@@ -83,15 +83,19 @@
 						<td><cf_tl id="Owner">:</td>
 					    <td>#Function.OwnerDescription#</td>						
 					   
-					</tr>		
+					</tr>							
 					  
 					<tr class="labelmedium2">			
 					   					   
 						<cfif Function.DocumentNo neq "">
 															
 								<td class="fixlengthlist" style="padding-left:2px"><cf_tl id="Recruitment Request">:</td>
+								
 							    <td colspan="3">
-								<table style="width:100%"><tr><td class="fixlengthlist">
+								
+								<table style="width:100%">
+								
+								<tr><td class="fixlengthlist">
 								<cfoutput>
 									<a href="javascript:showdocument('#Function.DocumentNo#')">#Function.DocumentNo#</a>
 								</cfoutput>  		
@@ -108,9 +112,7 @@
 							    <cfoutput>#Doc.Mission# - #Doc.OrganizationUnit#</cfoutput>
 								
 								</td></tr>
-								
-								<tr>
-								
+																	
 								
 								<!--- Query returning search results --->
 								<cfquery name="Person"
@@ -125,9 +127,11 @@
 							    </cfquery>
 							
 								<cfif Person.name neq "">
+								
+								
 																	
 								<TR class="navigation_row_child">
-									<td></td>
+									<td>
 									
 									<table width="99%" align="center">
 										   
@@ -180,15 +184,12 @@
 											
 										</td></tr>
 										</table>
-										</td>
-									</tr>
-								
-								</cfif>
-								
-								
+									</td>
 								</tr>
+																
 								
-								
+								</cfif>							
+															
 								</table>
 								
 								</td>
@@ -198,11 +199,11 @@
 								<td><cf_tl id="Recruitment Request">:</td>
 								<td>N/A</td>								
 						
-						</cfif>		
-						
+						</cfif>			
 							  					   
 					   				
-					</tr>			
+					</tr>		
+					
 									   					   
 					<cfif Function.Memo neq "">
 						
@@ -212,6 +213,7 @@
 						</tr>																				
 						
 					</cfif>	
+					
 					
 					</cfoutput>
 					
@@ -264,20 +266,19 @@
 						</cfif>
 						
 					</cfif>	
-					
-					<tr><td height="3"></td></tr>
-											
+																
 					</table>
-		  	</td></tr>
-		  	</table>		  
-		  	</td>
-			</tr>			
 					
-			<tr><td style="height:100%" width="100%" valign="top" id="detail"></td></tr>
-			<tr><td height="5"></td></tr>
-					   
+		  	</td></tr>
+		  	</table>
+				  
+		  	</td>
+			</tr>		
+			
+			<tr><td style="height:100%;padding:0px;padding-right:12px" width="100%" id="xdetail" valign="top"><cf_divscroll id="detail"/></td></tr>	
+			
 		</table>
 		</td>
 	   </tr>
 		
-	   </table>
+   </table>

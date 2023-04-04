@@ -19,28 +19,32 @@ provided which are explicityly enabled for this Step in the workflow (aka custom
 	AND      W.Operational = 1
 	 
 </cfquery>	 
-	
-<cfoutput query="Attachment">
 
-	<!--- perform the validation --->
-	
-	<cfquery name="Check" 
-	 datasource="AppsSystem"
-	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">	
-		SELECT       *
-		FROM         Attachment
-		WHERE        Reference = '#Object.Objectid#' 
-		AND          FileStatus <> '9' AND FileName LIKE '#DocumentCode#%'
+<cfif form.actionstatus neq "1">
 		
-	</cfquery>	
+	<cfoutput query="Attachment">
+	
+		<!--- perform the validation --->
+		
+		<cfquery name="Check" 
+		 datasource="AppsSystem"
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">	
+			SELECT       *
+			FROM         Attachment
+			WHERE        Reference = '#Object.Objectid#' 
+			AND          FileStatus <> '9' AND FileName LIKE '#DocumentCode#%'
 			
-	<cfif check.recordcount eq "0">
+		</cfquery>	
+				
+		<cfif check.recordcount eq "0">
+			
+			  <cf_message message = " <br><span style='color:red;font-size:20px'>#DocumentDescription#</b>" return="false">
+			  <cfabort>
 		
-		  <cf_message message = "You are required to attach a document under: <br><span style='color:red;font-size:20px'>#DocumentDescription#</b>" return="false">
-		  <cfabort>
-	
-	</cfif>
-	
-</cfoutput>
+		</cfif>
+		
+	</cfoutput>
+
+</cfif>
 		

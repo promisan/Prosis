@@ -133,7 +133,7 @@
 					 init="Yes"
 					 width="100%"
 					 height="400"
-					 toolbar="basic"
+					 toolbar="full"
 					 resize="no"
 					 color="ffffff"><cfoutput>#text#</cfoutput></cf_textarea>	 
 			  	

@@ -31,10 +31,10 @@ function hl(itm,fld,reqno){
 	
 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
 		
-    <TR class="line labelmedium">
-	   <td width="3%" height="19">&nbsp;</td>
-	   <td width="3%" height="19">&nbsp;</td>
-	   <td width="40%"><cf_tl id="Description"></td>
+    <TR class="line labelmedium2 fixlengthlist">
+	   <td height="19">&nbsp;</td>
+	   <td height="19">&nbsp;</td>
+	   <td><cf_tl id="Description"></td>
 	   <td align="right"><cf_tl id="Qty"></td>
 	   <td align="right"><cf_tl id="UoM"></td>
 	   <td align="right"><cf_tl id="Currency"></td>
@@ -62,7 +62,7 @@ function hl(itm,fld,reqno){
 	
 		<cfoutput>
 		
-		<tr id="#requisitionno#_1" class="navigation_row labelmedium line">
+		<tr id="#requisitionno#_1" class="navigation_row labelmedium2 line fixlengthlist">
 		
 		   <td height="23" align="center">
 			 
