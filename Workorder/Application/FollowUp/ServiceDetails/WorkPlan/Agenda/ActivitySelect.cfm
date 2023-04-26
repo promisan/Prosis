@@ -141,7 +141,7 @@
 						   <cfif access neq "NONE">		
 						      <cfset hasRecords = "1">		     
 						      <option value="#OrgUnit#" <cfif url.orgunit eq Orgunit>selected</cfif>>#OrgUnitName#</option>
-							  <cfif (url.orgunit eq Orgunit or url.orgunit eq "0") and match eq "0">
+							  <cfif (url.orgunit eq Orgunit or url.orgunit eq "0" or url.orgunit eq "") and match eq "0">
 							  	<cfset match = "1">
 								<cfset url.orgunit = orgunit>
 							  </cfif>

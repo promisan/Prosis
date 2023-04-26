@@ -20,6 +20,9 @@ then we show per line-class (duplicate) the action status (pending / completed) 
 		             ServiceItem AS S ON W.ServiceItem = S.Code
 		WHERE        W.Mission = '#url.mission#' 
 		AND          CAST(WLA.DateTimeRequested AS Date) = '#dateformat(url.calendardate,client.dateSQL)#'
+		<cfif URL.orgunit neq "">
+			AND WL.OrgUnit = '#URL.OrgUnit#'
+		</cfif>
 		GROUP BY     WL.ServiceDomain, WL.ServiceDomainClass, WLA.ActionClass, R.Description, W.ServiceItem, S.Description
 </cfquery>
 

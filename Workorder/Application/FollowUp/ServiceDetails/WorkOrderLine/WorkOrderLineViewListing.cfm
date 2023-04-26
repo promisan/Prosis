@@ -1,4 +1,4 @@
-
+<cfparam name="url.orgunit"            default="">
 <cfparam name="url.mission"            default="">
 <cfparam name="url.selecteddate"       default="05/05/2019">
 <cfparam name="url.positionno"         default="">
@@ -44,6 +44,9 @@
 				   WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId
 		WHERE      W.Mission = '#url.mission#' 
 		AND        CAST(WLA.DateTimeRequested AS Date) = '#dateformat(url.selecteddate,client.dateSQL)#'
+		<cfif URL.orgunit neq "">
+			AND WL.OrgUnit = '#URL.OrgUnit#'
+		</cfif>
 
 		) as B
 		WHERE 1=1
