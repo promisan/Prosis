@@ -128,24 +128,13 @@
 					<cfset tdrillmode = drillmode>								
 				</cfif>
 							
-			   <cfset cl = "toggledrill('#lcase(tdrillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">							
-			   <td align="center" style="padding-top:7px;padding-left:5px">		
-			   <cf_img id="exp#currentrow#" icon="expand"  toggle="Yes" onclick="#cl#">	
-			   
-			   <!---					  						  						   				   						   
-			   <img style="cursor:pointer" id="exp#dkey#" 
-			     class="regular" src="#client.VirtualDir#/Images/arrowright.gif" align="absmiddle" alt="Expand" height="9" width="7" onclick="#cl#"> 								 
-			   <img style="cursor:pointer" id="col#dkey#" 
-			     class="hide" src="#client.VirtualDir#/Images/arrowdown.gif" align="absmiddle" height="10" width="9" alt="Hide" onclick="#cl#"> 							 
-				 --->
-				 
-			   </td>
+			   <cfset cl = "toggledrill('#lcase(tdrillmode)#','box#dkey#','#drilltemplate#','#dkey#','','#drillbox#','#drillstring#')">							
+			   <td align="center" style="padding-top:7px;padding-left:5px"><cf_img id="exp#currentrow#" icon="expand"  toggle="Yes" onclick="#cl#"></td>
 				 
 			<cfelse>						
 									
 			   <cfset cl = "toggledrill('#lcase(drillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">							   					  	  					 						   
-			   <td class="navigation_action">						   						   
-			   <cf_img id="exp#currentrow#" icon="open" onclick="#cl#">
+			   <td class="navigation_action"><cf_img id="exp#currentrow#" icon="open" onclick="#cl#">
 			   </td>
 			 													 
 			</cfif>  		

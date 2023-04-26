@@ -744,9 +744,10 @@ password="#SESSION.dbpw#">
 <cfelse>
 
 	<script language="JavaScript"> 	   
-		
-	     parent.parent.history.go()	
-	     parent.parent.ProsisUI.closeWindow('myaccess',true)	    
+		   <!--- adjusted by hanno 25-4 to ensure refresh --->
+	    history.go()		
+	//     parent.parent.history.go()	
+	//     parent.parent.ProsisUI.closeWindow('myaccess',true)	  
 	</script>
 
 </cfif>

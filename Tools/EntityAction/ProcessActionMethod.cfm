@@ -611,8 +611,12 @@
 								FROM      Organization.dbo.Ref_EntityDocument
 								WHERE     DocumentId = '#Script.documentId#' 					 
 							</cfquery>
+							
+							<cfif ScriptFile.DocumentTemplate neq "">
 																					
 							<cfinclude template="../../#ScriptFile.DocumentTemplate#"> 
+							
+							</cfif>
 							
 						<cfelse>	
 						

@@ -1,5 +1,5 @@
 
-<cfparam name="#url.mission" default="Bambino">
+<cfparam name="#url.mission#" default="Bambino">
 <cfparam name="url.date" default="#dateformat(now(),client.dateformatshow)#">
 
 <cfset dateValue = "">

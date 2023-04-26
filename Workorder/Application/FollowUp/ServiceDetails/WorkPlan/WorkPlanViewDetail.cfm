@@ -1,3 +1,5 @@
+
+
 <cfparam name="url.orgunit" default="0">
 
 <cfoutput>			 
@@ -27,7 +29,7 @@
 			   preparation    = ""	    				  
 			   content        = "WorkOrder/Application/FollowUp/ServiceDetails/WorkPlan/Agenda/ActivitySummary.cfm"		
 			   targetid       = "calendartarget"	
-			   target         = "WorkOrder/Application/Followup/ServiceDetails/WorkPlan/Agenda/ActivityList.cfm"
+			   target         = "WorkOrder/Application/Followup/ServiceDetails/WorkOrderLine/WorkOrderLineViewListing.cfm"
 			   condition      = "mission=#url.mission#"	
 			   conditionfly   = "orgunit=#url.orgunit#&positionno=#url.positionno#"	   
 			   cellwidth      = "fit"

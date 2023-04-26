@@ -87,13 +87,15 @@
 			
 				<cfoutput>		
 				
-				SELECT  P.OrgUnitOperational,				       
-						(SELECT HierarchyCode FROM Organization.dbo.Organization WHERE Orgunit = P.OrgUnitOperational) as HierarchyCode,
+				SELECT  P.OrgUnitOperational,		
+				        P.SourcePostNumber,		
+						(SELECT OrgUnitNameShort FROM Organization.dbo.Organization WHERE Orgunit = P.OrgUnitOperational) as OrgUnitNameShort,						      
+						(SELECT HierarchyCode FROM Organization.dbo.Organization WHERE Orgunit = P.OrgUnitOperational) as HierarchyCode,						
 						(SELECT TOP 1 Fund FROM Employee.dbo.PositionParentFunding WHERE PositionParentId = P.PositionParentId) as Fund,
 						(SELECT TOP 1 FunctionalArea FROM Employee.dbo.PositionParentFunding WHERE PositionParentId = P.PositionParentId) as FunctionalArea,						 
 				        G.*
 				FROM (
-					SELECT      D.DocumentNo, D.DocumentNoTrigger, D.DocumentType, D.Owner, D.Mission, 
+					SELECT      D.DocumentNo, D.DocumentNoTrigger, D.DocumentType, D.Owner, D.Mission, N.Name as NationalityName,
 					            <!--- 
 					            D.PostNumber, D.PositionNo, 
 								--->
@@ -134,10 +136,10 @@
 					WHERE       D.Mission = '#url.mission#' 
 					AND         DC.Status IN ('2s', '3') 
 					AND         D.Status != '9'
-				) as G LEFT OUTER JOIN Employee.dbo.Position P ON G.PositionNo = P.PositionNo 
+				) as G LEFT OUTER JOIN Employee.dbo.Position P ON G.PositionNo = P.PositionNo
 				
-				 WHERE       year(G.DateEffective) = '#url.year#' 	
-				-- WHERE year(G.SelectionDate) = '#url.year#'					
+				-- WHERE       year(G.DateEffective) = '#url.year#' 	
+				 WHERE year(G.SelectionDate) = '#url.year#'					
 				
 				</cfoutput>	
 			

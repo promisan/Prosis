@@ -683,9 +683,18 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 	<tr valign="top" style="padding-top:5px" class="labelmedium2">
-		<td ><cf_tl id="Observations">:</td>
 		<td>
-			<textarea name="Memo" style="height:40px;font-size:14px;padding:4px;width:95%" class="regular enterastab">#Customer.Memo#</textarea>
+		<table style="height:100%">
+		   <tr class="labelmedium2"><td class="fixlength" valign="top"><cf_tl id="Observations">:</td></tr>
+		   <tr><td valign="bottom" align="right" id="memcount_remarks"></td></tr>
+		</table>
+		
+		</td>
+		<td>
+			<textarea name="Memo" 
+			maxlength="800"
+			onKeyUp="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/input/text/memolength.cfm?field=memo&size=800','memcount_remarks','','','POST','customerform')"	
+			style="height:100px;font-size:14px;padding:4px;width:95%" class="regular enterastab">#Customer.Memo#</textarea>
 		</td>
 	</tr>
 				

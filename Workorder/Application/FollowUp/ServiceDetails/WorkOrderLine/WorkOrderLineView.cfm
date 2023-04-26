@@ -1,65 +1,22 @@
 
+<!---
+
 WorkOrder + Customer : show the name, the date and the type of service
 
 WorkOrderLine : show the class  : workorderline person : this can follow the aldana portion
 
 WorkOrderLineAction + workflow
 
-
 Detail portion
 
-
-
-
+--->
 
 <cfparam name="url.date" default="#dateformat(now(),client.dateformatshow)#">
 
 <cfset dateValue = "">
 <CF_DateConvert Value="#url.date#">
 <cfset DTS = dateValue>
-
-<!--- consistency check, maybe later moved to tool --->
-
-<cfquery name="reset1" 
-	datasource="AppsWorkOrder" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	
-	UPDATE   WorkOrderLineCharge
-	SET      Journal         = NULL, 
-	         JournalSerialNo = NULL
-	FROM     WorkOrderLineCharge C
-	WHERE    Journal IS NOT NULL
-	AND      NOT EXISTS
-                          (SELECT    'X'
-                           FROM      Accounting.dbo.TransactionHeader
-                           WHERE     Journal         = C.Journal 
-						   AND       JournalSerialNo = C.JournalSerialNo)
-							
-</cfquery>
-			
-<cfquery name="reset2" 
-	datasource="AppsWorkOrder" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-								
-	UPDATE WorkOrderLine
-	SET    ActionStatus       = '1'
-	FROM   WorkOrderLine WL, WorkOrderLineCharge WLC
-	WHERE  WL.WorkOrderid     = WLC.WorkOrderId
-	AND    WL.WorkOrderLine   = WLC.WorkorderLine
-	AND    WLC.Journal is NULL			
-				
-</cfquery>	
-
-<cfquery name="getwol" 
-	datasource="AppsWorkOrder" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT *
-		FROM 	WorkOrderLine
-		WHERE 	WorkOrderLineId = '#url.drillid#'
-</cfquery>
+		
 		
 <cfquery name="get" 
 	datasource="AppsWorkOrder" 
@@ -75,28 +32,6 @@ Detail portion
 		AND      WL.Operational  = 1
 </cfquery>	
 
-<cfquery name="getHeader" 
-	datasource="AppsWorkOrder" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT  TOP 1 WLA.*, 
-				 C.PersonNo      as CustomerPersonNo, 
-				 WL.ActionStatus as BillingStatus
-		FROM     WorkOrderLine WL INNER JOIN
-		         WorkOrder W ON WL.WorkOrderId = W.WorkOrderId INNER JOIN
-		         Customer C ON W.CustomerId = C.CustomerId
-		         INNER JOIN 
-		         WorkORderLineAction as WLA
-		         ON WL.WorkOrderLine = WLA.WorkORderLine
-		         AND WL.WorkOrderId = WLA.WorkOrderId
-			     AND ActionClass = 'Contact'
-			     AND WLA.ActionStatus !='9' 
-
-		WHERE    WorkOrderLineId = '#url.drillid#'		
-		AND      WL.Operational  = 1
-		ORDER BY WLA.DateTimePlanning
-</cfquery>	
-
 <cfif get.recordcount eq "0">
 	
 	<table align="center"><tr><td class="labellarge" style="font-size:25px;padding-top:70px"><font color="808080"><cf_tl id="Record has been removed"></td></tr></table>
@@ -104,13 +39,14 @@ Detail portion
 
 </cfif>
 
+
 <cf_tl id="Print" var="vLabelPrint">
 <cf_tl id="Edit"  var="vLabelForm">
 
 <cf_tl id="Settlement" var="set">
 
 <cf_screentop 
-	label="#dateformat(getHeader.DateTimePlanning,client.dateformatshow)# #get.CustomerName# #get.mission#" 
+	label="#dateformat(get.OrderDate,client.dateformatshow)# #get.CustomerName# #get.mission#" 
 	height="100%" 
 	jQuery="Yes"	
 	banner="blue"
@@ -132,8 +68,10 @@ Detail portion
 	<cf_dialogOrganization>
 	<cf_DialogSystem>
 	<cf_DialogLedger>
-	<cf_DialogStaffing>
-	<cf_PresenterScript>
+	<cf_DialogStaffing>	
+	<cf_PresenterScript> 		
+		
+		
 
 	<cfajaximport tags="cfform,cfdiv">
 	<cf_textareascript>
@@ -150,9 +88,6 @@ Detail portion
 		ptoken.open('WorkOrderLineView.cfm?drillid='+wlid,'_self') 
 	 }
 	 
-	 function addsupply(mis,wid,lid) {  	   
-	    ptoken.open("<cfoutput>#SESSION.root#</cfoutput>/Warehouse/Application/Stock/Transaction/TransactionInit.cfm?mode=workorder&mission="+mis+"&workorderid="+wid+"&workorderline="+lid,"workorder","left=20, top=20, width=960,height=800,status=yes, toolbar=no, scrollbars=yes, resizable=yes")	 	
-	}
 	
 	function lineactionrefresh(wid,wli) {	   
 		<cfoutput>	
@@ -232,6 +167,7 @@ Detail portion
 	</script>	
 		 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>
+	
 
 <cf_layout attributeCollection="#attrib#">
 
@@ -242,7 +178,7 @@ Detail portion
 		maxsize	  = "50px"
 		size 	  = "50px">	
 		
-			<cf_ViewTopMenu label="#dateformat(getHeader.DateTimePlanning,client.dateformatshow)# #get.CustomerName# #get.mission#" menuaccess="context" background="blue" systemModule="WorkOrder">
+			<cf_ViewTopMenu label="#dateformat(get.OrderDate,client.dateformatshow)# #get.CustomerName# #get.mission#" menuaccess="context" background="blue" systemModule="WorkOrder">
 						 			  
 	</cf_layoutarea>	
 	
@@ -254,17 +190,13 @@ Detail portion
 				
 			<tr class="hide"><td id="process"></td></tr>				
 									
-			<tr><td style="padding-left:1px;padding-right:1px" id="boxappdetail">		
-			<!---	
-			<cfset url.id = get.CustomerPersonNo>
-			<cfinclude template="../../../../../Roster/Candidate/Details/Applicant/ApplicantDetail.cfm">				
-			--->
-			Just some header stuff 
+			<tr><td style="padding-left:1px;padding-right:1px" id="boxappdetail">			
+			<cfinclude template="WorkOrderLineHeader.cfm">						
 			</td></tr>			
 			
 			<tr><td>		
 		    <cf_securediv id="myContainer" bind="url:WorkOrderLineViewContent.cfm?drillid=#url.drillid#">				
-			</td></tr>
+			</td></tr>            
 			
 		</table>			
 					
@@ -311,15 +243,15 @@ Detail portion
 	<cfif wfexist eq "1">
 	  
 		<cf_layoutarea 
-		    position    = "right" 
-			name        = "commentbox" 
-			maxsize     = "500" 		
-			size        = "25%" 		
-			minsize     = "360"
+		    position      = "right" 
+			name          = "commentbox" 
+			maxsize       = "500" 		
+			size          = "25%" 		
+			minsize       = "360"
 			initcollapsed = "true"
-			collapsible = "true" 
-			splitter    = "true"
-			overflow    = "scroll">
+			collapsible   = "true" 
+			splitter      = "true"
+			overflow      = "scroll">
 							
 			<cf_divscroll style="height:99%">
 				<cf_commentlisting objectid="#Check.ObjectId#"  ajax="No">		
@@ -328,8 +260,8 @@ Detail portion
 		</cf_layoutarea>	
 	
 	</cfif>
+
+--->
 	
-	--->
 				
 </cf_layout>	
-

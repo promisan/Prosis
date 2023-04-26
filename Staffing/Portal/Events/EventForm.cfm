@@ -29,11 +29,12 @@
 	    WHERE   PersonNo >= '#url.personno#' 
 		AND     AssignmentStatus IN ('0', '1') 
 		AND     DateEffective     <  GETDATE() 
-		AND     DateExpiration    >= GETDATE() 
+		AND     DateExpiration    >= GETDATE()-90
 		AND     Incumbency > 0 
 		AND     PositionNo IN (SELECT   PositionNo
 	                           FROM     Position
 	                           WHERE    Mission = '#url.mission#')
+		ORDER BY DateExpiration DESC
 </cfquery>
 
 <cfoutput>

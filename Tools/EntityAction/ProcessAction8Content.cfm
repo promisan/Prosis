@@ -105,18 +105,20 @@
 							</td>	
 																					
 							<td id="menutabs">
-							<table width="100%">
-							<tr>		
 							
-								<cfset menumode = "menu">
-								<cfinclude template="ProcessAction8Tabs.cfm">
+								<table width="100%">
+								<tr>		
 								
-			
-								<td width="10%"></td>			
-						    </tr>
-							</table>	
+									<cfset menumode = "menu">
+									<cfinclude template="ProcessAction8Tabs.cfm">
+									
+				
+									<td width="10%"></td>			
+							    </tr>
+								</table>	
 							
-							</td>				
+							</td>	
+										
 							<td align="right" style="background-color:white">
 							
 								<cfif getAdministrator("#Object.Mission#") eq "1">
@@ -135,6 +137,77 @@
 									 
 							 </td>
 							</tr>
+							
+							<tr><td colspan="3">
+																
+								<cfquery name="Prior" 
+									datasource="appsOrganization" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">	
+										SELECT      DISTINCT OA.ObjectId, PP.ActionPublishNo, PP.ProcessActionCode
+										FROM        OrganizationObjectAction AS OA INNER JOIN
+							                        Ref_EntityActionPublishProcess AS PP ON OA.ActionPublishNo = PP.ActionPublishNo AND OA.ActionCode = PP.ActionCode AND PP.ProcessClass = 'GoTo'
+										WHERE       OA.ObjectId = '#Object.ObjectId#' AND PP.ConditionShow = '1' AND OA.ActionCode = '#Action.ActionCode#'										    
+										
+									</cfquery>
+									
+									<cfif prior.recordcount gte "1">
+									
+									    <table>
+									
+										<cfloop query="Prior">											
+										
+											<cfquery name="getPrior" 
+												datasource="appsOrganization" 
+												username="#SESSION.login#" 
+												password="#SESSION.dbpw#">	
+													SELECT    R.ActionCode,
+													          R.ActionDescription, 
+															  OOA.ActionMemo, 
+															  R.ActionCompleted, 
+															  R.ActionDenied, 
+															  OOA.ActionStatus, 
+															  OOA.OfficerUserId, OOA.OfficerLastName, OOA.OfficerFirstName, OOA.OfficerDate, OOA.OfficerActionDate
+				                                    FROM      OrganizationObjectAction AS OOA INNER JOIN
+				                                              Ref_EntityActionPublish AS R ON OOA.ActionCode = R.ActionCode AND OOA.ActionPublishNo = R.ActionPublishNo		
+													WHERE     OOA.ObjectId = '#Object.ObjectId#' and OOA.ActionStatus != '0' and OOA.ActionCode = '#processactionCode#'	
+														  
+													ORDER BY  OOA.Created DESC		  										
+											</cfquery>
+											
+											<cfif getPrior.recordcount neq "0">
+																												
+												<tr  class="labelmedium"><td style="border:1px dotted silver;padding-left:3px;padding-right:5px;font-size:15px;color:black;background-color:ffffcf">
+																															
+													<cfif getprior.actionstatus eq "2" or getprior.actionstatus eq "2Y">										
+													    <b>#getPrior.ActionCompleted#</b> <font size="1">(#getPrior.actionCode#)</font>: #getPrior.OfficerFirstName# #getPrior.OfficerLastName# <span style="font-size:13px"><cf_tl id="on"> #dateformat(getPrior.OfficerDate,client.dateformatshow)# #timeformat(getPrior.OfficerDate,"HH:MM")#</span>										
+													<cfelse>
+													    <b>#getPrior.ActionDenied#</b> <font size="1">(#getPrior.actionCode#)</font>: #getPrior.OfficerFirstName# #getPrior.OfficerLastName# <span style="font-size:13px"><cf_tl id="on"> #dateformat(getPrior.OfficerDate,client.dateformatshow)# #timeformat(getPrior.OfficerDate,"HH:MM")#</span>																			
+													</cfif>									
+												
+													</td>
+												</tr>
+												
+												<cfif getprior.actionMemo neq "">
+												
+													<tr  class="labelmedium">
+													   <td colspan="1" style="border:1px dotted silver;padding-left:3px;padding-right:5px;color:black;font-size:15px;background-color:ffffaf"><i>
+													   <span style="font-size:12px">Instruction&nbsp;&nbsp;</span></i>#getPrior.ActionMemo#</td>
+													</tr>	
+													
+													<tr><td style="height:3px"></td></tr>								
+												
+												</cfif>
+											
+											</cfif>
+										</cfloop>
+										
+										</table>
+										
+									</cfif>	
+							
+							
+							</td></tr>
 						</table>
 						
 					</td>
@@ -215,8 +288,7 @@
 										</cfif>
 									</cfloop>
 									
-									</cfif>
-									
+									</cfif>									
 									
 								</table>
 							

@@ -33,7 +33,7 @@ password="#SESSION.dbpw#">
 		  <cfif hasTrack eq "0">
 			  <cf_tl id="Initiate recruitment" var="1">
 		  <cfelse>
-		      <cf_tl id="Initiate other recruitment" var="1">
+		      <cf_tl id="Initiate another recruitment" var="1">
 		  </cfif>	  
 	      <input title="Click to initiate a recruitment process for this position" 
 		  type="button" value="#lt_text#" class="button10g" <cfif getAdministrator eq "0">disabled</cfif> onclick="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')" 
@@ -42,6 +42,8 @@ password="#SESSION.dbpw#">
 		</td>	
 		
 		</tr>
+		
+		<tr><td style="height:3px"></td></tr>
 		
 	</cfif>
 	
@@ -166,8 +168,8 @@ password="#SESSION.dbpw#">
 					<cfif Candidate.recordcount neq "0">
 					
 						<cfloop query="candidate">		
-						<tr class="line labelmedium">
-						     <td style="padding-left:4px;font-size:14px">#Candidate.FirstName# #Candidate.LastName# <cfif IndexNo eq "">[No indexNo]<cfelse></cfif>#IndexNo#</td>
+						<tr class="linedtted labelmedium">
+						     <td colspan="3" style="padding-left:4px;font-size:14px">#Candidate.FirstName# #Candidate.LastName# <cfif IndexNo eq "">[No indexNo]<cfelse></cfif>#IndexNo#</td>
 					    </tr>			
 						</cfloop>
 					

@@ -44,7 +44,7 @@
 	} catch(e) {}
 	
 	_cf_loadingtexthtml='';	
-	ColdFusion.navigate('../Requisition/RequisitionEntryListing.cfm?add=0&Mission=#ReqLine.Mission#&Period=#ReqLine.Period#&Mode=Entry&ID=#url.requisitionno#&ajax=1','contentbox1')
+	ptoken.navigate('../Requisition/RequisitionEntryListing.cfm?add=0&Mission=#ReqLine.Mission#&Period=#ReqLine.Period#&Mode=Entry&ID=#url.requisitionno#&ajax=1','contentbox1')
 	
 	Prosis.busy('no');	
 	

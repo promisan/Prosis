@@ -11,7 +11,9 @@
 <cfset DTS = dateValue>
 
 <cfif url.orgUnit eq 0 or Url.orgUnit eq "">
+	
 	<cfif client.personNo neq "">
+	
 		<cfquery name="qCurrentUnit"
 				datasource="AppsWorkOrder"
 				username="#SESSION.login#"
@@ -35,8 +37,6 @@
 
 	</cfif>
 </cfif>
-
-
 
 <cfquery name="Unit" 
 	 datasource="AppsWorkOrder" 
@@ -118,10 +118,12 @@
 	
 		<tr><td style="padding-top:7px;padding-right:20px">	  
 		
-		<cfoutput>		
+		<cfoutput>	
+			
+			
 					  
 			 <select name="orgunitimplementer" id="orgunitimplementer" 
-				 onchange="try{schedule()}catch(e){};calendarmonth(document.getElementById('currentdate').value,'none','standard','seldate','orgunit='+this.value);ptoken.navigate('#session.root#/WorkOrder/Application/Medical/ServiceDetails/WorkPlan/Agenda/ActivitySelectPerson.cfm?mission=#url.mission#&orgunit='+this.value+'&selecteddate=#url.selecteddate#','unitcontent')"
+				 onchange="try{schedule()}catch(e){};calendarmonth(document.getElementById('currentdate').value,'none','standard','seldate','orgunit='+this.value);ptoken.navigate('#session.root#/WorkOrder/Application/Followup/ServiceDetails/WorkPlan/Agenda/ActivitySelectPerson.cfm?mission=#url.mission#&orgunit='+this.value+'&selecteddate=#url.selecteddate#','unitcontent')"
 				 style="width:200px;font-size:17px;height:30px" 
 				 class="regularxl">  
 			 

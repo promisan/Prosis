@@ -126,11 +126,11 @@
 			<tr class="navigation_row line" style="background-color:#cl#" onclick="try{schedule()}catch(e){};calendarmonth(document.getElementById('currentdate').value,'none','standard','seldate','orgunit=#url.orgunit#&positionno=#PositionNo#&personno=#personno#')">
 			<td class="labelit" style="height:22px;padding-right:7px;font-size:15px;height:25px">
 			  <table>
-			  <tr class="labelmedium"> 
+			  <tr class="labelmedium2"> 
 				  <td rowspan="2" style="width:30px"><cf_img icon="select"></td><td>#FunctionDescription#</font></td>
 			  </tr>
-			  <tr class="labelmedium" style="height:15px">
-				  <td colspan="1" style="padding-left:0px"><font color="0080C0">#FirstName#, #LastName#</td>
+			  <tr class="labelmedium2" style="height:15px">
+				  <td colspan="1" style="font-size:17px;padding-left:0px">#FirstName#, #LastName#</td>
 			  </tr>		  
 			  </table>
 			</td>

@@ -23,6 +23,9 @@ password="#SESSION.dbpw#">
 <cfparam name="URL.ID1" default="#OccGroup.OccupationalGroup#">
 <cfparam name="URL.mode" default="regular">
 
+
+
+
 <cfif URL.DocNo neq "">
 
 	<cfquery name="DefineOcc" 
@@ -35,6 +38,8 @@ password="#SESSION.dbpw#">
 	</cfquery>
 	
 	<cfset Fun = DefineOcc.FunctionNo>
+	
+	
 
 </cfif>
 

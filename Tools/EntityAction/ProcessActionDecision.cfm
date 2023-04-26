@@ -343,9 +343,10 @@
    </cfif>
    
    </cfif>
-   
+      
    <cfif entityaccess eq "EDIT">
    
+      
 	   <cfquery name="getaccess" 
 			datasource="AppsOrganization" 
 			username="#SESSION.login#" 
@@ -358,15 +359,15 @@
 				AND      OA.OrgUnit        = '#Object.OrgUnit#'
 				AND      OA.AccessLevel    = '2'
 		</cfquery>	
-		
+				
 		 <!--- we check if also access level 2 exists ---> 
 		
-		<cfif getAccess.recordcount eq "1">
+		<cfif getAccess.recordcount gte "1">
 		
 			<tr class="labelmedium2">
-			<td></td>
-			<td colspan="1" style="color:red;height:15px;background-color:ffffff;font-size:15px">
-			<b>Attention</b> : By confirming, I certify that the above decision was approved by #getaccess.firstName# #getAccess.lastName#.								
+			
+			<td colspan="2" style="color:red;height:35px;background-color:ffffff;font-size:15px">
+			<b>Attention</b> : By confirming, I certify that this action is taken on behalf of <cfif getAccess.Gender eq "M">Mr.<cfelse>Ms.</cfif> #getaccess.firstName# #getAccess.lastName#.								
 			</td>
 			</tr>
 		

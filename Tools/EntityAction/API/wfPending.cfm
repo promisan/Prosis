@@ -369,7 +369,7 @@ we do not reprocess the workflow status table --------------------- --->
 						   AP.NotificationGlobal,
 						   AP.NotificationFly,
 						   AP.DueMailCode,
-						   <!---AP.ActionReference,--->
+						   <!--- AP.ActionReference, --->
 						   AP.ActionOrder,
 						   P.Owner        AS ParentOwner,
 						   P.ListingOrder AS ParentOrder, 

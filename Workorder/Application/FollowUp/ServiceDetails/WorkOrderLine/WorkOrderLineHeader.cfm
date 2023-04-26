@@ -1,3 +1,9 @@
+<cfquery name="qParameter" 
+	datasource="AppsWorkOrder" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT * FROM Parameter
+</cfquery>	
 
 <cfquery name="getHeader" 
 	datasource="AppsWorkOrder" 
@@ -38,16 +44,22 @@
 		 <tr class="labelmedium2 fixlengthlist">
 			 <td style="font-size:14px"><cf_tl id="Service">:</td>
 			 <td style="font-size:14px">#getheader.ServiceItemName#</td>
+
 			 <td style="font-size:14px"><cf_tl id="Reference">:</td>
 			 <td style="font-size:14px">#getHeader.OrgUnitName#</td>
 		 </tr>
 
 		 <tr class="labelmedium2 fixlengthlist">
+
 			 <td style="font-size:14px"><cf_tl id="Status">:</td>
 			 <td style="font-size:14px">#getheader.ActionStatus#</td>
 			 <td style="font-size:14px"><cf_tl id="Memo">:</td>
 			 <td style="font-size:14px">#getHeader.OrderMemo#</td>
 		 </tr>
+
+		<cfif qParameter.CustomHeader neq "">
+		 	<cfinclude template="..\..\..\..\..\Custom\#qParameter.CustomHeader#">		 
+		</cfif>		
 			
 		</table>
 		

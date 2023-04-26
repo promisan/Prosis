@@ -436,7 +436,7 @@
 			 Process        = "Search"						
 		   	 Owner          = "#Search.Owner#"		
 			 returnvariable = "Access">	
-	      	    
+	      	  				
 		   <!--- added a provision that if nothing it selected it will preselect the default actions --->
 							  
 		   <cfif access eq "1" or (search.SearchCategory eq "Vacancy" and ShowRosterSearchDefault eq "1")>

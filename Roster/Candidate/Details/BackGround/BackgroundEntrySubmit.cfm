@@ -2,6 +2,7 @@
 <cfparam name="URL.entryScope"    default="Backoffice">
 <cfparam name="Form.LevelId"      default = "">
 <cfparam name="url.applicantno"   default = "">
+<cfparam name="base"              default = "#url.id#">
 
 <cfquery name="Source" 
 datasource="AppsSelection" 
@@ -130,6 +131,8 @@ password="#SESSION.dbpw#">
 		<cfset appno = Verify.ApplicantNo>
 	
 	</cfif>	
+	
+	
 	 
 	<cfif URL.ID eq "">			<!--- insert mode --->
 						
@@ -380,13 +383,14 @@ password="#SESSION.dbpw#">
 				
 		<cfif URL.Mode eq "1">
 		     <!--- extended entry --->
-			<cfif URL.ID eq "">
+			<cfif base eq "">
 				<cfset suf = "">	
 			<cfelse> 
 				<cfset suf = replaceNoCase(ExperienceUID,"-","","ALL")>	
 			</cfif>
 			<cfparam name="form.fieldid_#suf#" default="">	
 			<cfset fields = evaluate("form.fieldid_#suf#")>
+			
 		     <cfset lst = "#Form.LevelId#,#fields#,#Form.OrganizationClass#">
 		<cfelse>
 			 <cfset lst = "#Form.LevelId#,#Form.OrganizationClass#">
@@ -405,11 +409,11 @@ password="#SESSION.dbpw#">
 				WHERE    ApplicantNo       = '#AppNo#'
 				AND      ExperienceId      = '#ExperienceUID#'
 				AND      ExperienceFieldId = '#Left(Item,10)#'
+				
 			</cfquery>
-			
-
 						
 			<cfif Check.recordCount eq "0">
+			
 				<cftry>
 					<cfquery name="InsertExperience" 
 					datasource="AppsSelection" 
@@ -436,10 +440,8 @@ password="#SESSION.dbpw#">
 						<cfoutput>
 						<cf_logpoint>
 							#Item#
-
 						</cf_logpoint>
-						</cfoutput>
-						
+						</cfoutput>						
 					</cfcatch>
 					
 				</cftry>
@@ -538,6 +540,13 @@ password="#SESSION.dbpw#">
 			<script>
 				ptoken.open("../General.cfm?source=#url.source#&ID=#PersonNo#&ID2=#URL.ID2#&Topic=#URL.Topic#","right")
 			</script>
+			
+		<cfelseif URL.entryScope eq "Track">	
+		
+		   <script>
+		       parent.history.go()
+		       parent.ProsisUI.closeWindow('myexperience')			   
+		   </script>
 			
 		<cfelseif URL.entryScope eq "Portal">
 		

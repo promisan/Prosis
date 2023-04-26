@@ -16,42 +16,44 @@
 
 
 <cfoutput>
-<cfsavecontent variable="SelectLine">
+	<cfsavecontent variable="SelectLine">
 
- SELECT *
- FROM (
+	 SELECT *
+	 FROM (
 
-    SELECT     WL.Reference, 
-	           R.Code, 
-			   R.Description, 
-			   WL.WorkOrderLine, 
-			   WL.DateEffective, 
-			   WL.WorkOrderLineId,
-			   WL.WorkOrderId,
-			   WL.OrgUnit, 
-			   o.OrgUnitName, 
-			   WL.SourceNo, 
-			   WLA.ActionClass, 
-			   WL.PersonNo, 
-			   P.LastName, 
-			   P.FirstName,
-			   P.IndexNo
-    FROM       WorkOrderLine AS WL INNER JOIN
-               Ref_ServiceItemDomainClass AS R ON WL.ServiceDomain = R.ServiceDomain AND WL.ServiceDomainClass = R.Code INNER JOIN
-               WorkOrderLineAction AS WLA ON WL.WorkOrderId = WLA.WorkOrderId AND WL.WorkOrderLine = WLA.WorkOrderLine INNER JOIN
-               Employee.dbo.Person AS P ON WL.PersonNo = P.PersonNo INNER JOIN
-               Organization.dbo.Organization AS o ON WL.OrgUnit = o.OrgUnit INNER JOIN
-               WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId
-    WHERE      W.Mission = '#url.mission#' 
-    AND        CAST(WLA.DateTimeRequested AS Date) = '#url.selecteddate#'
+		SELECT     WL.Reference, 
+				   R.Code, 
+				   R.Description, 
+				   WL.WorkOrderLine, 
+				   WL.DateEffective, 
+				   WL.WorkOrderLineId,
+				   WL.WorkOrderId,
+				   WL.OrgUnit, 
+				   o.OrgUnitName, 
+				   WL.SourceNo, 
+				   WLA.ActionClass, 
+				   WL.PersonNo, 
+				   P.LastName, 
+				   P.FirstName,
+				   P.IndexNo
+		FROM       WorkOrderLine AS WL INNER JOIN
+				   Ref_ServiceItemDomainClass AS R ON WL.ServiceDomain = R.ServiceDomain AND WL.ServiceDomainClass = R.Code INNER JOIN
+				   WorkOrderLineAction AS WLA ON WL.WorkOrderId = WLA.WorkOrderId AND WL.WorkOrderLine = WLA.WorkOrderLine INNER JOIN
+				   Employee.dbo.Person AS P ON WL.PersonNo = P.PersonNo INNER JOIN
+				   Organization.dbo.Organization AS o ON WL.OrgUnit = o.OrgUnit INNER JOIN
+				   WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId
+		WHERE      W.Mission = '#url.mission#' 
+		AND        CAST(WLA.DateTimeRequested AS Date) = '#dateformat(url.selecteddate,client.dateSQL)#'
+
+		) as B
+		WHERE 1=1
+		--condition
+
+	</cfsavecontent>
 	
-	) as B
-	WHERE 1=1
-	--condition
+<input type="hidden" id="currentdate" value="#dateformat(url.selecteddate,client.dateformatshow)#">
 	
-	
-</cfsavecontent>
-</cfoutput>
+</cfoutput>	
 
 <cfset itm = 0>
 		
@@ -103,10 +105,15 @@
 <cfset fil = "Hide">
 
 <!--- embed|window|dialogajax|dialog|standard --->
+
+	<cfoutput>
+<table style='width:100%;height:100%'>
+	<tr class="labelmedium2"><td style="padding-top:6pfont-size:20px">#dateformat(url.selecteddate,"DDDD MMMM YYYY")#</td></tr>
+	<tr><td valign="top">
 			
 <cf_listing header  = "FollowupListing"
     box             = "FollowupListing_#url.mission#"
-	link            = "#SESSION.root#/WorkOrder/Application/FollowUp/ServiceDetails/WorkOrderLine/WorkOrderLineViewContent.cfm?mission=#url.mission#&selecteddate=#url.selecteddate#&systemfunctionid=#url.systemfunctionid#"
+	link            = "#SESSION.root#/WorkOrder/Application/FollowUp/ServiceDetails/WorkOrderLine/WorkOrderLineViewListing.cfm?mission=#url.mission#&selecteddate=#url.selecteddate#&systemfunctionid=#url.systemfunctionid#"
     html            = "No"		
 	datasource      = "AppsWorkOrder"
 	listquery       = "#selectline#"
@@ -120,9 +127,14 @@
 	ExcelShow       = "Yes"
 	drillmode       = "tab" 
 	drillargument   = "980;1100;true"	
-	drilltemplate   = "#SESSION.root#/WorkOrder/Application/FollowUp/ServiceDetails/WorkOrderline/WorkOrderLineView.cfm?id="
+	drilltemplate   = "WorkOrder/Application/FollowUp/ServiceDetails/WorkOrderline/WorkOrderLineView.cfm?drillid="
 	drillkey        = "workorderlineid">	
+	
+	</td></tr>
 
+</table>	
+		
+		</cfoutput>
 
 
 	

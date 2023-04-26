@@ -119,6 +119,8 @@
 			WHERE    WorkOrderLineId = '#url.drillid#'		
 		</cfquery>	
 		
+		
+		
 	<tr><td style="padding-left:15px;padding-right:15px">
 	
 	<table width="100%">
@@ -183,7 +185,8 @@
 					WHERE    WL.ParentWorkOrderId   = '#Line.WorkOrderId#'		
 					AND      WL.ParentWorkOrderLine = '#Line.WorkOrderLine#'
 			</cfquery>	
-															
+			
+				
 			<cfif getChild.recordcount eq "0">
 			
 				<cfset prior = "0">
@@ -266,6 +269,7 @@
 			WHERE    WorkOrderLineId = '#url.drillid#'		
 			AND      WL.Operational = 1
 		</cfquery>	
+				
 				
 		<cfoutput>		
 					   			
@@ -466,6 +470,7 @@
 	<!--- this postion of the code
 	that captures topics on the workorderline is going to be taken by the Composition object 31/12/2019 
 	Hanno --->
+
 	
 	<tr><td height="10"></td></tr>			
 				 

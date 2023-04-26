@@ -6,7 +6,7 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT 		
-					IT.ItemNo, I.ItemDescription,ABS(IT.TransactionQuantity)as TransactionQuantity, Iuom.UoMDescription, 
+					IT.ItemNo, I.ItemDescription, I.ItemNoExternal, ABS(IT.TransactionQuantity)as TransactionQuantity, Iuom.UoMDescription, 
 					IT.TransactionCostPrice, IT.TransactionCostPrice, IT.TransactionId, CAT.CategoryName
 					,ISNULL((
 					   SELECT SUM(TL.AmountDebit - TL.AmountCredit)
@@ -34,10 +34,11 @@
 
 <cfelse>
 	
-		<table width="100%" border="0" cellspacing="0" align="center" class="navigation_table formpadding">
+		<table width="100%" align="center" class="navigation_table formpadding">
 			<tr bgcolor="ffffaf" class="labelmedium line" style="border-top:1px solid silver">
 				<td style="padding-left:3px" width="5%"><cf_tl id="ItemNo"></td>
 				<td style="min-width:100px" width="40%"><cf_tl id="Item Description"></td>
+				<td style="min-width:70px" width="10%"><cf_tl id="Code"></td>
 				<td style="min-width:150px" width="20%"><cf_tl id="Category"></td>
 				<td style="min-width:100px" align="center"><cf_tl id="UoM"></td>
 				<td style="min-width:100px" align="center"><cf_tl id="Quantity"></td>							
@@ -46,12 +47,13 @@
 							
 			<cfoutput query="SaleDetail">
 				<tr class="line labelmedium navigation_row">
-					<td style="padding-left:3px">#SaleDetail.ItemNo#</td>
-					<td>#SaleDetail.ItemDescription#</td>
-					<td>#SaleDetail.CategoryName#</td>
-					<td align="center">#SaleDetail.UoMDescription#</td>		
-					<td align="center">#NumberFormat(SaleDetail.TransactionQuantity,"_,.__")#</td>							
-					<td align="center">#NumberFormat(SaleDetail.AmountCOGS,"_,.__")#</td>
+					<td style="padding-left:3px">#ItemNo#</td>
+					<td class="fixlength">#ItemDescription#</td>
+					<td>#ItemNoExternal#</td>
+					<td>#CategoryName#</td>
+					<td align="center">#UoMDescription#</td>		
+					<td align="center">#NumberFormat(TransactionQuantity,"_,.__")#</td>							
+					<td align="center">#NumberFormat(AmountCOGS,"_,.__")#</td>
 				</tr>
 			</cfoutput>
 		</table>	

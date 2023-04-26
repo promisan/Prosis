@@ -391,7 +391,7 @@
 			<tr class="labelmedium2">
 			<td></td>
 			<td colspan="1" style="color:red;height:35px;background-color:ffffff;font-size:15px">
-			<b>Attention</b> : By confirming, I certify that the above decision was approved by #getaccess.firstName# #getAccess.lastName#.								
+			<b>Attention</b> : By confirming, I certify that this action is taken on behalf of <cfif getAccess.Gender eq "M">Mr.<cfelse>Ms.</cfif> #getaccess.firstName# #getAccess.lastName#.								
 			</td>
 			</tr>
 		

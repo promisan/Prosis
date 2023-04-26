@@ -16,7 +16,6 @@
 		WHERE  Source = '#url.source#'
 </cfquery>
 
-
 <cf_param name="heading"            default="0"          type="String"> 
 <cf_param name="url.section"		default=""           type="String">
 <cf_param name="URL.entryScope"     default="Backoffice" type="String">
@@ -29,7 +28,7 @@
 	Owner   = "#url.owner#"
 	Section = "#url.section#">	
 	
-				
+			
 <cfif accessmode eq "READ" and url.id eq "">
 
 	<table align="center">
@@ -125,12 +124,12 @@
 		ORDER BY ExperienceStart DESC
 	</cfquery>
 	
-	<cf_param name="url.applicantno"		 default="#Background.ApplicantNo#" type="String">	
-	<cf_param name="url.id1"		    	 default="#Background.PersonNo#" type="String">	
-	<cf_param name="url.id2"		    	 default="#Background.ExperienceCategory#" type="String">			
-	<cf_param name="URL.Source"           default="#Background.Source#" type="String">	
-	<cf_param name="URL.Owner"            default="SysAdmin" type="String">	
-	<cf_param name="Form.ExperienceType"  default="#url.id2#" type="String">	
+	<cf_param name="url.applicantno"	 default="#Background.ApplicantNo#"        type="String">	
+	<cf_param name="url.id1"		     default="#Background.PersonNo#"           type="String">	
+	<cf_param name="url.id2"		     default="#Background.ExperienceCategory#" type="String">			
+	<cf_param name="URL.Source"          default="#Background.Source#"             type="String">	
+	<cf_param name="URL.Owner"           default="SysAdmin"                        type="String">	
+	<cf_param name="Form.ExperienceType" default="#url.id2#"                       type="String">	
 	
 </cfif>
 
@@ -304,6 +303,8 @@
 
 </cfif>
 
+
+
 <cfoutput>
 
 	 <script language="JavaScript">
@@ -321,6 +322,8 @@
  
 <CFFORM onsubmit="return false" style="height:100%" name="backgroundform" id="backgroundform">
 
+
+
 <cfoutput>
 	<input type="hidden" name="ExperienceType" value="#URL.ID2#">
 </cfoutput>
@@ -334,7 +337,7 @@
 			  <table width="100%">
 			  <tr>
 			  	<td class="labellarge" style="font-size:32px;height:59px;padding-top:5px">#Heading#</td>
-				<td align="right">
+				<td align="right" style="padding-top:22px">
 			    <table cellspacing="0" cellpadding="0" class="formpadding"><tr>
 					<td class="labelit"><cf_tl id="Created">:</td>
 					<td class="labelit" style="padding-left:5px">#Dateformat(Background.created,dateformatshow)#</td>
@@ -351,22 +354,20 @@
 		  </cfoutput> 
 		  
   </tr>
-  
-  
+    
   <tr><td class="linedotted" height="1"></td></tr>
 	  
   <tr> 
-  
-      
-  <td style="width:100%;height:100%;padding-left:10px;padding-right:10px">
-  
+        
+  <td style="width:100%;height:100%;padding-left:10px;padding-right:10px">  
+ 
   	<cf_divscroll>
 
 		  <table width="99%" class="formpadding;formspacing">
 		  <tr><td height="8"></td></tr>
 		  <tr>  
 		  <td>
-			  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+			  <table width="100%" class="formpadding">
 			  
 			   <tr>
 			   <td width="20%" class="labelmedium"><cfoutput>#org#</cfoutput>:  <cfif accessmode eq "edit"><font color="#FF0000">*</font></cfif></td>
@@ -433,9 +434,7 @@
 							filter         = "contains"																																
 							query          = "#ThisLookup#"							
 							value          = "ExperienceFieldId"
-							display        = "Description"/>	 
-				   
-				   
+							display        = "Description"/>	
 				   
 				   </TD> 
 				   </tr>
@@ -445,8 +444,6 @@
 			   <input type="hidden" name="OrganizationClass" value="">
 			   
 			   </cfif> 
-			   
-		
 			      
 			   <tr>
 			   <TD class="labelmedium"><cf_tl id="Country">:  <cfif accessmode eq "edit"><font color="#FF0000">*</font></cfif></TD>
@@ -471,8 +468,7 @@
 							filter         = "contains"																																
 							query          = "#Nation#"							
 							value          = "Code"
-							display        = "Name"/>										
-				      
+							display        = "Name"/>				      
 						   
 					<cfelse>										
 										
@@ -510,7 +506,7 @@
 				
 			   </TD> 
 			   </tr>
-			   
+			  
 			   <tr>
 			   <TD class="labelmedium"><cf_tl id="Address">: </TD>
 			   <TD><cfif url.id eq "">
@@ -562,7 +558,7 @@
 							
 							</td><td style="padding-left:5px">
 						  
-					   <input type="button" value="today" style="width:60" class="enterastab button10g" onClick="javascript:document.getElementById('experienceend').value='<cfoutput>#DateFormat(now(), CLIENT.DateFormatShow)#</cfoutput>'">
+					   <input type="button" value="today" style="width:60" class="enterastab button10g" onClick="javascript:document.getElementById('experienceend').value='<cfoutput>#DateFormat(now(),CLIENT.DateFormatShow)#</cfoutput>'">
 					   
 					   </td></tr>
 					   </table>
@@ -571,7 +567,7 @@
 					  
 					  <cfoutput>
 					  
-					  <table><tr><td class="labelmedium">#DateFormat(Background.ExperienceStart, CLIENT.DateFormatShow)# - <cfif Background.ExperienceEnd eq ""><cf_tl id="Today"><cfelse>#DateFormat(Background.ExperienceEnd, CLIENT.DateFormatShow)#</cfif></td></tr></table>
+					  <table><tr><td class="labelmedium">#DateFormat(Background.ExperienceStart, CLIENT.DateFormatShow)# - <cfif Background.ExperienceEnd eq ""> <cf_tl id="Today"><cfelse>#DateFormat(Background.ExperienceEnd, CLIENT.DateFormatShow)#</cfif></td></tr></table>
 					 				  
 					  <input type="hidden" name="ExperienceStart" value="#DateFormat(Background.ExperienceStart, CLIENT.DateFormatShow)#">
 					  <input type="hidden" name="ExperienceEnd"   value="#DateFormat(Background.ExperienceEnd, CLIENT.DateFormatShow)#">
@@ -584,33 +580,36 @@
 			   
 			   </tr>
 			   
+			  
+			   
 			   <tr>
-			   <TD class="labelmedium"><cf_tl id="Title">: <cfif accessmode eq "edit"><font color="#FF0000">*</font></cfif></TD>
-			   <TD class="labelmedium">
-			   
-				   	<cf_tl id="Please enter your Title (function)" var="1"> 
-					
-					<cfif accessmode eq "edit">
-						<cfif url.id eq "">
-							<cfinput type="Text" class="regularxxl enterastab" name="ExperienceDescription" message="#lt_text#" required="Yes" size="60" maxlength="100"> 
-						<cfelse>
-							<cfoutput>
-							   	<cfinput type="Text" value="#Background.ExperienceDescription#" class="regularxxl enterastab" name="ExperienceDescription" message="#lt_text#" required="Yes" size="60" maxlength="100">
-							</cfoutput>
+				   <td class="labelmedium"><cf_tl id="Title">: <cfif accessmode eq "edit"><font color="#FF0000">*</font></cfif></TD>
+				   <td class="labelmedium">
+				   
+					   	<cf_tl id="Please enter your Title (function)" var="1"> 
+						
+						<cfif accessmode eq "edit">
+							<cfif url.id eq "">
+								<cfinput type="Text" class="regularxxl enterastab" name="ExperienceDescription" message="#lt_text#" required="Yes" size="60" maxlength="100"> 
+							<cfelse>
+								<cfoutput>
+								   	<cfinput type="Text" value="#Background.ExperienceDescription#" class="regularxxl enterastab" name="ExperienceDescription" message="#lt_text#" required="Yes" size="60" maxlength="100">
+								</cfoutput>
+							</cfif>
+						<cfelse>					
+							 <cfoutput>#BackGround.ExperienceDescription#		
+							 	<input type="hidden" name="ExperienceDescription" value="#BackGround.ExperienceDescription#">			
+							 </cfoutput>	
 						</cfif>
-					<cfelse>					
-						 <cfoutput>#BackGround.ExperienceDescription#		
-						 	<input type="hidden" name="ExperienceDescription" value="#BackGround.ExperienceDescription#">			
-						 </cfoutput>	
-					</cfif>
-			   </TD> 
-			   </tr>
+				   </td> 
+			   </tr>	
 			   
+			       
 			      				
-				    <!--- Field: Level --->
-				    <TR>
+			    <!--- Field: Level --->
+			    <TR>
 				    <td class="labelmedium"><cfoutput>#LevelT#</cfoutput> <!--- <font color="#FF0000">*</font> ---></td>
-				    <TD>
+				    <td>
 					
 						<!--- 	 <cfselect name="LevelId" size="1" required="Yes" class="regularxl enterastab" message="Select a #LevelT#"> --->
 						
@@ -621,33 +620,32 @@
 						</cfquery>
 							
 						   <cf_uiselect name = "LevelId"
-							selected       = ""
-							size           = "1"
-							class          = "regularXL"
-							id             = "OrgUnit"							
-							required       = "yes"		
-							style          = "width:400px"	
-							filter         = "contains"																																
-							query          = "#thislookup#"							
-							value          = "ExperienceFieldId"
-							display        = "Description"/>												
-							
+								selected       = ""
+								size           = "1"
+								class          = "regularXL"
+								id             = "OrgUnit"							
+								required       = "yes"		
+								style          = "width:400px"	
+								filter         = "contains"																																
+								query          = "#thislookup#"							
+								value          = "ExperienceFieldId"
+								display        = "Description"/>							
 									
-					</TD>	
+					</td>	
 					</tr>
 			   
 			   <cfif URL.ID2 eq "Employment">
 			   
 				   <tr>
-				   <TD class="labelmedium"><cf_tl id="Name of Supervisor">:</TD>
-				   <TD>
-				   <cfif url.id eq "">
-				       <cfinput type="Text" name="Supervisor" required="No" size="40" maxlength="100" class="regularxxl enterastab">
-				   <cfelse> 
-					   <cfinput type="Text" name="Supervisor" value="#Background.SupervisorName#" required="No" size="40" maxlength="100" class="regularxxl enterastab">
-				   </cfif>
-				   				   
-				   </TD> 
+					   <td class="labelmedium"><cf_tl id="Name of Supervisor">:</TD>
+					   <td>
+					   <cfif url.id eq "">
+					       <cfinput type="Text" name="Supervisor" required="No" size="40" maxlength="100" class="regularxxl enterastab">
+					   <cfelse> 
+						   <cfinput type="Text" name="Supervisor" value="#Background.SupervisorName#" required="No" size="40" maxlength="100" class="regularxxl enterastab">
+					   </cfif>
+					   				   
+					   </td> 
 				   </tr>
 				  
 				   <tr>
@@ -655,12 +653,15 @@
 					   <TD><cfinput type="Text" name="Email" value="#Background.OrganizationEmail#" required="No" size="40" maxlength="100" class="regularxxl enterastab"></TD> 
 				   </tr>
 				   
+				   
 				   <input type="hidden" name="StaffSupervised"   value="<cfoutput>#Background.staffSupervised#</cfoutput>">
 				   
 				   <tr>
 				      
 					  <td colspan="2">
-					  <table width="100%" style="background-color:f1f1f1" cellspacing="0" cellpadding="0" class="formpadding">
+					  
+					  <table width="100%" style="background-color:fafafa" class="formpadding">
+					  
 					  <tr class="labelmedium">
 					    <td style="padding-left:25px;width:200"><cf_tl id="Reference"></td>
 					  	<td style="width:60%"><cf_tl id="Name"></td>
@@ -779,9 +780,7 @@
 						</cfloop>
 								
 				</cfif>
-				      
-					
-				
+			
 				<!--- --->
 				<cfif url.id neq "">
 				
@@ -815,7 +814,7 @@
 						
 							<tr><td>
 								
-								<table width="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+								<table width="100%" align="center" class="formpadding">
 								
 								<cfoutput query="moreDetails">
 								
@@ -836,12 +835,12 @@
 					</cfif>			
 				
 				</cfif>
-				
-							
+												 			
 				<cfset cnt = 0>		
 				<tr>	
 				<td colspan="2" width="99%" align="center">
-																
+				
+																				
 				<cfif source.PHPMode eq "Basic">
 				
 					<!--- no detailed keyword entry supported for basic mode  --->
@@ -851,12 +850,14 @@
 					<cf_param name="url.owner" default="" type="String">
 					<cf_param name="url.mode" default="1" type="String">
 												
-					<cfif URL.mode eq "1">																
+					<cfif URL.mode eq "1">																				
 					     <cfset URL.Parent = URL.ID2>
-					     <cfset URL.Id1    = URL.ID2>					
+					     <cfset URL.Id1    = URL.ID2>	
+						 				
 					     <cfinclude template="../Keyword/KeywordEntry.cfm"> 						
-					<cfelse>					
-						 <cfinclude template="TopicEntryDetail.cfm"> 
+					<cfelse>
+						
+					 <cfinclude template="TopicEntryDetail.cfm"> 
 					</cfif> 
 				
 				</cfif>
@@ -875,6 +876,10 @@
 					<cfif url.entryScope eq "BackOffice">
 						
 						<cfset backAction = "history.back()">
+						
+					<cfelseif url.entryScope eq "Track">
+						
+						<cfset backAction = "parent.ProsisUI.closeWindow('myexperience')">	
 						
 					<cfelseif url.entryScope eq "Portal">
 					
@@ -914,6 +919,7 @@
 		</td>
 		</tr>
 		</table>
+		
 		
 		</cf_divscroll>
 	

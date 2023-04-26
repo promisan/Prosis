@@ -1,15 +1,30 @@
 
 <cfoutput>
 
-  <table style="width:100%;height:100%;<cfif incumbency eq "0">background-color:ffffaf</cfif>">
+  <table style="width:100%;height:100%">
 					
 		 <tr>
-		 <td valign="top" style="width:100%;">
+		 <td valign="top" style="width:100%;padding-left:5px;padding-right:5px;">
 		 
-			 <table style="width:100%">
+			 <table style="width:100%;;<cfif incumbency eq "0">background-color:ffffaf</cfif>">
 			 
-			 <tr class="labelmedium2">
-				 <td colspan="2" align="center" style="border-bottom:1px solid silver;height:30px;background-color:f4f4f4;padding-left:4px;font-weight:bold;font-size:17px">#FirstName# #LastName#</td>
+			 <tr class="labelmedium2 line">
+			     <td colspan="2">
+			     <table style="width:100%">
+				  <tr style="background-color:f1f1f1">
+				 <td colspan="1" style="height:26px;background-color:f1f1f1;padding-left:4px;font-weight:bold;font-size:17px">#FirstName# #LastName#</td>
+				 <td align="right" style="padding-right:4px;font-size:17px;padding-top:2px">
+				 
+			            <cfif getAdministrator("#mission#") eq "1">
+							  <font size="1">Index##</font> <a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a>
+						<cfelse>
+							  <font size="1">Index##</font> #IndexNo#
+						</cfif>
+								  
+				 </td>
+				 </tr>
+				 </table>
+				 </td>
 		     </tr>
 							 
 			 <tr>
@@ -91,7 +106,10 @@
 			</td>	
 									  
 			<td valign="top">			  
-			  	<table style="width:100%">				
+			  	<table style="width:100%">		
+				
+				   <!---
+				    		
 				   <tr style="height:25px">					   					        
 						 <td colspan="3" style="width:100%">							 							 
 						 <table style="width:100%">
@@ -109,6 +127,8 @@
 						 </table>					 
 						 </td>
 				   </tr>	
+				   
+				   --->
 				   
 				    <cfquery name="recruit" 
 						datasource="appsEmployee" 
@@ -143,8 +163,12 @@
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">												
 								SELECT    D.*
-								FROM      Functionorganization D 		
+								FROM      Functionorganization D 	
+								<cfif Track.FunctionId neq "">	
 								WHERE     FunctionId = '#Track.Functionid#' 												
+								<cfelse>
+								WHERE 1=0
+								</cfif>
 						</cfquery>			
 
 						<tr class="labelmedium2">					      						   
@@ -179,7 +203,7 @@
 						   <cfelse>
 						   <td></td>
 						   </cfif>
-						   <td align="right" class="fixlength" style="padding-right:5px;font-size:13px">#getContract.ContractLevel# | #getContract.ContractStep#</td>
+						   <td align="right" class="fixlength" style="padding-right:5px;font-size:13px">#getContract.ContractLevel# | #getContract.ContractStep# </td>
 					   </tr>
 						   				
 										   
@@ -249,7 +273,7 @@
 								   </td>
 							   </tr>
 							   							   							   
-							   <cfif PostGroup eq "Used" and getContract.AppointmentType neq "Permanent">
+							   <cfif (PostGroup eq "Used" or PostGroup eq "Float") and getContract.AppointmentType neq "Permanent">
 							   
 							   <tr>									   
 							   

@@ -84,6 +84,7 @@
  
  	SELECT  E.EntityCode, 
             E.EntityDescription,
+			EC.EntityClassName,
 			O.ObjectReference, 
 			O.ObjectReference2, 
 			O.ObjectURL, 
@@ -133,7 +134,8 @@
 	FROM    OrganizationObjectAction OA INNER JOIN
             OrganizationObject O ON OA.ObjectId = O.ObjectId INNER JOIN
             userQuery.dbo.#SESSION.acc#Action2_#fileno# D ON OA.ActionId = D.ActionId INNER JOIN
-            Ref_Entity E ON O.EntityCode = E.EntityCode LEFT OUTER JOIN
+            Ref_Entity E ON O.EntityCode = E.EntityCode INNER JOIN
+            Ref_EntityClass EC ON O.EntityCode = EC.EntityCode and O.EntityClass = EC.EntityClass LEFT OUTER JOIN
             Organization Org ON OA.OrgUnit = Org.OrgUnit INNER JOIN
             Ref_EntityActionPublish P ON OA.ActionCode = P.ActionCode 
 					  AND OA.ActionPublishNo = P.ActionPublishNo 					  
@@ -277,13 +279,14 @@
 							</td>
 							
 							<td  style="font-size:16px">
-					
+					        #EntityClassName#:<br>
 						    <cfif url.scope neq "portal">
 		                        <cfif PersonNo neq "">
 		                            <cf_tl id="Click to view person details" var="1">
 		                            <span style="color:##0080C0;" onclick="localShowPerson(event,'#PersonNo#')" title="#lt_text#">
 		                        </cfif>							
 							</cfif>
+							
 	                        <cfif ObjectReference neq "">#ObjectReference#:</cfif>
 	                        #ObjectReference2#
 	                        <cfif PersonNo neq "">

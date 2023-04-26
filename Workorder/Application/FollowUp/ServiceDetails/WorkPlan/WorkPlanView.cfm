@@ -45,10 +45,6 @@
 
 <cf_tl id="Do you want to reschedule" var="txt">
 
-<!---
-<cfajaximport tags="cfmap,cfdiv" params="#{googlemapkey='#client.googleMAPId#'}#">	 
---->
-
 <cfajaximport tags="cfdiv">	 
 
 <cfinclude template="WorkPlanViewMenu.cfm">
@@ -122,6 +118,9 @@
 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>
 
+
+<cfset hasrecords = 1>
+
 <cf_layout attributeCollection="#attrib#">
 			
 			<cf_layoutarea 
@@ -157,7 +156,7 @@
 								   
 				    <tr>					
 						<td id="targetleft" class="labellarge" style="font-size:22px;padding-right:20px;padding-left:10px;padding-bottom:5px">
-							<cfinclude template="Agenda/ActivitySelect.cfm">
+							<cfinclude template="Agenda/ActivitySelect.cfm"> 
 						</td>					
 					</tr>
 					
@@ -170,6 +169,7 @@
 					    <cf_tl id="Other Actions" var="1">
 					    <cfset tResources = "#Lt_text#">
 		
+		
 						<cfoutput>
 							<cfset heading   = "#tResources#">
 							<cfset module    = "'WorkOrder'">
@@ -178,6 +178,7 @@
 							<cfset menuclass = "'Schedule'">
 							<cfinclude template="../../../../../Tools/SubmenuLeft.cfm">
 						</cfoutput>
+						
 		
 					  </td>
 	  
@@ -195,6 +196,7 @@
 									
 				<cf_layoutarea position="center" name="main">
 				
+				
 				    <table width="100%" height="99%">						
 						<tr id="schedulebox">
 						<td style="height:99%;width:100%;">
@@ -203,7 +205,8 @@
 						</cf_divScroll>
 						</td></tr>					
 						<tr id="listingbox" class="hide"><td style="height:100%;width:100%" id="listing" valign="top"></td></tr>						
-					</table>					
+					</table>
+									
 																		
 				</cf_layoutarea>
 			
@@ -214,22 +217,24 @@
 					size        = "33%" 
 					minsize     = "350">				
 	
-	<!---
+	
 					<table width="100%" height="98%">
 						<tr>
 							<td class="labelmedium" 
 							    style="height:100%;padding-left:7px;padding-right:5px" align="center" valign="top" id="calendartarget">
 								
-								<cfset url.mode = "medical">
+								<cfset url.mode = "followup">
 								<cfset url.selecteddate= "#dateformat(url.date,client.dateformatshow)#">
-								<cfinclude template="Agenda/ActivityList.cfm">
+								
+								<cfinclude template="../WorkOrderLine/WorkOrderLineViewListing.cfm">
+								
 								
 							</td>
 						</tr>
 					</table>
 					
 					
-					--->
+					
 									
 				</cf_layoutarea>
 				

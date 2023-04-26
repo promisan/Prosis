@@ -25,7 +25,7 @@ then we show per line-class (duplicate) the action status (pending / completed) 
 
 <table width="100%">
  <cfoutput query="Schedule"> 
- <tr><td>#ServiceItemName#</td><td>#counted#</td></tr>
+ <tr class="labelit line"><td>#Description#</td><td align="right"><b>#counted#</td></tr>
  </cfoutput>
 </table>
 

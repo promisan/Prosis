@@ -81,9 +81,10 @@
 				datasource="AppsEmployee" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-					
-				<cfif getAdministrator('*') eq "1" and url.portal eq "0" and url.mission eq "">
-									
+				
+				
+			<cfif getAdministrator('*') eq "1" and url.portal eq "0" and url.mission eq "">
+												
 					SELECT Mission 
 					FROM   Organization.dbo.Ref_Mission
 					WHERE  Mission IN (SELECT Mission 
@@ -95,12 +96,17 @@
 					AND     Mission IN (SELECT Mission FROM Ref_PersonEventMission)	 
 					
 				<cfelseif url.mission neq "">  
-				
-				   SELECT Mission 
-					FROM   Organization.dbo.Ref_Mission
-					WHERE  Mission = '#url.mission#'					
-				
-				<cfelse>
+												
+					 SELECT   DISTINCT P.MissionOperational as Mission
+					 FROM     PersonAssignment PA INNER JOIN Position P ON PA.PositionNo      = P.PositionNo
+					 WHERE    PersonNo           = '#PersonNo#'
+					
+					 AND      PA.DateExpiration  > getDate()-90
+										 
+					 AND      PA.AssignmentStatus IN ('0','1')					 
+					 AND      PA.AssignmentType  = 'Actual'
+								
+				<cfelse>				
 				
 					<!--- Officer has access to mission --->
 					SELECT  DISTINCT Mission 
@@ -140,7 +146,7 @@
 					
 		</cfquery>
 		
-		<cfif qMission.recordcount eq "1">
+		<cfif qMission.recordcount eq "1" and qMission.Mission eq url.mission>
 		    <cfset cl = "hide">
 		<cfelse>		
 			<cfset cl = "">
@@ -154,6 +160,7 @@
 			
 				<table>
 				<tr><td>
+			
 				 
 				 <cfif url.positionNo eq ""> 	
 				 
@@ -174,7 +181,8 @@
 						 ORDER BY DateExpiration DESC, Incumbency DESC						
 					 </cfquery>  
 					 
-					 <cfif Onboard.recordcount eq "0">					 
+					 <cfif Onboard.recordcount eq "0">		
+						 
 					 
 						  <cfquery name="OnBoard" 
 						 datasource="AppsEmployee"
@@ -189,6 +197,7 @@
 							 AND      PA.AssignmentType  = 'Actual'
 							 ORDER BY DateExpiration DESC, Incumbency DESC					
 						 </cfquery>    
+						 
 						 
 					 
 					 </cfif>  
@@ -645,7 +654,7 @@
 				 <cfelse>
 				 
 				 		<cfif URL.Id eq "">
-							<cfset vDate = "#now()+5#">							
+							<cfset vDate = "#now()+7#">							
 						<cfelse>
 						    <cfif qEvent.DateEventDue eq "">
 							    <cfset vDate = "#now()+7#"> 								

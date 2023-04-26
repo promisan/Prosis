@@ -203,7 +203,7 @@
 <cfparam name="form.actionMailAttachment"  default="99999">
 
 <cfif form.actionMailAttachment neq "99999">
-	 
+ 
 	<cfset row = 1>
 	<cfloop index="att" from="1" to="#ArrayLen(mailatt)#">
 			
@@ -216,6 +216,7 @@
 	</cfloop>
 		
 </cfif>
+
  
  <!--- now we add attachments that have been set for attachment in the workflow for mail 
   likely we no longer need this as they now seem to come double --->
@@ -847,26 +848,28 @@
 				       or attributes.sendAttPrior eq "1">
 					   
 					<cfset att = "">
-					   
-				    <cfif attributes.sendAttDoc eq "1">
+										   
+				    <cfif attributes.sendAttDoc eq "1" and Attributes.ActionId neq "">
+										
 						<cfset att = "'#Attributes.ActionId#'">
+						
 		 			</cfif>	 
 					
-					<cfif attributes.sendAttPrior eq "1">					
-					
-					    <cfif Object.ActionViewMemo eq "Prior">
+					<cfif attributes.sendAttPrior eq "1">		
+															
+					    <cfif Object.ActionViewMemo eq "Prior" or Object.ActionViewMemo eq "">
 						
 							<cfquery name="Prior" 
 							 datasource="AppsOrganization"
 							 username="#SESSION.login#" 
 							 password="#SESSION.dbpw#">
-								 SELECT   *
+								 SELECT   TOP 1 *
 								 FROM     OrganizationObjectAction
 								 WHERE    Objectid = '#Object.Objectid#'
 								 AND      ActionFlowOrder < (SELECT       ActionFlowOrder
 	                             		                     FROM         OrganizationObjectAction
-			                                                 WHERE        ActionId   = '#Object.ActionId#')
-								 ORDER BY ActionFlowOrder DESC							  							
+			                                                 WHERE        ActionId   = '#url.ActionId#')
+								 ORDER BY ActionFlowOrder DESC													  							
 							</cfquery> 
 												
 						<cfelse>					
@@ -884,11 +887,11 @@
 						
 						</cfif>
 					
-						<cfif prior.recordcount eq "1">
+						<cfif prior.recordcount eq "1" and att eq "">
 						
 						    <cfset att = "'#Prior.ActionId#'">
 							
-						 <cfelse>
+						 <cfelseif prior.recordcount eq "1" and att neq "">
 						 
 						 	<cfset att = "#att#,'#Prior.ActionId#'">	
 							
@@ -1110,8 +1113,7 @@
 				
 				<cfset SendBCC = replace(SendBCC,";",",","ALL")>
 				<cfset SendBCC = replace(SendBCC," ","","ALL")>
-				
-								
+												
 				<!--- ----------- --->
 				<!--- now we send --->
 				<!--- ----------- --->			
@@ -1308,6 +1310,7 @@
 					</cfloop>	
 									
 				<cfelse>	
+				
 											
 						<cfmail FROM        = "#fromm#"
 								TO          = "#mailto#"
