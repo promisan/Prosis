@@ -23,8 +23,7 @@ upon the descision : workflow create --->
 				AND    EntityClass is NULL
 		</cfquery>	
 		
-		<cfloop index="Rec" from="1" to="#Form.Row#">
-		
+		<cfloop index="Rec" from="1" to="#Form.Row#">		
 					
 			<cfparam name="FORM.ReviewStatus_#Rec#"   default="">
 			<cfparam name="FORM.EntityClass_#Rec#"    default="">

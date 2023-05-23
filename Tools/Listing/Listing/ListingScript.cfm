@@ -472,7 +472,7 @@ function showtemplate(path,key) {
     ptoken.open("#SESSION.root#/System/Modification/PostFile/TemplateDetail.cfm?path="+path+"&file="+key,"doc"+key);	
 }	
 
-function toggledrill(mode,box,template,key,arg,drillbox,str) {
+function toggledrill(mode,box,key,arg,drillbox,str) {
     
 	if (str != '') {
 	    str = "&"+str }
@@ -499,9 +499,9 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 				   
 					   
 			   if (str == '') {
-				   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key,'c'+key)
+				   ptoken.navigate('#SESSION.root#/'+document.getElementById('drilltemplate').value+'?drillid='+key,'c'+key)
 			   } else {
-				   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,'c'+key)
+				   ptoken.navigate('#SESSION.root#/'+document.getElementById('drilltemplate').value+'?drillid='+key+'&'+str,'c'+key)
 			   }
 			   
 			} else { 			         
@@ -530,9 +530,9 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		     ex.className = "hide"
 		   } catch(e) {}
 		   if (str == '') {
-		   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key,'c'+key)
+		   ptoken.navigate('#SESSION.root#/'+document.getElementById('drilltemplate').value+'?drillid='+key,'c'+key)
 		   } else {
-		   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,'c'+key)
+		   ptoken.navigate('#SESSION.root#/'+document.getElementById('drilltemplate').value+'?drillid='+key+'&'+str,'c'+key)
 		   }
 		   
 		} else { 
@@ -544,7 +544,7 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 	  }	  	
 	
 	if (mode == "drillbox") {
-	   ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key+'&'+str,drillbox);		   
+	   ptoken.navigate('#SESSION.root#/'+document.getElementById('drilltemplate').value+'?drillid='+key+'&'+str,drillbox);		   
     }	  
 		  
 	if (mode == "workflow") {
@@ -581,7 +581,7 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		} else {		
 		    parent.ProsisUI.createWindow('adddetail','Detail','',{x:50,y:50,height:700,width:val[1],modal:val[2],center:val[3]})  <!--- creates the drillbox --->  	
 		}							
-		parent.ptoken.navigate('#SESSION.root#/'+template+'?drillid='+key+str,'adddetail') 					
+		parent.ptoken.navigate('#SESSION.root#/'+document.getElementById('drilltemplate').value+'?drillid='+key+str,'adddetail') 					
 	  }
 	  
 	// Prosis ajax window, to be discontinued  
@@ -599,7 +599,7 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		if (drillbox != "drilldetail") {			       
 		    drillboxopen()  <!--- launches the drillbox function --->
 		} else {				   		   
-			ProsisUI.createWindow('adddetail','Detail','#SESSION.root#/'+template+'?drillid='+key+str,{width:val[1],height:val[0],resizable:false,modal:val[2],center:val[3]});		
+			ProsisUI.createWindow('adddetail','Detail','#SESSION.root#/'+document.getElementById('drilltemplate').value+'?drillid='+key+str,{width:val[1],height:val[0],resizable:false,modal:val[2],center:val[3]});		
 		}			
 						
 	  }  
@@ -616,12 +616,12 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 	if (mode == "securewindow") {
 		val = arg.split(";");	
 		idKey = key.replace(/-/g,'');							
-		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu, 'listingdialog_'+idKey,'left=20, top=20, width=' + val[1] + 'px, height= ' + val[0] + 'px, status=yes, toolbar=no, scrollbars=yes, resizable=yes')				
+		ptoken.open('#SESSION.root#/'+document.getElementById('drilltemplate').value+key+str+'&idmenu='+idmenu, 'listingdialog_'+idKey,'left=20, top=20, width=' + val[1] + 'px, height= ' + val[0] + 'px, status=yes, toolbar=no, scrollbars=yes, resizable=yes')				
 		}	
 		
 	if (mode == "window") {
 		val = arg.split(";");		
-		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu, 'listingdialog_'+drillbox,'left=20, top=20, width=' + val[1] + 'px, height= ' + val[0] + 'px, status=yes, toolbar=no, scrollbars=yes, resizable=yes')				
+		ptoken.open('#SESSION.root#/'+document.getElementById('drilltemplate').value+key+str+'&idmenu='+idmenu, 'listingdialog_'+drillbox,'left=20, top=20, width=' + val[1] + 'px, height= ' + val[0] + 'px, status=yes, toolbar=no, scrollbars=yes, resizable=yes')				
 		}	
 		
 		// +'&ts='+new Date().getTime()
@@ -630,21 +630,21 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		val = arg.split(";");		
 		w = #CLIENT.width# - 60;
         h = #CLIENT.height# - 120;	
-		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu, 'dialog'+key, 'left=20, top=20, width=' + w + ', height= ' + h + ', status=yes, toolbar=no, fullscreen=yes, scrollbars=yes, resizable=yes')				
+		ptoken.open('#SESSION.root#/'+document.getElementById('drilltemplate').value+key+str+'&idmenu='+idmenu, 'dialog'+key, 'left=20, top=20, width=' + w + ', height= ' + h + ', status=yes, toolbar=no, fullscreen=yes, scrollbars=yes, resizable=yes')				
 		}	
 		
 	if (mode == "tab") {
 		val = arg.split(";");		
 		w = #CLIENT.width# - 60;
         h = #CLIENT.height# - 120;			
-		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu,'dialog'+key)				
+		ptoken.open('#SESSION.root#/'+document.getElementById('drilltemplate').value+key+str+'&idmenu='+idmenu,'dialog'+key)				
 		}	
 		
 	if (mode == "top") {
 		val = arg.split(";");		
 		w = #CLIENT.width# - 60;
         h = #CLIENT.height# - 120;			
-		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu,'_top')				
+		ptoken.open('#SESSION.root#/'+document.getElementById('drilltemplate').value+key+str+'&idmenu='+idmenu,'_top')				
 		}						
 	}	
 

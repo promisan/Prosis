@@ -71,7 +71,15 @@
 					     O.OrgUnitName AS ReferenceOrgUnitName,
 					     P.ReferencePersonNo, 
 					     P.Reference, 
-					     P.ReferenceName,
+						 
+						 (CASE WHEN TransactionSource = 'SalesSeries' THEN
+                                 (SELECT    TOP 1 CustomerName
+                                  FROM      Materials.dbo.Customer C INNER JOIN
+                                            Materials.dbo.WarehouseBatch B ON C.Customerid = B.CustomerId
+                                  WHERE     BatchId = P.TransactionSourceId) 
+							   
+						   ELSE P.ReferenceName END) AS ReferenceName,
+
 						 LEFT(P.Description,35) as Description,
 						 
 						 (	 SELECT TOP 1 GLAccount

@@ -41,13 +41,13 @@
 	</TR>	
 	
 	<TR>
-    <TD class="labelmedium2">Name:</TD>
+    <TD class="labelmedium2"><cf_tl id="Name">:</TD>
     <TD>
   	   <cfinput type="Text" name="LocationName" value="" message="Please enter a description" required="Yes" size="34" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 		
-	<TR><TD class="labelmedium2">Country:</TD>
+	<TR><TD class="labelmedium2"><cf_tl id="Country">:</TD>
 	
 	<cfquery name="Nation" 
 	datasource="AppsSystem" 
@@ -70,7 +70,7 @@
 	<cf_calendarscript>
 	
 	<tr>
-	<td class="labelmedium2">Effective:</td>
+	<td class="labelmedium2"><cf_tl id="Effective">:</td>
 	<td style="z-index:25; position:relative; padding-top:3px;">			
 		<cf_intelliCalendarDate9
 		FieldName="DateEffective"
@@ -82,7 +82,7 @@
 	</tr>
 		
 	<tr>
-	<td class="labelmedium2">Expiration:</td>
+	<td class="labelmedium2"><cf_tl id="Expiration">:</td>
 	<td style="z-index:20; position:relative; padding-top:3px;">
 	
 		<cf_intelliCalendarDate9
@@ -96,7 +96,7 @@
 	</tr>
 	
 	<TR>
-    <TD class="labelmedium2">Listing order:</TD>
+    <TD class="labelmedium2"><cf_tl id="Listing order">:</TD>
     <TD>
   	   <cfinput type="Text" style="text-align:center" name="ListingOrder" value="1" message="Please enter a valid integer" validate="integer" required="Yes" visible="Yes" size="1" maxlength="3" class="regularxxl">
     </TD>
@@ -109,12 +109,13 @@
 	    SELECT 	R.Mission, M.MissionOwner
 		FROM 	Ref_ParameterMission R, Organization.dbo.Ref_Mission M
 		WHERE   R.Mission = M.Mission
-		<cfif getAdministrator("*") eq "1">
+		<cfif getAdministrator("*") eq "0">
 		AND     R.Mission IN (SELECT Mission 
 		                      FROM   Organization.dbo.OrganizationAuthorization 
 							  WHERE  AccessLevel > '0' AND UserAccount = '#session.acc#'
 							  AND   Role IN ('HRPosition','OrgUnitManager'))
 		</cfif>
+		AND M.Operational = '1'
 		<!--- WHERE	Mission in (SELECT Mission FROM Payroll.dbo.Ref_PayrollLocationMission) --->
 		ORDER BY M.MissionOwner
 	</cfquery>
@@ -131,8 +132,8 @@
 				  style    = "width:180px"				  
 		          visible  = "Yes" 
 				  enabled  = "Yes" 
-				  class="regularxxl"
-				  queryposition="below" 
+				  class    = "regularxxl"
+				  queryposition = "below" 
 				  onchange = "ptoken.navigate('ServiceLocation.cfm?mission='+this.value+'&serviceLocation=','divServiceLocation');">
 				
 		 </cfselect>	
@@ -141,7 +142,7 @@
 	</TR>
 		
 	<TR>
-    <TD class="labelmedium2">Payroll Location:</TD>
+    <TD class="labelmedium2"><cf_tl id="Payroll Location">:</TD>
     <TD>
 		<cf_securediv id="divServiceLocation" bind="url:ServiceLocation.cfm?mission=#missionList.mission#&serviceLocation=">
     </TD>

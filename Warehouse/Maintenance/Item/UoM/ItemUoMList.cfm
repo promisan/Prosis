@@ -27,13 +27,14 @@ password="#SESSION.dbpw#">
 </tr>
 
 <tr class="line labelmedium fixlengthlist">
-    <td width="60" colspan="2"><a href="javascript:recorduomedit('#URL.ID#','')">Add</a></td>		
+    <td width="60" colspan="2"><a href="javascript:recorduomedit('#URL.ID#','')"><cf_tl id="Add"></a></td>		
 	<td><cf_tl id="Code"></td>
 	<td><cf_tl id="Label"></td>
 	<td><cf_tl id="Barcode"></td>
 	<td><cf_tl id="Multi."></td>
 	<td><cf_tl id="Ope"></td>
 	<td><cf_tl id="Entity"></td>
+	<td><cf_tl id="Reference"></td>
 	<td align="right"><cf_tl id="Std.Cost">#Application.BaseCurrency#</td>		
 	<td align="right"><cf_tl id="BOM Cost">#Application.BaseCurrency#</td>
 	<td align="right"><cf_tl id="Last Receipt">#Application.BaseCurrency#</td>
@@ -109,6 +110,7 @@ password="#SESSION.dbpw#">
   <td align="right">#numberformat(StandardCost,",.__")#</td>  
   <td></td>
   <td></td>
+  <td></td>
 </tr>  
 
 <cf_filelibraryCheck
@@ -150,12 +152,13 @@ password="#SESSION.dbpw#">
 
 <cfloop query="UoMMission">
 	
-	<tr class="line navigation_row_child labelmedium" style="height:20px">
+	<tr class="line navigation_row_child labelmedium2">
 		
 	<td colspan="7"></td>
-	<td class="highlight1" style="padding-left:4px">#Mission#</td>
-	<td align="right" style="background-color:f4f4f4;padding-right:4px">#numberformat(StandardCost,",.__")#</td>
-	<td align="right" style="background-color:f4f4f4;padding-right:4px">
+	<td style="background-color:##e4e4e450;padding-left:4px">#Mission#</td>
+	<td style="background-color:##f4f4f450;padding-left:4px">#Reference#</td>
+	<td align="right" style="background-color:##f4f4f450;padding-right:4px">#numberformat(StandardCost,",.__")#</td>
+	<td align="right" style="background-color:##f4f4f450;padding-right:4px">
 				
 		<cfquery name="LastBOM" 
 			datasource="appsMaterials" 
@@ -177,7 +180,7 @@ password="#SESSION.dbpw#">
 		
 	</td>
 	
-	<td align="right" style="background-color:f4f4f4;padding-right:4px">
+	<td align="right" style="background-color:##f4f4f4;padding-right:4px">
 				
 		<cfquery name="Last" 
 			datasource="appsMaterials" 

@@ -391,7 +391,7 @@
 					 <cfif url.ajaxid eq "content">																			
 		
 		<td <cfif currentalign neq "left">align="#current.align#"</cfif> class="#attributes.classcell#" <cfif colspan neq "left">colspan="#colspan#"</cfif> style="color:#fontcolor#;#current.style#;#fclr#"					   
-		id="f#box#_#dkey#_#rowshow#_#cnt#" onclick="toggledrill('#drillmode#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">#evaluate(contentformat)#</td>					
+		id="f#box#_#dkey#_#rowshow#_#cnt#" onclick="toggledrill('#drillmode#','box#dkey#','#dkey#','#argument#','#drillbox#','#drillstring#')">#evaluate(contentformat)#</td>					
 		
 					 <cfelseif url.ajaxid eq "append">
 					 
@@ -404,7 +404,7 @@
 						   inner = evaluate(contentformat)		
 						   inner = URLEncodedFormat(inner)						   				 
 						   if (len(cellclick) gte "2") {
-							    myclick = "onclick=toggledrill('#drillmode#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')"
+							    myclick = "onclick=toggledrill('#drillmode#','box#dkey#','#dkey#','#argument#','#drillbox#','#drillstring#')"
 							} else {	
 						 		myclick = ""
 							}							   									
@@ -471,7 +471,7 @@
 					<cfelseif inner neq "" and current.drilltemplate neq "">
 											 				 
 						 	  <cfset cellstyle = "text-decoration: underline;color:6688aa;">
-							  <cfset cellclick = "toggledrill('embed','box#dkey#','#current.drilltemplate#','#evaluate(current.functionfield)#','','','')">	  
+							  <cfset cellclick = "toggledrill('embed','box#dkey#','#evaluate(current.functionfield)#','','','')">	  
 						 						  
 					<cfelse>
 					

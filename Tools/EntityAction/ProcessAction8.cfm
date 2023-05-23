@@ -103,7 +103,7 @@
 
 <cfif action.processmode eq "1">
 
-	<cf_screentop scroll="yes"	   	    
+	<cf_screentop scroll="no"	   	    
 	   band="No" 
 	   layout="webapp" 
 	   bootstrap="no"

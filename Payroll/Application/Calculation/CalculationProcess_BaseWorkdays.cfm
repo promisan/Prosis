@@ -17,12 +17,7 @@
 		
 </cfquery>	
 
-<cfloop index="day" from="0" to="#daysInMonth(SALSTR)-1#" step="1">
-
-	<cfset date = DateAdd("d", "#day#", #salstr#)>
-	<cfset dow =  DayOfWeek(date)>
-	
-	<cfquery name="Schedule" 
+<cfquery name="Schedule" 
 	datasource="AppsPayroll" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
@@ -30,7 +25,12 @@
 		FROM   SalarySchedule 
 		WHERE  SalarySchedule = '#Form.Schedule#'
 	</cfquery>
-	
+
+<cfloop index="day" from="0" to="#daysInMonth(SALSTR)-1#" step="1">
+
+	<cfset date = DateAdd("d", "#day#", #salstr#)>
+	<cfset dow =  DayOfWeek(date)>
+		
 	<cfif Schedule.SalaryBasePeriodDays eq "30">
 	
 			<cfquery name="Insert" 
@@ -43,7 +43,7 @@
 		
 	<cfelse>		
 		
-		<cfquery name="Schedule" 
+		<cfquery name="WorkSchedule" 
 			datasource="AppsPayroll" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
@@ -54,7 +54,7 @@
 			
 		</cfquery>	
 			
-		<cfif Schedule.WorkHours gt "0">
+		<cfif WorkSchedule.WorkHours gt "0">
 			
 			<cfquery name="Insert" 
 			datasource="AppsQuery" 
@@ -79,4 +79,17 @@
 	</cfif>	
 
 </cfloop>
+
+<cfif Schedule.SalaryBasePeriodDays eq "30fix" and daysInMonth(SALSTR) eq "31">
+
+		<cfquery name="Remove" 
+			datasource="AppsQuery" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				DELETE 
+				FROM userTransaction.dbo.sal#SESSION.thisprocess#Dates
+				WHERE CalendarDate = #date#				
+		</cfquery>	
+
+</cfif>
 

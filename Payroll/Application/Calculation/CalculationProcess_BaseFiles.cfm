@@ -1432,7 +1432,7 @@ password="#SESSION.dbpw#">
 						      <cfif Schedule.SalaryBasePeriodDays eq "21.75">
 							  SELECT  SUM(workday) as total
 							  <cfelse>
-							  SELECT  Count(CalendarDate) as total
+							  SELECT  COUNT(CalendarDate) as total
 							  </cfif>
 							  FROM    userTransaction.dbo.sal#SESSION.thisprocess#Dates
 							  WHERE   CalendarDate >= '#dateformat(st,client.dateSQL)#'
@@ -1488,7 +1488,7 @@ password="#SESSION.dbpw#">
 						   
 						   </cfif>
 						   
-						    <!--- correction for percentage to be applied the slwop --->	
+						   <!--- correction for percentage to be applied the slwop --->	
 						
 						   <cfquery name="Percent" 
 						   datasource="AppsEmployee" 

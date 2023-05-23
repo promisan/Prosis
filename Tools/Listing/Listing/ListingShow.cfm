@@ -62,7 +62,8 @@
 			<!--- take these fields by selecting another filter to apply --->
 						
 			<input type="hidden"  name="mylink"         id="mylink"         value = "#url.link##sign#">
-            <input type="hidden"  name="mylinkform"     id="mylinkform"     value = "#url.linkform#">   
+            <input type="hidden"  name="mylinkform"     id="mylinkform"     value = "#url.linkform#">  
+			<input type="hidden"  name="drilltemplate"  id="drilltemplate"  value = "#attributes.drilltemplate#">  
 			
 			<!--- to run the listing content into ---> 
             <input type="hidden"  name="gridbox"        id="gridbox"        value = "#attributes.box#_content">   
@@ -230,7 +231,7 @@
 				   
 				   		<input type="hidden" name="mylink"     id="mylink"     value="#url.link##sign#">
 						<input type="hidden" name="mylinkform" id="mylinkform" value="#url.linkform#">
-				   
+				        <input type="hidden" name="drilltemplate"  id="drilltemplate"  value = "#attributes.drilltemplate#">  
 				   		<input type="hidden" name="gridbox"    id="gridbox"    value="#attributes.box#_content">							   
 						<input type="hidden" name="ajaxbox"    id="ajaxbox"	   value="#attributes.box#_ajax">							      
 				   

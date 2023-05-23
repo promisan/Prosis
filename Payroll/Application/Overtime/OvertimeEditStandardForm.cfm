@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 				    // trigger a function to set the cf9 calendar by running in the ajax td						 
 				    _cf_loadingtexthtml="";
 				    //ptoken.navigate('#SESSION.root#/Payroll/Application/Overtime/setCurrencyDate.cfm','setdate')					  						
-				    ptoken.navigate('#SESSION.root#/Payroll/Application/Overtime/setCurrencyDate.cfm?thisdate='+selectedDate,'setdate')
+				    ptoken.navigate('#SESSION.root#/Payroll/Application/Overtime/setCurrencyDate.cfm?personno=#url.id#&thisdate='+selectedDate,'setdate')
 				   
 				 }
 			

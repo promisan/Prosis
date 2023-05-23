@@ -1040,19 +1040,21 @@ password="#SESSION.dbpw#">
 					
 					<td style="padding-top:2px;min-width:140px" class="<cfif Status gte wFinal>regular<cfelse>hide</cfif>" id="boxReviewDate_#currentrow#">
 					
-						 <cfif now() gt ReviewDate>											 
+					     <cfif Reviewdate eq "">
+						    <cfset st = Dateformat(now(), CLIENT.DateFormatShow)>
+						 <cfelseif now() gt ReviewDate>											 
 						    <cfset st = Dateformat(ReviewDate, CLIENT.DateFormatShow)>
 						 <cfelse> 						 
 						     <cfset st = Dateformat(now(), CLIENT.DateFormatShow)>
 						 </cfif>
 									
 						  <cf_intelliCalendarDate9
-								FieldName="ReviewDate_#CurrentRow#" 
-								Manual="True"		
-								class="regularxl"	
-								style="text-align:center;"												
-								Default="#st#"
-								AllowBlank="True">							
+								FieldName  = "ReviewDate_#CurrentRow#" 
+								Manual     = "True"		
+								class      = "regularxl"	
+								style      = "text-align:center;"												
+								Default    = "#st#"
+								AllowBlank = "True">							
 								
 					
 					</td>

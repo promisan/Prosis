@@ -105,7 +105,7 @@
 		    /* prefix cells */				
 			pre1     = "<td align='right' style='padding-right:4px;height:21px'>#currentrow#.</td>"
 		
-			drillfun = "toggledrill('#lcase(drillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')"
+			drillfun = "toggledrill('#lcase(drillmode)#','box#dkey#','#dkey#','#argument#','#drillbox#','#drillstring#')"
 			
 			if (drillmode eq 'Embed' or drillmode eq 'EmbedXT' or drillmode eq 'Workflow') { 
 			pre2     = "<td style='padding-top:8px' class='navigation_action' onclick=#drillfun#>#myicon#</td>"

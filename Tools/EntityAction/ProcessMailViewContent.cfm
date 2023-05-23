@@ -75,7 +75,13 @@
 	<cfset vTitle="NOTIFY actors by eMail">
 </cfif>
 
-<cf_screentop height="100%" jquery="Yes" label="Notification" html="No" layout="webapp" scroll="no" banner="gray" option="#vTitle#">
+<cfif url.header eq "1">
+    <cfset html = "Yes">
+<cfelse>
+	<cfset html= "No">
+</cfif>
+
+<cf_screentop height="100%" jquery="Yes" title="Notification" label="Notification" html="#html#" layout="webapp" scroll="no" banner="gray">
 
 <form action="ProcessMailViewSubmit.cfm" target="submit" method="post" style="height:100%">
 	
@@ -83,18 +89,18 @@
 	
 	<cfif Layout.recordcount eq "1">
 	
-	<tr class="line"><td class="labellarge" style="padding-top:10px;font-size:22px;font-weight:200">#Layout.DocumentDescription#</td></tr>
+	<tr class="line"><td class="labellarge" style="padding-top:10px;font-size:22px">#Layout.DocumentDescription#</td></tr>
 	
 	<cfelse>
 	
-	<tr class="line"><td class="labellarge" style="padding-top:10px;font-size:22px;font-weight:200">Standard notification</td></tr>	
+	<tr class="line"><td class="labellarge" style="padding-top:10px;font-size:22px">#session.welcome# Standard notification</td></tr>	
 	
 	</cfif>	
 		
 	<tr><td></td></tr>		
 	<tr>
 		<td height="25" class="labelmedium" style="padding-left:5px;font-weight:200">
-		  Actors defined for step:</font>&nbsp;&nbsp;<b>#Action.ActionDescription#&nbsp;</font>
+		  The following actor(s) are set for step:</font>&nbsp;&nbsp;<b>#Action.ActionDescription#&nbsp;</font>
 		</td>
 		<td align="right"></td>
 	</tr>
@@ -124,9 +130,7 @@
 	 password="#SESSION.dbpw#">
 	 
 		 <cfif Action.NotificationGlobal eq "1">
-		
-		
-		 		 	 
+				 		 	 
 			 SELECT   A.UserAccount, 
 			          A.AccessLevel,  
 			          U.*
@@ -185,6 +189,7 @@
 		 AND      U.Disabled = 0
 		 AND      A.ActionCode    = '#Action.ActionCode#'
 		 ORDER BY LastName, FirstName 	
+		
 	 	 
 	</cfquery>	
 	
@@ -251,8 +256,9 @@
 		 
 		 <cfset row = 0>
 		 
-		 <cfloop query="Potential">		 
+		 <cfloop query="Potential">		
 		 
+		 		 
 			 <cfquery name="Notify" 
 				 datasource="AppsSystem"
 				 username="#SESSION.login#" 
@@ -264,10 +270,11 @@
 				 
 			</cfquery>
 			
+						
 			<!--- if not record exist we assume the user wants a mail --->
 						
 			<cfif Notify.EnableMailNotification eq "1" or Notify.recordcount eq "0">
-		 
+								 
 				<cfinvoke component="Service.Access"  
 					method         = "AccessEntity" 
 					objectid       = "#Object.ObjectId#"
@@ -277,9 +284,9 @@
 					user           = "#Account#"
 					entitygroup    = "#Object.EntityGroup#" 
 					returnvariable = "entityaccess">					
-								  
-			    <cfif entityaccess eq "EDIT" or entityAccess eq "ALL">
-																
+												  
+			    <cfif entityaccess neq "NONE">
+																								
 					<cfquery name="Last" 
 					datasource="AppsSystem" 
 					username="#SESSION.login#" 
@@ -351,8 +358,8 @@
 	 
 		 <tr>
 		 	<td height="45" align="center" colspan="2">
-			 <input type="button" name="Cancel" id="Cancel" value="Close" class="button10g" onClick="javascript:parent.ProsisUI.closeWindow('wMailDialog')">
-			 <input type="submit" class="button10g" name="Send" id="Send" value="Send Mail">
+			 <input type="button" name="Cancel" id="Cancel" value="Close" class="button10g" onClick="try { parent.ProsisUI.closeWindow('wMailDialog') } catch(e) { parent.window.close() }">
+			 <input type="submit" style="width:300px" class="button10g" name="Send" id="Send" value="Send eMail notification">
 			 </td>
 		 </tr>
 		 

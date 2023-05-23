@@ -7,7 +7,7 @@
 		<cfargument name="systemfunctionid"  required="true" default="">
 		
 		<cfset result = ArrayNew(1)>
-
+		
 		<cfset vmid = value>
 		<cfif vmid eq "">
 
@@ -172,7 +172,7 @@
 						<cfset s = StructNew()>
 						<cfset s.value    = "#vmid#_status">
 						<cfset s.parent   = "root">
-						<cfset s.display  = "<span class='labelit' style='font-size:15px'>#vTrack#</span>">
+						<cfset s.display  = "<span class='labelit' style='font-size:15px;cursor:pointer'>#vTrack#</span>">
 						<cfset s.expand   = "true"/>
 						<cfset s.leafnode = false/>
 						<cfset arrayAppend(result,s)/>
@@ -182,7 +182,7 @@
 						<cfset s = StructNew()>
 						<cfset s.value    = "#vmid#_schedule">
 						<cfset s.parent   = "root">
-						<cfset s.display  = "<span class='labelit' style='font-size:15px'>#vSchedule#</span>">
+						<cfset s.display  = "<span class='labelit' style='font-size:15px;cursor:pointer'>#vSchedule#</span>">
 						<cfset s.href     =  "../Schedule/ScheduleCalendar.cfm?ID=REC&Mission=#vmid#&systemfunctionid=#systemfunctionid#">
 						<cfset s.target   = "right">
 						<cfset s.expand   = "true"/>
@@ -196,19 +196,19 @@
 						<cfset s.parent    = "root">
 						<cfset s.href      = "ControlListingCandidate.cfm?ID=MIS&Mission=#vmid#&status=0&OrgUnitName=&HierarchyCode=&systemfunctionid=#systemfunctionid#">					
 						<cfset s.target    = "right">
-						<cfset s.display   = "<span class='labelit' style='font-size:15px'>#vCan#</span>">
+						<cfset s.display   = "<span class='labelit' style='font-size:15px;cursor:pointer'>#vCan#</span>">
 						<cfset s.expand    = "true"/>
 						<cfset s.leafnode  = false/>
 						<cfset arrayAppend(result,s)/>
 						
 						<cf_tl id="Post and Track" var="vPos">		
-		
+								
 						<cfset s = StructNew()>
 						<cfset s.value    = "#vmid#_pos">
 						<cfset s.parent   = "root">
 						<cfset s.href     = "ControlListingPosition.cfm?ID=MIS&Mission=#vmid#&status=0&OrgUnitName=&HierarchyCode=&systemfunctionid=#systemfunctionid#">					
 						<cfset s.target   = "right">
-						<cfset s.display  = "<span class='labelit' style='font-size:15px'>#vPos#</span>">
+						<cfset s.display  = "<span class='labelit' style='font-size:15px;cursor:pointer'>#vPos#&nbsp;&nbsp;<input onclick='stopPropagation()' value='#dateformat(now(),'YYYY-MM-DD')#' style='border:1px solid silver;text-align:center;background-color:f1f1f1' id='postselection' type='date'></span>">
 						<cfset s.expand   = "true"/>
 						<cfset s.leafnode = false/>
 						<cfset arrayAppend(result,s)/>
@@ -218,7 +218,7 @@
 						<cfset s = StructNew()>
 						<cfset s.value    = "#vmid#_events">
 						<cfset s.parent   = "root">
-						<cfset s.display  = "<span class='labelit' style='font-size:15px'>#vEvents#</span>">
+						<cfset s.display  = "<span class='labelit' style='font-size:15px;cursor:pointer'>#vEvents#</span>">
 						<cfset s.href     =  "../Schedule/ScheduleCalendar.cfm?ID=EVT&Mission=#vmid#&systemfunctionid=#systemfunctionid#">
 						<cfset s.target   = "right">
 						<cfset s.expand   = "true"/>

@@ -128,12 +128,12 @@
 					<cfset tdrillmode = drillmode>								
 				</cfif>
 							
-			   <cfset cl = "toggledrill('#lcase(tdrillmode)#','box#dkey#','#drilltemplate#','#dkey#','','#drillbox#','#drillstring#')">							
+			   <cfset cl = "toggledrill('#lcase(tdrillmode)#','box#dkey#','#dkey#','','#drillbox#','#drillstring#')">							
 			   <td align="center" style="padding-top:7px;padding-left:5px"><cf_img id="exp#currentrow#" icon="expand"  toggle="Yes" onclick="#cl#"></td>
 				 
 			<cfelse>						
 									
-			   <cfset cl = "toggledrill('#lcase(drillmode)#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">							   					  	  					 						   
+			   <cfset cl = "toggledrill('#lcase(drillmode)#','box#dkey#','#dkey#','#argument#','#drillbox#','#drillstring#')">							   					  	  					 						   
 			   <td class="navigation_action"><cf_img id="exp#currentrow#" icon="open" onclick="#cl#">
 			   </td>
 			 													 

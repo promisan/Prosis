@@ -13,11 +13,11 @@
 													
 	<cfif (document.recordcount gte "1" and Action.ProcessMode eq "0") or Action.EnableTextArea gte "1">
 				  
-	   <tr><td colspan="2" style="border: 0px solid;">
+	   <tr><td colspan="2">
 	   		
  		   	  <cfset url.MemoActionId = Action.ActionId>					  
 			  <cfset url.textmode = "edit">
-			  <table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+			  <table width="100%" border="0" align="center">
 			  <tr><td>  						 						  					  	   				   
 		   		<cfinclude template="ProcessActionMemo.cfm">	  								
 				</td></tr>

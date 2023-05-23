@@ -44,13 +44,14 @@
 		
 </cfif>
 			  
-<cfajaximport tags="cfdiv,cfform,cfinput-autosuggest">
+<cfajaximport tags="cfdiv,cfform">
 
 <cf_calendarscript>
 <cf_dialogstaffing>
 <cf_fileLibraryScript>
 <cf_listingscript>
 <cf_dialogMaterial>
+<cf_textareascript>
 
 <cf_tl id="Do you want to remove this customer and all of its details ?" var="vPurgeCustomerMess">
 
@@ -149,6 +150,17 @@
 									name       = "#vDetails#"
 									class      = "highlight1"
 									source 	   = "CustomerEdit.cfm?scope=#url.scope#&drillid=#url.drillid#">														
+									
+						<cfset itm = itm+1>		
+						<cf_tl id="Memo"	var="vMemo">
+						<cf_menutab item       = "#itm#" 
+						            iconsrc    = "Memo.png" 
+									targetitem = "2"
+									padding    = "5"
+									iconwidth  = "#wd#" 								
+									iconheight = "#ht#"
+									name       = "#vMemo#"
+									source 	   = "CustomerMemo.cfm?customerid=#url.drillid#&mission=#Customer.mission#">							
 						
 						<cfset itm = itm+1>		
 						<cf_tl id="Address"	var="vAddress">
@@ -195,32 +207,32 @@
 									source 	   = "../Quote/QuoteListingContent.cfm?customerid=#url.drillid#&mission=#Customer.mission#">				
 									
 						<cfset itm = itm+1>		
-						<cf_tl id="Sales and Receivables" var="vHistory">
+						<cf_tl id="Sales" var="vHistory">
 						<cf_menutab item       = "#itm#" 
 						            iconsrc    = "Sales-Orders.png" 
-									targetitem = "4"
+									targetitem = "2"
 									padding    = "5"
 									iconwidth  = "#wd#" 								
 									iconheight = "#ht#" 
 									name       = "#vHistory#"
-									source 	   = "../History/RecordListing.cfm?customerid=#url.drillid#&mission=#Customer.mission#">
+									source 	   = "../History/RecordListing.cfm?systemfunctionid=#url.systemfunctionid#&customerid=#url.drillid#&mission=#Customer.mission#">
 									
 						<cfset itm = itm+1>		
-						<cf_tl id="Customer Advance" var="vAdvance">
+						<cf_tl id="Advance and Receivables" var="vAdvance">
 						<cf_menutab item       = "#itm#" 
 						            iconsrc    = "Logos/Payroll/Entitlement.png" 
-									targetitem = "4"
+									targetitem = "2"
 									padding    = "5"
 									iconwidth  = "#wd#" 								
 									iconheight = "#ht#" 
 									name       = "#vAdvance#"
-									source 	   = "../../../../Gledger/Inquiry/Advance/ListingCustomer.cfm?customerid=#url.drillid#&mission=#Customer.mission#">			
+									source 	   = "../../../../Gledger/Inquiry/Advance/ListingCustomer.cfm?systemfunctionid=#url.systemfunctionid#&customerid=#url.drillid#&mission=#Customer.mission#">			
 						
 						<cfset itm = itm+1>		
 						<cf_tl id="Beneficiaries" var="vBeneficiaries">
 						<cf_menutab item       = "#itm#" 
 						            iconsrc    = "Dependent.png" 
-									targetitem = "4"
+									targetitem = "2"
 									padding    = "5"
 									iconwidth  = "#wd#" 								
 									iconheight = "#ht#" 
@@ -239,19 +251,18 @@
 
 	<tr><td height="100%" style="padding:6px">
 	
-	<table width="100%" 	     
-		  height="100%"
-		  align="center">
-			
-			<cf_menucontainer item="1" class="regular">
-				<cfinclude template="CustomerEdit.cfm">
-			</cf_menucontainer>							
-			
-			<cf_menucontainer item="2" class="hide">			
-			<cf_menucontainer item="3" class="hide">				
-			<cf_menucontainer item="4" class="hide">			
-												
-	</table>
+		<table width="100%" 	     
+			  height="100%"
+			  align="center">
+				
+				<cf_menucontainer item="1" class="regular">
+					<cfinclude template="CustomerEdit.cfm">
+				</cf_menucontainer>							
+				
+				<cf_menucontainer item="2" class="hide">			
+				<cf_menucontainer item="3" class="hide">					
+													
+		</table>
 
 	</td></tr>
 

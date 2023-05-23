@@ -9,7 +9,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <select name="ServiceLocation" id="ServiceLocation" class="regularxxl">
-	<option value="" <cfif ServiceLoc.LocationCode eq "">selected</cfif>>---select---</option>
+	<option value="" <cfif ServiceLoc.LocationCode eq "">selected</cfif>>---select entity---</option>
    <cfoutput query="ServiceLoc">
 	   <option value="#ServiceLoc.LocationCode#" <cfif #ServiceLoc.LocationCode# eq "#url.ServiceLocation#">selected</cfif>>#ServiceLoc.LocationCode# - #ServiceLoc.Description#</option>
    </cfoutput>

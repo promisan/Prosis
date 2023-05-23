@@ -200,8 +200,7 @@
 	    box            = "Invoices"
 		link           = "#SESSION.root#/warehouse/Application/Customer/History/RecordListing.cfm?customerid=#url.customerid#&systemfunctionid=null"
 	    html           = "No"
-	    show           = "300"		
-		
+	    show           = "250"				
 		datasource     = "AppsQuery"
 		listquery      = "#myquery#"		
 		listorder      = "BatchReference"

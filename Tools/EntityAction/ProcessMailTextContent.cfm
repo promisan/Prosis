@@ -33,9 +33,19 @@
 
 <cfoutput>
 
+<cfif attributes.text neq "">
+
+<cfset subject = "#Attributes.text#: #Action.ActionDescription# #qObject.ObjectReference#">
+
+<cfelse>
+
+<cfset subject = "#qObject.ObjectReference# #qObject.ObjectReference2# : #Action.ActionDescription#"> 
+
+</cfif>
+
 	<cfmail TO          = "#sendto#"        
 		    FROM        = "#fromm#"
-			SUBJECT     = "#Attributes.text#: #Action.ActionDescription#"	
+			SUBJECT     = "#subject#"	
 			mailerID    = "#SESSION.welcome#"
 			FAILTO      = "#from#"
 			REPLYTO     = "#from#"

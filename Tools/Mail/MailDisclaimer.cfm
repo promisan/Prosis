@@ -68,6 +68,14 @@
 				<cfmailparam file="#SESSION.root#/#missionlogo#" contentid="logomission" disposition="inline"/>																				
 			</cfif>
 			
+		<cfelse>
+		
+		<tr>
+		<td style="border-top:1px solid silver">
+		 <font color="808080" style="font-size:10px">This message was prepared by #session.first# #session.last#</font>
+		</td>
+		</tr>
+		
 		</cfif>
 			
 		<tr>
@@ -94,7 +102,9 @@
 		 </td>
 		</tr>
 		
-		<tr><td><font style="font-size:10px" color="808080"><cf_tl id="Authentication">: #attributes.context# #attributes.id#</font></td></tr>		
+		<tr>
+		<td><font style="font-size:10px" color="808080"><cf_tl id="Authentication">: #attributes.context#&nbsp;#attributes.id#</font></td>
+		</tr>		
 		<tr><td height="1" style="border-bottom:1px solid silver"></td></tr>
 		
 	</table>

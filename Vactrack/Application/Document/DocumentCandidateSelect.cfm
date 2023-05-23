@@ -37,7 +37,17 @@
     SELECT A.IndexNo as IndexNoA, A.PersonNo, DC.Status, Description, DC.Remarks, 
            DC.OfficerLastName, DC.OfficerFirstName, DC.Created,
 		   A.LastName, A.FirstName, A.Nationality, A.Gender, A.DOB, R.Color, 
-		   DC.EntityClass as CandidateClass
+		   DC.EntityClass as CandidateClass,
+		   
+		   <!--- selection date --->
+			(SELECT  TOP 1 ReviewDate
+             FROM    DocumentCandidateReview
+             WHERE   DocumentNo = DC.DocumentNo 
+			 AND     PersonNo = DC.PersonNo 
+			 AND     ReviewStatus = '2s'
+			 ORDER BY Created DESC) AS SelectionDate	
+		   
+		   
     FROM   DocumentCandidate DC INNER JOIN Ref_Status R ON DC.Status = R.Status INNER JOIN Applicant.dbo.Applicant A ON A.PersonNo = DC.PersonNo
 	WHERE  DocumentNo   = '#URL.ID#' 
 	AND    R.Class      = 'Candidate' 
@@ -70,8 +80,9 @@ password="#SESSION.dbpw#">
 	  <TD><cf_tl id="Nat"></TD>
       <TD><cf_tl id="Gender"></TD>
 	  <td><cf_tl id="DOB"></td>
+	  <TD><cf_tl id="Selection"></TD> 
    	  <TD><cf_tl id="Status"></TD>
-	  <TD><cf_tl id="Entered"></TD>  	  
+	   	  
     </TR>	
 		 	
 	<cfoutput query="SearchResult">
@@ -126,8 +137,9 @@ password="#SESSION.dbpw#">
 	<td>#Nationality#</td>
 	<td><cfif Gender eq "F">Female<cfelse>Male</cfif></td>
 	<td>#dateFormat(DOB,CLIENT.DateFormatShow)# <cfif DocParameter.MaximumAge lt Age><font color="FF0000">alert&nbsp;</cfif>age:<b>#age#</b></font></td>
+	<td><cfif SelectionDate eq ""><font color="FF0000">Not found</font><cfelse>#Dateformat(SelectionDate, CLIENT.DateFormatShow)#</cfif></td>
 	<td>#Description# (#status#) <cfif Status eq "2s" and CandidateClass eq ""><b>:&nbsp;<span style="color:green" title="No flow was set yet">Flow</span></b></cfif></td>
-	<td>#Dateformat(Created, CLIENT.DateFormatShow)#</td>
+	
 	<td></td>
 	</tr>
 				

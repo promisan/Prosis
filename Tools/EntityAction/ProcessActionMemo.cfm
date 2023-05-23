@@ -65,7 +65,7 @@
 					 <tr id="memoblock">
 					 <td colspan="3"
 					    valign="top"
-					    style="padding-top:8px;padding-left:17px;padding-right:20px;border: solid 1px silver;">
+					    style="padding-top:0px;padding-left:7px;padding-right:8px;border: solid 1px silver;border-top:0px">
 						
 						<!--- removed toolBar="Basic" --->
 					

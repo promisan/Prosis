@@ -425,7 +425,7 @@ password="#SESSION.dbpw#">
 
 				   <td align="right">#numberformat(percentage*100, ",")#</td>				 				 
 					   
-				   <td style="padding-left:8px;">
+				   <td style="padding-left:3px;">
 				   
 					   <select name="objectcde" id="objectcode" class="regularxl" style="width:99%">
 					   <option value="">[Defined through Payroll Lines]</option>
@@ -438,7 +438,7 @@ password="#SESSION.dbpw#">
 					   
 				   </td>
 				 	
-				   <td colspan="2" align="center" style="padding-left:8px;padding-right:5px">	
+				   <td colspan="2" align="center" style="padding-left:3px;padding-right:5px;padding:3px">	
 					   <input class="button10g" style="width:55;height:25" type="button" name="save" value="#vSave#" onclick="javascript:funding('','#fundingid#','save',processaction.fund.value,fundclass.value,processaction.objectcde.value,processaction.programcode.value,processaction.dateeffective.value,processaction.dateexpiration.value)">
 				   </td>
 	

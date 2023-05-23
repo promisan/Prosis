@@ -1,6 +1,68 @@
 
+
 <cfparam name = "URL.Criteria" default = "No">
 <cfparam name = "URL.SystemfunctionId" default = "">
+<cfparam name = "URL.selectiondate" default = "#dateformat(now(),client.dateformatshow)#">
+
+<cfset dte = dateformat(url.selectiondate,client.dateSQL)>
+
+
+<cfsavecontent variable="IncumbentUser">
+
+    <cfoutput>
+	
+	SELECT      'User' AS Modality, PA.PositionNo, P.PersonNo, P.IndexNo, P.LastName, P.FirstName, P.Gender, P.Nationality,
+                       (SELECT        Name
+                         FROM            System.dbo.Ref_Nation
+                         WHERE        Code = P.Nationality) AS NationalityName,
+                       (SELECT        CountryGroup
+                         FROM            System.dbo.Ref_Nation
+                         WHERE        Code = P.Nationality) AS CountryGroup,
+                       (SELECT        TOP 1 ContractType
+                         FROM            PersonContract
+                         WHERE        PersonNo = P.PersonNo AND actionStatus != '9'
+                         ORDER BY DateEffective DESC) AS ContractType, AssignmentClass, PA.AssignmentType, PA.DateExpiration
+	FROM        Person AS P INNER JOIN
+	            PersonAssignment AS PA ON P.PersonNo = PA.PersonNo
+	WHERE       PA.DateEffective <= '#dte#' 
+	AND         PA.DateExpiration > '#dte#' 
+	AND         PA.AssignmentStatus IN ('0', '1') 
+	AND         PA.Incumbency > 0 
+	AND         PA.AssignmentType = 'Actual'
+	
+	</cfoutput>
+
+</cfsavecontent>
+
+
+<cfsavecontent variable="IncumbentLien">
+
+    <cfoutput>
+	
+	SELECT      'Lien' AS Modality, PA.PositionNo, P.PersonNo, P.IndexNo, P.LastName, P.FirstName, P.Gender, P.Nationality,
+                    (SELECT        Name
+                      FROM            System.dbo.Ref_Nation
+                      WHERE        Code = P.Nationality) AS NationalityName,
+                    (SELECT        CountryGroup
+                      FROM            System.dbo.Ref_Nation
+                      WHERE        Code = P.Nationality) AS CountryGroup,
+                    (SELECT        TOP 1 ContractType
+                      FROM            PersonContract
+                      WHERE        PersonNo = P.PersonNo AND actionStatus != '9'
+                      ORDER BY DateEffective DESC) AS ContractType, AssignmentClass, PA.AssignmentType, PA.DateExpiration
+	FROM        Person AS P INNER JOIN
+	            PersonAssignment AS PA ON P.PersonNo = PA.PersonNo
+	WHERE       PA.DateEffective <= '#dte#' 
+	AND         PA.DateExpiration > '#dte#' 
+	AND         PA.AssignmentStatus IN ('0', '1') 
+	AND         PA.Incumbency = 0 
+	AND         PA.AssignmentType = 'Actual'
+	
+	</cfoutput>
+
+</cfsavecontent>
+
+
 
 <!--- prepare the query --->
 
@@ -18,9 +80,9 @@
 		FROM (
 	
 			SELECT *, (CASE WHEN IncumbentOwner >= 1 THEN 'Owner' WHEN Incumbent >= 1 THEN 'Temporary' ELSE 'Vacant' END) as IncumbentStatus,
-        			  (CASE WHEN DatePosted      is not NULL THEN datediff(DAY, DatePosted, getdate()) ELSE -1 END)       as TrackPostedDays,
+        			  (CASE WHEN DatePosted      is not NULL THEN datediff(DAY, DatePosted, '#dte#') ELSE -1 END)         as TrackPostedDays,
 					  (CASE WHEN TrackDateVacant is not NULL THEN TrackDateVacant ELSE NULL END)                          as DateVacant,
-					  (CASE WHEN TrackDateVacant is not NULL THEN datediff(DAY, TrackDateVacant, getdate()) ELSE -1 END)  as DateVacantDays 
+					  (CASE WHEN TrackDateVacant is not NULL THEN datediff(DAY, TrackDateVacant, '#dte#') ELSE -1 END)    as DateVacantDays 
 								
 			FROM (
 			
@@ -69,22 +131,10 @@
 						    AND       AssignmentStatus IN ('0','1')
 						    AND       AssignmentType   = 'Actual'					 
 						    AND       Incumbency       = 100
-						    AND       DateEffective  <= CAST(GETDATE() AS Date) 
-						    AND       DateExpiration >= CAST(GETDATE() AS Date)				
+						    AND       DateEffective  <= '#dte#' 
+						    AND       DateExpiration >= '#dte#'			
 						    AND       DateEffective  < S.DateExpiration ) as Incumbent,
 						
-						  <!---	
-						  ( SELECT TOP 1 DateExpiration
-						    FROM   PersonAssignment
-						    WHERE  PositionNo      = S.PositionNo
-						    AND    AssignmentStatus IN ('0','1')
-						    AND    AssignmentType   = 'Actual'					 
-						    AND    Incumbency       = 100						    
-						    AND    DateEffective <= CAST(GETDATE() AS Date) 
-							ORDER BY DateExpiration DESC) as IncumbentDateExpiration,	
-							
-							--->
-							
 						  ( SELECT count(DISTINCT PositionNo)
 						    FROM   PersonAssignment
 						    WHERE  PositionNo      = S.PositionNo
@@ -92,8 +142,8 @@
 						    AND    AssignmentType   = 'Actual'	
 							AND    AssignmentClass  = 'Regular'				 
 						    AND    Incumbency       = 100
-						    AND    DateEffective  <= CAST(GETDATE() AS Date) 
-						    AND    DateExpiration >= CAST(GETDATE() AS Date)				
+						    AND    DateEffective  <= '#dte#'
+						    AND    DateExpiration >= '#dte#'				
 						    AND    DateEffective  < S.DateExpiration ) as IncumbentOwner,	
 						   
 						  ( SELECT count(DISTINCT PositionNo)
@@ -102,8 +152,8 @@
 						    AND    AssignmentStatus IN ('0','1')
 						    AND    AssignmentType   = 'Actual'									 
 						    AND    Incumbency       = 0
-						    AND    DateEffective  <= CAST(GETDATE() AS Date) 
-						    AND    DateExpiration >= CAST(GETDATE() AS Date)				
+						    AND    DateEffective  <= '#dte#' 
+						    AND    DateExpiration >= '#dte#'			
 						    AND    DateEffective  < S.DateExpiration ) as IncumbentLien,	
 														
 						<!--- fields added for excel --->	 
@@ -188,9 +238,9 @@
 		                               WHERE       D.Mission = '#url.mission#' 
 									   AND         D.Status = '0') AS H ON S.PositionParentId = H.PositionParentId
 									   									   
-									   LEFT OUTER JOIN vwIncumbent U ON S.PositionNo = U.PositionNo and U.Modality = 'User'
+									   LEFT OUTER JOIN (#preservesinglequotes(incumbentuser)#) U ON S.PositionNo = U.PositionNo 
 									   
-									   LEFT OUTER JOIN vwIncumbent L ON S.PositionNo = L.PositionNo and L.Modality = 'Lien'
+									   LEFT OUTER JOIN (#preservesinglequotes(incumbentlien)#) L ON S.PositionNo = L.PositionNo 
 									   
 		     WHERE      S.Mission = '#url.mission#' 
 			 
@@ -200,8 +250,8 @@
 																				
 			</cfif>				
 			 
-			 AND        S.DateEffective < GETDATE() 
-			 AND        S.DateExpiration > GETDATE()
+			 AND        S.DateEffective  < '#dte#'
+			 AND        S.DateExpiration > '#dte#'
 			 
 			 ) as M
 		 

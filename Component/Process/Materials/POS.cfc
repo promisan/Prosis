@@ -2105,7 +2105,9 @@
 							     AND       W.PickingOrder IN ('1','2','3','4','5','6','7','8','9')
 								 AND       L.Operational = 1 							 
 							 		 
-							     ORDER BY  PickingOrder <!--- sorts locations by required order --->			
+							     ORDER BY  PickingOrder <!--- sorts locations by required order --->		
+								 
+								
 												 
 						    </cfquery>		
 

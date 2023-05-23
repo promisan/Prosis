@@ -5,12 +5,11 @@
 			datasource="appsOrganization"
 			username="#SESSION.login#"
 			password="#SESSION.dbpw#">
-		SET     TextSize 1000000
+		SET     TextSize 1500000
 		SELECT  O.*, R.DocumentMode, R.DocumentCode,R.DocumentLayout
-		FROM    OrganizationObjectActionReport O INNER JOIN
-		Ref_EntityDocument R ON O.DocumentId = R.DocumentId
+		FROM    OrganizationObjectActionReport O INNER JOIN	Ref_EntityDocument R ON O.DocumentId = R.DocumentId
 		WHERE   O.ActionId   = '#url.MemoActionID#'
-	AND     O.DocumentId = '#url.documentid#'
+	    AND     O.DocumentId = '#url.documentid#'
 	</cfquery>
 
 <!--- Line below doc.documentMode neq PDF is there for backward

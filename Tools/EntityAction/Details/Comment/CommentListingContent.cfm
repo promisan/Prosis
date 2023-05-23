@@ -5,6 +5,8 @@
 
 <cf_param name="url.ajax" default="">
 
+<cfif url.objectid neq "">
+
 <cfquery name="Object" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
@@ -369,4 +371,6 @@ password="#SESSION.dbpw#">
 </cfoutput>
 
 <cfset AjaxOnLoad("function() { #ajaxFunction# }")>
+
+</cfif>
 	

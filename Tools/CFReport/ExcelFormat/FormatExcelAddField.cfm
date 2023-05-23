@@ -125,10 +125,9 @@
 	<cfif site.applicationserver eq Parameter.databaseServer>		
 		  <cfset svr = "">
 	<cfelse>
-		  <cfset svr = "">
-		  <!---
+		  	  
 		  <cfset svr = "[#Parameter.databaseServer#].">
-		  --->
+		  
 	</cfif>	
 
 	<cfquery name="Fields" 
@@ -138,7 +137,7 @@
 		WHERE    S.id = C.id
 		AND      S.name = '#URL.table#'	
 		AND      C.name NOT IN (SELECT FieldName 
-	                        FROM   #svr#.System.dbo.UserReportOutput
+	                        FROM   #svr#System.dbo.UserReportOutput
 	                        WHERE  UserAccount = '#SESSION.acc#'
 							AND    OutputId = '#URL.id#') 
 		ORDER BY C.ColId 
@@ -190,7 +189,7 @@
 
 	<cfquery name="Insert" 
 		 datasource="appsSystem">
-		 	UPDATE 	#svr#.System.dbo.UserReportOutput
+		 	UPDATE 	#svr#System.dbo.UserReportOutput
 			SET 	OutputShow = '1'
 			WHERE  	UserAccount = '#SESSION.acc#'
 			AND    	OutputId = '#URL.id#'
