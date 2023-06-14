@@ -27,10 +27,15 @@ password="#SESSION.dbpw#">
 	
 </cfif>
 
-<cfif url.mode eq "AP">   
+<cfif url.mode eq "AD">
+    <cfset journalfilter = "'Advances'"> 
+<cfelseif url.mode eq "AP">
+    <!---
+    <cfset journalfilter = "'Payables','Payment','DirectPayment'">
+	--->
 	<cfset journalfilter = "'Payables'">
 <cfelse>
-    <cfset journalfilter = "'Receivables'">	
+    <cfset journalfilter = "'Receivables'">
 </cfif>	
 
 <cfquery name="getAccounts"
@@ -41,12 +46,15 @@ password="#SESSION.dbpw#">
 	FROM   Ref_Account
 	WHERE  Operational = 1
 	AND    AccountClass       = 'Balance'
-	<cfif url.mode eq "AR"> 	
-	AND    AccountType        = 'Debit'   
-	AND    ((BankReconciliation = 1 AND AccountCategory IN ('Vendor','Neutral')) OR AccountCategory = 'Vendor')
+	<cfif url.mode eq "AD">
+	   AND     AccountType        = 'Credit' 
+		AND     AccountCategory    = 'Advance'
+	<cfelseif url.mode eq "AR"> 	
+		AND    AccountType        = 'Debit'   
+		AND    ((BankReconciliation = 1 AND AccountCategory IN ('Vendor','Neutral')) OR AccountCategory = 'Vendor')
 	<cfelse>	
-	AND     AccountType        = 'Credit' 
-	AND     AccountCategory    = 'Customer'
+		AND     AccountType        = 'Credit' 
+		AND     AccountCategory    = 'Customer'
 	</cfif>
 	
 </cfquery>
@@ -83,7 +91,8 @@ password="#SESSION.dbpw#">
 				                               FROM   Journal WHERE  Mission = '#url.mission#' AND SystemJournal = 'Opening')
 		--->
 	
-	AND        R.GLAccount IN (#quotedvalueList(getAccounts.glaccount)#)  <!--- better performance to separate --->								   		
+	AND        R.GLAccount IN (#quotedvalueList(getAccounts.glaccount)#)  <!--- better performance to separate --->			
+					   		
 	GROUP BY   L.GLAccount,R.Description, R.AccountType				   
 	ORDER BY   L.GLAccount,R.Description		
 							 		   

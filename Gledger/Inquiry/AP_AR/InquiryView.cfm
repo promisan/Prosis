@@ -6,7 +6,9 @@
 
 <cfparam name="url.mode" default="AP">
 
-<cfif url.mode eq "AP">
+<cfif url.mode eq "AD">
+    <cfset journalfilter = "'Advances'"> 
+<cfelseif url.mode eq "AP">
     <!---
     <cfset journalfilter = "'Payables','Payment','DirectPayment'">
 	--->
@@ -84,37 +86,32 @@
 	   
 	   		<cf_divscroll style="width:100%;height:100%">   
 			
-				<table width="97%" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+				<table width="97%" height="100%" class="formpadding">
 				    <tr><td height="5" bgcolor="ffffff"></td></tr>
 																				
 					<tr><td valign="top" bgcolor="ffffff">
 															
-					<table width="97%" align="center">
-					
-						<tr class="hide"><td height="1" class="line" id="result"></td></tr>
-												
-						<tr><td bgcolor="ffffff" align="center" style="padding:2px;padding-bottom:4px;" valign="top">	
-							<cfinclude template="ShowAccount.cfm">						
-						</td>
-						</tr>						
-															
-						<tr>
-						<td valign="top" height="30" bgcolor="ffffff">
-							<cfinclude template="ShowJournal.cfm">
-						</td>
-						</tr>							
+						<table width="97%" align="center">
 						
-						<tr><td valign="top" style="padding:1px;width:520" id="graph">						
-							<cfinclude template="ShowAging.cfm">
-						</td></tr>													
-						
-						<tr><td bgcolor="ffffff" height="100" align="center" valign="top" id="payee">
-						    <cfinclude template="ShowPayee.cfm">						
-						</td></tr>		
-						
-											
-						
-					</table>			
+							<tr class="hide"><td height="1" class="line" id="result"></td></tr>
+													
+							<tr><td bgcolor="ffffff" align="center" style="padding:2px;padding-bottom:4px;" valign="top">	
+								<cfinclude template="ShowAccount.cfm">						
+							</td></tr>						
+																
+							<tr><td valign="top" height="30" bgcolor="ffffff">
+								<cfinclude template="ShowJournal.cfm">
+							</td></tr>							
+							
+							<tr><td valign="top" style="padding:1px;width:520" id="graph">						
+								<cfinclude template="ShowAging.cfm">
+							</td></tr>													
+							
+							<tr><td bgcolor="ffffff" height="100" align="center" valign="top" id="payee">
+							    <cfinclude template="ShowPayee.cfm">						
+							</td></tr>													
+							
+						</table>			
 					
 					</td>
 					</tr>

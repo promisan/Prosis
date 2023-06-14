@@ -126,7 +126,7 @@
 				
 				<cfloop query="assignment">
 				
-					<tr bgcolor="fffffaf" class="line labelmedium2 navigation_row_child">
+					<tr class="background-color:##ffffaf80 line labelmedium2 navigation_row_child">
 					   <td></td>
 					   <td align="center"></td>			   
 					   <td colspan="2">#FullName#</td>
@@ -150,7 +150,8 @@
 
 </cfif>
 
-<cfif URL.ID eq "POS" or url.source is "TFR">
+
+<cfif URL.ID eq "POS" or url.source is "TFR" or url.source is "CUS">
 	
 	<!--- retrieve position --->
 	
@@ -160,16 +161,15 @@
 	   password="#SESSION.dbpw#">
 	   SELECT *, (
 	   
-	    SELECT   count(AssignmentNo)
-   	    FROM     PersonAssignment PA INNER JOIN
-                 Person P ON PA.PersonNo = P.PersonNo
-   	    WHERE    PA.DateEffective <= GETDATE() 
-	      AND  PA.DateExpiration >= GETDATE()
-		  AND  PA.AssignmentStatus IN ('0','1')
-	 	  AND  PA.PositionNo = Pos.PositionNo) as Assignment
+		    SELECT   count(AssignmentNo)
+	   	    FROM     PersonAssignment PA INNER JOIN
+	                 Person P ON PA.PersonNo = P.PersonNo
+	   	    WHERE    PA.DateEffective <= GETDATE() 
+		      AND  PA.DateExpiration >= GETDATE()
+			  AND  PA.AssignmentStatus IN ('0','1')
+		 	  AND  PA.PositionNo = Pos.PositionNo) as Assignment
 	   
-	   
-	   
+	   	   
 	   FROM   Position Pos INNER JOIN
 	          Organization.dbo.Organization Org ON Pos.OrgUnitOperational = Org.OrgUnit
 		<cfif url.org neq "0">
@@ -178,20 +178,20 @@
 		WHERE  ( Pos.PositionNo LIKE '%#URL.ID1#%' or Pos.SourcePostNumber LIKE '%#URL.ID1#%' OR Pos.PositionParentId LIKE '%#URL.ID1#%') 
 		</cfif>	  	   
 	    AND  Org.Mission     = '#URL.Mission#'
-		AND  Org.MandateNo   = '#URL.MandateNo#'		 
+		AND  Org.MandateNo   = '#URL.MandateNo#'	
+		
 		 
 	</cfquery>
-	
-	<table width="100%" style="padding-right:10px" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+		
+	<table width="100%" style="padding-right:10px" class="navigation_table">
 	
 	<tr><td height="4"></td></tr>
 		
 	<cfoutput query="Position">
-	
+		
 	<tr class="labelmedium navigation_row fixlengthlist" style="height:18px">
-			<td align="center" style="padding-top:3px;cursor:pointer" class="navigation_action" onclick="transfer('#URL.Source#','#PositionNo#','#URL.PersonNo#','#URL.RecordId#','#URL.DocumentNo#')">			
-			  <cf_img icon="select">			  			
-			 </td>
+			<td align="center" style="padding-top:3px;cursor:pointer" class="navigation_action" 
+			  onclick="transfer('#URL.Source#','#PositionNo#','#URL.PersonNo#','#URL.RecordId#','#URL.DocumentNo#')"><cf_img icon="select"></td>
 		     <TD>#FunctionDescription#</TD>
 		     <TD>#PostGrade#</TD>
 		     <TD>#PostType#</TD>
@@ -212,40 +212,40 @@
 		
 	<cfif Assignment gte "1">
 		
-	<cfquery name="AssignmentList" 
-     datasource="AppsEmployee" 
-     username="#SESSION.login#" 
-     password="#SESSION.dbpw#">
-     SELECT   PA.DateEffective, 
-	          PA.DateExpiration, 
-			  P.FullName, 
-			  P.Gender, 
-			  P.Nationality, 
-			  P.IndexNo, 
-			  P.PersonNo
-	 FROM     PersonAssignment PA INNER JOIN
-              Person P ON PA.PersonNo = P.PersonNo
-	 WHERE    PA.DateEffective <= GETDATE() 
-	     AND  PA.DateExpiration >= GETDATE()
-		 AND  PA.AssignmentStatus IN ('0','1')
-	 	 AND  PA.PositionNo = '#PositionNo#'
-    </cfquery>
+		<cfquery name="AssignmentList" 
+	     datasource="AppsEmployee" 
+	     username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+	     SELECT   PA.DateEffective, 
+		          PA.DateExpiration, 
+				  P.FullName, 
+				  P.Gender, 
+				  P.Nationality, 
+				  P.IndexNo, 
+				  P.PersonNo
+		 FROM     PersonAssignment PA INNER JOIN
+	              Person P ON PA.PersonNo = P.PersonNo
+		 WHERE    PA.DateEffective <= GETDATE() 
+		     AND  PA.DateExpiration >= GETDATE()
+			 AND  PA.AssignmentStatus IN ('0','1')
+		 	 AND  PA.PositionNo = '#PositionNo#'
+	    </cfquery>
+			
+		<cfloop query="assignmentList">
 		
-	<cfloop query="assignmentList">
-	
-	<tr bgcolor="ffffaf" class="labelmedium2 line navigation_row_child">
-	   <td height="18"></td>
-	   <td bgcolor="ffffaf" style="padding-left:3px;border-left:1px dotted silver;border-top:1px dotted silver">#FullName#</td>
-	   <td bgcolor="ffffaf" style="border-top:1px dotted silver">#IndexNo#</td>
-	   <td bgcolor="ffffaf" style="border-top:1px dotted silver"></td>
-	   <td bgcolor="ffffaf" style="border-top:1px dotted silver"></td>
-	   <td bgcolor="ffffaf" style="padding-right:4px;border-top:1px dotted silver">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
-	   <td bgcolor="ffffaf" style="padding-right:4px;border-top:1px dotted silver">#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>
-	   
-	</tr>	
+		<tr style="background-color:##ffffaf80" class="labelmedium2 line navigation_row_child">
+		   <td height="18"></td>
+		   <td style="background-color:##ffffaf80;padding-left:3px;border-left:1px dotted silver;border-top:1px dotted silver">#FullName#</td>
+		   <td style="background-color:##ffffaf80;border-top:1px dotted silver">#IndexNo#</td>
+		   <td style="background-color:##ffffaf80;border-top:1px dotted silver"></td>
+		   <td style="background-color:##ffffaf80;border-top:1px dotted silver"></td>
+		   <td style="background-color:##ffffaf80;padding-right:4px;border-top:1px dotted silver">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
+		   <td style="background-color:##ffffaf80;padding-right:4px;border-top:1px dotted silver">#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>
+		   
+		</tr>	
+			
+		</cfloop>	
 		
-	</cfloop>	
-	
 	</cfif>
 					
 	</cfoutput>	 
@@ -276,11 +276,11 @@
 	    <TITLE>Search - Search Result</TITLE>	
 	</HEAD>
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%">
 	   
 	<td width="100%" colspan="2">
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="100%" align="center" class="formpadding">
 	
 	<cfif URL.ID1 eq "root">
 	    <cfset cond = "AND (O.ParentOrgUnit is NULL or O.ParentOrgUnit = '')">
@@ -342,11 +342,11 @@
 		    datasource="AppsOrganization" 
 		    username="#SESSION.login#" 
 		    password="#SESSION.dbpw#">
-		    SELECT DISTINCT O.*
-		    FROM Organization O
-			WHERE (O.ParentOrgUnit = '#SearchResult.OrgUnitCode#')
-			AND O.Mission   = '#SearchResult.Mission#'
-			AND O.MandateNo = '#SearchResult.MandateNo#'
+		    SELECT   DISTINCT O.*
+		    FROM     Organization O
+			WHERE    O.ParentOrgUnit = '#SearchResult.OrgUnitCode#'
+			AND      O.Mission   = '#SearchResult.Mission#'
+			AND      O.MandateNo = '#SearchResult.MandateNo#'
 			ORDER BY O.Mission, TreeOrder
 		   </cfquery>
 	   
@@ -403,12 +403,12 @@
 		      datasource="AppsOrganization" 
 		      username="#SESSION.login#" 
 		      password="#SESSION.dbpw#">
-		      SELECT DISTINCT O.*
-		       FROM Organization O
-			   WHERE (ParentOrgUnit = '#Level03.OrgUnitCode#')
-		        AND O.Mission   = '#SearchResult.Mission#'
-			    AND O.MandateNo = '#SearchResult.MandateNo#'
-			   ORDER BY O.Mission, TreeOrder
+		      SELECT   DISTINCT O.*
+		      FROM     Organization O
+			  WHERE    ParentOrgUnit = '#Level03.OrgUnitCode#'
+		      AND      O.Mission   = '#SearchResult.Mission#'
+			  AND      O.MandateNo = '#SearchResult.MandateNo#'
+			  ORDER BY O.Mission, TreeOrder
 		    </cfquery>
 	
 	    <cfloop query="Level04">

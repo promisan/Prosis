@@ -25,8 +25,7 @@
 	<cfelse>			
 	
 		#PreserveSingleQuotes(Client.Payables)# 
-		
-					
+							
 		<cfif findNoCase("WHERE",Client.Payables) lte 0>			
 			WHERE 1=1
 		</cfif>	
@@ -47,8 +46,7 @@
 		</cfif>
 		<cfif url.value eq "Over 180d">
 			AND		Days > 180.0
-		</cfif>		
-		 		
+		</cfif>			 		
 	
 	</cfif>
 		
@@ -137,7 +135,6 @@
 					field         = "Days",
 					search        = "number"}>		
 					
-
 <cfset itm = itm+1>		
 <cf_tl id="Status" var="vSta">							
 <cfset fields[itm] = {label       = "S",   
@@ -162,29 +159,28 @@
 					field        = "Amount",
 					align        = "right",
 					aggregate    = "sum",
-					width       = "20",
+					width        = "20",
 					formatted    = "numberformat(Amount,',.__')",
 					search       = "number"}>	
 									
 <cfset itm = itm+1>		
 <cf_tl id="Outstanding" var="vOutstanding">						
-<cfset fields[itm] = {label     = "#vOutstanding#", 					
-					field       = "AmountOutstanding",
-					align       = "right",
-					aggregate   = "sum", 
-					width       = "20",
-					formatted   = "numberformat(AmountOutstanding,',.__')",
-					search      = "number"}>	
-	
+<cfset fields[itm] = {label      = "#vOutstanding#", 					
+					field        = "AmountOutstanding",
+					align        = "right",
+					aggregate    = "sum", 
+					width        = "20",
+					formatted    = "numberformat(AmountOutstanding,',.__')",
+					search       = "number"}>	
 	
 <cfset itm = itm+1>		
-	<cf_tl id="Description" var="1">				
-	<cfset fields[itm] = {label      = "#lt_text#",    
-	                    rowlevel     = "2",
-					    colspan      = "6",                
-						field        = "Description",					
-						labelfilter  = "#lt_text#",
-						search       = "text"}>				
+<cf_tl id="Description" var="1">				
+<cfset fields[itm] = {label      = "#lt_text#",    
+                    rowlevel     = "2",
+				    colspan      = "6",                
+					field        = "Description",					
+					labelfilter  = "#lt_text#",
+					search       = "text"}>				
 		
 <cfset itm = itm+1>		
 <cf_tl id="Step" var="1">				
@@ -209,39 +205,39 @@
 </cfif>
 
 <tr>
-<td valign="top">	
-	
-	<cfif url.filter eq "customer">	
-		<cfset cl = "hide">		
-	<cfelse>	
-		<cfset cl = "yes">		
-	</cfif>			
-										
-	<cf_listing
-	    header           = "Payables"
-	    box              = "#url.mode#_listing_#url.mission#"
-		link             = "#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryListing.cfm?header=0&value=#url.value#&mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
-		systemfunctionid = "#url.systemfunctionid#"
-	    html             = "No"	
-		datasource       = "AppsQuery"
-		tablewidth       = "100%"	
-		filtershow       = "#cl#"
-		excelshow        = "Yes"	
-		listgroup        = "Currency"
-	 	listgroupdir     = "ASC"
-		listquery        = "#myquery#"
-		listkey          = "TransactionId"
-		listorder        = "TransactionDate"
-		listorderdir     = "DESC"
-		headercolor      = "ffffff"
-		listlayout       = "#fields#"
-		annotation       = "GLTransaction"
-		drillmode        = "tab"
-		drillargument    = "920;1180;false;false"	
-		drilltemplate    = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
-		drillkey         = "TransactionId">
+	<td valign="top">	
 		
-</td>
+		<cfif url.filter eq "customer">	
+			<cfset cl = "hide">		
+		<cfelse>	
+			<cfset cl = "yes">		
+		</cfif>			
+											
+		<cf_listing
+		    header           = "Payables"
+		    box              = "#url.mode#_listing_#url.mission#"
+			link             = "#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryListing.cfm?header=0&value=#url.value#&mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
+			systemfunctionid = "#url.systemfunctionid#"
+		    html             = "No"	
+			datasource       = "AppsQuery"
+			tablewidth       = "100%"	
+			filtershow       = "#cl#"
+			excelshow        = "Yes"	
+			listgroup        = "Currency"
+		 	listgroupdir     = "ASC"
+			listquery        = "#myquery#"
+			listkey          = "TransactionId"
+			listorder        = "TransactionDate"
+			listorderdir     = "DESC"
+			headercolor      = "ffffff"
+			listlayout       = "#fields#"
+			annotation       = "GLTransaction"
+			drillmode        = "tab"
+			drillargument    = "920;1180;false;false"	
+			drilltemplate    = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
+			drillkey         = "TransactionId">
+			
+	</td>
 </tr>
 </table>		
 	

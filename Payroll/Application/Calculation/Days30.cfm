@@ -144,10 +144,14 @@
 			password="#SESSION.dbpw#">
 			SELECT * 
 			FROM   userTransaction.dbo.sal#SESSION.thisprocess#Payroll					
-			WHERE  PersonNo      = '#PersonNo#'						
+			WHERE  PersonNo      = '#PersonNo#'		
+			<cfif Schedule.SalaryBasePeriodDays eq "30fix">					
+			ORDER BY LeaveId ASC	
+			<cfelse>
 			ORDER BY LeaveId DESC	
+			</cfif>
 		</cfquery>			
-		 	
+						 	
 		<cfset diff = getTotal.days - Form.SalaryDays> 
 	
 		<cfquery name="getTotal" 

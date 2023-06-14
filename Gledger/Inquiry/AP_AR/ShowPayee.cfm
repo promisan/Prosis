@@ -10,10 +10,26 @@
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT   DISTINCT TOP 10 ReferenceName, 
+		SELECT   DISTINCT TOP 10 ReferenceName, ReferenceId,
 		         Currency, 
+				 				 
+				  <cfif url.mode eq "xx">   
+				  
+					  (SELECT    SUM(AmountOutstanding)
+	             	   FROM      Accounting.dbo.TransactionHeader
+	              	   WHERE     TransactionCategory IN ('Advances') 
+					   AND       Mission = '#url.mission#'
+		               AND       ReferenceId = P.ReferenceId 
+					   AND       Currency = P.Currency
+	             	   AND       ActionStatus <> '9' 
+	             	   AND       RecordStatus <> '9' 		              
+					  ) as AmountAdvance,
+				  				  
+				  </cfif>
+				  
 				 SUM(Amount) as Amount, 
 				 SUM(CASE WHEN Amount > 0 THEN AmountOutstanding ELSE AmountOutstanding*-1 END) as Outstanding
+				 
 		FROM     Inquiry_#url.mode#_#session.acc# P
 											 
 				  <cfif client.payables eq "">
@@ -22,7 +38,7 @@
 		         #PreserveSingleQuotes(Client.Payables)#	
 				 </cfif>
 				 
-		GROUP BY ReferenceName, Currency
+		GROUP BY ReferenceName, ReferenceId, Currency
 		ORDER BY SUM(CASE WHEN Amount > 0 THEN AmountOutstanding ELSE AmountOutstanding*-1 END) DESC
 	</cfquery>	
 	
@@ -46,7 +62,7 @@
 		<cf_tl id="Debitor" var="vLabel">		
 	</cfif>
 	
-	<tr class="labelmedium2 fixlengthlist">
+	<tr class="labelmedium fixlengthlist">
 		<td style="border:1px solid silver" align="center"></td>
 		<td style="border:1px solid silver;padding-left:4px"><cf_tl id="#vLabel#"></td>		
 		<td style="border:1px solid silver" align="center"><cf_tl id="Curr"></td>
@@ -55,13 +71,15 @@
 	</tr>
 	
 	<cfoutput query="Payee">
-	<tr class="navigation_row linedotted labelmedium2 fixlengthlist" onclick="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=customer&value=#referencename#','listbox')">
-	    <td align="center">#Currentrow#</td>
-	    <td style="height:19px;padding-left:4px" title="#referencename#">#ReferenceName#</td>		
-		<td style="min-width:40px;padding-right:3px" align="center">#Currency#</td>
-		<td style="min-width:70px;padding-right:3px" align="right">#numberformat(amount,',__')#</td>
-		<td style="min-width:70px;padding-right:3px" align="right">#numberformat(outstanding,',__')#</td>
-	</tr>
+	
+		<tr class="navigation_row linedotted labelmedium fixlengthlist" onclick="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=customer&value=#referencename#','listbox')">
+		    <td align="center">#Currentrow#</td>
+		    <td style="height:19px;padding-left:4px" title="#referencename#">#ReferenceName#</td>		
+			<td style="min-width:40px;padding-right:3px" align="center">#Currency#</td>
+			<td style="min-width:70px;padding-right:3px" align="right">#numberformat(amount,',__')#</td>
+			<td style="min-width:70px;padding-right:3px" align="right">#numberformat(outstanding,',__')#</td>
+		</tr>
+		
 	</cfoutput>
 	
 	</table>

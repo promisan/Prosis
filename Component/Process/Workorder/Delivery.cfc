@@ -14,6 +14,7 @@
         displayname="addDelivery">
 		
 		<cfargument name="Mode" type="string" default="Add" required="yes">
+		
 		<cfargument name="BatchId"                 type="string" required="true">
 		<cfargument name="DataSource"              type="string" default="appsMaterials" required="true">
 		<cfargument name="ServiceDomain"           type="string" default="Shipment"      required="yes">
@@ -75,6 +76,14 @@
 				FROM    WorkOrder.dbo.WorkOrder
 				WHERE   WorkOrderId = '#batchid#'				
 			</cfquery>	
+			
+			<cfif checkPrior.recordcount eq "0">
+			
+			    <!--- this is a POS delvery order and we need to check / record the customer information -from the screen we prepared --->
+			
+			
+			
+			</cfif>
 			
 			<cfquery name="set"
 				datasource="#DataSource#" 

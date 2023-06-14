@@ -172,12 +172,26 @@
 							     onClick="javascript:process('#ActionId#','#attributes.preventProcess#','#Attributes.ajaxid#')">
 							 
 						   <cfelseif actionTrigger neq "">
+						   
+						       <cfif getAdministrator(attributes.Mission) eq "1">
 						   	 
-							  <img src="#SESSION.root#/Images/Processing.png"
-							     alt="Waiting for External Process"
-							     border="0"
-							     align="absmiddle"
-							     style="cursor: pointer; height:25px;">
+								  <img src="#SESSION.root#/Images/Processing.png"
+								     alt="Waiting for External Process"
+								     border="0"
+								     align="absmiddle"
+								     style="cursor: pointer; height:25px;"
+									 onClick="javascript:process('#ActionId#','#attributes.preventProcess#','#Attributes.ajaxid#')">
+								 
+								 <cfelse>
+								 
+								  <img src="#SESSION.root#/Images/Processing.png"
+								     alt="Waiting for External Process"
+								     border="0"
+								     align="absmiddle"
+								     style="cursor: pointer; height:25px;">
+									 
+								 </cfif>	 
+								 
 							 
 						   </cfif>	 
 								 

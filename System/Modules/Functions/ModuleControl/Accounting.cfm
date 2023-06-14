@@ -97,6 +97,8 @@
    FunctionMemo      = "Inquiry Sales receipts"
    FunctionDirectory = "GLedger/Inquiry/"
    FunctionPath      = "ARReceipt/ReceiptListing.cfm">  
+  
+  
    
  <cf_ModuleInsertSubmit
    SystemModule      = "Accounting" 
@@ -150,6 +152,18 @@
    MenuClass         = "Mission"
    ScriptName        = "receivables"    
    AccessUserGroup   = "1">          
+   
+  <cf_ModuleInsertSubmit
+   SystemModule      = "Accounting" 
+   FunctionClass     = "Application"
+   FunctionName      = "Advances" 
+   MenuOrder         = "4"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Review and Process Advances"
+   FunctionIcon      = "Folder"
+   MenuClass         = "Mission"
+   ScriptName        = "advances"    
+   AccessUserGroup   = "1">           
    
    <!---
    FunctionDirectory = "GLedger/Inquiry/"

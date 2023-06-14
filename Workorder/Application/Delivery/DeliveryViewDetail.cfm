@@ -16,6 +16,7 @@
 
 <cfset nat = getCountry.CountryCode>
 
+
 <cfquery name="Deliveries"
 		datasource="appsWorkOrder" 
 		username="#SESSION.login#" 

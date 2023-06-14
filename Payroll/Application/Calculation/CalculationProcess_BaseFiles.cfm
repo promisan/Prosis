@@ -642,6 +642,8 @@ password="#SESSION.dbpw#">
 		
 		<!--- all records of the leg --->
 		
+		
+		
 		<cfloop query="LWOPList">
 		
 			<!--- cover 4 scenarios : 
@@ -1138,6 +1140,7 @@ password="#SESSION.dbpw#">
 						SELECT  *
 						FROM    dbo.sal#SESSION.thisprocess#Payroll
 						WHERE   PersonNo = '#PersonNo#' 
+						
 					</cfquery>				
 			
 					<cfset calcdays = "">
@@ -1206,10 +1209,11 @@ password="#SESSION.dbpw#">
 						  <cfquery name="Days" 
 								datasource="AppsTransaction" 
 								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">						
+								password="#SESSION.dbpw#">	
+																					
 									UPDATE   dbo.sal#SESSION.thisprocess#Payroll 
 									<cfif itm eq "LWOP">
-									SET      PayrollSLWOP   = PayrollSLWOP + #calcdays#
+									SET      PayrollSLWOP   = PayrollSLWOP + #calcdays# 
 									<cfelseif itm eq "SUSPEND">
 									SET      PayrollSUSPEND = PayrollSUSPEND + #calcdays# 									
 									</cfif>							
@@ -1396,7 +1400,7 @@ password="#SESSION.dbpw#">
 						</cfif>
 										
 					</cfif>
-										
+						
 						
 					<!--- obtain the one or sometimes 2 payroll records for this person --->
 					
@@ -1518,8 +1522,8 @@ password="#SESSION.dbpw#">
 								UPDATE   dbo.sal#SESSION.thisprocess#Payroll 
 								
 								<cfif itm eq "LWOP">
-								SET      PayrollSLWOP          = PayrollSLWOP + #tot#,
-										 PayrollDaysCorrectionPointer = '1'
+								SET      PayrollSLWOP          = PayrollSLWOP + #tot#,  
+										 PayrollDaysCorrectionPointer = '1'    
 								<cfelseif itm eq "SUSPEND">
 								SET      PayrollSuspend        = PayrollSuspend + #tot#, 
 										 PayrollDaysCorrectionPointer = '1'	
@@ -1563,9 +1567,11 @@ password="#SESSION.dbpw#">
 							AND      PayrollSuspend > PayrollDays
 							<cfelse>
 							AND      PayrollSickLeave > PayrollDays
-							</cfif>							
+							</cfif>			
+									
 										
 					</cfquery>	
+					
 				
 				</cfif>
 								

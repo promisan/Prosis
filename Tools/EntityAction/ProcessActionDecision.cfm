@@ -9,10 +9,11 @@
 	
 <cfoutput>	
 
-<cfif entityaccess eq "EDIT" or entityaccess eq "ALL" or entityaction eq "READ">
+
+<cfif entityaccess eq "READ" or entityaccess eq "EDIT" or entityaccess eq "ALL">
  
  <tr><td height="4"></td></tr>
- <tr bgcolor="ffffff" height="50">
+ <tr bgcolor="ffffff" style="height:45px" class="line">
  
     <!---
     <td height="29" width="90" style="padding-left:10px;padding-right:10px" class="fixlength labelmedium2">#Action.ActionDescription#:</td>
@@ -346,7 +347,6 @@
       
    <cfif entityaccess eq "EDIT">
    
-      
 	   <cfquery name="getaccess" 
 			datasource="AppsOrganization" 
 			username="#SESSION.login#" 
@@ -366,7 +366,7 @@
 		
 			<tr class="labelmedium2">
 			
-			<td colspan="2" style="color:red;height:35px;background-color:ffffff;font-size:15px">
+			<td colspan="2" style="color:red;background-color:ffffff;font-size:15px">
 			<b>Attention</b> : By confirming, I certify that this action is taken on behalf of <cfif getAccess.Gender eq "M">Mr.<cfelse>Ms.</cfif> #getaccess.firstName# #getAccess.lastName#.								
 			</td>
 			</tr>

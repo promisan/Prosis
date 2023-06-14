@@ -24,16 +24,19 @@ password="#SESSION.dbpw#">
 		WHERE      M.Mission       = '#url.mission#' 
 				
 		AND        R.AccountClass       = 'Balance' <!--- balance --->
-			
-		<cfif url.mode eq "AR">  
-		AND        (R.BankReconciliation = 1 AND R.AccountCategory IN ('Vendor','Neutral') 
-		            OR 
-				    R.AccountCategory = 'Vendor')
+		
+		<cfif url.mode eq "AD">
+		   AND     AccountType        = 'Credit' 
+			AND     AccountCategory    = 'Advance'
+		<cfelseif url.mode eq "AR"> 	
+			AND    AccountType        = 'Debit'   
+			AND    ((BankReconciliation = 1 AND AccountCategory IN ('Vendor','Neutral')) OR AccountCategory = 'Vendor')
 		<cfelse>	
-		AND        R.AccountType        = 'Credit' 
-		AND        R.AccountCategory    = 'Customer'
-		</cfif>	
-								 		   
+			AND     AccountType        = 'Credit' 
+			AND     AccountCategory    = 'Customer'
+		</cfif>
+		
+										 		   
 </cfquery>		
 
 <cfset selaccount = quotedvalueList(Accounts.GLAccount)> 
@@ -68,12 +71,12 @@ password="#SESSION.dbpw#">
     FROM     Inquiry_#url.mode#_#session.acc# D INNER JOIN Accounting.dbo.Journal J	ON D.Journal = J.Journal
 	
 	<cfif getAdministrator(url.mission) eq "0">
-	 AND    D.Journal IN (SELECT ClassParameter 
-	                      FROM   Organization.dbo.OrganizationAuthorization
-	                      WHERE  UserAccount = '#SESSION.acc#' 
-                          AND    Role        = 'Accountant'
-					      AND    Mission     = '#url.Mission#'
-						  )
+	
+	 AND    D.Journal IN ( SELECT ClassParameter 
+	                       FROM   Organization.dbo.OrganizationAuthorization
+	                       WHERE  UserAccount = '#SESSION.acc#' 
+                           AND    Role        = 'Accountant'
+					       AND    Mission     = '#url.Mission#' )
     </cfif>		
 		
 	GROUP BY D.Journal,J.Description,D.Currency   			

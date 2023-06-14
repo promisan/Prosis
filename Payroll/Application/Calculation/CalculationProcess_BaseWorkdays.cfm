@@ -80,16 +80,3 @@
 
 </cfloop>
 
-<cfif Schedule.SalaryBasePeriodDays eq "30fix" and daysInMonth(SALSTR) eq "31">
-
-		<cfquery name="Remove" 
-			datasource="AppsQuery" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				DELETE 
-				FROM userTransaction.dbo.sal#SESSION.thisprocess#Dates
-				WHERE CalendarDate = #date#				
-		</cfquery>	
-
-</cfif>
-

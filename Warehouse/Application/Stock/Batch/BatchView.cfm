@@ -174,9 +174,12 @@ password="#SESSION.dbpw#">
 		
 		function history(id) {
     		ProsisUI.createWindow('history', 'History', '',{x:100,y:100,width:860,height:document.body.clientHeight-75,resizable:false,modal:true,center:true})
-         	ptoken.navigate("#session.root#/Warehouse/Application/Stock/Batch/BatchLog.cfm?id="+id, "history");
-
+         	ptoken.navigate("#session.root#/Warehouse/Application/Stock/Batch/BatchLog.cfm?id="+id, "history");		
+		}
 		
+		function delivery(id) {
+    		ProsisUI.createWindow('delivery', 'Shipping', '',{x:100,y:100,width:860,height:document.body.clientHeight-75,resizable:false,modal:true,center:true})
+         	ptoken.navigate("#session.root#/Warehouse/Application/Stock/Delivery/Delivery.cfm?id="+id, "delivery");		
 		}
 		
 		function lineassetedit(sid,id) {		
@@ -263,7 +266,7 @@ password="#SESSION.dbpw#">
 						
 							<tr id="box3">
 							    <td colspan="5" align="left" style="padding-left:1px">	
-								<textarea style="font-size:13px;padding:3px;width:99%;height:40" name="ActionMemo" class="regular"></textarea>	
+								<textarea style="font-size:13px;padding:3px;width:99%;height:40;background-color:f1f1f1;border:1px solid e1e1e1" name="ActionMemo" class="regular"></textarea>	
 							</td>
 							</tr>
 							

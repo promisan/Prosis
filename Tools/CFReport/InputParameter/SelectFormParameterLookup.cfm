@@ -174,6 +174,7 @@
 									  					
 	<cfquery name="query#CriteriaName#" 
      datasource="#LookupDataSource#" >
+	 
 	     SELECT #dis# #LookupFieldValue#,
 		        #LookupFieldValue# as Grouping,
 		        CONVERT(varchar(36), #LookupFieldValue#) as PK,  
@@ -233,7 +234,8 @@
 		 
 		 #orderby# 
 		 
-	</cfquery>			
+	</cfquery>		
+	
 								
 	<cfif Default.DefaultValue neq "">
 				
@@ -254,7 +256,7 @@
          </cfloop>				 
 				 
 		 <cfif tmp neq "">
-	 					
+		 	 					
 			 <cfquery name="query#CriteriaName#" 
 				dbtype="query">
 				
@@ -306,7 +308,7 @@
 					<cfset temp = querysetcell(queryMission, "Grouping",getMission.MissionType,currentrow)>
 					
 				</cfloop>	
-								
+												
 				 <cfquery name="query#CriteriaName#" dbtype="query">
 						SELECT *
 						FROM   query#CriteriaName#
@@ -339,6 +341,8 @@
 				</cfselect>
 				
 				<cfelse>
+				
+				
 								
 				<cf_UIselect name = "#CriteriaName#"
 							selected       = "#DefaultValue#"
@@ -361,9 +365,11 @@
 								</cfif>
 				</cf_UIselect>
 				
+				
 				</cfif>
 			
 			<cfelse>
+			
 			
 				<cfset qValues = evaluate("query#CriteriaName#")> 
 					
@@ -388,12 +394,13 @@
 						</cfif>  
 					</cf_UIselect>
 				
+				
 			</cfif>		
 		
 		<cfelse>		
 		   		   
 		   <cfset qValues = evaluate("query#CriteriaName#")> 
-		   		   					
+		 		   		   					
 		   <CF_UIselect name   = "#CriteriaName#"
 		        size           = "1"
 		        class          = "regularxxl"
@@ -413,7 +420,7 @@
 				</cfloop>
 											
 			</CF_UIselect>
-					
+								
 		</cfif>
 								
 		</td></tr>
@@ -555,7 +562,8 @@
 				        #preserveSingleQuotes(Crit)#
 				        #orderby#				  
 			</cfquery>	
-												
+			
+																		
 			<cfif t eq "1">
 			
 			     <cftry>
@@ -586,8 +594,8 @@
 			   <cfset tmp = "''">
 			 </cfif>
 			 
-			 <cfif Default.DefaultValue eq "">
-			 			 			 
+			 <cfif Default.DefaultValue eq "">			 
+			   			 			 			 
 			 	<cftry>
 			 	
 					 <cfquery name="query#CriteriaName#" 
@@ -604,8 +612,13 @@
 						 WHERE  PK NOT IN (#preserveSingleQuotes(tmp)#)	
 						 <cfif missionaccessfilter neq "">
 						 AND    PK IN (#preserveSingleQuotes(missionaccessfilter)#)
-						 </cfif>		
-					 </cfquery>							
+						 </cfif>	
+						 <cfif LookupFieldSorting neq "">
+						 ORDER BY Sorting
+						 </cfif>
+						 				
+					 </cfquery>		
+						
 				
 				 <cfcatch>				
 				 
@@ -619,7 +632,8 @@
 									
 				 </cfcatch>		 
 				
-				</cftry>		  	
+				</cftry>		
+					
 							
 			<cfelse>
 														
@@ -733,6 +747,8 @@
 				--->
 				
 				
+				
+				
 				<cfset qValues = evaluate("query#CriteriaName#")> 
 								
 				<cf_UIselect name   = "#CriteriaName#"
@@ -744,6 +760,7 @@
 					width           = "#sizeU#"
 					style           = "width:100%"
 					tooltip         = "#CriteriaMemo#"
+					filter          = "contains"
 					label           = "#CriteriaDescription#:"
 					query           = "#qValues#"
 					value           = "PK"
@@ -755,6 +772,8 @@
 					--->
 									
 			<cfelse>	
+			
+			
 			
 				<!---	
 									
@@ -779,6 +798,7 @@
 						 style          = "min-width:100%"
 						 queryposition  = "below"
 						 tooltip        = "#CriteriaMemo#"
+						 filter         = "contains"
 						 class          = "regularXXL"
 						 selected       = "#defaultValue#"
 						 value          = "PK"

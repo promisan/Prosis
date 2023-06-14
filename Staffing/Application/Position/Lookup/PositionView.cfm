@@ -1,5 +1,12 @@
 <cfoutput>
 
+<cfparam name="url.personno"    default="">
+<cfparam name="url.applicantno" default="">
+<cfparam name="url.customerid"  default="">
+<cfparam name="url.recordid"    default="">
+<cfparam name="url.documentno"  default="">
+<cfparam name="url.mandateno"   default="0000">
+
 <cf_tl id="Position Lookup" var="1">
 
 <cfinclude template="../../../../Vactrack/Application/Document/Dialog.cfm">
@@ -8,25 +15,22 @@
    
 <cf_layoutscript>
 
-<cfajaximport tags="cfform">
-
 <cfoutput>  
 
 	<script language="JavaScript">
 	
-		function reloadTree(man) {
-	        ptoken.navigate('PositionTree.cfm?&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#&source=#url.source#&Mission=#URL.Mission#&MandateNo='+man,'tree');
-	    }
+	//	function reloadTree(man) {
+	//        ptoken.navigate('PositionTree.cfm?&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#&source=#url.source#&Mission=#URL.Mission#&MandateNo='+man,'tree');
+	//    }
 	
 		function clearno() 
 			{ document.getElementById("find").value = "" }
 	
-		function search() {
-			
-		 se = document.getElementById("find")	
-		 if (window.event.keyCode == "13") {	
-		    findme()		
-			}						
+		function search() {			
+			 se = document.getElementById("find")	
+			 if (window.event.keyCode == "13") {	
+			    findme()		
+				}						
 	    }
 		
 		function findme() {		
@@ -42,12 +46,17 @@
 		     	ptoken.location('#SESSION.root#/Staffing/Application/Assignment/AssignmentEntry.cfm?source=' + source + '&id=' + positionno + '&applicantno=' + applicantno + '&personno=' + personno + '&recordid=' + recordid + '&documentno=' + documentno); 
 		       //ptoken.open("#SESSION.root#/Staffing/Application/Assignment/AssignmentEntry.cfm?ts="+new Date().getTime()+"&source=" + source + "&id=" + positionno + "&applicantno=" + applicantno + "&personno=" + personno + "&recordid=" + recordid + "&documentno=" + documentno, "_top");
 			 <cfelse>
-			 ptoken.open("#SESSION.root#/Staffing/Application/Assignment/AssignmentEntry.cfm?ts="+new Date().getTime()+"&source=" + source + "&id=" + positionno + "&applicantno=" + applicantno + "&personno=" + personno + "&recordid=" + recordid + "&documentno=" + documentno, "PositionLookup");		 
+			    ptoken.open("#SESSION.root#/Staffing/Application/Assignment/AssignmentEntry.cfm?ts="+new Date().getTime()+"&source=" + source + "&id=" + positionno + "&applicantno=" + applicantno + "&personno=" + personno + "&recordid=" + recordid + "&documentno=" + documentno, "PositionLookup");		 
 			 </cfif>
 		}
 		
+		
 		function transfer(source, positionno, personno, assignmentno, positionold) {		
-		    ptoken.open("#SESSION.root#/Staffing/Application/Assignment/AssignmentEdit.cfm?source=" + source + "&positionno=" + positionno + "&id=" + personno + "&Caller=P&id1=" + assignmentno + "&positionold=" + positionold, "_parent");
+		    <cfif url.source eq "cus">				  
+			   parent.ptoken.navigate('#session.root#/Warehouse/Application/Customer/Outreach/CustomerPositionEntry.cfm?customerid=#url.customerid#&positionno='+positionno,'customer')
+			<cfelse>
+			    ptoken.open("#SESSION.root#/Staffing/Application/Assignment/AssignmentEdit.cfm?source=" + source + "&positionno=" + positionno + "&id=" + personno + "&Caller=P&id1=" + assignmentno + "&positionold=" + positionold, "_parent");
+			</cfif>	
 		}
 		
 		function associate(source, positionno, recordid, documentno) {
@@ -188,6 +197,7 @@
 			<cf_divscroll style="height:100%;padding-right:4px">			
 			<table width="97%" height="100%" style="padding-left:20px;padding-right:20px">				
 			<tr><td id="listresult" style="padding-top:5px" valign="top" align="center" height="100%" class="labelmedium">	
+			
 				<cfinclude template="PositionListing.cfm">				
 				</td>
 			</tr>

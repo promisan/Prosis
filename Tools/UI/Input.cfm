@@ -109,7 +109,7 @@
 						<input type="text"   id="#attributes.name#" name="#attributes.name#" />
 					</td>	
 					<td align="left" style="padding-right:2px;padding-left:2px;border-left:1px solid silver">
-						<img   id="_#attributes.name#" name="_#attributes.name#" style="height:22px" src="<cfoutput>#client.root#/images/mapicons/#attributes.color#_#attributes.value#.png</cfoutput>"/>
+						<img id="_#attributes.name#" name="_#attributes.name#" style="height:22px" src="<cfoutput>#client.root#/images/mapicons/#attributes.color#_#attributes.value#.png</cfoutput>"/>
 					</td>
 				</tr>		
 			</table>									
@@ -117,6 +117,7 @@
 		</cfoutput>	
 				
 		<cfif attributes.ajax eq false>
+		
 			<script>
 			
 			$(document).ready(function() {
@@ -133,8 +134,7 @@
 						$('#_<cfoutput>#attributes.name#</cfoutput>').attr('src','<cfoutput>#client.root#</cfoutput>/images/mapicons/'+colorId+'_'+value+'.png');						
 		            }					
 		        });							
-				
-					
+									
 				$('#<cfoutput>#attributes.name#</cfoutput>').kendoDropDownList({
 				  optionLabel: {
 				        name: "Pin",

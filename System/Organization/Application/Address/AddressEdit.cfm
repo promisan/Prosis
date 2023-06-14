@@ -138,8 +138,15 @@ password="#SESSION.dbpw#">
 	
 	<TR>
 	    <TD class="labelmedium" style="height:34;width:20;padding-left:5px">
+		
+		<!---
+		<cfoutput>
+		<input type="color" value="###Address.markerColor#">
+		</cfoutput>
+		--->
+		
 		<cfif client.googlemap eq "1">
-		<cf_space spaces="32">
+		<cf_space spaces="50">
 		<cfelse>
 		<cf_space spaces="50">
 		</cfif>

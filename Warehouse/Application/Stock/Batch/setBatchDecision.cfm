@@ -131,7 +131,11 @@
 							
 			</cfif>
 			
+			<!---
+			
 			<cfif Batch.DeliveryMode eq "1">
+			
+			--->
 			
 				<!--- trigger a kuntz delivery workorder object --->
 												
@@ -140,7 +144,14 @@
 				   datasource       = "appsMaterials"
 				   batchId          = "#Batch.BatchId#">			
 		
+		    <!---
 			</cfif>
+			--->
+			
+			
+			<cfoutput>#Batch.DeliveryMode#</cfoutput>
+			xxxxxxxxx
+			<cfabort>
 			
 			<!--- if the transaction is a sales transaction we determine if something has changed to trigger reposting --->
 			

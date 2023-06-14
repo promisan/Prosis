@@ -1,5 +1,5 @@
 
-<cfinvoke component      = "Service.Process.System.UserController"  
+<cfinvoke component       = "Service.Process.System.UserController"  
 	    method            = "ValidateFunctionAccess"  
 		SessionNo         = "#client.SessionNo#" 
 		ActionTemplate    = "TimeView/View.cfm"

@@ -166,8 +166,8 @@
 </cfif>
 
 <cfoutput>
+				     
 
-							     
 <cfloop index="unit" list="#unitchecked#">
 			
     <!--- note we can tune this queries to make just one main query and then loop through this --->
@@ -192,10 +192,11 @@
 		
 		<cfsavecontent variable="jRelated">[<cfloop query="qChildren">{"name":"#qChildren.WorkOrderLineId#"},</cfloop>{}]</cfsavecontent>
 		 
-		<cfif getBranchAddress.markercolor neq "">
 				
+		<cfif getBranchAddress.markercolor neq "">
+						
 			<cfif getbranchaddress.postalcode neq "">
-			
+									
 			    <cfset postal = replaceNoCase(getbranchaddress.PostalCode," ","","ALL")>
 				<cfset postal = replaceNoCase(postal,"'","","ALL")>
 				<cfset postal = replaceNoCase(postal,"`","","ALL")> 
@@ -208,7 +209,7 @@
 						SELECT *
 						FROM   PostalCode
 						WHERE  Country    = '#nat#'
-						AND    PostalCode = '#postal#'
+						AND    PostalCode = '#postal#' 
 				</cfquery>		
 																					
 				<cfif check.recordcount eq "0">		
@@ -268,7 +269,7 @@
 					</cfif>		  	
 												
 				<cfelse>		
-				
+								
 					<cfset vLatitude = check.latitude>
 					<cfset vLongitude = check.longitude>						
 				

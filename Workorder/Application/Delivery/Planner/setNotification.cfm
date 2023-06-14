@@ -44,6 +44,6 @@
 <cfoutput>
 	<script>		
 	_cf_loadingtexthtml='';	
-	ColdFusion.navigate('Planner/setScheduled.cfm?mission=#workorder.mission#&date=#url.dts#','scheduled')
+	ptoken.navigate('Planner/setScheduled.cfm?mission=#workorder.mission#&date=#url.dts#','scheduled')
 	</script>
 </cfoutput>

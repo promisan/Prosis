@@ -35,6 +35,8 @@
 	
 	<cfset lat = url.latitude>
 	<cfset lng = url.longitude>
+	
+	<script>alert('here')</script>
 			
 	<!--- Hanno 07/12/2011 : limit the search here as the method is giving issues --->
 	

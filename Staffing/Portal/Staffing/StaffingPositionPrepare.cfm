@@ -110,8 +110,8 @@
 			                         PersonAssignment AS PA ON P.PositionNo = PA.PositionNo
 			             WHERE       P.Mission = '#url.mission#' 
 						 AND         PA.AssignmentStatus IN ('0', '1') 
-						 AND         PA.DateEffective < GETDATE() 
-						 AND         PA.DateExpiration > GETDATE()
+						 AND         PA.DateEffective  <= GETDATE() 
+						 AND         PA.DateExpiration >= GETDATE()
 						           ) AS D 
 				   INNER JOIN Person ON D.PersonNo = Person.PersonNo 
 				   INNER JOIN Organization.dbo.Organization O ON D.OrgUnitOperational = O.OrgUnit
@@ -164,8 +164,8 @@
 					 					
 		FROM        vwPosition vw
 		WHERE       Mission = '#URL.Mission#' 
-		AND         DateEffective  < '#url.selection#' 
-		AND         DateExpiration > '#url.selection#'
+		AND         DateEffective  <= '#url.selection#' 
+		AND         DateExpiration >= '#url.selection#'
 		
 		<!--- limit access to positions for which this person is HRA --->
 		
@@ -228,8 +228,8 @@
 						 					
 			FROM        vwPosition vw
 			WHERE       Mission = '#URL.Mission#' 
-			AND         DateEffective  < '#url.selection#' 
-			AND         DateExpiration > '#url.selection#'
+			AND         DateEffective  <= '#url.selection#' 
+			AND         DateExpiration >= '#url.selection#'
 			
 			<!--- limit access to positions for which this person is HRA --->
 					

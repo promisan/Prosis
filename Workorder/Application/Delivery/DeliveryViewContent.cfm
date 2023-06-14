@@ -57,7 +57,8 @@
 			) F
 			
 		    GROUP BY F.OrgUnit, F.OrgUnitName, F.OrganizationCategory
-		    ORDER BY F.OrganizationCategory,F.OrgUnitName				   
+		    ORDER BY F.OrganizationCategory,F.OrgUnitName			
+			 
 	</cfquery>	
 		
 
@@ -171,7 +172,8 @@
 							</td>			
 							<td width="20" align="right" style="padding-right:3px">
 	
-								<cfif url.step neq "final">						
+								<cfif url.step neq "final">		
+											
 									<input  type="checkbox" style="height:15px;width:15px;position: relative;" name="select_#OrgUnit#" id="select_#OrgUnit#" value="1" onclick="toggle(this.checked,'box_#orgunit#','partial','rowdetail_#OrgUnit#','#orgunit#')" class="selector">
 								</cfif>					
 							

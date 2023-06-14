@@ -1099,9 +1099,9 @@ password="#SESSION.dbpw#">
 											<cfif (EditAccess eq "GRANTED" or FullAccess eq "GRANTED") and location.BillingMode eq "External" and TransactionQuantity lt "0" and BillingStatus eq "0">
 											
 												<cfif BillingMode eq "External">
-												     <input type="checkbox" name="BillingMode_#transactionid#" value="External" checked onclick="ColdFusion.navigate('StockTransactionBillingMode.cfm?transactionid=#transactionid#&selected='+this.checked,'process')">
+												     <input type="checkbox" name="BillingMode_#transactionid#" value="External" checked onclick="ptoken.navigate('StockTransactionBillingMode.cfm?transactionid=#transactionid#&selected='+this.checked,'process')">
 												<cfelse>
-												     <input type="checkbox" name="BillingMode_#transactionid#" value="External" onclick="ColdFusion.navigate('StockTransactionBillingMode.cfm?transactionid=#transactionid#&selected='+this.checked,'process')">						
+												     <input type="checkbox" name="BillingMode_#transactionid#" value="External" onclick="ptoken.navigate('StockTransactionBillingMode.cfm?transactionid=#transactionid#&selected='+this.checked,'process')">						
 												</cfif>
 												
 											<cfelse>

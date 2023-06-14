@@ -79,18 +79,18 @@ password="#SESSION.dbpw#">
 </cfquery>
 	
 	<br>
-	<table width="98%" align="center" border="0" class="navigation_table" cellspacing="0" cellpadding="0">
+	<table width="98%" align="center" class="navigation_table">
 	
-	<tr><td colspan="5" class="labelmedium">
+	<tr><td colspan="5" class="labelmedium2" style="font-size:20px">
 	
 		<font color="B0B0B0">Record Additional information on this report</font></td></tr>
 
 	<tr><td height="4"></td></tr>
-	<tr class="labelit line">
+	<tr class="labelmedium2 line fixlengthlist">
 	    <td width="16"></td>
-		<td width="70%">Memo</td>
-		<td>Officer</td>
-		<td>Date/Time</td>
+		<td width="70%"><cf_tl id="Memo"></td>
+		<td><cf_tl id="Officer"></td>
+		<td><cf_tl id="Date/Time"></td>
 		<td align="center"></td>
 	
 	</tr>
@@ -102,30 +102,30 @@ password="#SESSION.dbpw#">
 		<tr bgcolor="ffffff">
 		    <td>#currentrow#.</td>
 			<td colspan="4" align="center" style="padding-top:3px">
-			<textarea name="ReportMemo" class="regular" style="padding:3px;font-size:12px;width: 100%;height:100">#reportMemo#</textarea>
+			<textarea name="ReportMemo" class="regular" style="background-color:f1f1f1;border:0px;padding:3px;font-size:12px;width: 96%;height:100">#reportMemo#</textarea>
 			</td>
 		</tr>
 		
 		<tr>
 		<td colspan="5" align="center" style="padding:2px">
-		    <input type="button" name="Save" id="Save" value="Delete" style="width:100" class="button10g" onclick="ColdFusion.navigate('RecordMemo.cfm?action=del&controlid=#url.ControlId#&memoid=#memoid#','contentbox6','','','POST','entry')">
-			<input type="button" name="Save" id="Save" value="Save" style="width:100" class="button10g" onclick="ColdFusion.navigate('RecordMemo.cfm?action=sav&controlid=#url.ControlId#&memoid=#memoid#','contentbox6','','','POST','entry')">	
+		    <input type="button" name="Save" id="Save" value="Delete" style="width:150" class="button10g" onclick="ptoken.navigate('RecordMemo.cfm?action=del&controlid=#url.ControlId#&memoid=#memoid#','contentbox6','','','POST','entry')">
+			<input type="button" name="Save" id="Save" value="Save" style="width:150" class="button10g" onclick="ptoken.navigate('RecordMemo.cfm?action=sav&controlid=#url.ControlId#&memoid=#memoid#','contentbox6','','','POST','entry')">	
 		</td>
 		</tr>
 	
 	<cfelse>
 	
 	    <cfif SESSION.acc eq OfficerUserId>
-		<tr class="navigation_row line">
+		<tr class="navigation_row line fixlengthlist labelmedium2">
 		<cfelse>
-		<tr class="navigation_row line">
+		<tr class="navigation_row line fixlengthlist labelmedium2">
 		</cfif>
-		    <td class="labelit" style="width:30px;padding-left:4px!important">#currentrow#.</td>
-			<td class="labelit" width="60%" style="padding-left:6px;">#paragraphformat(ReportMemo)#</td>
-			<td class="labelit">#OfficerFirstName# #OfficerLastName#</td>
-			<td class="labelit" width="140">#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>
-			<td class="labelit" align="center" style="padding-left:3px;padding-right:5px">			
-				<cf_img icon="edit" navigation="Yes" onclick="ColdFusion.navigate('RecordMemo.cfm?controlid=#url.controlid#&memoid=#memoid#','contentbox6')">						
+		    <td style="width:30px;padding-left:4px!important">#currentrow#.</td>
+			<td style="padding-left:6px;">#paragraphformat(ReportMemo)#</td>
+			<td>#OfficerFirstName# #OfficerLastName#</td>
+			<td">#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>
+			<td align="center" style="padding-left:3px;padding-right:5px">			
+				<cf_img icon="edit" navigation="Yes" onclick="ptoken.navigate('RecordMemo.cfm?controlid=#url.controlid#&memoid=#memoid#','contentbox6')">						
 			</td>
 		</tr>		
 			
@@ -141,12 +141,12 @@ password="#SESSION.dbpw#">
 		<tr bgcolor="ffffff">
 		<td style="width:30px;padding-left:4px!important;padding-top:4px" valign="top" class="cenllcontent"><cfoutput>#memo.recordcount+1#.</cfoutput></td>
 		<td colspan="4" align="left" style="padding-top:4px">
-		     <textarea name="ReportMemo" class="regular" style="padding:3px;font-size:12px;width: 94%;height:100"></textarea>
+		     <textarea name="ReportMemo" class="regular" style="background-color:f1f1f1;border:0px;padding:3px;font-size:12px;width: 96%;height:100"></textarea>
 		</td>
 		</tr>
 		<tr><td colspan="5" align="center" style="padding:2px">
 		    <cfoutput>
-				<input type="button" name="Save" id="Save" value="Add Memo"  style="width:100" class="button10s" onclick="ColdFusion.navigate('RecordMemo.cfm?controlid=#url.controlid#&memoid=#memoid#','contentbox6','','','POST','entry')">
+				<input type="button" name="Save" id="Save" value="Add Memo"  style="width:200px" class="button10s" onclick="ColdFusion.navigate('RecordMemo.cfm?controlid=#url.controlid#&memoid=#memoid#','contentbox6','','','POST','entry')">
 			</cfoutput>
 		</td></tr>
 

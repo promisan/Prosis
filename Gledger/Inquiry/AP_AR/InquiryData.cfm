@@ -13,14 +13,16 @@
 				   Ref_AccountMission M ON R.GLAccount = M.GLAccount							   
 		WHERE      M.Mission       = '#url.mission#' 				
 		AND        R.AccountClass       = 'Balance' <!--- balance --->			
-		<cfif url.mode eq "AR">  
-		AND        (R.BankReconciliation = 1 AND R.AccountCategory IN ('Vendor','Neutral') 
-		            OR 
-				    R.AccountCategory = 'Vendor')
+		<cfif url.mode eq "AD">
+	    AND     AccountType        = 'Credit' 
+		AND     AccountCategory    = 'Advance'
+		<cfelseif url.mode eq "AR"> 	
+			AND    AccountType        = 'Debit'   
+			AND    ((BankReconciliation = 1 AND AccountCategory IN ('Vendor','Neutral')) OR AccountCategory = 'Vendor')
 		<cfelse>	
-		AND        R.AccountType        = 'Credit' 
-		AND        R.AccountCategory    = 'Customer'
-		</cfif>	
+			AND     AccountType        = 'Credit' 
+			AND     AccountCategory    = 'Customer'
+		</cfif>
 						 		   
 </cfquery>		
 
@@ -31,6 +33,8 @@
     <cfset journalfilter = "'Payables','Payment','DirectPayment'">
 	--->
 	<cfset journalfilter = "'Payables','Direct Payment'">
+<cfelseif url.mode eq "AD">	
+    <cfset journalfilter = "'Advances'">
 <cfelse>
     <cfset journalfilter = "'Receivables'">
 </cfif>	
@@ -51,87 +55,96 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">	
 					
-				SELECT   DISTINCT P.Journal, 
-				         P.JournalSerialNo, 
-						 P.JournalTransactionNo, 
-						 P.JournalBatchNo, 
-						 P.Mission, 
-						 P.OrgUnitOwner, 
-						 
-						 (SELECT V.ActionDescriptionDue
-       				   FROM   userQuery.dbo.#SESSION.acc#wfLedger V WHERE ObjectkeyValue4 = P.TransactionId) as ActionDescriptionDue,	 
-						 
-						 P.TransactionSource, 
-						 P.TransactionDate, 
-			             P.TransactionId, 
-						 P.AccountPeriod, 
-					     P.TransactionCategory, 
-					     P.MatchingRequired, 
-					     P.ReferenceOrgUnit, 
-					     O.OrgUnitName AS ReferenceOrgUnitName,
-					     P.ReferencePersonNo, 
-					     P.Reference, 
-						 
-						 (CASE WHEN TransactionSource = 'SalesSeries' THEN
-                                 (SELECT    TOP 1 CustomerName
-                                  FROM      Materials.dbo.Customer C INNER JOIN
-                                            Materials.dbo.WarehouseBatch B ON C.Customerid = B.CustomerId
-                                  WHERE     BatchId = P.TransactionSourceId) 
-							   
-						   ELSE P.ReferenceName END) AS ReferenceName,
+			SELECT   DISTINCT P.Journal, 
+			         P.JournalSerialNo, 
+					 P.JournalTransactionNo, 
+					 P.JournalBatchNo, 
+					 P.Mission, 
+					 P.OrgUnitOwner, 
+					 
+					 (SELECT V.ActionDescriptionDue
+      				   FROM   userQuery.dbo.#SESSION.acc#wfLedger V WHERE ObjectkeyValue4 = P.TransactionId) as ActionDescriptionDue,	 
+					 
+					 P.TransactionSource, 
+					 P.TransactionDate, 
+		             P.TransactionId, 
+					 P.AccountPeriod, 
+				     P.TransactionCategory, 
+				     P.MatchingRequired, 
+				     P.ReferenceOrgUnit, 
+				     O.OrgUnitName AS ReferenceOrgUnitName,
+				     P.ReferencePersonNo, 
+				     P.Reference, 
+					 
+					 (CASE WHEN TransactionSource = 'SalesSeries' THEN
+                                (SELECT    TOP 1 CustomerName
+                                 FROM      Materials.dbo.Customer C INNER JOIN
+                                           Materials.dbo.WarehouseBatch B ON C.Customerid = B.CustomerId
+                                 WHERE     BatchId = P.TransactionSourceId) 
+						   
+					   ELSE P.ReferenceName END) AS ReferenceName,
 
-						 LEFT(P.Description,35) as Description,
-						 
-						 (	 SELECT TOP 1 GLAccount
-							 FROM   TransactionLine
-							 WHERE  Journal = P.Journal 
-							 AND    JournalSerialNo = P.JournalSerialNo 
-							 AND    TransactionSerialNo = '0') as GLAccount,
-																	 
-						 (	SELECT SUM(AmountCredit-AmountDebit)
-						 	FROM   TransactionLine 
-						 	WHERE  Journal = P.Journal 
-						 	AND    JournalSerialNo = P.JournalSerialNo 
-						 	AND    TransactionSerialNo = '0') as GLAmount,
-						 
-						 ISNULL(TransactionReference,
-								(SELECT   TOP 1 T.ActionReference1
-											FROM     TransactionHeaderAction T, Ref_Action R
-											WHERE    T.ActionCode      = R.Code
-											AND      T.ActionReference1 IS NOT NULL
-											AND      T.Journal         = P.Journal
-											AND      T.JournalSerialNo = P.JournalSerialNo
-											AND      T.ActionCode      = 'Invoice'
-											ORDER BY R.Code, ActionDate DESC)) AS TransactionReference,				 
-																
-						 <!--- -------------------------------- --->
-						 	
-			             P.ReferenceNo, 
-					     P.ReferenceId, 
-					     P.DocumentCurrency, 
-					     P.DocumentAmount, 
-					     P.DocumentDate, 
-					     P.ExchangeRate, 
-					     P.Currency, 
-					     P.Amount, 
-					     P.AmountOutstanding, 				 
-						 
-					     P.ActionType, 
-			             P.ActionTerms, 
-					     P.ActionDiscountDays, 
-					     P.ActionDiscount, 
-					     P.ActionDiscountDate, 
-					     P.ActionBefore, 
-					     P.ActionBankId, 
-					     P.ActionAccountNo, 
-					     P.ActionAccountName, 
-			             P.ActionStatus,
-						 P.OfficerUserId,
-						 P.OfficerLastName,
-						 P.OfficerFirstName,
-						 P.Created,
-						 <!--- overdue --->
-						 DATEDIFF(dd,CASE WHEN ActionBefore = '' THEN ActionBefore ELSE DocumentDate END,CONVERT(datetime,getDate())) - 0 as Days
+					 LEFT(P.Description,35) as Description,
+					 
+					 (	 SELECT TOP 1 GLAccount
+						 FROM   TransactionLine
+						 WHERE  Journal = P.Journal 
+						 AND    JournalSerialNo = P.JournalSerialNo 
+						 AND    TransactionSerialNo = '0') as GLAccount,
+																 
+					 (	SELECT SUM(AmountCredit-AmountDebit)
+					 	FROM   TransactionLine 
+					 	WHERE  Journal = P.Journal 
+					 	AND    JournalSerialNo = P.JournalSerialNo 
+					 	AND    TransactionSerialNo = '0') as GLAmount,
+					
+					<cfif url.mode neq "AR">
+						
+					 TransactionReference,
+					 
+					 <cfelse>
+					 
+					 <!--- invoice reference --->
+					 ISNULL(TransactionReference,
+							(SELECT   TOP 1 T.ActionReference1
+										FROM     TransactionHeaderAction T, Ref_Action R
+										WHERE    T.ActionCode      = R.Code
+										AND      T.ActionReference1 IS NOT NULL
+										AND      T.Journal         = P.Journal
+										AND      T.JournalSerialNo = P.JournalSerialNo
+										AND      T.ActionCode      = 'Invoice'
+										ORDER BY R.Code, ActionDate DESC)) AS TransactionReference,				 
+															
+					 <!--- -------------------------------- --->
+					 
+					 </cfif>
+					 	
+		             P.ReferenceNo, 
+				     P.ReferenceId, 
+				     P.DocumentCurrency, 
+				     P.DocumentAmount, 
+				     P.DocumentDate, 
+				     P.ExchangeRate, 
+				     P.Currency, 
+				     P.Amount, 
+				     P.AmountOutstanding, 				 
+					 
+				     P.ActionType, 
+		             P.ActionTerms, 
+				     P.ActionDiscountDays, 
+				     P.ActionDiscount, 
+				     P.ActionDiscountDate, 
+				     P.ActionBefore, 
+				     P.ActionBankId, 
+				     P.ActionAccountNo, 
+				     P.ActionAccountName, 
+		             P.ActionStatus,
+					 P.OfficerUserId,
+					 P.OfficerLastName,
+					 P.OfficerFirstName,
+					 P.Created,
+					 <!--- overdue --->
+					 DATEDIFF(dd,CASE WHEN ActionBefore = '' THEN ActionBefore ELSE DocumentDate END,CONVERT(datetime,getDate())) - 0 as Days
 						 
 				<cfif url.orgunit eq "">		 
 										 
@@ -202,6 +215,9 @@
 						  )
 				
 	</cfquery>
-		
+	
+	<!---
+	<cfoutput>#cfquery.executiontime#</cfoutput>		
+	--->
 
 </cftransaction>

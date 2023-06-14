@@ -143,7 +143,6 @@ function openreference(id) {
 		<tr class="labelmedium">				    		   
 	    	<td width="10" style="padding:4px"></td>
 			<td style="font-size:16px;border:1px solid silver;padding:4px">
-				
 						
 				
 				<cfif Batch.BatchClass eq "WhsSale">				
@@ -210,7 +209,7 @@ function openreference(id) {
 			<td width="80" style="border-left:0px dotted silver;padding-left:20px"><font color="808080"><cf_tl id="Warehouse"></td>
 			<td colspan="3" style="font-size:16px;border:1px solid silver;padding-left:4px;">#Warehouse.WarehouseName#<br><font size="1">#Warehouse.City# #Warehouse.Address#</td>
 			<td style="min-width:100px;border-left:0px dotted silver;padding-left:20px;"><font color="808080"><cf_tl id="Document date"></td>
-			<td style="font-size:16px;border:1px solid silver;padding:4px">#dateformat(Batch.TransactionDate,CLIENT.DateFormatShow)#</td>	
+			<td align="center" style="font-size:16px;border:1px solid silver;padding:4px">#dateformat(Batch.TransactionDate,CLIENT.DateFormatShow)#</td>	
 			
 			<cfif batch.transactiontype eq "2" or batch.transactiontype eq "8">
 			
@@ -454,7 +453,7 @@ function openreference(id) {
 					</cfif>
 			</td>	
 			
-			<td class="fixlength" style="border-left:0px dotted silver;padding-left:5px"><font color="808080"><cf_tl id="Last entry">:</td>
+			<td class="fixlength" style="border-left:0px dotted silver;padding-left:5px"><font color="808080"><cf_tl id="Last update">:</td>
 			<td id="usage" class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">   								   
 					
 					<cfquery name="getTra"
@@ -468,7 +467,7 @@ function openreference(id) {
 					</cfquery>
 																				
 						#dateformat(getTra.Created,client.dateformatshow)#
-						#timeformat(getTra.Created,"HH:MM")#<br>
+						#timeformat(getTra.Created,"HH:MM")#
 						<font size="1">#getTra.officerLastName#</font>
 					
 					
@@ -503,6 +502,18 @@ function openreference(id) {
 				</cfquery>
 				
 			    <td colspan="3" style="background-color:ffffaf;font-size:16px;border:1px solid silver;padding:4px">#Address.AddressCity# / #Address.Country#</td>		    					
+				
+				<td width="40" class="fixlength" style="border-left:0px dotted silver;padding-left:20px"><font color="808080"><cf_tl id="Shipping">:</td>
+				<td id="shipping" colspan="3" class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">   
+				
+				        <table style="width:100%"><tr><td align="right">
+				
+						<input type="button" name="Shipping" value="Shipping" class="button10g" onclick="delivery('#batch.BatchId#')">
+						
+						</td></tr></table>
+				
+				</td>	
+			
 			</tr>
 		
 		

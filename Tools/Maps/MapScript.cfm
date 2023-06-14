@@ -35,7 +35,7 @@
 	}
 			
 	function mapaddress(scope) {	
-			   
+		   			   
 	    add   = document.getElementById('address').value	    								
 		cit   = document.getElementById('addresscity').value		
 		cou   = document.getElementById('country').value		
@@ -43,9 +43,9 @@
 		_cf_loadingtexthtml='';
 		if (scope != 'dialog') {
 		// _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy11.gif'/>";	
-   		ColdFusion.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=#scope#&mode=#mode#&width=#width#&height=#height#&country='+cou+'&city='+cit+'&address='+add,'mapcontent')	 
+   		ptoken.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=#scope#&mode=#mode#&width=#width#&height=#height#&country='+cou+'&city='+cit+'&address='+add,'mapcontent')	 
 		} else {
-		ColdFusion.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=dialog&mode=#mode#&width=#width#&height=#height#&country='+cou+'&city='+cit+'&address='+add,'mapcontent')	 		
+		ptoken.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=dialog&mode=#mode#&width=#width#&height=#height#&country='+cou+'&city='+cit+'&address='+add,'mapcontent')	 		
 		}
 		
 	}
@@ -54,7 +54,7 @@
 	
 	 	cou = document.getElementById('country').value		
 		zip = document.getElementById('addresspostalcode').value
-   		ColdFusion.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=#scope#&mode=#mode#&width=#width#&height=#height#&country='+cou+'&postalcode='+zip,'mapcontent')	 
+   		ptoken.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=#scope#&mode=#mode#&width=#width#&height=#height#&country='+cou+'&postalcode='+zip,'mapcontent')	 
 		
 	}
 	 
@@ -62,9 +62,9 @@
 	 	lat = document.getElementById('cLatitude').value
 		lng = document.getElementById('cLongitude').value
 		if (scope != 'dialog') {
-   		ColdFusion.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=#scope#&mode=#mode#&width=#width#&height=#height#&latitude='+lat+'&longitude='+lng,'mapcontent')	 
+   		ptoken.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=#scope#&mode=#mode#&width=#width#&height=#height#&latitude='+lat+'&longitude='+lng,'mapcontent')	 
 		} else {
-		ColdFusion.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=dialog&mode=#mode#&width=#width#&height=#height#&latitude='+lat+'&longitude='+lng,'mapcontent')	 
+		ptoken.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=dialog&mode=#mode#&width=#width#&height=#height#&latitude='+lat+'&longitude='+lng,'mapcontent')	 
 		}
 	}
 	 
@@ -90,7 +90,7 @@
 	   document.getElementById('cLongitude').value = lng	
 	   _cf_loadingtexthtml='';
 	   
-	   ColdFusion.navigate('#SESSION.root#/Tools/Maps/getAddress.cfm?latitude='+lat+'&longitude='+lng,'maploc')
+	   ptoken.navigate('#SESSION.root#/Tools/Maps/getAddress.cfm?latitude='+lat+'&longitude='+lng,'maploc')
 	   	 
 	   var centerLongLat={
 			latitude: lat,

@@ -452,6 +452,7 @@ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubunt
 
 div.toggleScroll-x, table.toggleScroll-x, td.toggleScroll-x, body.toggleScroll-x {
     overflow-x: hidden;
+	scrollbar-gutter: stable;
 }
 div.toggleScroll-x:hover, table.toggleScroll-x:hover, td.toggleScroll-x:hover, body.toggleScroll-x:hover {
     overflow-x: overlay;
@@ -459,6 +460,7 @@ div.toggleScroll-x:hover, table.toggleScroll-x:hover, td.toggleScroll-x:hover, b
 
 div.toggleScroll-y, table.toggleScroll-y, td.toggleScroll-y, body.toggleScroll-y {
     overflow-y: hidden;
+	scrollbar-gutter: stable;
 }
 div.toggleScroll-y:hover, table.toggleScroll-y:hover, td.toggleScroll-y:hover, body.toggleScroll-y:hover {
     overflow-y: overlay;

@@ -163,7 +163,8 @@
 	      	   se = document.getElementById('DateEffective_date').value;						  
 			   if (mode != 'partial') {		  	 				
 		  			mapclear()
-		  		} 						  
+		  		} 		
+					  
 		  		ptoken.navigate('MAP/MAPContentRefresh.cfm?mission=#url.mission#&date='+se,'addmarker','','','POST','mapform')
 			  		  
 		 } else {
@@ -253,12 +254,14 @@
 	
 	// adding checkboxes which then does a complete rewrite 
 	function toggle(val,box,mde,det,org) {
-	
+		
 	    if (val == true) {
     	   document.getElementById(box).className = "regular"
     	   console.log('add:'+org);
     	   mde = 'partial'; 		  
+		  
 	    } else {
+		
 	      document.getElementById(box).className = "hide" 
     	  document.getElementById(det).className = "hide" 
 	      document.getElementById('detail_'+org).checked = false	 

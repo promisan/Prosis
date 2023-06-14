@@ -136,7 +136,9 @@ password="#SESSION.dbpw#">
 		
 	AND   PayrollItem NOT IN (SELECT PayrollItem FROM Ref_PayrollGroupItem WHERE Code = 'Final')
 	
-	AND Source != 'Miscellaneous'												   											   
+	AND Source != 'Miscellaneous'			
+	
+	ORDER BY Source								   											   
 														   					
 </cfquery>
 

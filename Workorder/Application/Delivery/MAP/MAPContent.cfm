@@ -247,29 +247,38 @@
 									SELECT *
 									FROM   PostalCode
 									WHERE  Country    = '#nat#'
-									AND    PostalCode = '#postal#'
+									AND    PostalCode = '#postal#' 
 							   	</cfquery>		
 								
 								<!--- valid the coordinates based on the country NET --->
 								
+								<!---
 								<cfif (
 									(left(check.latitude,1) eq "4" or left(check.latitude,1) eq "5" )
 									and 
 									(left(check.longitude,2) eq "3." or left(check.longitude,2) eq "4." or left(check.longitude,2) eq "5." or left(check.longitude,2) eq "6." )
 								)>		
+								--->
+								
+								
+								<cfif left(check.latitude,1) eq "1">		
 								
 									<cfif getbranchaddress.markercolor neq "" and  getbranchaddress.markericon neq "">
+									
 										<cfmapitem name="#unit#" 
 										    latitude="#check.latitude#" 
 									    	longitude="#check.longitude#" 	   
 											markericon="#session.root#/images/mapicons/#getbranchaddress.markercolor#_#getbranchaddress.markericon#.png"						
 									    	tip="Branch : #getbranchaddress.OrgUnitName#"/>
+											
 									<cfelse>
+																		
 										<cfmapitem name="#unit#" 
 										    latitude="#check.latitude#" 
 									    	longitude="#check.longitude#" 	   
 											markercolor="#getbranchaddress.markercolor#"						
 									    	tip="Branch : #getbranchaddress.OrgUnitName#"/>								
+											
 									</cfif>							
 								
 								<cfelse>										 

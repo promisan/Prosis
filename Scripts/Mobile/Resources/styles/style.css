@@ -2226,6 +2226,20 @@ body {
   color: #34495e;
   background-color: #f7f9fa;
 }
+
+
+#side-menu li .nav-third-level li a {
+  padding: 10px 10px 10px 50px;
+  color: #6a6c6f;
+  text-transform: none;
+  font-weight: 600;
+}
+#side-menu li .nav-third-level li.active a {
+  color: #34495e;
+  background-color: #f7f9fa;
+}
+
+
 #side-menu.nav > li > a:hover,
 #side-menu.nav > li > a:focus {
   background: #fff;

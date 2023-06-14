@@ -263,18 +263,27 @@ function financials(mission,systemfunctionid,header,enforce,target) {
 
 function payables(mission,systemfunctionid,header,enforce,target) {
    if (target == "_new") {	
-   ptoken.open("#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=ap&ts="+new Date().getTime()+"&Mission=" + mission +"&systemfunctionid=" + systemfunctionid,  "pay"+mission);
+    ptoken.open("#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=ap&Mission=" + mission +"&systemfunctionid=" + systemfunctionid,  "pay"+mission);
    } else {
-    ptoken.open("#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=ap&ts="+new Date().getTime()+"&Mission=" + mission +"&systemfunctionid=" + systemfunctionid,  "pay"+mission, "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+    ptoken.open("#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=ap&Mission=" + mission +"&systemfunctionid=" + systemfunctionid,  "pay"+mission, "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
   }
    
 }
 
 function receivables(mission,systemfunctionid,header,enforce,target) {
    if (target == "_new") {	
-   ptoken.open("#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=ar&ts="+new Date().getTime()+"&Mission=" + mission +"&systemfunctionid=" + systemfunctionid,  "rec"+mission);
+    ptoken.open("#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=ar&Mission=" + mission +"&systemfunctionid=" + systemfunctionid,  "rec"+mission);
    } else {
-   ptoken.open("#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=ar&ts="+new Date().getTime()+"&Mission=" + mission +"&systemfunctionid=" + systemfunctionid,  "rec"+mission, "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");  
+    ptoken.open("#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=ar&Mission=" + mission +"&systemfunctionid=" + systemfunctionid,  "rec"+mission, "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");  
+   }
+}
+
+
+function advances(mission,systemfunctionid,header,enforce,target) {
+   if (target == "_new") {	
+   ptoken.open("#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=ad&ts="+new Date().getTime()+"&Mission=" + mission +"&systemfunctionid=" + systemfunctionid,  "rec"+mission);
+   } else {
+   ptoken.open("#SESSION.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=ad&ts="+new Date().getTime()+"&Mission=" + mission +"&systemfunctionid=" + systemfunctionid,  "rec"+mission, "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");  
    }
 }
 

@@ -43,9 +43,14 @@
 		<cf_menuscript>
 		
 </cfif>
-			  
-<cfajaximport tags="cfdiv,cfform">
 
+<cfif CLIENT.googlemap eq "1">
+    <cf_mapscript scope="embed" height="300" width="360">
+	<cfajaximport tags="cfdiv,cfmap,cfform" params="#{googlemapkey='#client.googlemapid#'}#"> 
+<cfelse>
+	<cfajaximport tags="cfdiv,cfform"> 
+</cfif>
+	
 <cf_calendarscript>
 <cf_dialogstaffing>
 <cf_fileLibraryScript>
@@ -113,14 +118,18 @@
 		}
 		</cfif>
 
-
 		function displaybatch(thisbatch){
 			ptoken.open('<cfoutput>#SESSION.root#</cfoutput>/Warehouse/Application/Stock/Batch/BatchView.cfm?batchno='+thisbatch, '_blank','top=100,left=100,width=1200,height=800,resizable=no');
+		}
+		
+		function addposition(mission,customerid) {
+		    ProsisUI.createWindow('customer', 'Position', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})
+    		ptoken.navigate('<cfoutput>#SESSION.root#/</cfoutput>warehouse/application/Customer/Outreach/CustomerPosition.cfm?source=cus&mission='+mission+'&customerid='+customerid, "customer");			
 		}
 	
 </script>
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 
 <cfif url.drillid neq "">
 
