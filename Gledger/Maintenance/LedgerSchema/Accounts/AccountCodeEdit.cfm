@@ -194,6 +194,7 @@ function ask() {
 		  	   <select name="AccountCategory" id="AccountCategory" size"1" class="regularxl">
 		          <option class="radiol" value="Vendor" <cfif Get.AccountCategory eq "Vendor">selected</cfif>>Accounts Receivable (Vendor)</option>
 				  <option class="radiol" value="Customer" <cfif Get.AccountCategory eq "Customer">selected</cfif>>Accounts Payable (Customer)</option>
+				  <option class="radiol" value="Advance" <cfif Get.AccountCategory eq "Advance">selected</cfif>>Advance (Customer)</option>
 				  <option class="radiol" value="Neutral" <cfif Get.AccountCategory eq "Neutral">selected</cfif>>Other</option>
 			   </select>
 		    </TD>

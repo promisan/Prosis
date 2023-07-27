@@ -65,10 +65,10 @@
 
 <cfoutput>
 			
-	<table width="97%" height="100%" align="center" cellspacing="0" cellpadding="0" border="0">
+	<table width="97%" height="100%" align="center">
 	
 	<tr><td height="5"></td></tr>
-	<tr><td height="5" colspan="2" class="labelit" width="690"><b>Note:</b> <font color="808080">In this section you may define if and how a user may move to a workflow step once this step <font color="0080FF">[#Get.ActionDescription#]</font> is due for action and for steps that are not defined as a default step in the workflow manager. The
+	<tr><td height="5" colspan="2" class="labelmedium2" width="690"><b>Note:</b> <font color="808080">In this section you may define if and how a user may move to a workflow step once this step <font color="0080FF">[#Get.ActionDescription#]</font> is due for action and for steps that are not defined as a default step in the workflow manager. The
 	allowed steps to move to will be show to the user in the <b>[Go To]</b> dropdown of the action dialog. You may define a condition which is verified prior to the move to the selected step.</td></tr>	
 	<tr><td height="3"></td></tr>
 	<tr><td class="linedotted" colspan="2" height="1"></td></tr>		
@@ -78,9 +78,11 @@
 			<cfform name="flowform">
 			
 				<table width="100%" class="formpadding">
+				
+				<tr class="hide"><td id="process"></td></tr>
 			 
 			 	<TR>
-				<TD width="25%" class="labelit" height="25" class="labelit">Define next action mode:</TD>
+				<TD width="25%" class="labelmedium2" height="25">Define next action mode:</TD>
 				<TD>		
 				
 					<select name="ActionGoTo" id="ActionGoTo" onchange="saveflow()" class="regularxl">
@@ -94,7 +96,7 @@
 				</tr>
 				
 				<TR>
-				<TD width="25%" class="labelit" height="25">Label:</TD>
+				<TD width="25%" class="labelmedium2" height="25">Label:</TD>
 				<TD>		
 				
 					<input type="text" 

@@ -100,6 +100,10 @@
 	  WHERE  SubmissionEdition = '#URL.ID1#'				
 </cfquery>
 
+<cfif url.owner eq "">
+	<cfset url.owner = getEdition.Owner>
+</cfif>
+
 <cfquery name="FunctionAll" 
 datasource="AppsSelection" 
 username="#SESSION.login#" 
@@ -241,29 +245,29 @@ password="#SESSION.dbpw#">
 	<table align="center" width="98%" style="padding-left:3px" class="navigation_table">
 		   
 	<tr>
-	  <td colspan="5" height="26" style="height:50px;font-size:30px;padding-top:4px;padding-left:5px" class="labellarge"><cf_tl id="Roster Candidacy"></td>
+	  <td colspan="5" style="height:50px;font-size:30px;padding-top:4px;padding-left:5px" class="labellarge"><cf_tl id="Roster Candidacy"></td>
 	  
-	  <td colspan="6" class="labelmedium" align="right" style="padding-right:5px">
+	  <td colspan="6"  align="right" style="padding-right:5px">
 	  
-	  <table><tr><td class="labelmedium">
+	  <table><tr><td class="labelmedium2">
 			  
 		<cfif getEdition.EnableManualEntry eq "1" and getEdition.Operational eq "1">
-							    
-			   <cfinvoke component="Service.AccessGlobal"  
-			      method="global" 
-				  role="AdminRoster" 
-				  parameter="#getEdition.Owner#"
-				  returnvariable="Access">
-			  
-			  	<cfif Access eq "EDIT" or Access eq "ALL" >
+		
+		       <cfinvoke component="Service.Access"  
+			   method="roster" 
+			   returnvariable="Access"
+			   owner="#getEdition.owner#"
+			   role="'AdminRoster','CandidateProfile'">	
+				 			  
+			  	<cfif Access eq "EDIT" or Access eq "ALL">
 			  
 			      <cfoutput>
-					  <a href="ApplicantFunctionEntry.cfm?id=#url.id#&id1=#url.id1#"><font color="0080C0">Record Candidacy</font></a>				  
+					  <a href="ApplicantFunctionEntry.cfm?id=#url.id#&id1=#url.id1#"><cf_tl id="Record Candidacy"></a>				  
 				  </cfoutput>
 				  
 			    <cfelse>
 				
-					No access granted
+					<cf_tl id="No access granted">
 					<cfabort>
 					
 			 	 </cfif>	
@@ -275,7 +279,7 @@ password="#SESSION.dbpw#">
 	  <td style="padding-left:4px">|</td>
 	  <td style="padding-left:5px;padding-right:5px" class="labelmedium">
 	  
-	  <a href="javascript:window.print()"><font color="0080C0">Print</font></a>
+	  <a href="javascript:window.print()"><cf_tl id="Print"></a>
 	  
 	  </td></tr></table>
 	  
@@ -303,7 +307,7 @@ password="#SESSION.dbpw#">
 	
 		<cfif FunctionAll.recordcount eq "0">		
 		<tr class="line labelmedium fixlengthlist"><td colspan="11" style="height:30" align="center">
-		<font color="FF0000">No candidacy records found for this edition.
+		<font color="FF0000">No candidacy records found for this edition. 
 			  <cfif Access eq "EDIT" or Access eq "ALL">	
 			  <cfoutput>
 			  <a href="ApplicantFunctionEntry.cfm?id=#url.id#&id1=#url.id1#">Press here to record Candidacy</a>				 
@@ -317,9 +321,11 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="FunctionAll" group="ClassDescription">
 		
-	<tr class="labelmedium fixrow2"><td colspan="8" style="padding-left:10px;font-size:35px;height:67px">#ClassDescription#</td></tr>	
+	<tr class="labelmedium fixrow2"><td colspan="12" style="padding-left:10px;font-size:35px;height:67px">#ClassDescription#</td></tr>	
 	
 	<cfoutput>
+	
+	
 	
 	    <cfset show = "1">
 	
@@ -347,9 +353,10 @@ password="#SESSION.dbpw#">
 		   <cfif Access eq "NONE" and AccessRead neq "READ">
 		   		<cfset show = "0">
 		   </cfif>
+		  
 		 	   
 		<cfelse>
-		
+				
 			<cfinvoke component   = "Service.Access"  
 			   method             = "roster" 
 			   owner              = "#URL.Owner#" 
@@ -378,7 +385,15 @@ password="#SESSION.dbpw#">
 					AND      Status = '#StatusCode#' 
 				</cfquery>
 				
-				<cfif RosterStatus.ShowRosterSearch eq "0">
+				<!---
+												
+				<cfif RosterStatus.ShowRosterSearch eq "0">				
+					<cfset show = "0">
+				</cfif>
+				
+				--->
+				
+				<cfif RosterStatus.RosterAction eq "0">				
 					<cfset show = "0">
 				</cfif>
 			

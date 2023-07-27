@@ -6,7 +6,7 @@
 <cfparam name="attributes.script"    default="yes">
 <cfparam name="attributes.mode"      default="edit">
 <cfparam name="attributes.width"     default="400">
-<cfparam name="attributes.height"    default="390">
+<cfparam name="attributes.height"    default="300">
 <cfparam name="attributes.latitude"  default="#url.latitude#">
 <cfparam name="attributes.longitude" default="#url.longitude#">
 <cfparam name="attributes.country"   default="">
@@ -22,7 +22,7 @@
 
 <cfoutput>
 
-<table width="#attributes.width+4#" height="#attributes.height+40#" cellspacing="0" cellpadding="0">
+<table width="#attributes.width+4#" height="#attributes.height+40#">
 	 
 </cfoutput>
 	
@@ -41,6 +41,7 @@
 	<cfset url.scope     = attributes.scope>
 	<cfset url.format    = attributes.format>
 	<cfset url.zoomlevel = attributes.zoomlevel>
+		
 		
 	<cfinclude template="MapContent.cfm">
 

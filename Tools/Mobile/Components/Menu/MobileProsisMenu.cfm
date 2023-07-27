@@ -34,6 +34,7 @@
 		<cfif trim(FunctionDirectory) eq "" and trim(FunctionPath) eq "">
 		
 			<cf_mobileMenuItem parent="1" description="#FunctionMemo#">
+			
 				<cf_mobileMenu id="#FunctionName#" sublevel="1">
 					
 					<cfquery name="getSubMenu" 
@@ -50,9 +51,13 @@
 					</cfquery>
 
 					<cfloop query="getSubMenu">
+					
 						<cfif trim(getSubMenu.FunctionDirectory) eq "" and trim(getSubMenu.FunctionPath) eq "">
+						
 							<cf_mobileMenuItem parent="1" description="#FunctionMemo#">
+							
 								<cf_mobileMenu id="#getSubmenu.FunctionName#" sublevel="2">
+								
 									<cfquery name="getSubMenu2"
 											datasource="AppsSystem"
 											username="#SESSION.login#"
@@ -67,6 +72,7 @@
 									</cfquery>
 
 									<cfloop query="getSubMenu2">
+									
 										<cf_MobileProsisMenuItem
 												AppId = "#attributes.appId#"
 												FunctionId = "#GetSubMenu2.SystemFunctionId#"
@@ -75,7 +81,9 @@
 									</cfloop>
 
 								</cf_mobileMenu>
+								
 							</cf_mobileMenuItem>
+							
 						<cfelse>
 							<cf_MobileProsisMenuItem
 									AppId = "#attributes.appId#"

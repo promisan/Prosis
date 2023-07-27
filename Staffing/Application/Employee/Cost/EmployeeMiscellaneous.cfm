@@ -46,12 +46,14 @@
 		          ex.className = "regular"
 		   	      co.className = "hide" 
 	    } 				
-	}		
+	}	
+	
+	function unitevent(id) {
+	    ptoken.open('#session.root#/Payroll/Application/Commission/CommissionListing.cfm?ajaxid='+id, '_blank');	
+	}	
 
 </script>
 </cfoutput>
-
-
 
 
 <cfif URL.Status eq "">
@@ -99,7 +101,6 @@ password="#SESSION.dbpw#">
 			 L.DocumentReference 
 			 
 </cfquery>
-
 
 <table width="100%" align="center" class="formpadding">
 
@@ -196,7 +197,7 @@ password="#SESSION.dbpw#">
 	 
 			 <td height="20" align="center" style="cursor:pointer" 
 					onclick="workflowdrill('#workflow#','box_#workflow#')" >
-					
+										
 				<cf_wfActive entitycode="EntCost" objectkeyvalue4="#costid#">	
 				 
 					<cfif wfStatus eq "Open" and DateDiff("D",dateEffective,now()) gte -14>
@@ -265,11 +266,21 @@ password="#SESSION.dbpw#">
 		
 		<td align="center" style="padding-right:10px">
 	
-			<cfif getAdministrator("#Payroll.Mission#") eq "1" 
-			      or  Status eq "0" 
-				  or (Status eq "2" and EntityClass eq "") 
-				  or Schedule.CalculationStatus lt "3">
-			  <cf_img icon="open" onClick="recordedit('#CostId#')" navigation="Yes">   	  
+	        <cfif source eq "unit">
+			
+				 <cf_img icon="open" onClick="unitevent('#sourceid#')" navigation="Yes"> 
+			
+			<cfelse>
+
+					<cfif getAdministrator("#Payroll.Mission#") eq "1" 
+				      or  Status eq "0" 
+					  or (Status eq "2" and EntityClass eq "") 
+					  or Schedule.CalculationStatus lt "3">
+					  
+				     <cf_img icon="open" onClick="recordedit('#CostId#')" navigation="Yes">   	 
+				  
+				  </cfif> 
+				  
 			</cfif>
 	
 		</td>	
@@ -284,7 +295,9 @@ password="#SESSION.dbpw#">
 		
 		<cfif TransactionId neq "">		
 			<a href="javascript:ShowTransaction('','','view','tab','','#TransactionId#')">#source#</a>		
-		<cfelse>		
+		<cfelseif source eq "unit">		
+		    <a href="javascript:unitevent('#sourceid#')">#Source#</a>	
+		<cfelse>
 			<span style="color:purple">#Source#</span>		
 		</cfif>
 				
@@ -302,10 +315,10 @@ password="#SESSION.dbpw#">
 	</tr>
 		
 	<cfif Remarks neq "">
-	<TR class="navigation_row_child labelmedium  fixlengthlist" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('F1F1F1'), DE('F1F1F1'))#">
-	    <td colspan="2"></td>
-		<td colspan="10" align="left">#Remarks#</td>
-	</tr>
+		<TR class="navigation_row_child labelmedium  fixlengthlist" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('F1F1F1'), DE('F1F1F1'))#">
+		    <td colspan="2"></td>
+			<td colspan="10" align="left">#Remarks#</td>
+		</tr>
 	</cfif>	
 	
 	<cfif Payroll.recordcount gte "1">

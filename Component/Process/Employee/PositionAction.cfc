@@ -12,6 +12,158 @@
     <cfproperty name="name" type="string">
     <cfset this.name = "Position Action">
 	
+	<cffunction name="PositionVacant" access="public" returntype="any" displayname="Get the date vacant of a position">
+			 
+			 <cfargument name="PositionParentId"   type="string" required="true"  default="0">
+			 <cfargument name="DataSource"         type="string" required="true"  default="appsEmployee">		
+			 
+			 	<cfquery name="getPosition" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 SELECT *
+					 FROM   Position
+					 WHERE  PositionParentid = '#PositionParentId#' 
+					 ORDER BY DateEffective DESC
+				</cfquery>		
+								 
+			  <cfquery name="Post" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 SELECT *
+					 FROM   PersonAssignment
+					 WHERE  PositionNo      IN  (SELECT PositionNo FROM Position WHERE PositionParentid = '#PositionParentId#') 
+					 AND    AssignmentStatus IN ('0','1')
+					 AND    AssignmentType   = 'Actual'					 
+					 AND    Incumbency       = 100
+					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+					 and    DateExpiration >= CAST(GETDATE() AS Date)				
+					 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
+				</cfquery>		
+				
+				<cfif Post.recordcount eq "0">
+				
+					<cfset Vacant.Status = "Vacant">
+					
+					<cfquery name="Assignment" 
+						 datasource="#datasource#"
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+						 
+							SELECT     PA.*
+							FROM       Employee.dbo.PositionParent AS PP INNER JOIN
+							           Employee.dbo.Position AS P ON PP.PositionParentId = P.PositionParentId INNER JOIN
+							           Employee.dbo.PersonAssignment AS PA ON P.PositionNo = PA.PositionNo
+							WHERE      PP.SourcePostNumber IN (SELECT SourcePostNumber 
+							                                   FROM   PositionParent 
+															   WHERE  PositionParentid = '#PositionParentId#') 
+							AND        PA.AssignmentStatus IN ('0', '1') 
+							AND        PA.AssignmentType = 'Actual' 
+							AND        PA.AssignmentClass = 'Regular'
+							ORDER BY   PA.DateExpiration DESC
+						 
+					 </cfquery>	
+						 
+					 <cfif Assignment.Incumbency eq "0">
+				 
+						  <cfset Vacant.Original = Assignment.DateEffective>
+						 
+					 <cfelseif Assignment.recordcount gte "1">
+						 
+					 	<cfset Vacant.Original = dateadd("d","1",Assignment.DateExpiration)>	
+						
+					 <cfelse>	
+					 
+					 <cfset Vacant.Original = "">
+						 
+					 </cfif>		
+				
+				<cfelseif Post.recordcount gte "1">
+								
+					<cfquery name="PostStatus" 
+				     datasource="AppsEmployee" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+						 SELECT *
+						 FROM   PersonAssignment
+						 WHERE  PositionNo      = '#getPosition.PositionNo#'
+						 AND    AssignmentStatus IN ('0','1')
+						 AND    AssignmentType   = 'Actual'
+						 AND    AssignmentClass  = 'Regular'
+						 AND    Incumbency       = 100
+						 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+						 and    DateExpiration >= CAST(GETDATE() AS Date)				
+						 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
+					</cfquery>	
+					 
+					 <cfquery name="PostLien" 
+				     datasource="AppsEmployee" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+						 SELECT *
+						 FROM   PersonAssignment
+						 WHERE  PositionNo      = '#getPosition.PositionNo#'
+						 AND    AssignmentStatus IN ('0','1')
+						 AND    AssignmentType   = 'Actual'
+						 AND    AssignmentClass  = 'Regular' <!--- added --->
+						 AND    Incumbency = 0
+						 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+						 and    DateExpiration >= CAST(GETDATE()-60 AS Date)		<!--- 60 days threshold --->		
+						 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
+					</cfquery>						
+						
+					<cfif PostStatus.recordcount gte "1" and PostLien.recordcount eq "0">		
+					
+					    <cfset Vacant.Status   = "Encumbered by holder">		
+						<cfset Vacant.Original = "">
+									
+					<cfelse>	
+					
+						<cfset Vacant.Status = "Encumbered">		
+						
+												
+						 <cfquery name="Assignment" 
+						 datasource="#datasource#"
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+						 
+							SELECT     PA.*
+							FROM       Employee.dbo.PositionParent AS PP INNER JOIN
+							           Employee.dbo.Position AS P ON PP.PositionParentId = P.PositionParentId INNER JOIN
+							           Employee.dbo.PersonAssignment AS PA ON P.PositionNo = PA.PositionNo
+							WHERE      PP.SourcePostNumber IN (SELECT SourcePostNumber 
+							                                   FROM   PositionParent 
+															   WHERE  PositionParentid = '#PositionParentId#') 
+							AND        PA.AssignmentStatus IN ('0', '1') 
+							AND        PA.AssignmentType = 'Actual' 
+							AND        PA.AssignmentClass = 'Regular' <!--- condition for real incumbecny --->
+							ORDER BY   PA.DateExpiration DESC 
+						 
+						 </cfquery>	
+						 
+						  <cfif Assignment.Incumbency eq "0">
+				 
+							  <cfset Vacant.Original = Assignment.DateEffective>
+						 
+						 <cfelseif Assignment.recordcount gte "1">
+							 
+						 	<cfset Vacant.Original = dateadd("d","1",Assignment.DateExpiration)>	
+							
+						 <cfelse>	
+						 
+						    <cfset Vacant.Original = "">
+							 
+						 </cfif>		
+										
+					</cfif>  			   
+			 
+			    </cfif>
+				
+				<cfreturn Vacant>
+						 
+    </cffunction>				 
+	
 	<cffunction name="PositionFunding"
              access="public"
              returntype="any"
@@ -418,8 +570,7 @@
 						 DELETE FROM Employee.dbo.WorkSchedulePosition
 						 WHERE  PositionNo    = '#get.PositionNoPrior#'
 						 AND    WorkSchedule  = '#workschedule#'
-						 AND    CalendarDate >= '#dateformat(get.DateEffective,client.dateSQL)#'	
-						 		
+						 AND    CalendarDate >= '#dateformat(get.DateEffective,client.dateSQL)#'							 		
 					
 					</cfquery>
 											
@@ -436,8 +587,7 @@
 						 SET    PositionNo    = '#positionno#'
 						 WHERE  PositionNo    = '#get.PositionNoPrior#'
 						 AND    WorkSchedule  = '#workschedule#'	
-						 AND    CalendarDate >= '#dateformat(get.DateEffective,client.dateSQL)#'	
-							
+						 AND    CalendarDate >= '#dateformat(get.DateEffective,client.dateSQL)#'								
 					
 					</cfquery>		
 									
@@ -447,8 +597,7 @@
 									
 			</cfif>
 		
-	</cffunction>		
-		
+	</cffunction>			
 	
 </cfcomponent>	
 

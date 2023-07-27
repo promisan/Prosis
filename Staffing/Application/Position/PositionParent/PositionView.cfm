@@ -250,86 +250,22 @@
 			 
 	    <td height="16" align="right">
 		    &nbsp;<cfoutput><b>#URL.ID#</b>&nbsp;|&nbsp;<cf_tl id="Period">: <b>#URL.ID1#</b>&nbsp;|&nbsp;<cf_tl id="Id">: <b><font color="800040"><cfif Position.SourcePostNumber eq "">#Position.PositionParentId#<cfelse>#Position.SourcePostNumber#</cfif></font></b>&nbsp;|&nbsp;<cf_tl id="Instance">: <a href="javascript:EditPost('#URL.ID2#')">#URL.ID2#</a></cfoutput></font>
-		</td>
-		
-		
-		<cfquery name="getPosition" 
-	     datasource="AppsEmployee" 
-	     username="#SESSION.login#" 
-	     password="#SESSION.dbpw#">
-			 SELECT *
-			 FROM   Position
-			 WHERE  PositionParentId = '#Position.PositionParentid#'
-			 ORDER BY DateEffective DESC			
-		</cfquery>
+		</td>					
 											   
-	    <cfif getPosition.recordcount gte "1">
+	    
 	   	      
 		   <td style="width:100px;padding-left:4px">|<cf_tl id="Incumbency">:</td>
 		   <td class="labelmedium2" style="width;150px;font-weight:bold;padding-right:4px">
+		   
+		        <cfinvoke component = "Service.Process.Employee.PositionAction"  
+					   method            = "PositionVacant" 
+					   positionparentid  = "#Position.PositionParentId#"
+					   returnvariable    = "vacant">	   
 		  		   
-		        <!--- likely we need to tune this a bit to capture 0 percent and 
-				 multiple assignments --->
-				 
-				 <cfquery name="Post" 
-			     datasource="AppsEmployee" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-					 SELECT *
-					 FROM   PersonAssignment
-					 WHERE  PositionNo      = '#getPosition.PositionNo#'
-					 AND    AssignmentStatus IN ('0','1')
-					 AND    AssignmentType   = 'Actual'					 
-					 AND    Incumbency       = 100
-					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
-					 and    DateExpiration >= CAST(GETDATE() AS Date)				
-					 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
-				</cfquery>					
-				
-				<cfquery name="PostStatus" 
-			     datasource="AppsEmployee" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-					 SELECT *
-					 FROM   PersonAssignment
-					 WHERE  PositionNo      = '#getPosition.PositionNo#'
-					 AND    AssignmentStatus IN ('0','1')
-					 AND    AssignmentType   = 'Actual'
-					 AND    AssignmentClass  = 'Regular'
-					 AND    Incumbency       = 100
-					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
-					 and    DateExpiration >= CAST(GETDATE() AS Date)				
-					 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
-				</cfquery>	
-				 
-				 <cfquery name="PostLien" 
-			     datasource="AppsEmployee" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-					 SELECT *
-					 FROM   PersonAssignment
-					 WHERE  PositionNo      = '#getPosition.PositionNo#'
-					 AND    AssignmentStatus IN ('0','1')
-					 AND    AssignmentType   = 'Actual'
-					 AND    AssignmentClass  = 'Regular' <!--- added --->
-					 AND    Incumbency = 0
-					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
-					 and    DateExpiration >= CAST(GETDATE()-60 AS Date)		<!--- 60 days threshold --->		
-					 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
-				</cfquery>			   
-						
-				<cfif Post.recordcount eq "0">				
-					<font color="FF0000"><cf_tl id="Vacant"></font>					
-				<cfelseif PostStatus.recordcount gte "1" and PostLien.recordcount eq "0">				
-					<font color="008000"><cf_tl id="Encumbered by holder">					
-				<cfelse>				
-					<font color="gray"><cf_tl id="Encumbered"></font>						
-				</cfif>  
-				
-				 
+		       <cfoutput>#vacant.status# <cfif vacant.Original neq "">&nbsp;<span style="color:red">(Vacant since: #dateformat(vacant.Original,client.dateformatshow)#)</cspan></cfif></cfoutput>
+								 
 		 </td>
-		
-		</cfif>		  	
+		  	
 		
 		<td class="hide" id="process"></td>
 		 

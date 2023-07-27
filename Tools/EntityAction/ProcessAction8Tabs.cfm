@@ -32,9 +32,11 @@
  <!--- tab for instructions --->			
 <cfinclude template="ProcessActionInstructions.cfm">	
 
+
  <!--- tab for embedded document --->           	  
 <cfif Embed.DocumentTemplate neq "">
    	   	  
+		  
 	   <!--- preload code for dialog embedded workflow --->
 		   	   	  	   
 	   <cfif Embed.DocumentMode eq "Ajax">		
@@ -100,17 +102,18 @@
 						name       = "#Embed.DocumentDescription#">		
 			
 		   <cfelse>		   	   
-
-		   	  <cf_menucontainer item="#boxno#" class="regular">		
-				      <cfinclude template="ProcessAction8Embed.cfm">				
-			  </cf_menucontainer>		
-		   		   
+ 		  
+			   	  <cf_menucontainer item="#boxno#" class="regular">		
+					      <cfinclude template="ProcessAction8Embed.cfm">				
+				  </cf_menucontainer>	
+			  		   		   
 		   </cfif>	
 		  							
 		</cfif>		
 						   		   		  	   
 </cfif> 	
 
+				
 <!--- tab for questionaire --->	   
 
 <cfquery name="Action" 
@@ -127,7 +130,10 @@
 	   AND     A.ActionCode = P.ActionCode
 	</cfquery>	
 
-<cfinclude template="ProcessActionQuestionaire.cfm">		 	
+<cfinclude template="ProcessActionQuestionaire.cfm">		
+
+
+
 
 <cfset boxno = boxno+1>
       
@@ -218,6 +224,9 @@
    
 </cfif>
 
+
+
+
    <cfquery name="Action" 
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
@@ -242,6 +251,7 @@
 	   FROM    OrganizationObjectAction OA INNER JOIN Ref_EntityActionPublish P	ON OA.ActionPublishNo = P.ActionPublishNo AND  OA.ActionCode = P.ActionCode 	
 	   WHERE   ActionId = '#URL.ID#' 		   
    </cfquery>  	 
+   
     
 	<cfquery name="Format" 
 	datasource="appsOrganization" 
@@ -264,6 +274,7 @@
 		AND      R.DocumentType  = 'Report'	
 		ORDER BY DocumentOrder
 	</cfquery>	
+	
 		   
    <cfif format.recordcount gte "1">   
       	   
@@ -290,10 +301,10 @@
 	   	   <cf_tl id = "Embedded Documents" var="1">
 	   </cfif>
 	  	   
-	   <cfset boxno = boxno+1>	   
-	  	  	     
+	   <cfset boxno = boxno+1>	  
+	   	  	  	     
 	   <cfif menumode eq "menu">	
-	  	   	     	   
+	   	      	  	   	     	   
 	   	   <cfinclude template="Report/DocumentInit.cfm">  
 						   
 		   <cf_menutab item   = "#boxno#" 
@@ -304,22 +315,23 @@
 				   iconheight = "#ht#"
 				   source     = "ProcessAction8TabsDocument.cfm?id=#URL.ID#&action=open" 
 				   name       = "#lt_text#">	
-							   
+				   							   
 	   <cfelse>
 	   
 	     <cfoutput> 
 		 <input type="hidden" id="documentmenu"      value="menu#boxno#">
 	     <input type="hidden" id="documentcontainer" value="contentbox#boxno#">
 		 </cfoutput>	
-		 		 	  	  
+		 	 	  	  
 	     <cf_menucontainer class="regular" item="#boxno#">			 		
 			   <cfinclude template="ProcessAction8TabsDocument.cfm">					
-		 </cf_menucontainer>	  
+		 </cf_menucontainer>			 
 	      
-	   </cfif> 	
+	   </cfif> 		  
 	        
    </cfif>   
-   
+      
+      
    <cfparam name="questionbox" default="0">
              
    <cfif boxno eq "1">

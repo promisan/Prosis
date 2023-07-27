@@ -23,23 +23,32 @@
 		  bannerforce="Yes"	 
 		  jquery="Yes"
 		  scroll="no" 
-	      label="#get.ActionDescription#">		  		  
+	      label="#get.ActionDescription#">
+		  
+		  
 		  
 </cfif>	  
+
+<cfoutput>
 	  
 <table style="width:100%;height:100%">
 	
 	<tr><td style="height:100%;width:100%">  
 	
-	<cfoutput>
 	<iframe src="#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=#url.windowmode#&ajaxid=#url.ajaxid#&process=#url.process#&id=#url.id#&myentity=#url.myentity#&mid=#mid#"
-	width="100%" height="100%" scrolling="no" frameborder="0"></iframe>
-	</cfoutput>
+	width="100%" height="100%" scrolling="no" frameborder="0"></iframe>	
 	
 	</td></tr>
 	
 	<cfif url.header eq "1">
-	<tr><td align="right" style="border-top:1px solid silver;padding-bottom:4px;padding-right:4px;height:30px;padding-top:4px;"><input class="button10g" style="width:200px;height:25px" onclick="parent.window.close()" value="Close" type="button" name="Close"></td></tr>
+	
+		<cf_tl id="Close" var="1">
+		<tr><td align="right" style="border-top:1px solid silver;padding-bottom:4px;padding-right:4px;height:30px;padding-top:4px;">
+		<input class="button10g" style="width:200px;height:25px" onclick="window.close()" value="#lt_text#" type="button" id="closeactiondialog" name="Close">
+		</td></tr>
+		
 	</cfif>
 
 </table>
+
+</cfoutput>

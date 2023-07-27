@@ -28,24 +28,23 @@
 	
 	<table width="98%" class="navigation_table">
 	
-	<!---
-	<TR class="line labelmedium">
+	
+	<TR class="line labelmedium fixrow">
 	    <td width="30" height="20"></td>
 	    <TD>Code</TD>
 		<TD>Description</TD>
 		<TD>Effective</TD>
 		<TD>Expiration</TD>
 	</TR>
-	--->
-	
+		
 	<cfoutput query="Level01">
 	
-	<TR style="height:22px" class="line labelmedium navigation_row">
-		<td align="center" style="padding-top:5px">			
+	<TR class="line labelmedium2 navigation_row fixlengthlist">
+		<td align="center">			
 		 <cf_img icon="select" navigation="Yes" onclick="parent.selectloc('#LocationCode#','#LocationName#')">	
 		</td>
-		<TD style="min-width:40px">#LocationCode#</TD>
-		<TD style="padding-left:5px">#LocationName#</TD>
+		<TD>#LocationCode#</TD>
+		<TD>#LocationName#</TD>
 		<TD>#DateFormat(DateEffective, CLIENT.DateFormatShow)# <cfif DateEffective neq "">-</cfif></TD>
 		<TD>#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>
 	</TR>

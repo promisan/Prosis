@@ -89,6 +89,7 @@ password="#SESSION.dbpw#">
 <cfif url.batchcheck eq "yes">
 
 	<script>
+	    _cf_loadingtexthtml='';	 
 		ptoken.navigate('setBatchStatus.cfm?batchno=#get.transactionBatchNo#','status')
 	</script>
 	

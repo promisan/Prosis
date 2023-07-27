@@ -16,29 +16,28 @@
 		AND     S.Code = W.ServiceItem
 </cfquery>
 
+
 <cf_screentop height="100%" 
    jQuery="Yes" 
    scroll="Yes" 
    layout="webapp" 
    banner="gray" 
-   bannerforce="Yes"
-   bannerheight="75" 
+   bannerforce="Yes"  
    band="No" 
    title="#get.Description#" 
    label="Service: <b>#get.Description#" 
    option="Maintain order information">
    
-
 		
 <cfinclude template="../ServiceDetails/Billing/DetailBillingFormScript.cfm">
 
 <cfif client.googlemap eq "1">
 
-	<cfajaximport tags="cfmap,cfform,cfdiv,CFWINDOW,CFINPUT-DATEFIELD" params="#{googlemapkey='#client.googlemapid#'}#">
+	<cfajaximport tags="cfmap,cfform,cfdiv" params="#{googlemapkey='#client.googlemapid#'}#">
 	
 <cfelse>
 
-	<cfajaximport tags="cfform,cfdiv,CFWINDOW,CFINPUT-DATEFIELD">
+	<cfajaximport tags="cfform,cfdiv">
 	
 </cfif>	
 	
@@ -57,15 +56,15 @@
 <cfparam name="url.box"     default="">
 <cfparam name="url.context" default="Backoffice">
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 
 <cfoutput>
 <tr bgcolor="f4f4f4" class="line">
 
-<td colspan="2" height="22">
+<td colspan="2" style="height:34px">
 
-	<table width="95%" cellspacing="0" cellpadding="0" align="center">
-	<tr class="labelit">
+	<table width="95%" align="center">
+	<tr class="labelmedium2">
 	<td><cf_tl id="Workorder Number">:</td>
 	<td><b>#Get.Reference#</td>
 	<td><cf_tl id="Recorded by">:</td>
@@ -108,7 +107,8 @@
 			
 			<tr>
 			   <td colspan="2" id="workordercontent" class="clsPrintContentImage">
-			       <cfdiv bind="url:#SESSION.root#/workorder/application/workorder/create/workorderform.cfm?context=#url.context#&scope=edit&mode=edit&mission=#url.mission#&workorderlineid=#url.drillid#&box=#url.box#" id="editcontent">
+			   
+			       <cf_securediv bind="url:#SESSION.root#/workorder/application/workorder/create/workorderform.cfm?context=#url.context#&scope=edit&mode=edit&mission=#url.mission#&workorderlineid=#url.drillid#&box=#url.box#" id="editcontent">
 			   </td>
 			</tr>			
 			

@@ -72,7 +72,7 @@
 			     <cfif client.googlemap eq "1">
 				 				 
 				 	<td rowspan="16" valign="top" align="center" style="padding-top:10px;z-index:10; position:relative;padding-left:3px;padding-right:15px;padding-bottom:2px;min-width:430;min-height:400">								 				
-										
+								
 						<cfset maplink = "mapaddress()">	
 							
 						<cf_mapshow scope	  = "embed" 

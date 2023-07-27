@@ -2,14 +2,15 @@
 <cfoutput>
 
 	<cfquery name="Doc"
-			datasource="appsOrganization"
-			username="#SESSION.login#"
-			password="#SESSION.dbpw#">
+		datasource="appsOrganization"
+		username="#SESSION.login#"
+		password="#SESSION.dbpw#">
 		SET     TextSize 1500000
 		SELECT  O.*, R.DocumentMode, R.DocumentCode,R.DocumentLayout
-		FROM    OrganizationObjectActionReport O INNER JOIN	Ref_EntityDocument R ON O.DocumentId = R.DocumentId
+		FROM    OrganizationObjectActionReport O INNER JOIN
+         		Ref_EntityDocument R ON O.DocumentId = R.DocumentId
 		WHERE   O.ActionId   = '#url.MemoActionID#'
-	    AND     O.DocumentId = '#url.documentid#'
+     	AND     O.DocumentId = '#url.documentid#'
 	</cfquery>
 
 <!--- Line below doc.documentMode neq PDF is there for backward
@@ -20,7 +21,7 @@ on March 12th 2011--->
 	<cfif url.textmode eq "edit" and doc.documentMode neq "AsIs">
 
 		<table width="100%" height="100%" border="0" class="formspacing">
-
+				
 		<tr style="height:30px;">
 		<td width="160" height="20" style="padding-left:0px;padding-right:0px">
 
@@ -39,8 +40,7 @@ on March 12th 2011--->
 				<button type="button"
 				name="Clean#No#" id="Clean#No#"
 						style="width:137;height:26"
-						class="button10g"
-				onclick="ptoken.navigate('ProcessActionDocumentTextElement.cfm?save=1&no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&frm=document#no#&element='+document.getElementById('element#no#').value,'boxFieldDoc#no#','','','POST','document#no#')">
+						class="button10g"				                    onclick="ptoken.navigate('ProcessActionDocumentTextElement.cfm?save=1&no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&frm=document#no#&element='+document.getElementById('element#no#').value,'boxFieldDoc#no#','','','POST','document#no#')">
 				<img src="#SESSION.root#/Images/refresh.gif" align="absmiddle" alt="Removes invalid characters from the text" border="0"><cf_tl id="Cleanse Text"></button>
 		    </td>
 			<td class="hide" style="padding-left:4px" id="myboxes"></td>
@@ -117,15 +117,15 @@ on March 12th 2011--->
 	<tr><td colspan="3" height="100%" width="100%" valign="top">
 
 		<cfif url.textmode eq "read">
-
+				
 				<div align="left" style="height:100%; width:100%; position:absolute; overflow: auto; border-top: 0px solid Silver;">
 				  <cfset text = replace(doc.DocumentContent,"<script","<disable","all")>
 				  <cfset text = replace(text,"<iframe","<disable","all")>
 				  <cf_paragraph>#text#</cf_paragraph>
 				</div>
 
-			<cfelseif Doc.DocumentMode eq "AsIs" or url.textmode eq "prior">
-
+		<cfelseif Doc.DocumentMode eq "AsIs" or url.textmode eq "prior">
+		
 <!---
 
  <cfdiv id="MarginHold" class="hide">   <!--- dummy div to use for ColdFusion.navigate update of top margin --->
@@ -136,12 +136,12 @@ on March 12th 2011--->
  </cf_paragraph>
 
  --->
-
+ 
 				<iframe src="#session.root#\Tools\EntityAction\ProcessActionDocumentTextContentAsIs.cfm?memoactionid=#url.memoactionid#&documentid=#url.documentid#"
 					width="99%" height="100%" frameborder="0"></iframe>
 
 		<cfelse>
-
+		
 			<cfset url.element = "documentcontent">
 
 				<form id="document#no#" name="document#no#" style="height:100%;padding-right:2px">
@@ -259,8 +259,10 @@ on March 12th 2011--->
 	<tr>
 
 	<td colspan="3" height="100%" width="100%" valign="top">
-
+	
+	
 		<cfif url.textmode eq "read">
+		
 
 				<div align="left" style="height:290px; width:99.5%; position:absolute; overflow: auto; border-top: 0px solid Silver;">
 				<cfset text = replace(doc.DocumentContent,"<script","<disable","all")>
@@ -268,8 +270,8 @@ on March 12th 2011--->
 				 <cf_paragraph>#text#</cf_paragraph>
 				</div>
 
-			<cfelseif Doc.DocumentMode eq "AsIs" or url.textmode eq "prior">
-
+		<cfelseif Doc.DocumentMode eq "AsIs" or url.textmode eq "prior">
+		
 				<iframe	src="#session.root#\Tools\EntityAction\ProcessActionDocumentTextContentAsIs.cfm?memoactionid=#url.memoactionid#&documentid=#url.documentid#"
 					width="100%"
 					height="100%"
@@ -284,7 +286,7 @@ on March 12th 2011--->
 --->
 
 		<cfelse>
-
+		
 			<cf_securediv id="boxFieldDoc#no#"
 					bind="url:ProcessActionDocumentTextElement.cfm?no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&element=documentcontent">
 

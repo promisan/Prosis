@@ -210,66 +210,9 @@ function openreference(id) {
 			<td colspan="3" style="font-size:16px;border:1px solid silver;padding-left:4px;">#Warehouse.WarehouseName#<br><font size="1">#Warehouse.City# #Warehouse.Address#</td>
 			<td style="min-width:100px;border-left:0px dotted silver;padding-left:20px;"><font color="808080"><cf_tl id="Document date"></td>
 			<td align="center" style="font-size:16px;border:1px solid silver;padding:4px">#dateformat(Batch.TransactionDate,CLIENT.DateFormatShow)#</td>	
-			
-			<cfif batch.transactiontype eq "2" or batch.transactiontype eq "8">
-			
-				<td style="padding-left:5px;"><font color="808080"><cf_tl id="Collection"></td>
-				<td style="font-size:16px;max-width:96px;min-width:86px;border:1px solid silver;padding:4px" id="collection">
-				
-					<table width="100%">
-					<tr class="labelmedium">
-					<td style="font-size:16px;">
-					
-					<!--- obtain collection date --->
-					
-					<cfquery name="BatchCollection"
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT   *
-						FROM     WarehouseBatchAction
-						WHERE    BatchNo           = '#URL.BatchNo#'
-						AND      ActionCode        = 'Collection'
-					</cfquery>
-					
-					<cfif BatchCollection.ActionDate eq "">			
-					#dateformat(Batch.TransactionDate,CLIENT.DateFormatShow)#
-					<cfelse>
-					#dateformat(BatchCollection.ActionDate,CLIENT.DateFormatShow)#
-					</cfif>
-					</td>
-					
-					<cfif batch.ActionStatus eq "0">
-					<td align="right" style="padding-right:3px">
-					    <cf_img icon="edit" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/warehouse/application/stock/batch/setBatchAction.cfm?action=collection&systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#','collection')">															
-					</td>
-					</cfif>
-					
-					</tr>
-					</table>
-					
-				</td>		
-			
-			</cfif>			
 						
-		</tr>
-		
-		
-		
-		<cfif Batch.BatchMemo neq "">
-		
-			<tr  class="labelmedium">				    		   
-		    	<td width="40" style="min-width:60px;border-left:0px dotted silver;padding:4px"><font color="808080"><cf_tl id="Memo">:</td>
-			    <td colspan="7" style="font-size:16px;border:1px solid silver;padding:4px">#Batch.BatchMemo#</td>		    					
-			</tr>
-		
-		</cfif>
-						
-		
-		<tr  class="labelmedium"><td class="fixlength" width="10"></td>
-		    <td class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">#Batch.OfficerFirstName# #Batch.OfficerLastName#</td>
-	    	<td class="fixlength" style="padding-left:20px"><font color="808080"><cf_tl id="Status">:</td>
-			<td class="fixlength" colspan="3" id="status" height="200" style="font-size:16px;border:1px solid silver;padding:4px">
+			<td class="fixlength" style="padding-left:20px"><font color="808080"><cf_tl id="Status">:</td>
+			<td class="fixlength" colspan="1" id="status" height="200" style="font-size:16px;border:1px solid silver;padding:4px">
 						
 			    <cfif Batch.ActionStatus eq "0">
 				
@@ -412,19 +355,86 @@ function openreference(id) {
 					
 					</cfif>
 						
-										 
-				<cfelseif Batch.ActionStatus eq "9">
-					<font color="red"><b><cf_tl id="Revoked"></b>&nbsp;
-
-					<cfif fullaccess eq "GRANTED" and sid neq "" and url.stockorderid eq "">
-						<a href="javascript:batchrevert('deny','#Batch.BatchNo#')"><font color="red">[<cf_tl id="undo">]</a>
-					<cfelseif getAdministrator("*") eq "1">	
-					    <a href="javascript:batchrevert('deny','#Batch.BatchNo#')"><font color="red">[<cf_tl id="undo">]</a>
+											 
+					<cfelseif Batch.ActionStatus eq "9">
+						<font color="red"><b><cf_tl id="Revoked"></b>&nbsp;
+	
+						<cfif fullaccess eq "GRANTED" and sid neq "" and url.stockorderid eq "">
+							<a href="javascript:batchrevert('deny','#Batch.BatchNo#')"><font color="red">[<cf_tl id="undo">]</a>
+						<cfelseif getAdministrator("*") eq "1">	
+						    <a href="javascript:batchrevert('deny','#Batch.BatchNo#')"><font color="red">[<cf_tl id="undo">]</a>
+						</cfif>
+					
 					</cfif>
 				
-				</cfif>
-				
 			</td>	
+			
+			<!--- THIS FIELD IS SUPERSEDED BY THE DELIVERY TRACKING OPTION 
+			
+			<cfif batch.transactiontype eq "2" or batch.transactiontype eq "8">
+			
+				<td style="padding-left:5px;"><font color="808080"><cf_tl id="Collection"></td>
+				<td style="font-size:16px;max-width:96px;min-width:86px;border:1px solid silver;padding:4px" id="collection">
+				
+					<table width="100%">
+					<tr class="labelmedium">
+					<td style="font-size:16px;">
+					
+					<!--- obtain collection date --->
+					
+					<cfquery name="BatchCollection"
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT   *
+						FROM     WarehouseBatchAction
+						WHERE    BatchNo           = '#URL.BatchNo#'
+						AND      ActionCode        = 'Collection'
+					</cfquery>
+					
+					<cfif BatchCollection.ActionDate eq "">			
+					#dateformat(Batch.TransactionDate,CLIENT.DateFormatShow)#
+					<cfelse>
+					#dateformat(BatchCollection.ActionDate,CLIENT.DateFormatShow)#
+					</cfif>
+					</td>
+					
+					<cfif batch.ActionStatus eq "0">
+					<td align="right" style="padding-right:3px">
+					    <cf_img icon="edit" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/warehouse/application/stock/batch/setBatchAction.cfm?action=collection&systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#','collection')">															
+					</td>
+					</cfif>
+					
+					</tr>
+					</table>
+					
+				</td>		
+			
+			</cfif>			
+						
+		</tr>
+		
+		--->
+		
+		
+		
+		<cfif Batch.BatchMemo neq "">
+		
+			<tr  class="labelmedium">				    		   
+		    	<td width="40" style="min-width:60px;border-left:0px dotted silver;padding:4px"><font color="808080"><cf_tl id="Memo">:</td>
+			    <td colspan="7" style="font-size:16px;border:1px solid silver;padding:4px">#Batch.BatchMemo#</td>		    					
+			</tr>
+		
+		</cfif>
+						
+		
+		<tr  class="labelmedium"><td class="fixlength" width="10"></td>
+		    <td class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">#Batch.OfficerFirstName# #Batch.OfficerLastName#</td>
+	    	
+			<td width="40" class="fixlength" style="border-left:0px dotted silver;padding-left:20px"><font color="808080"><cf_tl id="Recorded">:</td>
+			<TD COLSPAN="3" style="font-size:16px;border:1px solid silver;padding:4px">
+			#dateformat(Batch.Created,client.dateformatshow)# #timeformat(Batch.Created,"HH:MM")#
+			</TD>
 										  			   
 		    <td width="40" class="fixlength" style="border-left:0px dotted silver;padding-left:20px"><font color="808080"><cf_tl id="Usage">:</td>
 			<td id="usage" class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">   								   
@@ -453,7 +463,7 @@ function openreference(id) {
 					</cfif>
 			</td>	
 			
-			<td class="fixlength" style="border-left:0px dotted silver;padding-left:5px"><font color="808080"><cf_tl id="Last update">:</td>
+			<td class="fixlength" style="border-left:0px dotted silver;padding-left:20px"><font color="808080"><cf_tl id="Last update">:</td>
 			<td id="usage" class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">   								   
 					
 					<cfquery name="getTra"
@@ -469,16 +479,16 @@ function openreference(id) {
 						#dateformat(getTra.Created,client.dateformatshow)#
 						#timeformat(getTra.Created,"HH:MM")#
 						<font size="1">#getTra.officerLastName#</font>
-					
-					
+								
 			</td>	
 		
-		</tr>	
+		</tr>					
 		
 		<cfif batch.AddressId neq "" and Batch.CustomerId neq "">
 				
-		<tr  class="labelmedium">	
-		        <td></td>
+		    <tr class="labelmedium">	
+		       
+			    <td></td>
 				
 				<cfquery name="customer" 
 				datasource="appsMaterials" 
@@ -490,31 +500,62 @@ function openreference(id) {
 				</cfquery>
 				
 		        <td style="background-color:ffffaf;font-size:16px;border:1px solid silver;padding:4px">#Customer.CustomerName#</td>		    		   
-		    	<td style="border:0px solid silver;padding-left:20px"><cf_tl id="Address">:</td>
 				
-				<cfquery name="Address"
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					SELECT        *
-					FROM            System.dbo.Ref_Address
-					WHERE Addressid = '#batch.AddressId#'
-				</cfquery>
+				<cfif batch.AddressId neq "00000000-0000-0000-0000-000000000000">
 				
-			    <td colspan="3" style="background-color:ffffaf;font-size:16px;border:1px solid silver;padding:4px">#Address.AddressCity# / #Address.Country#</td>		    					
-				
-				<td width="40" class="fixlength" style="border-left:0px dotted silver;padding-left:20px"><font color="808080"><cf_tl id="Shipping">:</td>
-				<td id="shipping" colspan="3" class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">   
-				
-				        <table style="width:100%"><tr><td align="right">
-				
-						<input type="button" name="Shipping" value="Shipping" class="button10g" onclick="delivery('#batch.BatchId#')">
+			    	<td style="border:0px solid silver;padding-left:20px"><cf_tl id="Address">:</td>
+					
+					<cfquery name="Address"
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						SELECT        *
+						FROM            System.dbo.Ref_Address
+						WHERE Addressid = '#batch.AddressId#'
+					</cfquery>
+					
+				    <td colspan="3" style="background-color:ffffaf;font-size:16px;border:1px solid silver;padding:4px">#Address.AddressCity# / #Address.Country#</td>		    					
+					
+				</cfif>
 						
-						</td></tr></table>
-				
-				</td>	
-			
 			</tr>
+			
+			<cfif Batch.TransactionType eq "2">
+			
+				<cfquery name="Delivery"
+						datasource="AppsWorkOrder" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">			
+						SELECT       R.Description, WL.DateEffective, W.OrderMemo, WL.OrgUnitImplementer, O.OrgUnitName
+						FROM         WorkOrder AS W INNER JOIN
+                        			 WorkOrderLine AS WL ON W.WorkOrderId = WL.WorkOrderId INNER JOIN
+			                         Ref_ServiceItemDomainClass AS R ON WL.ServiceDomain = R.ServiceDomain AND WL.ServiceDomainClass = R.Code INNER JOIN
+			                         Organization.dbo.Organization AS O ON WL.OrgUnitImplementer = O.OrgUnit
+						WHERE        W.WorkOrderId = '#Batch.BatchId#'			 
+				</cfquery>		
+						
+				<tr id="shippingbox" class="<cfif Batch.ActionStatus eq '0'>hide</cfif>">
+				    <td></td>
+					<td id="shipping" colspan="10" class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">   
+					
+					        <table style="width:100%">
+							<tr><td>
+							
+							#delivery.description#:#delivery.Ordermemo#
+							
+							</td>
+							
+							<td align="right">
+												
+							<input type="button" name="Shipping" value="Shipping" class="button10g" onclick="delivery('#batch.BatchId#')">
+							
+							</td></tr>
+							</table>
+					
+					</td>	
+				</tr>					
+				
+			</cfif>
 		
 		
 		</cfif>

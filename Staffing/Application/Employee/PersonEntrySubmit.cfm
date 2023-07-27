@@ -67,7 +67,7 @@ password="#SESSION.dbpw#">
 
 	<table><tr><td><font height="20" face="Verdana">The following existing employees records match your entry.</b></td></tr></table>
 
-	<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="98%" align="center" class="formpadding">
 	
 	<TR class="labelmedium line">
 	    <TD></TD>

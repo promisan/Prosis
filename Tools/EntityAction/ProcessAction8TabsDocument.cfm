@@ -1,4 +1,5 @@
 
+
 <cfparam name="url.action" default="">	
 
 <cfquery name="Document" 
@@ -89,13 +90,13 @@
 		</cfif>	
 					
 		<td valign="top" height="100%">
-							
+									
 				<table width="100%" height="100%">				
-																																 
+																															 
 					 <cf_menucontainer name="doc" item="1" class="regular">		
 					 								
 						 <cfif document.recordcount gte "1" and sel neq "" and url.action neq "delete">
-						 
+												
 							   <cfset url.no = sel>
 							   <cfset url.textmode     = "EDIT">
 							   <cfset url.memoactionid = url.id>

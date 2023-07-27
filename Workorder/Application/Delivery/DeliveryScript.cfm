@@ -42,7 +42,7 @@
 	function detail(key,box) {
 	    w = "#client.width-130#";
 	    h = "#client.height-130#";	
-	    ptoken.open("#SESSION.root#/WorkOrder/Application/WorkOrder/Create/WorkOrderEdit.cfm?scope=edit&drillid="+key+"&box="+box,"form_"+key, "left=20, top=20, width=" + w + ", height= " + h + ", menubar=no, status=yes, toolbar=no, scrollbars=no, resizable=yes");						  		  
+	    ptoken.open("#SESSION.root#/WorkOrder/Application/WorkOrder/Create/WorkOrderEdit.cfm?scope=edit&drillid="+key+"&box="+box,"form_"+key);						  		  
 	}	
 	
 	function reloadtree(dt) {

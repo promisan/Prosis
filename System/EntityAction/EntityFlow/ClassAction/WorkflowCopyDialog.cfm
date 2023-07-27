@@ -29,7 +29,7 @@
 	<tr><td height="10"></td></tr>
 	
 	<TR>
-    <TD class="labelmedium">Class to restore:</TD>
+    <TD class="labelmedium fixlength">Class to restore:</TD>
     <TD>
             <select name="EClass" id="EClass" class="regularxxl">
             <cfloop query="EntClass">
@@ -44,8 +44,8 @@
 	<tr><td height="5"></td></tr>
 
 	<td align="center" colspan="2">
-		<input class="button10g" type="button" name="Cancel" id="Cancel" value=" Cancel " onClick="ProsisUI.closeWindow('mydialog');">
-	    <input class="button10g" type="button" name="Print"  id="Print"  value=" Copy "     onClick="copytoreturn();">
+		<input class="button10g" type="button" name="Cancel" id="Cancel" value="Cancel" onClick="ProsisUI.closeWindow('mydialog');">
+	    <input class="button10g" type="button" name="Print"  id="Print"  value="Copy"     onClick="copytoreturn();">
 	</td>	
 	
 </table>

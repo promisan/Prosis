@@ -8,12 +8,12 @@
     <cfproperty name="name" type="string">
     <cfset this.name = "Execution Queries">
 	
-	<cffunction name="syncCustomer"
-        access="remote"
-        returntype="any" 
-		returnformat="plain" 
-		output="yes"
-        displayname="syncs customer from warehouse to workorder">
+	<cffunction name  = "syncCustomer"
+        access        = "remote"
+        returntype    = "any" 
+		returnformat  = "plain" 
+		output        = "yes"
+        displayname   = "syncs customer from warehouse to workorder">
 		
 			<cfargument name="CustomerId"    type="string" required="true">
 			

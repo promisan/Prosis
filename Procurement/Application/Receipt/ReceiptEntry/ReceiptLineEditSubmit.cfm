@@ -273,7 +273,7 @@
 			
 			<cfif checkworkorder.recordcount eq "1">
 			
-				<cfset reqid = checkWorkOrder.requirementid>
+				<cfset reqid = checkWorkOrder.WorkOrderItemId>
 				
 			<cfelse>
 			

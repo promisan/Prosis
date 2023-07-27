@@ -15,7 +15,7 @@
 		datasource="appsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SET TEXTSIZE 1000000
+		SET TEXTSIZE 1500000
 		SELECT  O.*, R.DocumentMode, R.DocumentEditor
 		FROM    OrganizationObjectActionReport O INNER JOIN
                    Ref_EntityDocument R ON O.DocumentId = R.DocumentId

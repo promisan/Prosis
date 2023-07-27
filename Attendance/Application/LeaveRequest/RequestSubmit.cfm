@@ -185,7 +185,7 @@ password="#SESSION.dbpw#">
 		  AND    PersonNo      = '#FORM.PersonNo#'
 		  AND    ActionStatus != '9'
 		  AND    (DateExpiration >= #END# or DateExpiration is NULL)	
-		  AND    Mission       = '#orgunit.mission#'	
+		  AND    Mission       IN ('#orgunit.mission#','UNDEF')	
 		ORDER BY DateEffective DESC   
 </cfquery>
 	

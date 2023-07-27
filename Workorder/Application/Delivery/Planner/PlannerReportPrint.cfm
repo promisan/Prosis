@@ -27,11 +27,11 @@
 
 	<cfif url.scope eq "filter">
 		<script>
-			 window.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id=print&ID1=#units#&ID0=#tReportPath#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
+			 ptoken.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id=print&ID1=#units#&ID0=#tReportPath#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
 		</script>
 	<cfelse>
 		<script>
-			 window.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id=print&ID1=&ID0=#tReportPath#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
+			 ptoken.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id=print&ID1=&ID0=#tReportPath#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
 		</script>
 	</cfif>
 

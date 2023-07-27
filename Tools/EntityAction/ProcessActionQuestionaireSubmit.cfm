@@ -8,7 +8,7 @@
 		 FROM   OrganizationObjectQuestion
 		 WHERE  ObjectId = '#url.objectid#'
 		 AND    ActionCode = '#url.actioncode#'
-		 AND    QuestionId = '#url.questionid#'	
+		 AND    QuestionId = '#url.questionid#'			 
 </cfquery>
 
 <cfif check.recordcount eq "0">
@@ -39,6 +39,7 @@
 		 WHERE   ObjectId      = '#url.objectid#'
 		 AND     ActionCode    = '#url.actioncode#'
 		 AND     QuestionId    = '#url.questionid#'	 
+		 
 	</cfquery>
 
 <cfelseif url.field eq "memo">

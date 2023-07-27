@@ -15,7 +15,6 @@
 
 <cfoutput>
 
-<table style="height:100%"><tr class="labelmedium">
-<td valign="top">#Action.ActionSpecification#</td></tr></table>
+<table style="height:100%"><tr><td valign="top">#Action.ActionSpecification#</td></tr></table>
 
 </cfoutput>

@@ -146,7 +146,7 @@
 			  <table>
 			  <tr>
 			  <td>
-		 		<a href="javascript:proken.navigate('Planner/PlannerReportPrint.cfm?dts=#URL.dts#&mission=#URL.Mission#&planid=#WorkPlanid#&scope=','process','','','POST','mapform')">
+		 		<a href="javascript:ptoken.navigate('Planner/PlannerReportPrint.cfm?dts=#URL.dts#&mission=#URL.Mission#&planid=#WorkPlanid#&scope=','process','','','POST','mapform')">
 		 			<img src="#SESSION.root#/images/print.png" height="16" width="16" align="absmiddle" alt="" border="0"></a>
 			  </td>
 			  <td class="labellarge" align="right" style="padding-right:20px" colspan="#cols-3#"> <font size="2">#summary.recordcount#</td>			
@@ -182,7 +182,7 @@
 		<cfelse>
 		
 			 <!--- short version for planning screen only --->
-			 <tr class="navigation_row line">
+			 <tr class="navigation_row line fixlengthlist">
 			     
 				 <td height="16" align="center" style="padding-left:10px"><cfif currentrow eq "1"><cf_space spaces="4"></cfif><font size="1">#planorder#.</td>
 				 

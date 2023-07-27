@@ -63,6 +63,8 @@
 <cfset url.height = url.height - 15>
 <cfset url.width  = url.width - 15>
 					
+					
+					
 		<cfmap name="gmap"
 	     centerlatitude="#Zone.centerLatitude#" 
 	     centerlongitude="#Zone.centerlongitude#" 	 	
@@ -86,7 +88,7 @@
 		<cfloop query="Listing">		
 		
 			<cfif coordinates neq "">
-			
+									
 			     <cfset lat = "">
 				 <cfset lng = "">
 					 		 
@@ -111,7 +113,7 @@
 				</cfif>		
 								
 			<cfelseif Country neq "" and Address neq "" and AddressCity neq "">
-			
+						
 					<cfquery name="getCountry"
 					datasource="appsSystem" 
 					username="#SESSION.login#" 
@@ -119,14 +121,18 @@
 						SELECT * FROM Ref_Nation	
 						WHERE  Code = '#country#'																											
 				   	</cfquery>	
+					
 			
 					<cfinvoke component="service.maps.googlegeocoder3" method="googlegeocoder3" returnvariable="details">	
 					
-						<cfif len(addresspostalcode) gte 4>							
-							<cfinvokeargument name="address" value="#getCountry.Name#, #addresspostalcode#">
+						<cfif len(addresspostalcode) gte 5>			
+						    <cfset search = "#getCountry.Name#, #addresspostalcode# #addresscity# #address#">						
 						<cfelse>
-						    <cfinvokeargument name="address" value="#getCountry.Name#, #addresscity# #address#">
+							<cfset search = "#getCountry.Name#, #addresscity# #address#">				
 						</cfif>
+							
+					    <cfinvokeargument name="address" value="#search#">
+												
 						<cfinvokeargument name="ShowDetails" value="false">
 					
 					</cfinvoke>	

@@ -25,6 +25,25 @@
 </cfquery>
 
 
+<cfif getCandidates.recordcount eq "0">
+
+	<cfquery name="getCandidates" 
+	datasource="appsVacancy" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT   A.*, DC.Status			   
+		FROM     DocumentCandidate DC INNER JOIN
+                 Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo INNER JOIN
+                 Ref_Status S ON DC.Status = S.Status    				   	   
+		WHERE    DC.DocumentNo = '#url.documentNo#'		
+		AND      S.Class = 'Candidate' 
+		AND      DC.Status IN ('#url.wfinal-2#','#url.wfinal#')	 
+		ORDER BY CandidateOrder
+</cfquery>
+
+</cfif>
+
+
 <cfloop query="getCandidates">
 
     <cfparam name="Form.ReviewStatus#personno#" default="#url.wfinal-1#">

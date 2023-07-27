@@ -58,6 +58,8 @@
 			 WHERE  EntityCode = '#Object.EntityCode#'	 
 		</cfquery>
 		
+		
+		
 		<cfif url.target eq "0" or url.portal eq "">
 		
 			    <cfset client.refer = "workflow">
@@ -65,26 +67,29 @@
 				<cfparam name="hashvalue" default="">
 																											
 			    <cfinvoke component="Service.Process.System.Security" method="passtru" returnvariable="hashvalue"/>		
-				
-				<cfset hashvalue = "">
-																																				
+																																								
 			    <cfif find("myclentity=",Object.ObjectURL)>				
 				     <!--- prevent duplication --->
-					<cflocation url="#SESSION.root#/#Object.ObjectURL#?mid=#hashvalue#" addtoken="No"> 
+					<cflocation url="#SESSION.root#/#Object.ObjectURL#?#hashvalue#" addtoken="No"> 
 				<cfelseif find("refer=",Object.ObjectURL)>							
-					<cflocation url="#SESSION.root#/#Object.ObjectURL#&mycl=1&myclentity=#mycl#&mid=#hashvalue#" addtoken="No"> 			
+					<cflocation url="#SESSION.root#/#Object.ObjectURL#&mycl=1&myclentity=#mycl#&#hashvalue#" addtoken="No"> 			
 				<cfelse>			
-					<cflocation url="#SESSION.root#/#Object.ObjectURL#&mycl=1&myclentity=#mycl#&refer=workflow&mid=#hashvalue#" addtoken="No"> 
+					<cflocation url="#SESSION.root#/#Object.ObjectURL#&mycl=1&myclentity=#mycl#&refer=workflow&#hashvalue#" addtoken="No"> 
 				</cfif>	
 				
 		<cfelse>
 		
+				
 				<cfset client.ObjectId   = object.objectid>
 				<cfset client.ActionCode = url.actionCode>
+				
+				lllllll
+				<cfabort>
 								
 		        <cflocation  url="#session.root#/portal/selfservice/public.cfm?id=#url.portal#&mission=#object.mission#&target=1">
 		
-		</cfif>			
+		</cfif>		
+		
 		
 	<cfelse>
 		

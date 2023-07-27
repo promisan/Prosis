@@ -61,9 +61,9 @@ function savequick(mde) {
 
 
 function saveflow() {
-	
-    ColdFusion.Ajax.submitForm('flowform', 'ActionStepFlowSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save=1')					
-   
+		
+    ptoken.navigate('ActionStepFlowSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save=1','process','','','POST','flowform')					
+    
 	se = document.getElementById("ActionGoTo")	
 	if (se.value != '0') {		
 	    document.getElementById("goto").className = "regular"								

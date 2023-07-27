@@ -116,8 +116,7 @@
 				  document.getElementById('menu#client.processtab#').click()				  			 		  
 				</script>			
 			
-			<cfelse>
-			
+			<cfelse>			
 									
 				<script>	
 			
@@ -252,9 +251,9 @@
 			 datasource="AppsOrganization"
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
-			 UPDATE OrganizationObjectAction 		
-			 SET    ActionReferenceDate = #DTE#  
-			 WHERE  ActionId            = '#URL.ID#' 
+				 UPDATE OrganizationObjectAction 		
+				 SET    ActionReferenceDate = #DTE#  
+				 WHERE  ActionId            = '#URL.ID#' 
 			</cfquery>
 	
 	</cfif>
@@ -263,9 +262,9 @@
 		 datasource="AppsOrganization"
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
-		 UPDATE OrganizationObjectAction 		
-		 SET    ActionReferenceNo = '#form.actionReferenceNo#' 
-		 WHERE  ActionId = '#URL.ID#' 
+			 UPDATE OrganizationObjectAction 		
+			 SET    ActionReferenceNo = '#form.actionReferenceNo#' 
+			 WHERE  ActionId = '#URL.ID#' 
 	</cfquery>
 	
 	<!--- temp
@@ -406,12 +405,12 @@
 		datasource="appsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT * 
-		FROM   OrganizationObjectActionReport O INNER JOIN
-               Ref_EntityDocument R ON O.DocumentId = R.DocumentId
-		WHERE  ActionId   = '#URL.ID#' 
-		AND    DocumentMode = 'AsIs' and DocumentLayout <> 'PDF'
-		AND    Operational = 1
+			SELECT * 
+			FROM   OrganizationObjectActionReport O INNER JOIN
+	               Ref_EntityDocument R ON O.DocumentId = R.DocumentId
+			WHERE  ActionId   = '#URL.ID#' 
+			AND    DocumentMode = 'AsIs' and DocumentLayout <> 'PDF'
+			AND    Operational = 1
 	</cfquery>
 		
 	<cfloop query="documents">
@@ -420,11 +419,11 @@
 			datasource="appsOrganization" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			SELECT *
-			FROM   Ref_EntityDocumentSignature
-			WHERE  EntityCode = '#Object.EntityCode#'
-			AND    Code       = '#Documents.SignatureBlock#' 
-			AND	   Operational = 1  
+				SELECT *
+				FROM   Ref_EntityDocumentSignature
+				WHERE  EntityCode = '#Object.EntityCode#'
+				AND    Code       = '#Documents.SignatureBlock#' 
+				AND	   Operational = 1  
 		</cfquery>	
 				
 		<!--- parse the document 				   
@@ -492,10 +491,10 @@
 			 	datasource="AppsOrganization"
 			 	username="#SESSION.login#" 
 			 	password="#SESSION.dbpw#">
-			 	UPDATE OrganizationObjectActionReport 		
-			 	SET    DocumentContent = '#text#' 
-			 	WHERE  ActionId        = '#URL.ID#' 
-			 	AND    DocumentId      = '#DocumentId#' 
+					 	UPDATE OrganizationObjectActionReport 		
+					 	SET    DocumentContent = '#text#' 
+					 	WHERE  ActionId        = '#URL.ID#' 
+					 	AND    DocumentId      = '#DocumentId#' 
 			</cfquery>
 						
 		</cfif>	
@@ -913,38 +912,42 @@
 		   </cfif>
 		
 	</cfif>		
-					
+							
 	<cfif url.ajaxid neq "">		
 		
 		<cfif windowmode eq "embed">
 		
-		  <cfoutput>
-		  	<script language="JavaScript">	
-			    if (parent.document.getElementById('#url.ajaxid#')) {
-				    parent.workflowreload('#url.ajaxid#','0') 
-				}	 			   	      
-			   	parent.ProsisUI.closeWindow('workflowstep')
-			</script>	
-			 </cfoutput>	
+		    <cfoutput>
+			  	<script language="JavaScript">	
+				    if (parent.document.getElementById('#url.ajaxid#')) {
+					    parent.workflowreload('#url.ajaxid#','0') 
+					}	 			   	      
+				   	parent.ProsisUI.closeWindow('workflowstep')
+				</script>	
+			</cfoutput>	
 		
 		<cfelse>
 		
 		   <cfoutput>
-		   <script language="JavaScript">
-		   		   			
-			try { opener.workflowreload('#url.ajaxid#','0') } 
-			   catch(e) { 
+		   
+			   <script language="JavaScript">
+			  		   		   			
+				try { opener.workflowreload('#url.ajaxid#','0') } 
+				   catch(e) { 
+				   
+				  	 try { opener.history.go() }
+					catch(e) {
+						try {
+						opener.location.reload()
+						 	} catch(e) {}			
+						}	
+				   
+				   }	
+	          	   		
+				window.close()
+				
+			   </script>
 			   
-			  	 try { opener.history.go() }
-				catch(e) {
-					try {
-					opener.location.reload()
-					 	} catch(e) {}			
-					}	
-			   
-			   }			
-			window.close()
-		   </script>
 		   </cfoutput>	
 		
 		</cfif>				
@@ -952,23 +955,21 @@
 	<cfelse>
 	
 			<script language="JavaScript">
-		 		   
+						 		 		   
 			  	try { opener.history.go() }
 				catch(e) {
 					try {
 					opener.location.reload()
 					 	} catch(e) {}			
-					}	
-			 	window.close()
+					}				
+			 	try { window.close() } catch(e) {}				
 				
 		   </script>
 		
 	</cfif>
 	
-
-<!--- moved 7/7/2010 for TCP compatibility on 7 as under ajax this action was always performed
-in the new code --->
-
+	<!--- moved 7/7/2010 for TCP compatibility on 7 as under ajax this action was always performed
+	in the new code --->
 
 <cfelseif ParameterExists(Form.EmbedSaveClose)>
 
@@ -1031,13 +1032,18 @@ in the new code --->
 <cfparam name="url.myentity" default="">
 
 <cfif url.myentity neq "">
+
 	<cfoutput>
+	
 		<script>			    		
 			try {			   
 				opener.parent.opener.document.getElementById('#url.myentity#ref').click()
 				<!--- does not work properly opener.parent.close() --->
 			} catch(e) {}
 		</script>			
+		
 	</cfoutput>
+	
 </cfif>
+
 

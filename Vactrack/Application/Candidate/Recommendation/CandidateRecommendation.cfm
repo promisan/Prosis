@@ -73,6 +73,25 @@ password="#SESSION.dbpw#">
 		ORDER BY CandidateOrder
 </cfquery>
 
+<cfif getCandidates.recordcount eq "0">
+
+	<cfquery name="getCandidates" 
+	datasource="appsVacancy" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT   A.*, DC.Status			   
+		FROM     DocumentCandidate DC INNER JOIN
+                 Applicant.dbo.Applicant A ON DC.PersonNo = A.PersonNo INNER JOIN
+                 Ref_Status S ON DC.Status = S.Status    				   	   
+		WHERE    DC.DocumentNo = '#url.documentNo#'		
+		AND      S.Class = 'Candidate' 
+		AND      DC.Status IN ('#url.wfinal-2#','#url.wfinal#')	 
+		ORDER BY CandidateOrder
+</cfquery>
+
+
+</cfif>
+
 <cfoutput>
 
 <form name="recommendation" id="recommendation" style="height:98%">
@@ -85,9 +104,9 @@ password="#SESSION.dbpw#">
 	
 		<table width="98%" border="0">
 		
-		<tr><td id="myprocess"></td></tr>
 		
-		 <tr>
+		
+		 <tr class="fixlengthlist">
 		 <td style="font-weight:bold;padding-top:4px;height:35px;font-size:18px;padding-right:10px"><cf_tl id="Reason for recommendation"></td>
 		 
 		 <td style="font-size:15px;min-width:300px" align="right">	
@@ -119,7 +138,7 @@ password="#SESSION.dbpw#">
 			AND   ActionCode = '#url.ActionCode#'  
 		 </cfquery>	
 		 
-		 <textarea style="padding:5px;border:1px solid silver;background-color:f1f1f1;height:68px;width:98%;font-size:13px;" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
+		 <textarea style="padding:5px;border:1px solid silver;background-color:ffffcf;height:68px;width:100%;font-size:13px;" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
 		
 		</td>
 		</tr>
@@ -136,8 +155,7 @@ password="#SESSION.dbpw#">
 				<td style="font-size:14px;padding-left:4px"><cf_tl id="Select"></td>
 				<td style="font-size:14px;padding-left:4px"><cf_tl id="Priority"></td>
 			
-			    <cfloop query="getCandidates">
-				
+			    <cfloop query="getCandidates">				
 									
 					<cfquery name="get" 
 						datasource="appsVacancy" 
@@ -303,6 +321,8 @@ password="#SESSION.dbpw#">
 		</tr>
 		</table>
 	</td></tr>
+	
+	<tr style="height:10px"><td colspan="2" id="myprocess"></td></tr>
 	
 	</table>
 

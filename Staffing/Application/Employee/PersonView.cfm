@@ -112,7 +112,6 @@
     <cfset option = "HR Administration details">
 </cfif>
 
-
 <cf_screentop height="100%" 
 	  html="Yes" 
 	  scroll="No"
@@ -134,10 +133,8 @@
 
 <script>
 				
-	function doProjectValidation() {
-	    
+	function doProjectValidation() {	    
 		ptoken.navigate('#session.root#/Staffing/Application/Employee/PersonViewValidation.cfm?systemfunctionid=#url.systemfunctionid#&mission=&PersonNo=#employee.personNo#', 'divValidation');		
-
 	}
 				
 </script>

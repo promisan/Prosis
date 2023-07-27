@@ -288,13 +288,13 @@
 									</cfquery>	
 								
 									<table width="100%" height="100%">
-									  <tr class="labelit">
+									  <tr class="labelmedium2">
 									  <td style="font-size:29px" valign="top">#LeaveYear#</td>
-									  <td align="right" style="width:400px;border:1px solid silver;border-right:1px solid silver">
+									  <td align="right" style="width:400px">
 									  
-										  <table bgcolor="ffffcf" width="100%">
+										  <table bgcolor="ffffcf" width="100%" style="border:1px solid silver;">
 										  <cfloop query="leavestatus">
-										  <tr class="<cfif currentrow neq recordcount>line</cfif> labelit" style="height:18px">
+										  <tr class="<cfif currentrow neq recordcount>line</cfif> labelmedium2" style="height:25px">
 										  	<td style="padding-left:4px">#Description# : <cfif classname neq description>#ClassName#</cfif></td>							
 											<td align="right" style="padding-right:3px;">#NumberFormat(Taken,"__.__")#</td>
 										  </tr>

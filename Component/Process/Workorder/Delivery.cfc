@@ -18,8 +18,12 @@
 		<cfargument name="BatchId"                 type="string" required="true">
 		<cfargument name="DataSource"              type="string" default="appsMaterials" required="true">
 		<cfargument name="ServiceDomain"           type="string" default="Shipment"      required="yes">
+		<cfargument name="Memo"                    type="string" default="">
+		<cfargument name="Comments"                type="string" default="">
+		<cfargument name="DomainClass"             type="string" default="">
 		<cfargument name="ActionClassDelivery"     type="string" default="Delivery"      required="yes">
 		<cfargument name="ActionClassNotification" type="string" default="">
+		<cfargument name="AddressId"               type="string" default="">
 		<cfargument name="AddressType"             type="string" default="Shipping">
 		<cfargument name="DeliveryDate"            type="string" default="#dateformat(now()+1,client.dateformatshow)#" required="yes">
 		
@@ -47,6 +51,15 @@
 		
 		--->
 		
+		<cfquery name="checkPrior"
+			datasource="#Datasource#" 
+		    username="#SESSION.login#" 
+			password="#SESSION.dbpw#">		
+				SELECT  * 
+				FROM    WorkOrder.dbo.WorkOrder
+				WHERE   WorkOrderId = '#batchid#'				
+		</cfquery>	
+		
 		<cfquery name="get"
 			datasource="#DataSource#" 
 			username="#SESSION.login#" 
@@ -66,25 +79,8 @@
 				FROM     WorkOrder.dbo.ServiceItem
 				WHERE    ServiceDomain = '#servicedomain#'			
 				AND      Code IN (SELECT ServiceItem FROM WorkOrder.dbo.ServiceItemMission WHERE Mission = '#get.Mission#')
-			</cfquery>		
-			
-			<cfquery name="checkPrior"
-				datasource="#Datasource#" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">		
-				SELECT  * 
-				FROM    WorkOrder.dbo.WorkOrder
-				WHERE   WorkOrderId = '#batchid#'				
-			</cfquery>	
-			
-			<cfif checkPrior.recordcount eq "0">
-			
-			    <!--- this is a POS delvery order and we need to check / record the customer information -from the screen we prepared --->
-			
-			
-			
-			</cfif>
-			
+			</cfquery>					
+						
 			<cfquery name="set"
 				datasource="#DataSource#" 
 				username="#SESSION.login#" 
@@ -96,87 +92,143 @@
 				
 			</cfquery>		
 			
+			<!--- Hanno : this needs to be conditional, not all are coming from the workorder so we need to make a condition
+		     if this comes from POS instead --->
+			
 			<cfquery name="ShipmentOrder"
 					datasource="#Datasource#" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">		
 						
-					SELECT   T.Mission, 
-							 W.CustomerId,					
-					         T.WorkOrderId, 
-					         T.OrgUnit AS OrgUnitImplementer, 
-							 T.Warehouse, 
-							 Whs.MissionOrgUnitId, 
-							 MAX(T.OrgUnit) AS OrgUnitOwner, 
-							 COUNT(*) AS Items, 
-							 W.Reference
-					FROM     Materials.dbo.ItemTransaction AS T INNER JOIN
-		                     Materials.dbo.Warehouse AS Whs ON T.Warehouse = Whs.Warehouse INNER JOIN
-		                     Organization.dbo.Organization AS O ON Whs.MissionOrgUnitId = O.MissionOrgUnitId INNER JOIN
-		                     WorkOrder.dbo.WorkOrder AS W ON T.WorkOrderId = W.WorkOrderId
-					WHERE    T.TransactionType = '2' 
-					AND      T.TransactionBatchNo = '#get.BatchNo#'
+					SELECT    T.Mission, 
+	      				      T.WorkOrderId,
+					          (SELECT CustomerId FROM WorkOrder.dbo.WorkOrder AS W WHERE T.WorkOrderId = W.WorkOrderId) as CustomerId,
+							  (SELECT Reference FROM WorkOrder.dbo.WorkOrder AS W WHERE T.WorkOrderId = W.WorkOrderId) as Reference,							 							          
+					          MAX(O.OrgUnit) AS OrgUnitImplementer, 
+							  T.Warehouse, 
+							  Whs.MissionOrgUnitId, 
+							  MAX(O.OrgUnit) AS OrgUnitOwner, 
+							  COUNT(*) AS Items
+					FROM      Materials.dbo.ItemTransaction AS T INNER JOIN
+		                      Materials.dbo.Warehouse AS Whs ON T.Warehouse = Whs.Warehouse INNER JOIN
+		                      Organization.dbo.Organization AS O ON Whs.MissionOrgUnitId = O.MissionOrgUnitId
+					WHERE     T.TransactionType    = '2' 
+					AND       T.TransactionBatchNo = '#get.BatchNo#'
 		            GROUP BY  T.Mission, 
-							 W.CustomerId,		
-							 T.WorkOrderId, 
-					         T.OrgUnit, 
-							 T.Warehouse, 
-							 Whs.MissionOrgUnitId, 
-							 O.OrgUnitName, 
-							 T.OrgUnitCode, 
-							 T.OrgUnitName, 
-							 W.Reference
+							  T.WorkOrderId, 
+					          T.OrgUnit, 
+							  T.Warehouse, 
+							  Whs.MissionOrgUnitId, 
+							  O.OrgUnitName, 
+							  T.OrgUnitCode, 
+							  T.OrgUnitName						  
 							 
 			</cfquery>	
-				
-			<cfquery name="Customer"
-				datasource="#DataSource#" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">			
-				
-					SELECT  * 
-					FROM    WorkOrder.dbo.Customer
-					WHERE   Customerid = '#ShipmentOrder.CustomerId#'			
-					
-			</cfquery>				
 			
-			<cfquery name="getAddress"
+			<cfif ShipmentOrder.CustomerId eq "">
+			
+				<!--- we take this info for the warehouse batch and we see if we have an entry in workorder customer --->
+								
+								
+				<cfinvoke component     = "Service.Process.WorkOrder.Customer"  
+				   method               = "syncCustomer" 
+				   customerid           = "#get.CustomerId#"
+				   returnvariable       = "Customer">	   
+				
+				<cfset customerid = customer.customerid>
+				
+				<!--- sync the address --->		
+				
+				<cfif addressid neq "">
+				
+				    <cfquery name="getAddress"
+						datasource="#DataSource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">	
+		
+			
+					    SELECT    CA.AddressType, CA.DateEffective, CA.DateExpiration, A.AddressScope, A.AddressPostalCode, A.Coordinates, A.Address, A.Address2, A.AddressCity, A.State, A.Country, A.AddressId
+		                FROM      CustomerAddress AS CA INNER JOIN
+		                          System.dbo.Ref_Address AS A ON CA.AddressId = A.AddressId
+						WHERE     CA.CustomerId = '#get.CustomerId#' 		  
+						AND       CA.AddressId = '#AddressId#'
+								
+				     </cfquery>		
+					 
+					 
+					 <cfquery name="setCustomer"
+						datasource="#DataSource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">	
+								
+							UPDATE  WorkOrder.dbo.Customer
+							
+							SET     Country      = '#getAddress..Country#',
+							        PostalCode   = '#getAddress.AddressPostalCode#',
+									City         = '#getAddress.AddressCity#',
+									Address      = '#getAddress.Address#',
+									Coordinates  = '#getAddress.Coordinates#'
+									 
+							WHERE   Customerid   = '#get.CustomerId#'				
+							
+ 					</cfquery>			
+								
+				</cfif>					
+				
+			<cfelse>
+			
+				<cfset customerid = ShipmentOrder.customerid>
+			
+				<cfquery name="Customer"
 					datasource="#DataSource#" 
 					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">	
-				
-					SELECT       OA.TelephoneNo, 
-					             OA.MobileNo, 
-								 R.Country,
-								 R.AddressPostalCode, 
-								 R.AddressCity, 
-								 R.Address, 
-								 R.Coordinates
-					FROM         Organization.dbo.OrganizationAddress AS OA INNER JOIN
-			                     System.dbo.Ref_Address AS R ON OA.AddressId = R.AddressId
-					WHERE        OA.OrgUnit     = '#Customer.OrgUnit#' 
-					AND          OA.AddressType = '#AddressType#'	
-								
-				</cfquery>
-				
-			<cfquery name="setCustomer"
-				datasource="#DataSource#" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">	
+					password="#SESSION.dbpw#">			
+					
+						SELECT  * 
+						FROM    WorkOrder.dbo.Customer
+						WHERE   Customerid = '#ShipmentOrder.CustomerId#'			
 						
-					UPDATE  WorkOrder.dbo.Customer
+				</cfquery>				
+				
+				<cfquery name="getAddress"
+						datasource="#DataSource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">	
 					
-					SET     PhoneNumber  = '#getAddress.TelephoneNo#',
-					        MobileNumber = '#getAddress.MobileNo#',
-							PostalCode   = '#getAddress.AddressPostalCode#',
-							City         = '#getAddress.AddressCity#',
-							Address      = '#getAddress.Address#',
-							Coordinates  = '#getAddress.Coordinates#'
-							 
-					WHERE   Customerid   = '#ShipmentOrder.CustomerId#'				
+						SELECT       OA.TelephoneNo, 
+						             OA.MobileNo, 
+									 R.Country,
+									 R.AddressPostalCode, 
+									 R.AddressCity, 
+									 R.Address, 
+									 R.Coordinates
+						FROM         Organization.dbo.OrganizationAddress AS OA INNER JOIN
+				                     System.dbo.Ref_Address AS R ON OA.AddressId = R.AddressId
+						WHERE        OA.OrgUnit     = '#Customer.OrgUnit#' 
+						AND          OA.AddressType = '#AddressType#'	
+									
+					</cfquery>
 					
-			</cfquery>			
-			
+					<cfquery name="setCustomer"
+						datasource="#DataSource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">	
+								
+							UPDATE  WorkOrder.dbo.Customer
+							
+							SET     PhoneNumber  = '#getAddress.TelephoneNo#',
+							        MobileNumber = '#getAddress.MobileNo#',
+									PostalCode   = '#getAddress.AddressPostalCode#',
+									City         = '#getAddress.AddressCity#',
+									Address      = '#getAddress.Address#',
+									Coordinates  = '#getAddress.Coordinates#'
+									 
+							WHERE   Customerid   = '#ShipmentOrder.CustomerId#'				
+							
+					</cfquery>			
+							
+			</cfif>
+		
 			<!--- get service item --->
 		
 			<cfif checkPrior.recordcount eq "0" and serviceitem.recordcount gte "1">					
@@ -185,30 +237,31 @@
 					datasource="#Datasource#" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">		
-					INSERT INTO WorkOrder.dbo.WorkOrder
-							(WorkOrderId, 
-							 Reference, 
-							 Mission, 
-							 ServiceItem, 
-							 CustomerId, 					 
-							 OrderDate, 					 
-							 OrgUnitOwner, 					  
-							 ActionStatus, 
-							 OfficerUserId, 
-							 OfficerLastName, 
-							 OfficerFirstName)
-					 VALUES 
-					 		('#batchid#',
-						     '#ShipmentOrder.Reference#',
-							 '#ShipmentOrder.Mission#',		
-							 '#ServiceItem.code#',
-							 '#ShipmentOrder.CustomerId#',
-							 '#dateformat(now(),client.dateSQL)#',
-							 '#ShipmentOrder.OrgUnitOwner#',
-							 '1',
-							 '#session.acc#',
-							 '#session.last#',
-							 '#session.first#')				
+						INSERT INTO WorkOrder.dbo.WorkOrder
+								( WorkOrderId, 
+								  Reference, 
+								  Mission, 
+								  ServiceItem, 
+								  CustomerId, 					 
+								  OrderDate, 		
+								  Ordermemo,			 
+								  OrgUnitOwner, 					  
+								  ActionStatus, 
+								  OfficerUserId, 
+								  OfficerLastName, 
+								  OfficerFirstName)
+						 VALUES ('#batchid#',
+							     '#ShipmentOrder.Reference#',
+								 '#ShipmentOrder.Mission#',		
+								 '#ServiceItem.code#',
+								 '#CustomerId#',
+								 '#dateformat(now(),client.dateSQL)#',
+								 '#Memo#',
+								 '#ShipmentOrder.OrgUnitOwner#',
+								 '1',
+								 '#session.acc#',
+								 '#session.last#',
+								 '#session.first#')				
 				</cfquery>	
 				
 				<cftry>
@@ -242,31 +295,31 @@
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">		
 					INSERT INTO WorkOrder.dbo.WorkOrderLine (				
-					 		WorkOrderId, 
-							WorkOrderLine, 						
-							ServiceDomain, 
-							<!---
-							ServiceDomainClass, 
-							--->
-							OrgUnitImplementer, 
-							Reference, 
-							DateEffective, 						
-							OrgUnit, 						
-							Source,                       				
-							ActionStatus, 						
-							OfficerUserId, 
-							OfficerLastName, 
-	                        OfficerFirstName 					
-							)
+					 		 WorkOrderId, 
+							 WorkOrderLine, 						
+							 ServiceDomain, 							
+							 ServiceDomainClass, 							
+							 OrgUnitImplementer, 
+							 Reference, 
+							 DateEffective, 						
+							 OrgUnit, 						
+							 Source,   
+							 WorkOrderLineMemo,                    				
+							 ActionStatus, 						
+							 OfficerUserId, 
+							 OfficerLastName, 
+	                         OfficerFirstName )
 							
 					 VALUES	('#batchid#',
 							 '1',
-							'#ServiceDomain#', 
+							 '#ServiceDomain#', 
+							 '#DomainClass#',
 						     '#ShipmentOrder.OrgUnitImplementer#',
 							 'FactoryDelivery',						
 							 '#dateformat(now(),client.dateSQL)#',
 							 '#ShipmentOrder.OrgUnitImplementer#',
-							 'Batch',						
+							 'Batch',	
+							 '#Comments#',					
 							 '1',
 							 '#session.acc#',
 							 '#session.last#',

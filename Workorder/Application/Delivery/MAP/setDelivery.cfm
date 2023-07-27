@@ -18,6 +18,8 @@
 </cfquery>	
 	
 <cfif form.complete eq "1">	
+
+    <!--- better to connect this to the workflow --->
 	
 	<cfquery name="set"
 			datasource="appsWorkOrder" 

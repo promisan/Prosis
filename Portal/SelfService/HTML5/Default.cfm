@@ -33,7 +33,7 @@
 </cfquery>
 
 
-<cfif url.mission eq "">
+<cfif trim(url.mission) eq "">
 
     <cfif isDefined("client.mission")>
 		<cfset url.mission = client.mission>
@@ -61,7 +61,6 @@
 	<cfset url.menuClass 					= "process">
 	<cfset url.showNavigationOnFirstPage 	= "1">
 	<cfset url.showReload					= "1">
-	<cfset url.mission						= "#SelfService.functionCondition#">
 		
 	<!--- HTML5 --->
 	<!DOCTYPE html>

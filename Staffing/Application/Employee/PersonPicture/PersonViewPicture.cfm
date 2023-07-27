@@ -3,12 +3,12 @@
 <cfparam name="url.reference" 		default="empty">
 <cfparam name="url.scope" 			default="backoffice">
 
-<cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#url.IndexNo#.jpg") and url.indexNo neq "">                           		
+<cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#url.Personno#.jpg") and url.Personno neq "">   
+   <cfset pict = url.Personno>	
+<cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#url.IndexNo#.jpg") and url.indexNo neq "">                           		
    <cfset pict = IndexNo>   
 <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#url.Reference#.jpg") and url.reference neq "">   
    <cfset pict = url.Reference>		   
-<cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#url.Personno#.jpg") and url.Personno neq "">   
-   <cfset pict = url.Personno>	
 <cfelse>
    <cfset pict = "">      
 </cfif>

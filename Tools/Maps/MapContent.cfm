@@ -9,16 +9,18 @@
 <cfparam name="url.city"         default = "">
 <cfparam name="url.address"      default = "">
 
-<cfparam name="url.latitude"     default="0">
-<cfparam name="url.longitude"    default="0">
+<cfparam name="url.latitude"     default="">
+<cfparam name="url.longitude"    default="">
 <cfparam name="url.width"        default="400">
 <cfparam name="url.height"       default="392">
 <cfparam name="url.format"       default="map">
 
+<!---
 <cfif url.latitude eq "" and url.country eq "">
 	<cfset url.latitude =  "45">
 	<cfset url.longitude = "-45">	
 </cfif>
+--->
 
 <cfparam name="url.markerbind"   default="">
 
@@ -32,12 +34,11 @@
 </cfquery>
 
 <cfif url.latitude neq "" and url.longitude neq "">
-	
+
 	<cfset lat = url.latitude>
 	<cfset lng = url.longitude>
 	
-	<script>alert('here')</script>
-			
+
 	<!--- Hanno 07/12/2011 : limit the search here as the method is giving issues --->
 	
 	<cfinvoke component="service.maps.googlegeocoder3" 
@@ -45,26 +46,32 @@
 			  returnvariable="details">	  	
 			  <cfinvokeargument name="latlng" value="#lat#,#lng#">			
 			  <cfinvokeargument name="ShowDetails" value="false">			  
-	</cfinvoke>	  	
-				
+	</cfinvoke>
+	
+	<!---	
+	<cfdump var="#details#">
+	--->
+	
+
 	<cfset lat = details.latitude>
 	<cfset lng = details.longitude>
 	<cfset sts = details.status>		
 	
 <cfelse>
-
 			
 	<cfinvoke component="service.maps.googlegeocoder3" 
 	          method="googlegeocoder3" 
 			  returnvariable="details">
-			  
-	          <cfif url.city eq "">
-			 	 <cfinvokeargument name="address" value="#Country.Name#, #url.postalcode#">			 
+			 			  
+			  <cfif len(url.postalcode) gte 5>						  
+				   <cfset search = "#Country.Name#, #url.city# #url.postalcode# #url.address#">						
 			  <cfelse>
-				 <cfinvokeargument name="address" value="#Country.Name# #url.city# #url.address#">			 
-			  </cfif>
-			  
-			  <cfinvokeargument name="ShowDetails" value="false">
+				   <cfset search = "#Country.Name#, #url.city# #url.address#">				
+   			</cfif>
+			
+			<cfinvokeargument name="address" value="#search#">			  
+	      			  
+			<cfinvokeargument name="ShowDetails" value="false">
 			  
 	</cfinvoke>	 
 		
@@ -73,16 +80,14 @@
 	<cfset sts = details.status>
 	
 	
-	
 </cfif>
 
 <cfoutput>
 
-<cfif sts eq "OK">
+<cfif sts neq "OK">
 	
 	<table width="98%" height="100%" valign="top">
-		
-		
+				
 		<tr>
 		<td align="center"   			
 		    id="maploc"

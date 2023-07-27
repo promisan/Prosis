@@ -131,28 +131,7 @@
 							
 			</cfif>
 			
-			<!---
-			
-			<cfif Batch.DeliveryMode eq "1">
-			
-			--->
-			
-				<!--- trigger a kuntz delivery workorder object --->
-												
-				<cfinvoke component = "Service.Process.WorkOrder.Delivery"  
-				   method           = "addDelivery" 
-				   datasource       = "appsMaterials"
-				   batchId          = "#Batch.BatchId#">			
-		
-		    <!---
-			</cfif>
-			--->
-			
-			
-			<cfoutput>#Batch.DeliveryMode#</cfoutput>
-			xxxxxxxxx
-			<cfabort>
-			
+						
 			<!--- if the transaction is a sales transaction we determine if something has changed to trigger reposting --->
 			
 			<cfif Batch.BatchClass eq "WhsSale">
@@ -254,7 +233,7 @@
 				} catch(e) {}			
 					
 				// set the overall status now     				
-				
+			     _cf_loadingtexthtml='';		
 				ptoken.navigate('setBatchStatus.cfm?stockorderid=#url.stockorderid#&trigger=decision&systemfunctionid=#url.systemfunctionid#&batchno=#url.BatchNo#','status')
 				
 			</script>
@@ -333,6 +312,8 @@
 				 } catch(e) {}		    	
 			  
 				document.getElementById('iconfirm').className = "hide"
+								
+				_cf_loadingtexthtml='';	
 				ptoken.navigate('setBatchStatus.cfm?stockorderid=#url.stockorderid#&trigger=decision&systemfunctionid=#url.systemfunctionid#&batchno=#url.BatchNo#','status')
 				
 			</script>

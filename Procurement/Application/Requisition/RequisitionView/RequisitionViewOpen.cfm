@@ -6,6 +6,8 @@
 
 <cfoutput>
 
+<cf_systemscript>
+
 <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
 <cfset mid = oSecurity.gethash()/>   
 

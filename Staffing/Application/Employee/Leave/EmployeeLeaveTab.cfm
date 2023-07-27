@@ -140,8 +140,30 @@
 						iconwidth  = "#wd#" 
 						iconheight = "#ht#" 
 						targetitem = "1"
-						name       = "Calendar"
-						source     = "#SESSION.root#/attendance/application/TimeSheet/CalMonth.cfm?id=#url.id#">					
+						name       = "Personal Calendar"
+						source     = "#SESSION.root#/attendance/application/TimeSheet/CalMonth.cfm?id=#url.id#">		
+						
+						
+			 <cfquery name="Org" 
+			 datasource="AppsOrganization"
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">		
+				 SELECT * FROM Organization WHERE OrgUnit = '#onboard.orgunit#'
+			 </cfquery>		
+							 
+			 <cfif org.OrgUnit neq "">				 
+			
+						
+				<cf_menutab item       = "4" 
+				            iconsrc    = "Logos/Attendance/MonthView.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							targetitem = "3"
+							iframe     = "unitbox"
+							name       = "Unit Calendar"
+							source     = "iframe:#SESSION.root#/attendance/application/TimeView/OrganizationListing.cfm?id=ATT&ID0=#org.orgunit#&ID1=#org.OrgUnitCode#&ID2=#org.Mission#&ID3=#org.MandateNo#&id4=">											
+							
+			  </cfif>			
 									
 				<td width="40%"></td>	
 		</tr>
@@ -155,6 +177,7 @@
 		  <cfinclude template="LeaveRecords.cfm">
 	</cf_menucontainer>
 	<cf_menucontainer item="2" class="hide"/>
+	<cf_menucontainer item="3" class="hide" iframe="unitbox">
 
 </table>
 	

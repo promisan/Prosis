@@ -87,8 +87,7 @@ password="#SESSION.dbpw#">
 			 <cfset Form.Key4 = Object.ObjectKeyValue4>			 
 			 
 			 <cfif Format.DocumentMode eq "AsIs" and Format.DocumentLayout eq "PDF">
-			 
-			      			 
+			 			      			 
 			  	   <cftry>		  				  		
 					<cfdirectory action="CREATE" 
 				          directory="#SESSION.rootDocumentPath#\WFObjectReport\#URL.ActionID#">
@@ -151,13 +150,17 @@ password="#SESSION.dbpw#">
 			</cfcatch>
 		
 		</cftry>	
-		
+										
 		<cftry>	
+		
+		
+		    <CFSET text = replaceNoCase(text,"  ","","ALL")>  
 		
 			<cfquery name="Insert" 
 				datasource="appsOrganization" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
+				SET TextSize 150000 
 				INSERT INTO OrganizationObjectActionReport
 							 (ActionId,
 							 DocumentId,
@@ -187,6 +190,50 @@ password="#SESSION.dbpw#">
 						  '#SESSION.first#')
 			</cfquery>
 			
+			<!---
+			
+			<cfquery name="Insert" 
+				datasource="appsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SET TextSize 150000 
+				INSERT INTO [dbo].[_Trial]
+							 (MyContent ) 
+				  VALUES ('#text#')
+			</cfquery>
+			
+									
+			#len(text)#
+			
+			<cfquery name="Check" 
+				datasource="appsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				    SET    TextSize 1000000
+					SELECT * 
+					FROM    OrganizationObjectActionReport P, 
+					        Ref_EntityDocument R
+					WHERE   P.DocumentId = R.DocumentId
+					AND     P.ActionId   = '#URL.ActionID#' 
+			</cfquery>
+			
+			<cfoutput>#len(check.documentcontent)#</cfoutput>
+			
+			<cfquery name="Check" 
+				datasource="appsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				   
+					SELECT * 
+					FROM    _Trial
+					ORDER BY Code DESC
+			</cfquery>
+			
+			<cfoutput>#len(check.mycontent)#</cfoutput>
+			
+			
+			--->
+			
 		<cfcatch>
 		
 				<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
@@ -197,6 +244,7 @@ password="#SESSION.dbpw#">
 		</cftry>	
 		
 </cfif>
+
 
 		<cfif url.action eq "Add">
 		

@@ -42,7 +42,7 @@ function cleanText(inputText){
 			 SET    #url.element#   = '#content#', 
 			        ActionStatus    = '1'
 			 WHERE  ActionId        = '#URL.MemoActionId#' 		 
-			 AND    DocumentId      = '#URL.DocumentId#' 
+			 AND    DocumentId      = '#URL.DocumentId#' 			 
 		</cfquery>				
 				
 	<cfelse>
@@ -67,6 +67,7 @@ function cleanText(inputText){
 			        ActionStatus          = '1'
 			 WHERE  ActionId              = '#URL.MemoActionID#' 		 
 			 AND    DocumentId            = '#URL.DocumentId#'
+			 
 		</cfquery>
 		
 	</cfif>	

@@ -6,14 +6,14 @@
  datasource="AppsEmployee"
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
-	 SELECT   P.*
+	 SELECT   P.*, PA.OrgUnit
 	 FROM     PersonAssignment PA, Position P
 	 WHERE    PersonNo           = '#URL.ID#'
 	 AND      PA.PositionNo      = P.PositionNo
 	 AND      PA.DateEffective   < getdate()
 	 AND      PA.DateExpiration  > getDate()
 	 AND      PA.AssignmentStatus IN ('0','1')
-	 AND      PA.AssignmentClass = 'Regular'
+	 -- AND      PA.AssignmentClass = 'Regular' <!--- dropped --->
 	 AND      PA.AssignmentType  = 'Actual'
 	 AND      PA.Incumbency      = '100' 
  </cfquery>   	  

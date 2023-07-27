@@ -67,9 +67,7 @@ function Selected(no,description) {
 <table width="95%"
        border="0"
 	   height="100%"
-	   align="center"
-	   cellspacing="0"
-       cellpadding="0">
+	   align="center">
 	
 	<tr><td height="5"></td></tr>
 

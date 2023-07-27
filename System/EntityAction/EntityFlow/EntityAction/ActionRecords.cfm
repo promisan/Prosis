@@ -190,7 +190,7 @@ password="#SESSION.dbpw#">
 	         
 			 <cfoutput>			 
 			 <cfif URL.ID2 neq "new">
-			     <A href="javascript:#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&search=#url.search#&entityclass=#url.entityclass#&ID2=new')#"><cf_tl id="add"></a>
+			     <A href="javascript:ptoken.navigate('ActionRecords.cfm?EntityCode=#URL.EntityCode#&search=#url.search#&entityclass=#url.entityclass#&ID2=new','actionrecords')"><cf_tl id="add"></a>
 			 </cfif>			
 			 </cfoutput>
 			 
@@ -413,13 +413,13 @@ password="#SESSION.dbpw#">
 			   <td align="center"><cfif EnableAccessFly eq "0"><b>N</b><cfelse>Y</cfif></td>
 			   <td align="center"><cfif op eq "0"><b>N</b><cfelse>Y</cfif></td>
 			   <td align="center" style="padding-top:1px">				   	   
-			     <cf_img icon="edit" navigation="Yes" onclick="#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#&search=#url.search#&entityclass=#url.entityclass#')#">	   											 
+			     <cf_img icon="edit" navigation="Yes" onclick="_cf_loadingtexthtml='';ptoken.navigate('ActionRecords.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#&search=#url.search#&entityclass=#url.entityclass#','actionrecords')">	   											 
 			   </td>
 			   <td align="center" style="padding-left:2px;padding-right:2px">
 			
 				    <cfif Used eq "">	
 					
-						<cf_img icon="delete" onclick="#ajaxLink('ActionRecordsPurge.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#')#">	   									
+						<cf_img icon="delete" onclick="_cf_loadingtexthtml='';	ptoken.navigate('ActionRecordsPurge.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','actionrecords')">	   									
 															 
 					</cfif> 				
 			 

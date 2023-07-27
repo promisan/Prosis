@@ -51,6 +51,16 @@
 		 AND    FunctionId           = '#URL.ID#' 
 </cfquery>
 
+
+<cfquery name="Doc"
+        datasource="AppsVacancy"
+        username="#SESSION.login#"
+        password="#SESSION.dbpw#">
+         SELECT *
+         FROM   Document
+		 WHERE  FunctionId           = '#URL.ID#' 
+</cfquery>
+
 <cfif url.applicantNo neq "undefined">
 	
 	<cfquery name="Applicant"
@@ -92,21 +102,65 @@
 		 WHERE  Owner = '#VA.Owner#' 
 </cfquery>
 
-<cfif FileExists("#SESSION.rootPath#\Custom\#Owner.PathVacancyText#") and url.apply neq "1" and url.external eq "1">
+<cfif FileExists("#SESSION.rootPath#\Custom\#Owner.PathVacancyText#") and ((url.apply neq "1" and url.external eq "1") or VAText.recordcount eq "0")>
 
        <!--- disalbed --->
+	   
+	    <cf_divscroll> 
 
-	   <table border="0" bgcolor="ffffff" height="100%" width="95%" align="center">
-	   <tr><td height="100%" width="100%" style="padding:10px">	  
-	   	 	   	     	   	  						  
-		      <!--- custom path --->			  
-				  	   	      
-			<cfset URL.ID1 = VA.ReferenceNo>						
-		  	<cfinclude template="../../../Custom/#Owner.PathVacancyText#">
+		   <table border="0" bgcolor="ffffff" height="100%" width="95%" align="center">
+		  
+		  <cfif VA.Announcement eq "1">   	
+		  
+		         <cfoutput>
+				 
+				    <tr><td style="padding-top:4px"></td></tr>
+					
+					 <tr class="labelmedium2" style="height:20px">
+				        <td style="padding-left:3px"><cf_tl id="Title">:</td>
+				        <td>#VA.FunctionDescription# - #VA.GradeDeployment#</td>			     
+				        <td style="padding-left:3px"><cf_tl id="Area">:</td>
+				        <td>#VA.OrganizationDescription#</td>
+				     </tr>
 			
-						
-		</td></tr>
-	  </table>	
+					<tr class="labelmedium2" style="height:20px">
+				        <td style="padding-left:3px"><cf_tl id="Posting start">:</td>
+				        <td>#Dateformat(VA.DateEffective, "#CLIENT.DateFormatShow#")#</td>				
+				        <td style="padding-left:3px"><cf_tl id="Reference">:</b></td>
+				        <td><cfif VA.ReferenceNo eq "">n/a<cfelse>#VA.ReferenceNo#</cfif></td>
+					</tr>	
+				
+				    <cfif VA.DateExpiration neq "">
+						<tr class="labelmedium2" style="height:20px">
+					        <td style="padding-left:3px"><cf_tl id="Posting end">:</td>
+					        <td>#Dateformat(VA.DateExpiration, "#CLIENT.DateFormatShow#")#</d>
+							<td style="padding-left:3px"><cf_tl id="Type">:</td>
+					        <td>#Doc.DocumentType#</d>
+						</tr>		
+					</cfif>
+				
+				    
+				 				 
+				</cfoutput>
+				
+				<tr><td colspan="4" class="line"></td></tr>
+					 
+		  </cfif>		
+		  
+		  <tr><td height="100%" width="100%" colspan="4" style="padding-left:10px;padding-right:10px">	  	 
+			   	 	   	     	   	  						  
+				      <!--- custom path --->			  
+						  	   	      
+					<cfset URL.ID1 = VA.ReferenceNo>						
+				  	<cfinclude template="../../../Custom/#Owner.PathVacancyText#">
+					
+								
+		      </td>
+		  </tr>
+		  
+		  </table>	
+	  
+	  </cf_divscroll>
 		
 <cfelse>
 
@@ -116,7 +170,7 @@
 		
 	   <table width="98%" align="center" class="formpadding">
 	   
-	   	   	    		 
+	   	   	   	    		 
 			<cfif PostSpecific eq "1">
 			
 			<tr class="labelmedium2" style="height:20px">

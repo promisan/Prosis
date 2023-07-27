@@ -67,8 +67,11 @@
 	Custom fields are saved upon submission
 	Attention : custom dialog is validated to ensure completeness in case of a forward.	
 	--->
+	
     <cfinclude template="ProcessAction8.cfm">
+	
         
 	
-</cfif>	 
+</cfif>	
+
 	

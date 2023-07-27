@@ -159,7 +159,8 @@
 		
 	}
 	
-	function maildialog(obt,cde,glob) {		
+	function maildialog(obt,cde,glob) {	
+	    	    
 	    parent.ProsisUI.createWindow('wMailDialog', 'Notification', '',{x:100,y:100,height:600,width:890,modal:true,center:true})    				   
 		parent.ptoken.navigate('#session.root#/Tools/entityaction/ProcessMailView.cfm?objectid='+obt+'&actioncode='+cde+'&NotificationGlobal='+glob,'wMailDialog');								
 	}	

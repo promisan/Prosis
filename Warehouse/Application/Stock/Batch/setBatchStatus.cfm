@@ -112,11 +112,10 @@ password="#SESSION.dbpw#">
 			  ActionOfficerDate      = getDate()
 		WHERE BatchNo = '#url.BatchNo#'
 	</cfquery>
-		
-		
+				
 	<cfoutput>
 		
-	<table height="100%" cellspacing="0" cellpadding="0" class="formspacing">
+	<table height="100%" class="formspacing">
 
 		<tr><td align="center" class="labelmedium">
 				<font color="008000"><cf_tl id="Confirmed"></font>
@@ -212,6 +211,11 @@ password="#SESSION.dbpw#">
 			
 	</table>
 	
+	<script>
+	    <!--- maybe better to do a ptoken --->
+		 document.getElementById('shippingbox').className = "regular"
+	</script>
+		
 	</cfoutput>
 	
 <cfelse>

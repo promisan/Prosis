@@ -1,6 +1,6 @@
-<cfparam name="attributes.map"      default="gmap">
+<cfparam name="attributes.map"        default="gmap">
 <cfparam name="attributes.width"      default="400">
-<cfparam name="attributes.height"     default="390">
+<cfparam name="attributes.height"     default="300">
 <cfparam name="attributes.mode"       default="edit">
 <cfparam name="attributes.scope"      default="embed">
 <cfparam name="attributes.field"      default="">
@@ -35,17 +35,17 @@
 	}
 			
 	function mapaddress(scope) {	
-		   			   
+			   			   
 	    add   = document.getElementById('address').value	    								
 		cit   = document.getElementById('addresscity').value		
 		cou   = document.getElementById('country').value		
+		zip   = document.getElementById('addresspostalcode').value
 				
 		_cf_loadingtexthtml='';
-		if (scope != 'dialog') {
-		// _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy11.gif'/>";	
-   		ptoken.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=#scope#&mode=#mode#&width=#width#&height=#height#&country='+cou+'&city='+cit+'&address='+add,'mapcontent')	 
+		if (scope != 'dialog') {				
+   		ptoken.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=#scope#&mode=#mode#&width=#width#&height=#height#&country='+cou+'&city='+cit+'&postalcode='+zip+'&address='+add,'mapcontent')	 
 		} else {
-		ptoken.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=dialog&mode=#mode#&width=#width#&height=#height#&country='+cou+'&city='+cit+'&address='+add,'mapcontent')	 		
+		ptoken.navigate('#SESSION.root#/Tools/Maps/MapContent.cfm?scope=dialog&mode=#mode#&width=#width#&height=#height#&country='+cou+'&city='+cit+'&postalcode='+zip+'&address='+add,'mapcontent')	 		
 		}
 		
 	}

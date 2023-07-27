@@ -29,8 +29,9 @@
 				O.OrgUnit,
 				R.Role,
 				E.ActionCode, 
-				E.ActionDescription, 
-				E.ActionType,
+				EP.ActionDescription,
+				EP.ActionReference, 
+				EP.ActionType,
 				EP.ActionOrder
 		INTO    userQuery.dbo.#SESSION.acc#Entity 
 	    FROM    OrganizationObject O, 
@@ -92,18 +93,18 @@
   <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Entity">	
   <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Entity1">   
   	
-	<table width="100%" class="navigation_table formpadding">
+	<table width="100%" class="navigation_table">
 	
 	<cfoutput query="AccessList" group="EntityCode">
 	
-	<tr class="labelmedium"><td colspan="5" style="font-weight:200;font-size:20px;font-height:35px;padding-left:4px">#EntityDescription#</td></tr>
+	<tr class="labelmedium fixrow"><td colspan="5" style="height:30px;background-color:white;font-size:19px;padding-left:4px"><font size="2">Object:</font> <b>#EntityDescription#</td></tr>
 	
 		<cfoutput>
 		<input type="hidden" name="#ms#_classparameter_#CurrentRow#" id="#ms#_classparameter_#CurrentRow#" value="#ActionCode#">
 		<input type="hidden" name="#ms#_groupparameter_#CurrentRow#" id="#ms#_groupparameter_#CurrentRow#" value="#EntityGroup#">
 			
 		<tr class="Linedotted labelit navigation_row">	
-		 <td style="font-size:13px;padding-left:8px; word-wrap: break-word;">#ActionDescription#</td>
+		 <td class="fixlength" style="font-size:13px;padding-left:8px;"><cfif ActionReference neq ""><b>#ActionReference#</b>:</cfif>#ActionDescription# </td>
 		 <td>#ActionType#</td>
 	     <td>#ActionCode#</td> 
 		 <td width="30%" align="center" class="labelit">
@@ -111,9 +112,41 @@
 		      <cfif Granted eq "0">
 				  <cfinclude template="UserAccessSelectAction.cfm">
 			  <cfelse>
-			  <cf_tl id="Granted">
-				  <input type="hidden" name="#ms#_AccessLevel_#CurrentRow#"     id="#ms#_AccessLevel_#CurrentRow#"     value="">
-				  <input type="hidden" name="#ms#_AccessLevel_old_#CurrentRow#" id="#ms#_AccessLevel_old_#CurrentRow#" value="">     
+			  
+			        <cfparam name="cnt"        default="1">
+			        <cfparam name="row"        default="1">
+					 			  				   
+				    <input type="hidden" name="#ms#_AccessLevel_old_#CurrentRow#" id="#ms#_AccessLevel_old_#CurrentRow#" value="#AccessLvl#">     
+				     
+				    <table>					
+					<tr class="labelmedium2">
+					
+					<td style="border:1px solid gray;width:30px;background-color:80FF00;padding-bottom:2px;border-right:0px" title="role access granted">
+					<input type  = "radio" 
+					   name      = "#ms#_AccessLevel_#CurrentRow#" 
+					   id        = "g#url.mission##row#_#cnt#"
+					   value     = "" 			    
+					   <cfif AccessLvl eq "">checked</cfif>
+					   onClick   = "ClearRow('d#ms#_#CurrentRow#','')">
+				
+					<td style="border:1px solid gray;width:30px;background-color:80FF00;border-left:0px;padding-right:10px"> <cf_tl id="Granted"></td>		
+				
+					<td style="padding-left:5px;border:1px solid gray;width:26px;background-color:FF8080;padding-bottom:2px;" title="Explicitly deny access, regardless if role access exists">
+			      
+		    		<input type  = "radio" 
+					   name      = "#ms#_AccessLevel_#CurrentRow#" 
+					   id        = "g#url.mission##row#_#cnt#"
+					   value     = "9" 			    
+					   <cfif AccessLvl eq "9">checked</cfif>
+					   onClick   = "ClearRow('d#ms#_#CurrentRow#','9')">
+						
+					 </td>					 
+					 </tr>
+					 
+					 </table>  
+	  
+			   </td>
+		  			  
 			  </cfif>
 		  </td>
 		</tr>	

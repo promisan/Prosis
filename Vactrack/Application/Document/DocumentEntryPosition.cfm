@@ -235,9 +235,9 @@
 					
 			    <!--- Field: DeploymentLevel --->
 			    <TR>
-			    <td colspan="3" class="labelmedium"><cf_tl id="Roster Level">:</td>
+			    <td colspan="1" class="labelmedium"><cf_tl id="Roster Level">:</td>
 					
-				<td><cfselect name="GradeDeployment" class="regularxl">
+				<td><cfselect name="GradeDeployment" class="regularxxl">
 				    <option value="">n/a</option>
 				    <cfoutput query="Deployment">
 						<option value="#GradeDeployment#">#Description#</option>

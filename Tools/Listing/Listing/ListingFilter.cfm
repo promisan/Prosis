@@ -183,9 +183,11 @@
 											WHERE    #fld# is not NULL 	and #fld# != '' 
 										</cfquery>	
 
+										<!---    
 										<cfif session.acc eq "Administrator">
 											<cfoutput>-check:=#cfquery.executiontime#---</cfoutput>
 										</cfif>
+										--->
 
 										<cfif cfquery.executiontime lte 750 and session.listingdata[box]['recordsinit'] gt 20000>				
 											<cfset session.listingdata[box]['queryfiltermode'] = "db">	

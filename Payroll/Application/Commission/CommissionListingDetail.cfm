@@ -3,91 +3,136 @@
  
 	 <tr><td>
 	 
-		 <table width="100%" class="navigation_table">
-		 
-		        <!---
-								 
-				<cfquery name="Object" 
-				datasource="AppsOrganization" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				    SELECT   * 
-				    FROM     OrganizationObject
-					WHERE    ObjectKeyValue4 =  '#URL.AjaxId#'
-				</cfquery>
-				
-				<cfquery name="Get" 
-					datasource="AppsOrganization" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-				    	SELECT *
-					    FROM   OrganizationAction
-						WHERE  OrgUnitActionId = '#URL.AjaxId#'
-				</cfquery>
-				
-				<cfquery name="Unit" 
-					datasource="AppsOrganization" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-				    	SELECT *
-					    FROM   Organization
-						WHERE  OrgUnit = '#get.OrgUnit#'
-				</cfquery>				 
-				
-				--->
-				
-				<cfparam name="url.SalarySchedule"    default="#form.salaryschedule#">				
-				<cfparam name="url.CalendarDateEnd"   default="12/31/2022">
-				<cfparam name="url.CalendarDateStart" default="12/01/2022">
-				<cfparam name="url.PayrollItem"       default="#form.payrollitem#">
-				<cfparam name="url.Class"             default="#form.entitlementclass#">
-				
-				<cfoutput>#url.class#</cfoutput>
-				
-				<!--- we check if the selection in the header 1 or more records in the table --->
-				
-				<cfquery name="Get" 
+		 <table width="100%" class="navigation_table">		 		        	      		
+								
+				<cfquery name="org" 
 					datasource="AppsPayroll" 
 					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">							
+					password="#SESSION.dbpw#">			
+					SELECT * FROM Organization.dbo.Organization WHERE OrgUnit = '#url.orgunit#'	
+				</cfquery>									
+								
+				 <cfquery name="Period" 
+						datasource="AppsPayroll"
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						    SELECT    TOP 1 Mission, SalarySchedule, PayrollStart, PayrollEnd
+							FROM      SalarySchedulePeriod
+							WHERE     Mission = '#org.mission#' 
+							AND       CalculationStatus IN ('0', '1', '2') 
+							AND       SalarySchedule = '#form.salaryschedule#' 
+				  </cfquery>	
+							 
+				 <CF_DateConvert Value="#dateformat(Period.PayrollStart,client.dateformatshow)#">
+				 <cfset str = datevalue>
+				 
+				 <CF_DateConvert Value="#dateformat(Period.PayrollEnd,client.dateformatshow)#">
+				 <cfset end = datevalue>
+																		
+				<!--- we check if the selection in the header 1 or more records in the table --->
+				
+				<cfif url.ajaxid neq "">
+				
+				     <!--- workflow edit / edit --->
+								   					 
+					 <cfquery name="Get" 
+						datasource="AppsPayroll" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">							
+							SELECT      OrgUnitActionId, OrgUnit, CalendarDateEnd,WorkAction as SalarySchedule,PayrollItem,EntitlementClass
+							FROM        PersonMiscellaneous AS M INNER JOIN
+							            Organization.dbo.OrganizationAction AS A ON M.SourceId = A.OrgUnitActionId
+							WHERE       A.OrgUnitActionId     = '#url.ajaxid#' 										
+					</cfquery>	
 					
-					SELECT      OrgUnitActionId
-					FROM        PersonMiscellaneous AS M INNER JOIN
-					            Organization.dbo.OrganizationAction AS A ON M.SourceId = A.OrgUnitActionId
-					WHERE       A.OrgUnit             = '#url.orgunit#' 
-					AND         A.CalendarDateEnd     = '#url.CalendarDateEnd#'
-					AND         A.WorkAction          = '#url.salaryschedule#'
-					AND         M.PayrollItem         = '#url.PayrollItem#'
-					AND         M.EntitlementClass    = '#url.Class#'			 
-					AND         M.Source              = 'Unit'					
-				</cfquery>	
-						 
+					<cfquery name="getPrior" 
+						  datasource="AppsPayroll" 
+						  username="#SESSION.login#" 
+						  password="#SESSION.dbpw#">				 
+						    SELECT      OrgUnitActionId
+							FROM        PersonMiscellaneous AS M INNER JOIN
+							            Organization.dbo.OrganizationAction AS A ON M.SourceId = A.OrgUnitActionId
+							WHERE       A.OrgUnit             = '#get.orgunit#' 
+							AND         A.CalendarDateEnd     < '#get.CalendarDateEnd#'
+							AND         A.WorkAction          = '#get.salaryschedule#'
+							AND         M.PayrollItem         = '#get.payrollitem#'
+							AND         M.EntitlementClass    = '#get.entitlementclass#'			 
+							AND         M.Source              = 'Unit'			
+					 </cfquery>				 
+				
+				<cfelse>
+				
+				    <!--- data entry screen --->
+				
+					<cfquery name="Get" 
+						datasource="AppsPayroll" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">							
+							SELECT      OrgUnitActionId
+							FROM        PersonMiscellaneous AS M INNER JOIN
+							            Organization.dbo.OrganizationAction AS A ON M.SourceId = A.OrgUnitActionId
+							WHERE       A.OrgUnit             = '#url.orgunit#' 
+							AND         A.CalendarDateEnd     = #end#
+							AND         A.WorkAction          = '#form.salaryschedule#'
+							AND         M.PayrollItem         = '#form.payrollitem#'
+							AND         M.EntitlementClass    = '#form.entitlementclass#'			 
+							AND         M.Source              = 'Unit'					
+					</cfquery>	
+					
+					<cfquery name="getPrior" 
+						  datasource="AppsPayroll" 
+						  username="#SESSION.login#" 
+						  password="#SESSION.dbpw#">				 
+						    SELECT      OrgUnitActionId
+							FROM        PersonMiscellaneous AS M INNER JOIN
+							            Organization.dbo.OrganizationAction AS A ON M.SourceId = A.OrgUnitActionId
+							WHERE       A.OrgUnit             = '#url.orgunit#' 
+							AND         A.CalendarDateEnd     < #end#
+							AND         A.WorkAction          = '#form.salaryschedule#'
+							AND         M.PayrollItem         = '#form.payrollitem#'
+							AND         M.EntitlementClass    = '#form.entitlementclass#'			 
+							AND         M.Source              = 'Unit'			
+					 </cfquery>
+									
+				</cfif>
+				
+										 
 				<cfquery name="getPersons" 
 					  datasource="AppsEmployee" 
 					  username="#SESSION.login#" 
 					  password="#SESSION.dbpw#">
-					  SELECT 	DISTINCT P.PersonNo, 
-								        P.LastName, 
-										P.ListingOrder,
-										P.FirstName, 
-										A.FunctionDescription, 
-										A.LocationCode,
-										P.IndexNo, 
-										A.AssignmentNo, 
-										A.DateEffective, 
-										A.DateExpiration,
+					  SELECT  DISTINCT P.PersonNo, 
+								    P.LastName, 
+									P.ListingOrder,
+									P.FirstName, 
+									A.FunctionDescription, 
+									A.LocationCode,
+									P.IndexNo, 
+									A.AssignmentNo, 
+									A.DateEffective, 
+									A.DateExpiration,
 										
-										(SELECT   TOP 1 ContractLevel
-										 FROM     PersonContract
-										 WHERE    PersonNo     = P.PersonNo
-										 AND      Mission      = Pos.Mission
-										 AND      ActionStatus IN ('0','1')
-										 AND      DateEffective <= '#url.CalendarDateEnd#'
-										 ORDER BY DateEffective DESC) as PersonGrade
+									(SELECT   TOP 1 ContractLevel
+									 FROM     PersonContract
+									 WHERE    PersonNo     = P.PersonNo
+									 AND      Mission      = Pos.Mission
+									 AND      ActionStatus IN ('0','1')
+									 AND      DateEffective  <= #end#
+									 AND      DateExpiration >= #str#
+									 ORDER BY DateEffective DESC) as PersonGrade,
+									 
+									(SELECT   TOP 1 SalarySchedule
+									 FROM     PersonContract
+									 WHERE    PersonNo     = P.PersonNo
+									 AND      Mission      = Pos.Mission
+									 AND      ActionStatus IN ('0','1')
+									 AND      DateEffective  <= #end#
+									 AND      DateExpiration >= #str#
+									 ORDER BY DateEffective DESC) as SalarySchedule
 										 
-					  FROM 	Person P 
-					        INNER JOIN PersonAssignment A ON P.PersonNo = A.PersonNo
-							INNER JOIN Position Pos ON A.PositionNo = Pos.PositionNo
+					  FROM 	  Person P 
+					          INNER JOIN PersonAssignment A ON P.PersonNo = A.PersonNo
+							  INNER JOIN Position Pos ON A.PositionNo = Pos.PositionNo
 								
 					  WHERE   P.PersonNo = A.PersonNo
 					  <!--- the unit of the operational assignment --->
@@ -96,9 +141,11 @@
 					  AND     A.AssignmentStatus IN ('0','1')
 					  -- AND     A.AssignmentClass  = 'Regular'	<!--- not needed anymore as loaned people have leave as well --->		
 					  AND     A.AssignmentType   = 'Actual'
-					  AND     A.DateEffective   <= '#url.CalendarDateEnd#'
-					  AND     A.DateExpiration  >= '#url.CalendarDateStart#'							
-				 </cfquery>	
+					  AND     A.DateEffective   <= #end#
+					  AND     A.DateExpiration  >= #str#
+				</cfquery>	
+				
+				 
 				 
 				 <tr class="labelmedium2 line fixlengthlist">
 				     <td style="padding-left:4px"><cf_tl id="IndexNo"></td>
@@ -106,39 +153,82 @@
 					 <td><cf_tl id="LastName"></td>
 					 <td><cf_tl id="Function"></td>
 					 <td><cf_tl id="Contract"></td>
-					 <td><cf_tl id="Prior"></td>
-					 <td style="width:90px"><cf_tl id="Amount"></td> 		
-					 <td><cf_tl id="Memo"></td> 	 
+					 <td align="right"><cf_tl id="Prior"></td>
+					  <td style="min-width:80px"><cf_tl id="Reference"></td> 	 
+					 <td align="right" style="width:90px"><cf_tl id="Amount"></td> 		
+					
 				 </tr>
 				 
-				 <cfoutput query="getPersons">
+				 <cfoutput>
+				 <input type="hidden" name="PersonNo" value="#ValueList(getPersons.PersonNo)#">
+				 </cfoutput>
 				 
-				    <cfquery name="getAmount" 
+				  <cfquery name="getStatus" 
 					  datasource="AppsPayroll" 
 					  username="#SESSION.login#" 
 					  password="#SESSION.dbpw#">				 
-					     SELECT     Amount, Status
+					     SELECT     MAX(Status) as Status
 		  	             FROM       PersonMiscellaneous
-		      	         WHERE      PersonNo = '#Personno#'
-						 AND        Source    = 'Unit' 
+		      	         WHERE      Source    = 'Unit' 
 						 <cfif get.OrgUnitActionId neq "">
-						 AND        SourceId  = '#get.OrgUnitActionId#'
+						 AND        SourceId  = '#get.OrgUnitActionId#' 
 						 <cfelse>
 						 AND        1=0
 						 </cfif>
-					 </cfquery>
+				 </cfquery>
+								 
+				 <cfoutput query="getPersons">
 				 
-					 <tr class="labelmedium2 line navigation_row fixlengthlist">
-					     <td style="padding-left:4px">#IndexNo#</td>
-						 <td>#FirstName#</td>
-						 <td>#LastName#</td>
-						 <td>#FunctionDescription#</td>
-						 <td>#PersonGrade#</td>
-						 <td></td>
-						 <td><input type="text" class="regularxl" style="max-width:90px;min-width:80px;border-bottom:0px;border-top:0px;background-color:##e1e1e180;text-align:right;padding-right:4px" name="#PersonNo#_Amount" value="0"></td>			 
-						 <td><input type="text" class="regularxl" style="width:100%;min-width:120px;border-bottom:0px;border-top:0px;background-color:##e1e1e180;padding-left:4px" name="#PersonNo#_DocumentReference" value=""></td>			 
+				    <cfif PersonGrade neq "" and SalarySchedule eq form.SalarySchedule>
+										
+						<cfquery name="getAmountPrior" 
+						  datasource="AppsPayroll" 
+						  username="#SESSION.login#" 
+						  password="#SESSION.dbpw#">				 
+						     SELECT     Amount, DocumentReference,Status
+			  	             FROM       PersonMiscellaneous
+			      	         WHERE      PersonNo = '#Personno#'
+							 AND        Source    = 'Unit' 
+							 <cfif getPrior.OrgUnitActionId neq "">
+							 AND        SourceId  = '#getPrior.OrgUnitActionId#' 
+							 <cfelse>
+							 AND        1=0
+							 </cfif>
+						 </cfquery>
+					
+					    <cfquery name="getAmount" 
+						  datasource="AppsPayroll" 
+						  username="#SESSION.login#" 
+						  password="#SESSION.dbpw#">				 
+						     SELECT     Amount, DocumentReference,Status
+			  	             FROM       PersonMiscellaneous
+			      	         WHERE      PersonNo = '#Personno#'
+							 AND        Source    = 'Unit' 
+							 <cfif get.OrgUnitActionId neq "">
+							 AND        SourceId  = '#get.OrgUnitActionId#' 
+							 <cfelse>
+							 AND        1=0
+							 </cfif>
+						 </cfquery>
 						
-					 </tr>			 
+						 <tr class="labelmedium2 line navigation_row fixlengthlist">
+						     <td style="padding-left:4px"><a href="javascript:EditPerson('#personno#')" tabindex="9999">#IndexNo#</a></td>
+							 <td>#FirstName#</td>
+							 <td>#LastName#</td>
+							 <td>#FunctionDescription#</td>
+							 <td>#PersonGrade#</td>
+							 <td align="right">#numberFormat(getAmountPrior.Amount,',.__')#</td>
+							 <cfif getStatus.status lt "3">
+								 <td><input type="text" name="DocumentReference_#PersonNo#" value="#getAmount.DocumentReference#" maxlength="30" class="regularxl" style="width:100%;min-width:120px;border-bottom:0px;border-top:0px;background-color:##e1e1e180;padding-left:4px"></td>			 
+								 <td><input type="text" class="regularxl" style="max-width:90px;min-width:80px;border-bottom:0px;border-top:0px;background-color:##e1e1e180;text-align:right;padding-right:4px" name="Amount_#PersonNo#" value="#numberFormat(getAmount.Amount,',.__')#"></td>			 								
+							 <cfelse>								 	 
+								 <td>#getAmount.DocumentReference#</td>			 							
+								 <td align="right">#numberFormat(getAmount.Amount,',.__')#</td>		
+							 </cfif>
+							
+						 </tr>	
+					 
+					 </cfif>		 
 				 
 				 </cfoutput>
 				 
@@ -146,38 +236,51 @@
 	 
 	 </td>
 	 </tr>
+	 
+	 <cfoutput>
+	 	 	 
+	 <cfif getStatus.status lte "1">
  
-	 <tr>
-	 <td align="center" style="padding-top:5px"><input type="button" style="width:200px" class="button10g" name="Submit" value="Submit"></td></tr>
-		
-						
-	 <tr><td style="padding-left:4px;padding-right:4px">
-			
-			<cfif get.OrgUnitActionId neq "">
-			
-			    <cfset url.ajaxid = get.OrgUnitActionId>
+		 <tr>
+		 <td align="center" style="padding-top:5px">		 
+		     <input type="button" 
+			     style="width:200px" 
+				 class="button10g" 
+				 name="Submit" value="Submit" 
+				 onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('commissionSubmit.cfm?ajaxid=#get.OrgUnitActionId#&mission=#org.mission#&orgunit=#org.orgunit#','content','','','POST','MiscellaneousEntry')">
+		 </td>
+		 </tr>
+		 
+	 </cfif> 	 
+	 
+	 <cfif get.OrgUnitActionId neq "">
+	 								
+		 <tr><td style="padding-left:4px;padding-right:4px">			
 				
-				<cfset link = "Payroll/Application/Commision/CommisionListing.cfm?ajaxid=#url.ajaxid#&ID0=#get.OrgUnit#&ID2=#Object.Mission#">
-						
-				<cf_ActionListing 
-					    EntityCode       = "OrgAction"
-						EntityClass      = "Entitlement"
-						EntityGroup      = ""
-						EntityStatus     = ""		
-						Mission          = "#Object.Mission#"
-						OrgUnit          = "#get.OrgUnit#"
-						ObjectReference  = "Miscellneous #Unit.OrgUnitName# #dateformat(get.CalendarDateStart,'YYYY/MM')#"			    
-						ObjectKey4       = "#URL.AjaxId#"
-						AjaxId           = "#URL.AjaxId#"
-						ObjectURL        = "#link#"
-						Show             = "Yes"		
-						Toolbar          = "Yes">
-					
-			</cfif>		
-					
-					
-			</td></tr>		 
+			    <cfset url.ajaxid = get.OrgUnitActionId>
+				<cfparam name="url.mid" default="">
+				<cfset wflnk = "CommissionWorkflow.cfm">
+				<input type="hidden" id="workflowlink_#url.ajaxid#" value="#wflnk#"> 
+	            <cfdiv id="#url.ajaxid#"  bind="url:#wflnk#?ajaxid=#url.ajaxid#&mid=#url.mid#"/>
+	
+				<!---
+				 <input type="hidden" 
+				          id="workflowlinkprocess_#pk#" 
+				          value="#wflnk#"> 
+	  
+	                --->
+				
+				</td>
+		 </tr>	
+	 
+	 </cfif>
+	 
+	 </cfoutput>	 
 			
 </table>			
 
 <cfset ajaxonload("doHighlight")>
+
+<script>
+	Prosis.busy('no')
+</script>

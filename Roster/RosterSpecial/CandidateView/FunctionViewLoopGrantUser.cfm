@@ -39,11 +39,13 @@
 				
 		<cfloop query="Officer">
 				
-			<tr class="labelmedium2 navigation_row line">
+			<tr class="labelmedium2 navigation_row line fixlengthlist">
+			
+			<td>#LastName#, #FirstName#</td>
 			
 			<cfif Access eq "EDIT" or Access eq "ALL">
 			 
-				<td width="5%" align="center">
+				<td align="center">
 				
 					<img src="#SESSION.root#/Images/access1.gif" 
 					onMouseOver="document.img0_#currentrow#.src='#SESSION.root#/Images/button.jpg'" 
@@ -52,21 +54,20 @@
 					
 				</td>
 					
-				<td width="10%" style="padding-left:10px"><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#Account#</a></td>
+				<td style="padding-left:10px"><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#Account#</a></td>
 			
 			<cfelse>
 			
-				<td colspan="2" width="10%" style="padding-left:10px;padding-right:10px">#Account#</a></td>
+				<td colspan="2">#Account#</a></td>
 			
 			</cfif>
+						
 			
-			<td width="30%">#LastName#, #FirstName#</td>
-			
-			<td width="80">
+			<td style="width:120px">
 			
 				<cfif URL.RosterAction eq "1">
 				
-				<table><tr class="labelmedium2" ><td>
+				<table><tr class="labelmedium2"><td>
 				
 					<cfquery name="Check" 
 					datasource="AppsSelection" 
@@ -90,9 +91,9 @@
 				
 				</cfif>
 			</td>
-			<td width="20%" style="padding-left:7px"><cfif URL.source eq "manual">#OfficerFirstName# #OfficerLastName#</cfif></td>
-			<td width="10%">#DateFormat(Created, CLIENT.DateFormatShow)#</td>
-			<td width="4%" align="left" style="padding-top:5px;padding-left:4px">
+			<td><cfif URL.source eq "manual">#OfficerFirstName# #OfficerLastName#</cfif></td>
+			<td>#DateFormat(Created, CLIENT.DateFormatShow)#</td>
+			<td align="left" style="padding-top:5px;padding-left:4px">
 			
 				<cfif URL.source eq "manual">
 				
@@ -113,7 +114,7 @@
 			       <table width="100%">
 				   <tr>
 			     
-			       <td height="25" colspan="3" align="left" valign="middle" class="labelmedium">
+			       <td height="25" colspan="3" align="left" valign="middle" class="labelmedium2">
 				   
 				   <cf_tl id="Grant access" var="lbl">
 				   	  	  

@@ -262,45 +262,48 @@ password="#SESSION.dbpw#">
 		<TR>
 	    <TD class="labelmedium" height="20" style="padding-left:0px"><cf_tl id="Country">:</TD>
 	    <TD>
-		 
-		   	<select name="country" id="country" onchange="<cfoutput>#maplink#</cfoutput>" required="No" class="regularxl">
-			    <cfoutput query="Nation" >
-					<option value="#Code#" <cfif get.Country eq Code>selected</cfif>>
-					#Name#
-					</option>
-				</cfoutput>	    
-		   	</select>		
+		
+		    <table>
+				<tr>
+					<td>
+				 
+				   	<select name="country" id="country" onchange="<cfoutput>#maplink#</cfoutput>" required="No" class="regularxl">
+					    <cfoutput query="Nation" >
+							<option value="#Code#" <cfif get.Country eq Code>selected</cfif>>
+							#Name#
+							</option>
+						</cfoutput>	    
+				   	</select>
+					
+					</td>
+					
+					<td class="labelmedium" height="20" style="padding-left:7px"><cf_tl id="Region">: <font color="FF0000">*</font></TD>
+				    <td>	
+							
+					<cfquery name="getRegions" 
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						SELECT 	*
+						FROM   	Ref_WarehouseCity L
+						WHERE  	L.Mission = '#get.mission#'	
+						ORDER BY ListingOrder
+					</cfquery>		
+							
+					<select name="addresscity" id="addresscity" class="regularxl" onchange="<cfoutput>#maplink#</cfoutput>">
+					<cfoutput query="getRegions">
+						<option value="#City#" <cfif get.City eq City>selected</cfif>>#City#</option>
+					</cfoutput>
+					</select>		
+					
+					</td>
+				
+				</tr>
+			</table>		
 			
 		</TD>
 		
-	    	<TD class="labelmedium" height="20"  style="padding-left:0px"><cf_tl id="Region">: <font color="FF0000">*</font></TD>
-		    <TD>	
-					
-			<cfquery name="getRegions" 
-				datasource="AppsMaterials" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				SELECT 	*
-				FROM   	Ref_WarehouseCity L
-				WHERE  	L.Mission = '#get.mission#'	
-				ORDER BY ListingOrder
-			</cfquery>		
-					
-			<select name="addresscity" id="addresscity" class="regularxl" onchange="<cfoutput>#maplink#</cfoutput>">
-			<cfoutput query="getRegions">
-				<option value="#City#" <cfif get.City eq City>selected</cfif>>#City#</option>
-			</cfoutput>
-			</select>		
-			
-			</TD>
-		</TR>
-		
-		<TR>
-	    	<TD class="labelmedium" height="20"  style="padding-left:0px"><cf_tl id="Address">: <font color="FF0000">*</font></TD>
-		    <TD>	
-			<cfinput class="regularxl" style="padding-left:3px" onchange="#maplink#" type="Text" name="address" value="#get.Address#" message="Please enter an address" required="Yes" size="50" maxlength="100">	   	
-			</TD>
-			<td colspan="2" rowspan="8" style="min-width:380px;background-color:f4f4f4">		
+		<td colspan="2" rowspan="10" style="min-width:380px;">		
 		
 				<cfif client.googleMAP eq "1">
 			
@@ -332,7 +335,7 @@ password="#SESSION.dbpw#">
 						</cfif>
 				
 				         <tr>
-						    <td colspan="2" align="center" valign="top" style="padding-right:6px;">			
+						    <td colspan="2" align="center" valign="top" style="padding-right:6px;">	
 							<cf_mapshow scope="embed" zoomlevel="10" mode="edit" width="360" height="240" latitude="#get.Latitude#" longitude="#get.Longitude#">					
 						    </td>
 						</tr>
@@ -346,6 +349,17 @@ password="#SESSION.dbpw#">
 				</cfif>
 			
 			</td>
+		
+		
+			    	
+		</TR>
+		
+		<TR>
+	    	<TD class="labelmedium" height="20"  style="padding-left:0px"><cf_tl id="Address">: <font color="FF0000">*</font></TD>
+		    <TD>	
+			<cfinput class="regularxl" style="padding-left:3px" onchange="#maplink#" type="Text" name="address" value="#get.Address#" message="Please enter an address" required="Yes" size="50" maxlength="100">	   	
+			</TD>
+			
 			
 			
 		</TR>

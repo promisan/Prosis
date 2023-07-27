@@ -155,7 +155,7 @@ password="#SESSION.dbpw#">
 		        name    = "cancel" 
 		        value   = "#lt_text#" 
 		        class   = "button10g" 
-		        onClick = "ColdFusion.navigate('#SESSION.root#/Warehouse/Application/Customer/Address/CustomerAddress.cfm?customerid=#url.customerid#','addressdetail')">
+		        onClick = "ptoken.navigate('#SESSION.root#/Warehouse/Application/Customer/Address/CustomerAddress.cfm?customerid=#url.customerid#','addressdetail')">
 	 						 
 		 <cf_tl id="Delete" var="1">
 		 

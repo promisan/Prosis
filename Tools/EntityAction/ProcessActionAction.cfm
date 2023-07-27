@@ -1,12 +1,13 @@
 
+
 <cfinvoke component = "Service.Access"  
-	method          =   "AccessEntity" 
-	objectid        =   "#Object.ObjectId#"
-	actioncode      =   "#Action.ActionCode#" 
-	mission         =   "#Object.mission#"
-	orgunit         =   "#Object.OrgUnit#" 
-	entitygroup     =   "#Object.EntityGroup#" 
-	returnvariable  =   "entityaccess">	
+	method         =   "AccessEntity" 
+	objectid       =   "#Object.ObjectId#"
+	actioncode     =   "#Action.ActionCode#" 
+	mission        =   "#Object.mission#"
+	orgunit        =   "#Object.OrgUnit#" 
+	entitygroup    =   "#Object.EntityGroup#" 
+	returnvariable =   "entityaccess">		
 
 <cf_tl id="Select This option to  keep the document at the CURRENT STEP for pending review" var="vLblTTPending">     		
 <cf_tl id="Select this option to GO TO the step in the drop down list" var="vLblTTGoTo">  

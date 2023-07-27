@@ -27,11 +27,11 @@
 
 <table width="100%" height="100%">
 		
-	<tr class="line">
+	<tr>
 			
 	   <cf_tl id="REQ056" var="1">
 	   <cfset vReq056=lt_text>		
-	   <td colspan="2" width="90%" style="font-size:20px;font-weight:250" height="46" class="labelmedium"><cfoutput>#url.period#: #vReq056#</cfoutput>:</td>
+	   <td colspan="2" width="90%" style="height:50px;font-size:20px;font-weight:bold" class="labelmedium"><cfoutput>#url.period#: #vReq056#</cfoutput>:</td>
 	 		   
 	</tr>
 			

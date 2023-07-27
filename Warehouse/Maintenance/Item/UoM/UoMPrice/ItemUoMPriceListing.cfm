@@ -93,7 +93,7 @@
 	
 	<cfoutput>
 	
-	<tr class="navigation_row labelmedium line" style="height:15px">
+	<tr class="navigation_row labelmedium2 line" style="height:15px">
 	
 	  <td width="20"></td>
 	  <td width="20"></td>
@@ -115,7 +115,7 @@
 	  <td>#TaxDescription#</td>		  
 	  <td align="center">#CalculationMode#</td>
 	  <td align="center">#Currency#</td>
-	  <td align="right">#LSNumberFormat(SalesPrice, ",.__")#&nbsp;</td>
+	  <td align="right" style="padding-right:3px">#LSNumberFormat(SalesPrice, ",.__")#</td>
 	</tr>  
 	</cfoutput>
 	</cfoutput>

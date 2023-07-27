@@ -98,17 +98,17 @@
 
 	    <cfif url.mode eq "standard">
 			   
-			<tr class="line">
-			<td class="labelit">#planorder#.</td>
+			<tr class="line labelmedium2">
+			<td>#planorder#.</td>
 			
 			<cfif orgunitName neq "">
-			<td class="labelmedium" colspan="7">#left(OrgUnitName,50)#</b></td>
+			<td colspan="7">#left(OrgUnitName,50)#</b></td>
 			<cfelse>
-			<td class="labelit" width="70">#Schedule# <!--- #dateformat(DateTimePlanning,client.dateformatshow)# #timeformat(DateTimePlanning,"HH")# ---></td>
-			<td class="labelit">#CustomerName#</td>
-			<td class="labelit">#Address#</td>
-			<td class="labelit">#PostalCode#</td>
-			<td class="labelit">#City#</td>   
+			<td width="70">#Schedule# <!--- #dateformat(DateTimePlanning,client.dateformatshow)# #timeformat(DateTimePlanning,"HH")# ---></td>
+			<td>#CustomerName#</td>
+			<td>#Address#</td>
+			<td>#PostalCode#</td>
+			<td>#City#</td>   
 			<td><cfif len(MobileNumber) gte "5">#MobileNumber#<cfelse>#PhoneNumber#</cfif></td>   
 			<td><cfif DateTimeActual eq ""><font color="FF8000">Not confirmed</font><cfelse>#dateformat(DateTimeActual,client.dateformatshow)# #timeformat(DateTimeActual, "HH:MM")#</cfif></td>  	
 			</cfif>
@@ -117,14 +117,14 @@
 		<cfelse>
 		
 		 <!--- short version for planning screen only --->
-		 <tr class="navigation_row line">
+		 <tr class="navigation_row line labelmedium2">
 			 <td height="16" align="center"><cf_space spaces="10"><font size="1">#planorder#.</td>
 			 <cfif orgunitName neq "">
-			 <td colspan="3" class="labelmedium"><b>#left(OrgUnitName,50)#</b></td>
+			 <td colspan="3"><b>#left(OrgUnitName,50)#</b></td>
 			 <cfelse>
-			 <td class="labelit"><cf_space spaces="20"><a class="navigation_action" href="javascript:detail('#workorderlineid#','#url.dts#','#personno#')"><font color="0080C0">#Schedule# <!--- #dateformat(DateTimePlanning,client.dateformatshow)# #timeformat(DateTimePlanning,"HH")# ---></a></td>
-			 <td class="labelit">#PostalCode#</td>
-			 <td class="labelit"><cf_space spaces="30">#City#</td>   
+			 <td><cf_space spaces="20"><a class="navigation_action" href="javascript:detail('#workorderlineid#','#url.dts#','#personno#')">#Schedule# <!--- #dateformat(DateTimePlanning,client.dateformatshow)# #timeformat(DateTimePlanning,"HH")# ---></a></td>
+			 <td>#PostalCode#</td>
+			 <td><cf_space spaces="30">#City#</td>   
 			 </cfif>
 		 </tr>
 		 		

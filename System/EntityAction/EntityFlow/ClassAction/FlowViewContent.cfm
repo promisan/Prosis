@@ -72,8 +72,7 @@
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 		 UPDATE   #tbl#
-		 SET      ActionBranch = NULL,
-		          ActionOrder = NULL
+		 SET      ActionBranch = NULL
 		 <cfif PublishNo eq "">	   
 		   	WHERE  EntityCode      = '#entityCode#' 
 		    AND    EntityClass     = '#entityClass#' 
@@ -280,7 +279,7 @@
 				
 				<cfif PublishNo eq "">
 				
-				<td align="right" style="font-size:16px;padding-top:4px;padding-right:8px" class="labelmedium">
+				<td align="right" style="font-size:16px;padding-top:4px;padding-right:8px" class="labelmedium2">
 		
 				    <cfquery name="Check" 
 					datasource="AppsOrganization" 
@@ -295,7 +294,7 @@
 					</cfquery>
 				
 				    <cfif Check.recordcount gt "0" and (accessWorkflow eq "EDIT" OR accessWorkflow eq "ALL")>					 
-					 <a href="javascript:stepadd()">[Press to Add workflow actions]</a>					 
+					 <a href="javascript:stepadd()">[Insert additional workflow actions]</a>					 
 					</cfif>
 					  
 				</cfif>		

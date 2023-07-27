@@ -152,7 +152,7 @@
 					Type            = "Text"
 					Required        = "No"
 					Message         = "Please enter a question memo"
-					MaxLength       = "200"
+					MaxLength       = "400"
 					Rows            = "6"
 					Cols            = "40"
 					Class           = "regularxl">

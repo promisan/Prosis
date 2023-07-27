@@ -45,12 +45,12 @@
 						
 						<cfif url.latitude neq "" and url.longitude neq "">
 						
-						<cfinvoke component="service.maps.googlegeocoder3" 
-						          method="googlegeocoder3" 
-								  returnvariable="details">	  	
-								  <cfinvokeargument name="latlng" value="#url.latitude#,#url.longitude#">			
-								  <cfinvokeargument name="ShowDetails" value="false">			  
-						</cfinvoke>	  	
+							<cfinvoke component="service.maps.googlegeocoder3" 
+							          method="googlegeocoder3" 
+									  returnvariable="details">	  	
+									  <cfinvokeargument name="latlng" value="#url.latitude#,#url.longitude#">			
+									  <cfinvokeargument name="ShowDetails" value="false">			  
+							</cfinvoke>	  	
 						
 							<cfset cnt = details.Formatted_Address>
 						

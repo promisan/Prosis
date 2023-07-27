@@ -62,8 +62,6 @@ password="#SESSION.dbpw#">
 	ORDER BY Source DESC
 </cfquery>
 
-
-
 <cf_divscroll>
 
 <cfform action="MiscellaneousEditSubmit.cfm?Status=#URL.Status#" method="POST" name="MiscellaneousEdit">

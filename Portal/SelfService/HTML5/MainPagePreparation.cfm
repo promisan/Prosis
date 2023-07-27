@@ -482,12 +482,14 @@ the first 9random) value of the enabled scope languages for the portal instead a
 					M.MissionName
 			FROM 	Ref_ParameterMission PM
 					INNER JOIN Organization.dbo.Ref_Mission M
-						ON PM.Mission = M.Mission
+						ON PM.Mission = M.Mission and M.Operational = 1
 			<cfif isDefined("client.mission")>
 				WHERE 	PM.Mission = '#client.mission#'
 			<cfelse>
 				WHERE 	1=0
 			</cfif>
+			ORDER BY M.Mission
+
 	</cfquery>
 	
 	<cfquery name="MissionList" 
@@ -496,8 +498,8 @@ the first 9random) value of the enabled scope languages for the portal instead a
 					M.MissionName
 			FROM 	Ref_ParameterMission PM
 					INNER JOIN Organization.dbo.Ref_Mission M
-						ON PM.Mission = M.Mission
-			ORDER BY M.MissionName
+						ON PM.Mission = M.Mission and M.Operational = 1
+			ORDER BY M.Mission
 	</cfquery>
 
 <cfelse>
@@ -508,7 +510,7 @@ the first 9random) value of the enabled scope languages for the portal instead a
 			FROM 	Organization.dbo.Ref_Mission M
 					LEFT OUTER JOIN UserNames U
 						ON M.Mission = U.AccountMission
-			WHERE	1=1
+			WHERE	M.Operational = 1
 			<!--- <cfif isDefined("client.mission")>
 				AND 	M.Mission = '#client.mission#'
 			<cfelse>
@@ -516,6 +518,7 @@ the first 9random) value of the enabled scope languages for the portal instead a
 					AND 	U.Account = '#client.acc#'
 				</cfif>
 			</cfif> --->
+			ORDER BY M.Mission
 	</cfquery>
 	
 	<cfset MissionList = thisMission>

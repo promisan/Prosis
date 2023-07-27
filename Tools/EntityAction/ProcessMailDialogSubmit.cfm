@@ -1,8 +1,3 @@
-
-<!---
-<cf_screentop height="100%"  jquery="Yes" html="No" layout="webapp" scroll="no" banner="gray">
---->
-
 <cfparam name="Form.account" default="">
 
 <cfquery name="NextCheck" 
@@ -105,10 +100,9 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<script language="JavaScript">   
-
-   try { parent.ProsisUI.closeWindow('wMailDialog') } catch(e) {}	     
-   try { parent.parent.ProsisUI.closeWindow('wMailDialog') } catch(e) {}	    
-   try { parent.parent.window.close() } catch(e) {}
+<script language="JavaScript">
+	try { window.close() } catch(e) {}
+	try { parent.window.close() } catch(e) {}
+	// opener.history.go() 
 </script>
 

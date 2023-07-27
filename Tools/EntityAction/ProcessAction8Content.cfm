@@ -12,6 +12,7 @@
 		<cfabort>
 	</cfif>
 	
+	
 	<cfoutput query="action">	
 	
 	  <cfset processhide = "No">
@@ -34,8 +35,7 @@
 				    SELECT    *
 					FROM      Person
 					WHERE     PersonNo = '#Object.PersonNo#'						
-				</cfquery>
-			
+				</cfquery>			
 				
 				<cfif Person.recordcount eq "1">
 				
@@ -154,7 +154,7 @@
 									<cfif prior.recordcount gte "1">
 									
 									    <table>
-									
+																			
 										<cfloop query="Prior">											
 										
 											<cfquery name="getPrior" 
@@ -227,6 +227,7 @@
 										</td>
 									</tr>
 									
+									
 									<cfquery name="Prior" 
 									datasource="appsOrganization" 
 									username="#SESSION.login#" 
@@ -238,12 +239,11 @@
 										    
 										
 									</cfquery>
-									
-									<cfif prior.recordcount gte "1">
-									
+																											
+									<cfif prior.recordcount gte "1">									
+																	
 									<cfloop query="Prior">			
-									
-									
+																		
 										<cfquery name="getPrior" 
 											datasource="appsOrganization" 
 											username="#SESSION.login#" 
@@ -297,6 +297,7 @@
 							<td id="menutabs">
 							<table width="100%">
 							<tr>		
+							
 								<cfset menumode = "menu">
 								<cfinclude template="ProcessAction8Tabs.cfm">
 								<td width="10%"></td>			
@@ -350,6 +351,8 @@
 	   </cfif>	
 	
 	</cfoutput>
+	
+	
 	
 	
 	<tr><td height="100%" valign="top" style="border:0px solid silver">

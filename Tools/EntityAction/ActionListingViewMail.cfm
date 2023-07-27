@@ -4,6 +4,7 @@
 <cfparam name="url.objectid" default="">
 <cfparam name="url.last"     default="0">
 
+
 <cfquery name="Mail" 
  	datasource="AppsOrganization"
 	 username="#SESSION.login#" 

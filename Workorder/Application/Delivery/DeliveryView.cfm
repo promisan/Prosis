@@ -230,7 +230,7 @@
 				collapsible     = "false">
 				
 					<table width="100%" height="100%">	
-					    <tr class="line" ><td class="labelmedium" style="padding:10px;">Quick Planner</b></td></tr>		     
+					    <tr class="line" ><td class="labelmedium" style="padding:10px;">Quick Planner</td></tr>		     
 						<tr>		
 							<td valign="top" width="30%" style="height:100%;padding-left:8px;padding-top:7px;padding-bottom:9px;padding-right:10px" align="center" id="mapmetadata"></td>
 						</tr>	

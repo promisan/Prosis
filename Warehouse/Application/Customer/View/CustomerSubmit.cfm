@@ -317,8 +317,7 @@ password="#SESSION.dbpw#">
 				
 			<script>	
 				    Prosis.busy('no')										
-				    try {	
-					
+				    try {						
 						parent.opener.applyfilter('0','','#Form.Customerid#')																
 					} catch(e) {}    	
 		    </script>	
@@ -329,8 +328,7 @@ password="#SESSION.dbpw#">
 				    Prosis.busy('no')	
 					 
 				    try {						   									
-						// alert('refresh the search with the new customer')	
-						
+						// alert('refresh the search with the new customer')							
 						parent.ProsisUI.closeWindow('addcustomer')					
 						}
 						

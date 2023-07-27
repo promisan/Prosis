@@ -787,7 +787,7 @@
 				AND     A.DateEffective   <= #end#
 				AND     A.DateExpiration  >= #start#					
 				AND     O.Mission           = '#mission#'  <!--- entity/unit were person is attending --->		
-				-- AND     A.Incumbency       > '0'
+				AND     A.Incumbency       > '0'
 				AND     A.AssignmentStatus IN ('0','1')   <!--- planned and approved --->
 			    -- AND     A.AssignmentClass  = 'Regular'
 			    AND     A.AssignmentType   = 'Actual'		  	

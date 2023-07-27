@@ -17,7 +17,7 @@
 				WHERE     OA.OrgUnit IN
 		                          (SELECT    OrgUnit
 		                            FROM     Organization
-		                            WHERE    Mission = '#url.mission#' AND (TreeUnit = 1)) 
+		                            WHERE    Mission = '#url.mission#' AND TreeUnit = 1) 
 				AND       OA.AddressType = 'Home'
 			</cfquery>
 			
@@ -78,8 +78,9 @@
 				    PositionNo NOT IN (SELECT PositionNo FROM Employee.dbo.Position WHERE PositionNo = W.PositionNo))
 		</cfquery>
 		
+						
 		<cfloop query="getWorkPlan">
-			
+					
 			<!--- get positionno for employee,date --->
 			
 			<cfquery name="getActor"
@@ -151,9 +152,11 @@
 			ORDER BY   WorkPlan DESC, P.LastName 
 											 			     	     
 	   </cfquery>	
+	   
+	   
 			
 		<cfoutput query="actor">
-					
+							
 			<tr class="navigation_row">
 
 				<td style="padding-left:5px;width:30px" class="navigation_pointer"></td>	

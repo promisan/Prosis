@@ -192,9 +192,7 @@ password="#SESSION.dbpw#">
 	<cfparam name="Form.Operational" default="">
 	<cfparam name="Form.PostalCode" default="">
 	<cfparam name="Form.City" default="">
-	<cfparam name="Form.Country" default="">
-		
-			
+	<cfparam name="Form.Country" default="">		
 
 	<cfquery name="Update" 
 	datasource="#url.dsn#" 

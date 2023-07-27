@@ -78,8 +78,7 @@
 											</td>
 											<td style="padding-left:10px;">
 												<cfset vRoot = URLEncodedFormat("#session.root#")>
-												<select name="fwmission" id="fwmission" class="clsSelectMission" onchange="_changeMission('#vRoot#', this.value, '#url.id#', true);">
-													<option value="">--
+												<select name="fwmission" id="fwmission" class="clsSelectMission" onchange="_changeMission('#vRoot#', this.value, '#url.id#', true);">													
 													<cfloop query="MissionList">
 														<option value="#mission#" <cfif vThisMission eq mission>selected</cfif>>#mission#
 													</cfloop>
@@ -143,7 +142,7 @@
 											<span style="font-size: 20px; width: 200px; display: inline-block; text-align: right;  margin-right:12px;">
 											<img style="vertical-align:middle" src="#SESSION.root#/#SystemParameter.ApplicationLogon#" width="36px">
 											<cfif SystemParameter.ApplicationLogonLabel neq "">
-												<cf_tl id="#SystemParameter.ApplicationLogonLabel#" var="1">
+												<cf_tl id="#SystemParameter.ApplicationLogonLabel#" var="1">												
 											<cfelse>
 												<cf_tl id="User name" var="1"> 
 											</cfif>
@@ -184,6 +183,7 @@
 									</p>
 									<p class="submit">
 										<cf_tl id="Login" var="1">
+										
 										<input 
 											type="submit" 
 											class="clsBtnLogin" 
@@ -211,6 +211,11 @@
 									<cfif qForgotUser.recordCount eq 1>
 										<a href="javascript:forgotUser('#vRoot#','#url.id#');"><cf_tl id="Forgot My User"></a>
 									</cfif>
+									
+								</div>
+							<cfelse>	
+							    <div class="clsLoginFeatures">
+								If you have a problem to login with your UniteId, please contact <a href="mailto:novasupport@un.org">novasupport@un.org</a>
 								</div>
 							</cfif>
 							<br>
@@ -302,8 +307,7 @@
 								<td align="left" style="padding-left:5px; padding-right:20px;">
 									<cfif vShowMissionCondition>
 										<span class="clsOptionsLanguageText#vClassSuffix#">:&nbsp;&nbsp;</span>
-										<select name="fmission" id="fmission" class="clsOptionsLanguageSelect#vClassSuffix#" onchange="_changeMission('#vRoot#', this.value, '#url.id#', true);">
-											<option value="">--
+										<select name="fmission" id="fmission" class="clsOptionsLanguageSelect#vClassSuffix#" onchange="_changeMission('#vRoot#', this.value, '#url.id#', true);">											
 											<cfloop query="MissionList">
 												<option value="#mission#" <cfif vThisMission eq mission>selected</cfif>>#mission#
 											</cfloop>

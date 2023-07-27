@@ -1,4 +1,5 @@
 
+<cfparam name="URL.Header"             default="0">
 <cfparam name="URL.ActionCode"         default="">
 <cfparam name="URL.ObjectId"           default="">
 <cfparam name="URL.NotificationGlobal" default="1">

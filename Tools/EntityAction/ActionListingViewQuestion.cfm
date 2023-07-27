@@ -60,7 +60,7 @@
 		<td width="80%" style="padding-left:10px" class="labelmedium">#QuestionLabel#</td>				
 		<td width="15%" align="right" style="padding-right:20px" class="labelit">
 						
-			<table cellspacing="0" cellpadding="0">
+			<table>
 					
 			<tr>	
 			
@@ -99,9 +99,15 @@
 				
 					<cfset arr = listToArray(inputmodestringlist)>	
 					
-					<cfloop index="itm" from="1" to="#inputmode#">					    
+					<cfloop index="itm" from="1" to="#inputmode#">		
+					
+					    <cftry>			    
 							
 						<cfif questionscore eq itm><cfif arr[itm] neq "">#arr[itm]#<cfelse>#itm#</cfif></cfif>											
+						
+						<cfcatch></cfcatch>
+						
+						</cftry>
 					
 					</cfloop>
 						

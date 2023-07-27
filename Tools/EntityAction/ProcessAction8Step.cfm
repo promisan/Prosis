@@ -1,4 +1,5 @@
 
+
 <cfparam name="url.wfmode" default="8">
 <cfparam name="url.windowmode" default="window">
 
@@ -168,20 +169,39 @@
 		<cfform action="ProcessActionSubmit.cfm?windowmode=#url.windowmode#&wfmode=8&process=#URL.Process#&ID=#URL.ID#&ajaxId=#url.ajaxid#" 
 		  name="processaction"  id="processaction">		
 					  
-			  <table width="100%">
-			  
-			    <tr><td>
+			  <table width="100%">		    
 			 			   					 	
-				<cfset wfmode = "8">	 		  		
-				<cfif ActionType eq "Action">
-				   <cfinclude template="ProcessActionAction.cfm"> 
-				<cfelse>
-				   <cfinclude template="ProcessActionDecision.cfm">
-		    	</cfif>		
+				<cfset wfmode = "8">	 
+								
+				<cfif actionstatus neq "0">
 				
-				</td></tr>
+				    <tr><td align="center" style="color:red;font-size:20px">
+				    <cf_tl id="This action was processed already">
+					</td></tr>
+					
+					<cfinvoke component = "Service.Access"  
+					method          =   "AccessEntity" 
+					objectid        =   "#Object.ObjectId#"
+					actioncode      =   "#Action.ActionCode#" 
+					mission         =   "#Object.mission#"
+					orgunit         =   "#Object.OrgUnit#" 
+					entitygroup     =   "#Object.EntityGroup#" 
+					returnvariable  =   "entityaccess">	
+					
+				<cfelse>	
+				
+				    <tr><td>	
+					<cfif ActionType eq "Action">
+					   <cfinclude template="ProcessActionAction.cfm"> 
+					<cfelse>
+					   <cfinclude template="ProcessActionDecision.cfm">
+			    	</cfif>	
+					</td>
+					</tr>
+					
+				</cfif>	
 								 		
-				 <cfif EmbedFlow.recordcount eq "1" and embed neq "0">
+				<cfif EmbedFlow.recordcount eq "1" and embed neq "0">
 				
 					<cfset link = "#Object.ObjectURL#">		
 					
@@ -209,9 +229,9 @@
 						
 						</td></tr>
 					
-				 </cfif>	
+				</cfif>	
 							  						
-			    <cfif entityaccess eq "EDIT" or entityaccess eq "ALL">	
+			   <cfif entityaccess eq "EDIT" or entityaccess eq "ALL">	
 			   
 				   <cfset url.objectid = action.ObjectId>
 				   	
@@ -219,9 +239,8 @@
 					   <cfinclude template="ActionListingFly.cfm">				 	   			   
 				   </td></tr>
 			   
-			    </cfif> 
-				
-						   		   
+			   </cfif> 
+										   		   
 			   <cfparam name="w" default="184">  
 			   	    	   	   	   	     
 			   <cfif Action.EnableAttachment eq "1">
@@ -250,7 +269,7 @@
 			 
 			   <!---  not a collaborator --->							
 			   <cfif entityaccess eq "EDIT" or entityaccess eq "READ">		      	     
-				   	     	   				
+				  	     	   				
 					<cfinclude template="ProcessActionMemoBase.cfm">
 					
 			   </cfif>		   
@@ -380,6 +399,8 @@
 		</cfquery>
 									
 		<!--- Element 3 of 3 GENERATE DOCUMENT --->
+		
+		
 		<cfinclude template="Report/Document.cfm">  				
 		
 				

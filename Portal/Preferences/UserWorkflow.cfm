@@ -112,7 +112,7 @@ password="#SESSION.dbpw#">
 			  System.dbo.Ref_SystemModule S
 		WHERE R.Role = I.Role
 		AND   I.Operational = 1
-		AND   S.Operational = 1
+		-- AND   S.Operational = 1
 		AND   S.SystemModule = R.SystemModule
 		<!--- AND   R.SystemModule != 'System' Remed out, otherwise System Error workflow would not appear --->
 		
@@ -143,9 +143,10 @@ password="#SESSION.dbpw#">
 	
 	<tr>
 	
-	<td colspan="2" style="padding-left:10px">
+	<td colspan="2" style="padding-left:4px">
 	
 	<table width="760">
+	
 		<tr class="line fixlengthlist">
 		
 		    <cfloop index="itm" from="1" to="2">
@@ -161,8 +162,8 @@ password="#SESSION.dbpw#">
 			    
 		<cfoutput query="Get" group="SystemModule">
 		
-			<tr class="line fixlengthlist">
-			<td colspan="8" style="height:35" class="labelmedium2">#ModuleDescription#</td>
+			<tr class="line fixlengthlist fixrow">
+			<td colspan="8" style="height:35px;font-weight:bold;font-size:18px" class="labelmedium2">#ModuleDescription#</td>
 			</tr>
 						
 			<cfset i = 0>

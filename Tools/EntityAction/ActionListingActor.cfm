@@ -327,7 +327,7 @@
 <cfelse>
 
 <table width="100%" height="100%" align="center">	   
-	<tr class="line"><td colspan="3" class="labelmedium" style="padding-left:30px" bgcolor="F5FBFE" height="20"><cf_tl id="Access granted to">:</td></tr>	
+	<tr class="line"><td colspan="3" class="labelmedium2" style="padding-left:30px" height="20"><cf_tl id="Access granted to">:</td></tr>	
 		
 </cfif>
 
@@ -415,12 +415,10 @@
 							A.ActionCode as ClassParameter,
 							A.AccessLevel,
 							'Document' as Type
-			FROM    OrganizationObjectActionAccess A, 
-			        System.dbo.UserNames U 
-			WHERE   A.UserAccount   = U.Account
-			AND     A.ObjectId      = '#URL.ObjectId#'
+			FROM    OrganizationObjectActionAccess A INNER JOIN System.dbo.UserNames U ON A.UserAccount   = U.Account
+			WHERE   A.ObjectId      = '#URL.ObjectId#'
 			<cfif url.mode neq "BatchInsert">
-			AND     A.ActionCode    = '#URL.ActionCode#'
+			AND     (A.ActionCode    = '#URL.ActionCode#' or A.ActionCode is NULL)
 			<cfelse>
 			AND     A.ActionCode IN (SELECT  ActionCode
 			 						 FROM    Ref_EntityActionPublish
@@ -522,7 +520,15 @@
 					 
 					 	<table>
 						
-						 <tr class="labelmedium">
+						<cfif accesslevel eq "9">
+						
+						 <tr class="labelmedium2">
+						     <td title="access denied" style="height:17px;color:ff0000">#LastName# <cfif firstname neq "">, #FirstName#</cfif></td>
+						 </tr>						
+						
+						<cfelse>
+						
+						 <tr class="labelmedium2">
 						 <td style="height:17px">#LastName# <cfif firstname neq "">, #FirstName#</cfif> <cfif accesslevel eq "0"><font size="1" color="808080">[<cf_tl id="Assistant">]</font></cfif></td>
 						 					 
 						 <cfparam name="url.group" default="">						
@@ -583,6 +589,9 @@
 						   </cfif>
 						   
 						   </tr>
+						   
+						   </cfif>
+						   
 						   </table>
 							
 					<cfelseif URL.mode eq "View" and SESSION.isAdministrator eq "Yes">
@@ -717,14 +726,14 @@
 						
 				<table width="98%" align="center">
 				
-					<tr><td colspan="9" class="labelmedium" style="height;30px;padding-left:4px">A notification was sent to the below users:</td></tr>
+					<tr><td colspan="9" class="labelmedium2" style="height;30px;padding-left:4px">An eMail notification was sent to the following users:</td></tr>
 						
 					<tr>
 					   <td colspan="9">
-							<table width="100%" align="center">
+							<table width="100%" align="center" class="navigation_table">
 							<cfoutput>
 							<cfloop query="MailSent">				
-							<tr class="labelmedium line">
+							<tr class="labelmedium2 <cfif recordcount neq currentrow>line</cfif> navigation_row">
 								<td style="padding-left:9px">#FirstName# #LastName# (#Account#)</td>
 								<td>#EMailAddress#</td>
 								<td>#EMailType#</td>
@@ -748,3 +757,5 @@
 </td></tr>
 
 </table>	
+
+<cfset ajaxonload("doHighlight")>

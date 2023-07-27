@@ -268,14 +268,14 @@ password="#SESSION.dbpw#">
 				ORDER BY Created DESC
 			</cfquery>
 						
-			<TR class="fixlengthlist">
-		    <TD class="labelmedium"><cf_tl id="Organization">:</TD>
+			<TR>
+		    <TD class="labelmedium fixlength"><cf_tl id="Organization">:</TD>
 		    <TD colspan="3">
 			
 	          <cf_uiselect name = "OrgUnit"
 					selected       = "#prior.orgunit#"
 					size           = "1"
-					class          = "regularXL"
+					class          = "regularxl"
 					id             = "OrgUnit"							
 					required       = "yes"		
 					style          = "width:500px"	

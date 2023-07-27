@@ -131,7 +131,6 @@
 <cfoutput>
 
 <cfif result eq "1">
-
 		
 	<script>
 		se = document.getElementById('#inputfield#')					
@@ -152,18 +151,15 @@
 		</cfquery>
 	
 	</cfif>
-		
-		
+				
 <cfelse>
-
 	
 	<script>		
 		se = document.getElementById('#inputfield#')		
 		if (se) {
 		se.style.backgroundColor = "FF8080"
 		}
-	</script>		
-	
+	</script>			
 
 </cfif>
 

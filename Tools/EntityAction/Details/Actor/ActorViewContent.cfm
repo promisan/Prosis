@@ -81,11 +81,11 @@
 				ORDER BY   Created DESC
 			</cfquery>				
 				
-		    <cfif (useraccount eq session.acc and (process.recordcount eq "0" or process.decision eq ""))
+		    <cfif (useraccount eq session.acc and (process.recordcount eq "0" or process.decision eq "" or process.decision eq "0"))
 			
 			      or getAdministrator("#Object.Mission#") eq "1"> 
 			
-				<tr class="line labelmedium2 fixlengthlist" style="height:30px;background-color:white">
+				<tr class="line labelmedium2" style="height:30px;background-color:white">
 				   <td style="padding-left:9px;background-color:f4f4f4;padding-right:5px">#FirstName# #LastName#</td>
 				   <td valign="top" style="padding-top:1px">
 				       

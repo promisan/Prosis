@@ -8,6 +8,7 @@
 
 <!--- Create Criteria string for query from data entered thru search form --->
 
+
 <cf_screentop jquery="Yes" height="100%" scroll="yes" html="No" menuaccess="context" actionobject="Person"
 		actionobjectkeyvalue1="#url.id#">
 
@@ -18,12 +19,7 @@
 <cf_fileLibraryScript>
 <cf_calendarscript>
 
-<cfif CLIENT.googlemap eq "1">
-    <cf_mapscript scope="embed" height="300" width="360">
-	<cfajaximport tags="cfmap,cfform" params="#{googlemapkey='#client.googlemapid#'}#"> 
-<cfelse>
-	<cfajaximport tags="cfform"> 
-</cfif>
+<cfajaximport tags="cfform"> 
 
 <cfparam name="url.header" default="1">
 <cfparam name="url.webapp" default="">
@@ -117,7 +113,7 @@ password="#SESSION.dbpw#">
 	
 <cfelse>
 	  	
-	<table width="99%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" >
+	<table width="99%" height="100%" align="center" >
 		
 	<cfif header gte "1">
 			
@@ -152,3 +148,8 @@ password="#SESSION.dbpw#">
 	</table>
 	
 </cfif>	
+
+<cfif CLIENT.googlemap eq "1">
+    <cf_mapscript scope="embed" height="300" width="360">
+	<cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">  
+</cfif>

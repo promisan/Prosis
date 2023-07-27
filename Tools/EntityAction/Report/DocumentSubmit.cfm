@@ -53,9 +53,9 @@ password="#SESSION.dbpw#">
 			</cfquery>	
 		
 			<cfsavecontent variable="text">
-				<cfinclude template="../../../#Format.DocumentTemplate#">		
+			<cfinclude template="../../../#Format.DocumentTemplate#">						
 			</cfsavecontent>
-			
+									
 			<cftry>	
 					
 			<cfquery name="Insert" 

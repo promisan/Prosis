@@ -47,11 +47,11 @@
 
 <cf_layout type="border" id="personProfileLayout">
 	
-		<cf_layoutArea id="leftArea" position="left" collapsible="true" size="310" maxsize="310" minsize="18%">
+		<cf_layoutArea id="leftArea" position="left" collapsible="true" size="210" maxsize="210">
 		
 		    <cfoutput>
-			<iframe name="right" 
-				 id="right" 
+			<iframe name="tree" 
+				 id="tree" 
 				 src="#link#" 
 				 width="100%" 
 				 height="99%" 

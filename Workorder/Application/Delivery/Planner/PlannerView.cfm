@@ -166,7 +166,7 @@
 			</cfoutput>		
 													
 			<tr><td valign="top">	
-			
+						
 				<cf_divscroll>		
 			   			
 					<cfinclude template="WorkPlanActor.cfm">					 					

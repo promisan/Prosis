@@ -110,16 +110,16 @@
 						  Table3Name     = "Consumption"								  
 						  returnvariable = "script"> 	
 									  
-			  	 		<cf_menutab item  = "#itm#" 	         		    
-							 iconwidth  = "#wd#" 
-							 iconheight = "#ht#" 
-							 padding    = "0"
-							 targetitem = "3"
-							 fontcolor  = "white"
-							 border     = "yes"
-							 type       = "Horizontal"
-							 name       = "#tInquiry#"
-							 source     = "javascript:#script#">					  	
+			  	 		<cf_menutab  item       = "#itm#" 	         		    
+									 iconwidth  = "#wd#" 
+									 iconheight = "#ht#" 
+									 padding    = "0"
+									 targetitem = "3"
+									 fontcolor  = "white"
+									 border     = "yes"
+									 type       = "Horizontal"
+									 name       = "#tInquiry#"
+									 source     = "javascript:#script#">					  	
 						
 			</tr>
 			

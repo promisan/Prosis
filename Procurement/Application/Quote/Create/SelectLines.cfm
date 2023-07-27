@@ -9,7 +9,6 @@
 
 <cfset mode = url.mode>
 
-
 <cfquery name="Parameter" 
   datasource="AppsPurchase" 
   username="#SESSION.login#" 
@@ -55,8 +54,7 @@
 				 WHERE  R.Topic = S.Code
 			     AND    S.Operational   = 1
 			     AND    R.RequisitionNo = L.RequisitionNo
-			   ) as CountedTopics,	  
-				  
+			   ) as CountedTopics,	  				  
 				  		  
 				  I.CustomForm,
 				  
@@ -107,8 +105,7 @@
 			AND       L.PersonNo IN (SELECT PersonNo FROM Employee.dbo.Person)
 			<cfif url.personno neq "">
 			AND       L.PersonNo = '#URL.PersonNo#'  
-			</cfif>
-			
+			</cfif>			
 		
 		<cfelseif mode eq "Position">
 		
@@ -229,9 +226,7 @@
 		AND       L.Period  = '#URL.Period#'	
 		AND       Org.Mission = '#URL.Mission#'					
 		ORDER BY  Org.Mission, Org.MandateNo, Org.HierarchyCode, L.Reference,L.Created DESC				
-		
-		
-					
+						
 	</cfquery>
 	
 	<cfif Requisition.recordcount eq "0">

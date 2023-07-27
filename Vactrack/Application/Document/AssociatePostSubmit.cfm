@@ -5,7 +5,6 @@
 
 <cftransaction>
 
-
 <cfset sl = 0>
 
 <cfloop index="Item" 
@@ -60,31 +59,24 @@
 	password="#SESSION.dbpw#">
 		DELETE FROM DocumentPost 
 		WHERE  DocumentNo = '#FORM.DocumentNo#'
+		AND    PositionNo NOT IN ( #Form.Selected# )
 	</cfquery>
 
 	<!--- define selected items --->
 	
 	<cfloop index="Item" 
 	           list="#Form.Selected#" 
-	           delimiters="' ,">			   
-			   
-		<cfquery name="Assignment" 
-		datasource="AppsVacancy" 
-		username="#SESSION.login#"
-		password="#SESSION.dbpw#">		
-			SELECT    *						  
-			FROM      Employee.dbo.PersonAssignment PA 
-			WHERE     PA.PositionNo = '#item#'				
-			AND       Incumbency > 0
-			AND       AssignmentType = 'Actual'
-			AND       AssignmentStatus IN ('0','1') 
-			ORDER BY DateEffective DESC
-		</cfquery>		 
-			   
-		<cfparam name="Form.VacantSince_#item#" default="#dateformat(Assignment.DateExpiration,client.dateformatshow)#">	  
+	           delimiters="' ,">		  
+				   
 		
-		<cfset dex = evaluate("Form.VacantSince_#item#")>			
-	
+		<cfset val = evaluate("Form.VacantOwner_#item#")>
+		<cfif val neq "">
+			<CF_DateConvert Value="#val#">
+			<cfset dex = dateValue>
+		<cfelse>
+			<cfset dex = "">
+		</cfif>	
+			
 		<cfquery name="Get" 
 		datasource="AppsVacancy" 
 		username="#SESSION.login#"
@@ -114,24 +106,38 @@
 			         (DocumentNo, 
 					  PositionNo,
 					  Postnumber,
-					  DateVacant,
+					  VacantOwner,
 					  OfficerUserId,
 					  OfficerLastName,
-					  OfficerFirstName,
-					  Created)
+					  OfficerFirstName)
 			  	VALUES ('#FORM.DocumentNo#', 
 			          '#Item#', 
 					  '#get.SourcePostNumber#',
 					  <cfif dex neq "">
-					  '#dateformat(dex,client.dateSQL)#',
+					  #dex#, 
 					  <cfelse>
 					  NULL,
 					  </cfif>
 					  '#SESSION.acc#',
 					  '#SESSION.last#',
-					  '#SESSION.first#',
-					  '#DateFormat(Now(),CLIENT.DateSQL)#')
+					  '#SESSION.first#')
 			</cfquery>		
+			
+		<cfelse>
+		
+			<cfquery name="Check" 
+			datasource="AppsVacancy" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE DocumentPost 
+				<cfif dex neq "">
+				SET    VacantOwner = #dex# 
+				<cfelse>
+				SET    VacantOwner = NULL 
+				</cfif>
+				WHERE  DocumentNo = '#FORM.DocumentNo#'
+				AND   PositionNo = '#Item#'
+		     </cfquery>
 		
 		</cfif>
 	

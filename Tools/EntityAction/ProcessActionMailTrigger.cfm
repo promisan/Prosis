@@ -343,6 +343,7 @@
 		       <!--- 3. NOTIFICATION email to ACTOR for next step --->	
 			   												   			   		   				      			
 			   <cfif NextCheck.EnableNotification eq "1" and NextCheck.recordcount eq "1">
+			 
 			   							
 					 <cfset actionId = NextAction.ActionId>	 												 
 					
@@ -352,23 +353,37 @@
 					 	 					 					 
 							<cfinclude template="ProcessMail.cfm">	
 												
-					 <cfelse>					  
-					 					 					 	
+					 <cfelse>		
+										 					 					 	
 						 <cfoutput>
+						 
 							 <script>
-							    
-							 	try {
-								    
+							 
+							   se = parent.document.getElementById('closeactiondialog')							   
+							   if (se) {
+								  
+								  try {								    							   	
+									parent.ptoken.location('#session.root#/Tools/entityaction/ProcessMailView.cfm?header=1&objectid=#object.objectid#&actioncode=#NextAction.ActionCode#&NotificationGlobal=#NextCheck.NotificationGlobal#');																	   							   																		
+							   	  } catch(e) {}		
+								  
+							   } else {
+							   								   
+								   try {								    									
+								    <cfif windowmode eq "embed">
 								   	parent.ProsisUI.createWindow('wMailDialog', 'Notification', '',{x:100,y:100,height:600,width:890,modal:true,center:true}) 
-									parent.ptoken.navigate('#session.root#/Tools/entityaction/ProcessMailView.cfm?objectid=#object.objectid#&actioncode=#NextAction.ActionCode#&NotificationGlobal=#NextCheck.NotificationGlobal#','wMailDialog');																	   
-							   		//maildialog('#object.objectid#','#NextAction.ActionCode#','#NextCheck.NotificationGlobal#')									
-									
-							   	} catch(e) {}					
-							 </script>
+									parent.ptoken.navigate('#session.root#/Tools/entityaction/ProcessMailView.cfm?objectid=#object.objectid#&actioncode=#NextAction.ActionCode#&NotificationGlobal=#NextCheck.NotificationGlobal#','wMailDialog');																	   							   		
+									<cfelse>
+								  	opener.ProsisUI.createWindow('wMailDialog', 'Notification', '',{x:100,y:100,height:600,width:890,modal:true,center:true}) 
+									opener.ptoken.navigate('#session.root#/Tools/entityaction/ProcessMailView.cfm?objectid=#object.objectid#&actioncode=#NextAction.ActionCode#&NotificationGlobal=#NextCheck.NotificationGlobal#','wMailDialog');																	   							   										
+									</cfif>
+							      	} catch(e) {}		
+								   							   
+							   }	
+							   
+							 </script>							
+							 
 						 </cfoutput>	 
-							
-						 <!--- <cfexit method="EXITTEMPLATE"> --->
-					 
+																		 
 					 </cfif>						 				 
 						 
 			   </cfif> 

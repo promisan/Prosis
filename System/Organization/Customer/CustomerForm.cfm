@@ -732,7 +732,7 @@
 								<tr>
 								   <td class="labelmedium" style="height:25;padding-left:18px;#ht#">#Description#:<cf_space spaces="40"></td>
 								   <td>
-								   <table>
+								   <table class="formpadding">
 								   <tr>
 								   
 								   	<cfif url.customerid eq "">

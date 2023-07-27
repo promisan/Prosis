@@ -16,10 +16,10 @@
 			  <td style="padding-left:4px;padding-right:4px">
 			 				 
 				<img src="#SESSION.root#/Images/Logos/System/ListCollapsed.png" 
-					id="0Exp" class="regular" style="cursor: pointer;" height="25">
+					id="0Exp" class="regular" style="cursor: pointer;" height="22">
 					
 					<img src="#SESSION.root#/Images/Logos/System/ListExpanded.png" 
-					id="0Min" class="hide" style="cursor: pointer;" height="25">
+					id="0Min" class="hide" style="cursor: pointer;" height="22">
 										
 			  </td>
 			  <td style="width:100%;font-size:18px;"><cf_tl id="Read only"></a></td>			  
@@ -33,10 +33,10 @@
 			  <td style="padding-left:4px;padding-right:4px">
 			 				 
 				<img src="#SESSION.root#/Images/Logos/System/ListCollapsed.png" alt="" 
-					id="INExp" class="regular" style="cursor: pointer;" height="25">
+					id="INExp" class="regular" style="cursor: pointer;" height="22">
 					
 					<img src="#SESSION.root#/Images/Logos/System/ListExpanded.png" 
-					id="INMin" class="hide" style="cursor: pointer;" height="25">					
+					id="INMin" class="hide" style="cursor: pointer;" height="22">					
 					
 			  </td>			  
 			  <td style="width:100%;font-size:18px;">Manually Record Candidates</td>
@@ -109,10 +109,10 @@
 					  <td style="padding-left:4px;padding-right:4px"> 
 					  
 						<img src="#SESSION.root#/Images/Logos/System/ListCollapsed.png" alt="" 
-							id="#accesslevel#Exp" class="regular" style="cursor: pointer;" height="25">
+							id="#accesslevel#Exp" class="regular" style="cursor: pointer;" height="22">
 							
 							<img src="#SESSION.root#/Images/Logos/System/ListExpanded.png" 
-							id="#accesslevel#Min" class="hide" style="cursor: pointer;" height="25">
+							id="#accesslevel#Min" class="hide" style="cursor: pointer;" height="22">
 							
 					  </td>
 					  <td style="width:100%;font-size:18px;">#accessLabel[accesslevel+1]#</a></td>					  

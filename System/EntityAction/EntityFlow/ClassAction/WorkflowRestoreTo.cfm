@@ -48,6 +48,7 @@
 				ShowAsBranch,
 				ActionDialog,
 				ActionDialogParameter,
+				ActionDialogOpen,
 				ActionSpecification,
 				ActionReferenceShow,
 				ActionReferenceEntry,
@@ -86,7 +87,6 @@
 				ConditionValue,
 				ConditionField,    
 				ConditionMessage,
-				ConditionShow,
 				ConditionScript,
 				OfficerUserID,
 				OfficerLastName,
@@ -117,6 +117,7 @@
 				ShowAsBranch,
 				ActionDialog,
 				ActionDialogParameter,
+				ActionDialogOpen,
 				ActionSpecification,
 				ActionReferenceShow,
 				ActionReferenceEntry,
@@ -154,8 +155,7 @@
 				DueEntityStatus,		
 				ConditionValue,
 				ConditionField,    
-				ConditionMessage,
-				ConditionShow,
+				ConditionMessage,				
 				ConditionScript,
 				'#SESSION.acc#',
 				'#SESSION.last#', 
@@ -163,6 +163,37 @@
 		FROM    Ref_EntityActionPublish
 		WHERE   ActionPublishNo = '#Url.PublishNo#'
 		</cfquery>
+		
+	<cfquery name="InsertLanguage" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		INSERT INTO Ref_EntityClassAction_Language	
+		       (EntityCode, 
+				EntityClass,
+				ActionCode, 
+				LanguageCode, 
+				ActionCompleted, 
+				ActionDescription, 
+				ActionGoToLabel, 
+				ActionReference, 
+				ActionDenied, 
+				ActionProcess, 
+				OfficerUserId)
+		SELECT	'#URL.EntityCode#' ,'#URL.TargetEntityClass#',
+				ActionCode, 
+				LanguageCode, 
+				ActionCompleted, 
+				ActionDescription, 
+				ActionGoToLabel, 
+				ActionReference, 
+				ActionDenied, 
+				ActionProcess, 
+				'#SESSION.acc#'	
+		FROM    Ref_EntityActionPublish_Language
+		WHERE   ActionPublishNo = '#Url.PublishNo#'		
+				
+	</cfquery>	
 		
 		
 	<cfquery name="InsertDocument" 
@@ -178,6 +209,7 @@
 					  DocumentLanguageCode,
 					  ObjectFilter,
 					  ForceDocument,
+					  UsageParameter,
 					  ListingOrder, 
 					  Operational)
 			SELECT    '#URL.EntityCode#' ,
@@ -187,6 +219,7 @@
 					  DocumentLanguageCode,
 					  ObjectFilter,
 					  ForceDocument,
+					  UsageParameter,
 					  ListingOrder, 
 					  Operational
 			FROM      Ref_EntityActionPublishDocument	
@@ -208,13 +241,13 @@
 				 ProcessActionCode,
 				 ProcessDefault,
 				 DocumentId,
+				 ConditionShow,
 				 ConditionMemo,
 				 ConditionMemoSize,
 				 ConditionField,
 				 ConditionValue,
 				 ConditionScript,
-				 ConditionMessage,
-				 ConditionShow,
+				 ConditionMessage,				 
 				 ConditionDataSource,
 				 MailCode,
 				 Operational,
@@ -229,13 +262,13 @@
 				  ProcessActionCode,
 				  ProcessDefault,
 				  DocumentId,
+				  ConditionShow,
 				  ConditionMemo,
 				  ConditionMemoSize,
 				  ConditionField,
 				  ConditionValue,
 				  ConditionScript,
-				  ConditionMessage,
-				  ConditionShow,
+				  ConditionMessage,				 
 				  ConditionDataSource,
 				  MailCode,
 				  Operational,

@@ -156,7 +156,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="1" class="line" colspan="2"></td></tr>
 	<tr class="hide"><td id="positionbox_detail" class="line" colspan="2"></td></tr>
 	
-	<cfloop index="itm" list="Supervisor,Administrator">	
+	<cfloop index="itm" list="Supervisor,Administrator,Partner">	
 	
 	    <cfquery name="Relation" 
 			datasource="AppsEmployee" 
@@ -181,9 +181,9 @@ password="#SESSION.dbpw#">
 	    <tr class="labelmedium2 linedotted">
 		  <td style="width:200px;padding-left:34px"><cf_tl id="#itm#"></td>
 		 		 		 
-		  <td style="min-width:50%">
+		  <td style="min-width:50%;height:100%">
 		      <table style="width:100%" class="navigation_table">
-		      <tr class="labelmedium navigation_row">
+		      <tr class="labelmedium2 navigation_row">
 			  <td style="width:30px">
 			  
 			    <cfset link = "#SESSION.root#/Staffing/Application/Position/PositionParent/getPosition.cfm?pos=#url.id#&class=#itm#">
@@ -197,7 +197,7 @@ password="#SESSION.dbpw#">
 					filter1      = "Mission"
 					filter1Value = "#positionchild.mission#"
 					button       = "No"
-					style        = "width:28px;height:28px"
+					style        = "width:25px;height:25px"
 					close        = "Yes"			
 					datasource	 = "AppsEmployee"		
 					class        = "PositionSingle">	

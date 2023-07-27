@@ -96,7 +96,7 @@
 	
 <cfelseif find("iframe:",source)> 
     <cfset link = right(new,len(new)-7)>	  
-	<cfset link = "ptoken.open('#link#&ts='+new Date().getTime(),'#attributes.iframe#')">	
+	<cfset link = "$('###attributes.iframe#').contents().find('body').empty();ptoken.open('#link#','#attributes.iframe#')">	
 	
 <cfelse>  	
     <cfif attributes.loadAlways eq "Yes">

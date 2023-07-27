@@ -87,12 +87,13 @@ password="#SESSION.dbpw#">
 <cfelse>
 
 	<cfajaximport params="#{googlemapkey='#client.googlemapid#'}#">	
+
 	
 </cfif>
 
 <cfform name="personaddressform" onsubmit="return false">
 
-<table width="98%" align="center" class="formpadding">
+<table style="width:99.5%" align="center" class="formpadding">
 
 <tr><td id="addressprocess"></td></tr>
 
@@ -148,7 +149,7 @@ password="#SESSION.dbpw#">
 		
 	<TR class="fixlengthlist">
     <TD style="padding-left:8px" class="labelmedium" height="25"><cf_tl id="Address type">:</TD>
-    <TD class="labelmedium">
+    <TD>
 	
 	<table><tr><td>
 	
@@ -226,9 +227,9 @@ password="#SESSION.dbpw#">
 	
 	<!--- address contact --->
 		
-	<TD colspan="1" class="labelmedium" style="min-width:109px;padding-left:5px" height="20"><cf_tl id="Contact">:</TD>
+	<TD colspan="1" class="labelmedium" style="min-width:178px;padding-left:5px" height="20"><cf_tl id="Contact">:</TD>
 	
-    <TD>
+    <TD style="width:100%">
 	
 	   <table cellspacing="0" cellpadding="0">
 	   

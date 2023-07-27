@@ -1,4 +1,5 @@
 
+
 <cfparam name="url.context" default="Backoffice">
 
 <cfif url.scope eq "Edit">
@@ -63,7 +64,7 @@
 	<!--- default empty form to prevent script will fail --->
 		
 	<cfform name="orderform" onsubmit="return false"></cfform>
-
+	
 <cfelse>
 
 	<cfset l = len(type.customform)>		
@@ -71,10 +72,13 @@
 				 
 	<cfoutput> 
 	
+	
+	
 	<input type="hidden" 
            name="formsave" id="formsave"
            value="#SESSION.root#/WorkOrder/Application/WorkOrder/Create/#path#Submit.cfm?context=#url.context#&mission=#url.mission#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&serviceitem=#url.serviceitem#">
-
+		  
+		
 		<cfinclude template      = "#type.customform#">
 					
 	</cfoutput>		

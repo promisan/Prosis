@@ -54,7 +54,7 @@
 	   method           = "tablefilterfield" 
 	   filtermode       = "auto"
 	   name             = "filtersearch"
-	   style            = "font:13px;height:21;width:120"
+	   style            = "font:14px;height:23;width:120"
 	   rowclass         = "lines"
 	   rowfields        = "cdescription,ccode,csearch">							
 		
@@ -67,13 +67,13 @@
 	
 	<table width="97%" align="center" class="navigation_table">
 		
-	<tr class="fixrow labelmedium line fixlengthlist">
-	   <td>Code</td>
-	   <td>Description</td>
-	   <td>Type</td>
-	   <td>Officer</td>
-	   <td></td>
-	   <td></td>
+	<tr class="fixrow labelmedium2 line fixlengthlist">
+	   <td style="background-color:white">Code</td>
+	   <td style="background-color:white">Description</td>
+	   <td style="background-color:white">Type</td>
+	   <td style="background-color:white">Officer</td>
+	   <td style="background-color:white"></td>
+	   <td style="background-color:white"></td>
 	</tr>
 		
 	<cfoutput query="Action">
@@ -90,7 +90,7 @@
 		AND      A.EntityClass != '#URL.EntityClass#'
 		</cfquery>
 	
-	<tr class="line labelmedium navigation_row lines fixlengthlist">
+	<tr class="line labelmedium2 navigation_row lines fixlengthlist">
 		<td class="ccode" style="padding-left:4px">#ActionCode#</td>
 		<td class="cdescription">#ActionDescription#</td>
 		<td>#ActionType#</td>

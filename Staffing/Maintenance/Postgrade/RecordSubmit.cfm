@@ -16,7 +16,7 @@ password="#SESSION.dbpw#">
 	PostGrade  = '#Form.PostGrade#' 
 </cfquery>
 
-   <cfif #Verify.recordCount# is 1>
+   <cfif Verify.recordCount is 1>
    
    <script language="JavaScript">
    

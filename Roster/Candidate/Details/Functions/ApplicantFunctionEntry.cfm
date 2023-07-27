@@ -243,11 +243,9 @@ AND    FunctionId NOT IN (SELECT FunctionId FROM ApplicantFunction M,
 
 </cfquery>
 
-
 <CF_DropTable dbName="AppsQuery" tblName="v#SESSION.acc#Roster#FileNo#">
 
 <table width="96%" align="center" class="formpadding">
-
 
 <!--- Check if there is a submission worfklow defined for this edition --->
 
@@ -259,12 +257,12 @@ AND    FunctionId NOT IN (SELECT FunctionId FROM ApplicantFunction M,
 				datasource="AppsSelection"
 				username="#SESSION.login#"
 				password="#SESSION.dbpw#">
-				SELECT *
-				FROM   ApplicantSubmission
-				WHERE  PersonNo          = '#URL.ID#'
-			AND    SubmissionEdition = '#URL.ID1#'
-			AND    Source            = '#URL.Source#'
-			ORDER BY Created DESC
+				SELECT   *
+				FROM     ApplicantSubmission
+				WHERE    PersonNo          = '#URL.ID#'
+			    AND      SubmissionEdition = '#URL.ID1#'
+			    AND      Source            = '#URL.Source#'
+			    ORDER BY Created DESC
 		</cfquery>
 
 		<cfif Submission.recordcount eq 1>
@@ -272,9 +270,9 @@ AND    FunctionId NOT IN (SELECT FunctionId FROM ApplicantFunction M,
 			<cfset url.ajaxid = Submission.ApplicantNo>
 
 			<input type="hidden"
-					name="workflowlink_#URL.ajaxid#"
-				id="workflowlink_#URL.ajaxid#"
-				   value="../Applicant/ApplicantSubmissionWorkflow.cfm">
+				name="workflowlink_#URL.ajaxid#"
+			    id="workflowlink_#URL.ajaxid#"
+				value="../Applicant/ApplicantSubmissionWorkflow.cfm">
 
 			<tr><td class="linedotted">&nbsp;</td></tr>
 
@@ -282,17 +280,15 @@ AND    FunctionId NOT IN (SELECT FunctionId FROM ApplicantFunction M,
 				<td class="labellarge"> <i>Submission Workflow</i> </td>
 			</tr>
 
-		<tr>
+		    <tr>
 				<td id="#URL.ajaxid#" style="padding-left:25px;">
-			<cfinclude template="../Applicant/ApplicantSubmissionWorkflow.cfm">
-			</td>
+			      <cfinclude template="../Applicant/ApplicantSubmissionWorkflow.cfm">
+			    </td>
 			</tr>
 
 		<cfelse>
 				<tr>
-				<td>
-				<cf_message message = "Alert: Applicant Submission could not be determined for this candidate.">
-				</td>
+				<td><cfoutput></cfoutput><cf_message message = "Alert: Applicant Submission could not be determined for this candidate."></td>
 				</tr>
 		</cfif>
 

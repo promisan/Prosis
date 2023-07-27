@@ -140,6 +140,7 @@
 												   AND    ActionCode      = '#actionCode#' 
 												   AND    Operational     = 1)
 					    ORDER BY   D.DocumentOrder 
+						
 					</cfquery>	
 					
 					<cfset url.objectid = objectid>
@@ -155,7 +156,7 @@
 						    FROM       Organization.dbo.Ref_EntityDocumentQuestion P
 						    WHERE      DocumentId = '#documentid#'	
 						    ORDER BY   ListingOrder
-					    </cfquery>									
+					    </cfquery>				
 						
 						<cfloop query="content">					
 							
@@ -172,8 +173,7 @@
 						</cfloop>
 					
 					</cfloop>	
-				
-				
+								
 				</cfif>
 												
 				<!--- perform the script action linked to completion of step 1 --->

@@ -187,8 +187,8 @@
 			</cfswitch>
 			
 		  <tr>
-		    <td width="5%"></td>
-		    <td width="80%" id="standardtext">
+		    <td width="1%"></td>
+		    <td width="98%" id="standardtext">
 						
 			<!--- body content comes here to be loaded on the fly --->
 						
@@ -197,12 +197,12 @@
 			<!--- end template --->
 
 		    </td>
-			<td width="5%"></td>
+			<td width="1%"></td>
 		  </tr>
 		 <cfif Attributes.Closing neq ""> 
 			<tr>
-				<td width="5%"></td>
-				<td width="80%" class="serif_small">
+				<td width="1%"></td>
+				<td width="90%" class="serif_small">
 				
 			<!---We should see if there is a signature block --->
 			<cfswitch expression="#Attributes.Class#">
@@ -219,7 +219,7 @@
 			<!----- we should print the botton of the page --->
 			
 				</td>
-				<td width="5%"></td>
+				<td width="1%"></td>
 			</tr>
 		  </cfif>
 			

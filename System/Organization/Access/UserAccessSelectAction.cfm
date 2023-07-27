@@ -32,23 +32,14 @@
 		</table>  	       
 		  
    </td>   
-   
-   <!---
-   <td style="padding-left:0px" class="labelsmall"> 
-   
-   	   <cfif AccessLvl eq ""><b><font color="0080FF"></cfif>
-	   <img src="#session.root#/images/posting_cancel.gif" alt="" border="0">
-	   <!--- <cfif AccessList.Number gt "1">Deny<cfelse>Disabled</cfif> --->
-	   
-   </td>
-   --->  
-   
+    
           
 	   <cfif actiontype neq "Create">	   
 	   
 	    <td align="center" id="d#ms#_#CurrentRow#0" style="width:30px;padding:0px;border:1px solid gray;background-color:c0c0c0">
 		
-		 <table style="padding:0px"><tr><td style="background-color:c0c0c0;padding-bottom:2px" title="User may only access this step but is not allowed to forward it or move it otherwise">
+		 <table style="padding:0px">
+		 <tr><td style="background-color:c0c0c0;padding-bottom:2px" title="User may only access this step but is not allowed to forward it or move it otherwise">
 	   	    
 		 <input type  = "radio" 
 		      name    = "#ms#_AccessLevel_#CurrentRow#"
@@ -57,21 +48,11 @@
 			  onClick = "ClearRow('d#ms#_#CurrentRow#','0')" <cfif AccessLvl eq "0">checked</cfif>>
 		
 		 
-		 </td></tr></table>  
+		 </td></tr>
+		 </table>  
 			  
      	</td>	
-		
-		<!---	
-		<td style="padding-left:0px" class="labelsmall"> 			
-		   <cfif AccessLvl eq "0"><font color="0080FF"></cfif>
-		   <cf_uiTooltip tooltip="User may only access this step but is not allowed to forward it or move it otherwise">
-		   <img src="#session.root#/images/posting_open.gif" border="0">
-		   </cf_uiTooltip>
-		   <!--- <cfif AccessList.Number gt "1">Assist<cfelse>Assist</cfif>	   --->
-		   
-	   </td>
-	   --->
-	   
+			   
 	   <cfelse>
 	   
 	    <td style="width:43px;padding-left:9px;padding-right:2px;background-color:silver" id="d#ms#_#CurrentRow#0"></td>	  
@@ -80,7 +61,8 @@
 	    
    <td align="center" style="border:1px solid gray;width:30px;background-color:80FF00" id="d#ms#_#CurrentRow#1">  
       
-	    <table style="padding:0px"><tr><td style="background-color:80FF00;padding-bottom:2px;height:100%;" title="No access">
+	    <table style="padding:0px">
+		<tr><td style="background-color:80FF00;padding-bottom:2px;height:100%;" title="Common access to process and forward the step">
 	      
    		<input type    = "radio" 
 			   name    = "#ms#_AccessLevel_#CurrentRow#" 
@@ -89,19 +71,10 @@
 			   <cfif AccessLvl eq "1">checked</cfif>
 			   onClick = "ClearRow('d#ms#_#CurrentRow#','1')">
 			
-		 </td></tr></table>  
+		</td></tr>
+		</table>  
 			   			   
-   </td> 
-   
-   <!---  
-   <td style="padding-left:0px;padding-right:2px" class="labelsmall"><cfif AccessLvl eq "1"><font color="0080FF"></cfif>
-   <cf_uiTooltip tooltip="User may both access this AND is allowed to forward it">
-   <img src="#session.root#/images/posting_done.gif" alt="Process" border="0">
-   </cf_uiTooltip>
-   <!---Process---></td>   
-   
-   --->
-   
+   </td>      
         
    <td align="center" style="height:100%;padding:0px;border:1px solid gray;width:30px;background-color:0080FF" id="d#ms#_#CurrentRow#2">  
     
@@ -114,21 +87,12 @@
 			   <cfif AccessLvl eq "2">checked</cfif>
 			   onClick = "ClearRow('d#ms#_#CurrentRow#','2')">
 				
-		 </td></tr></table>  
-	
+		 </td></tr></table>  	
 	  
-   </td>
+   </td>  
+    
    
-   <!---
-   
-    <td style="padding-left:0px;padding-right:2px" class="labelsmall"><cfif AccessLvl eq "2"><font color="0080FF"></cfif>
-   <cf_uiTooltip tooltip="Special access to be used in flow">
-   <img src="#session.root#/images/posting_done.gif" alt="Process" border="0">
-   </cf_uiTooltip>
-   <!---Process---></td>   
-   
-   --->
-   
+     
    </tr>
 </table>
    

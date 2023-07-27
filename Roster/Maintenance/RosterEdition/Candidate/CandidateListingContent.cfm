@@ -16,8 +16,9 @@
 			   A.Gender, 
 			   A.EMailAddress,
 			   A.MobileNumber,
+			   A.Nationality, 
 			   A.Nationality AS NationalityCode, 
-			   N.Name AS Nationality, 			   
+			   N.Name        AS Country, 			   
 			   N.CountryGroup, 
 			   N.Continent,
 		  	   COUNT(*) AS Applications
@@ -78,6 +79,7 @@
 <cfsavecontent variable="continentScript">
 	
 	<cfoutput>
+	
   			SELECT @code, @fld, Continent
 			FROM System.dbo.Ref_Nation WHERE Operational = 1 AND Code IN 
 			( 
@@ -85,6 +87,12 @@
 				FROM (#myquery#) AS S1
 			) ORDER BY Continent 
 	</cfoutput>
+	
+	<!---
+	  lookupgroup="Continent", 
+	  lookupscript="#continentScript#", 
+	  
+	  --->
 	
 </cfsavecontent>
 
@@ -150,12 +158,11 @@
 
 
 <cfset itm = itm + 1>
-<cfset fields[itm] = {label="Nationality", 
-                      field="Nationality", 
+<cfset fields[itm] = {label="Country", 
+                      field="Country", 
 					  alias="D", 
-					  searchfield="Name", 
-                      lookupgroup="Continent", 
-					  lookupscript="#continentScript#", 
+					  searchfield="Country", 
+                    
 					  filtermode="3", 
 					  displayfilter="Yes", 
 					  search="text"}>
@@ -169,9 +176,17 @@
 
 <cfset menu = ArrayNew(1)>
 
-<cf_tl id="Add candidate" var="1">
+<cfinvoke component="Service.Access"  
+		 method="roster" 
+		 returnvariable="Access"
+		 role="'AdminRoster','CandidateProfile'">
+			 
+<cfif access eq "EDIT" or access eq "ALL">				 
 
-<cfset menu[1] = {label="#lt_text#", script="addCandidate('#url.submissionedition#','')"}>
+	<cf_tl id="Record a new candidate" var="1">
+	<cfset menu[1] = {label="#lt_text#", script="addCandidate('#url.submissionedition#','')"}>
+
+</cfif>
 
 <cf_listing header="Candidate" 
             menu="#menu#" 
@@ -186,7 +201,7 @@
 			listorderfield="LastName" 
 			listorderalias="D" 
 			listorderdir="ASC"
-            listgroup="Nationality" 
+            listgroup="NationalityCode" 
 			listgroupdir="ASC" 
 			headercolor="ffffff" 
 			listlayout="#fields#"

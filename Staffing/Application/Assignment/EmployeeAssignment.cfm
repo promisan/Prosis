@@ -275,12 +275,12 @@
 										
 					<cfif DateEffective lte dte and incumbency eq "100">						
 					<cfset validwork = "0">
-					<tr class="line labelmedium2"><td colspan="13" height="30" align="center" bgcolor="yellow"><font color="black">Attention: Assignment effective period overlaps with prior record</td></tr>					
+					<tr class="line labelmedium2"><td colspan="14" height="30" align="center" bgcolor="yellow"><font color="black">Attention: Assignment effective period overlaps with prior record</td></tr>					
 					</cfif>
 					
 					<cfif DateEffective gt DateExpiration and Incumbency eq "100">						
 					<cfset validwork = "0">
-					<tr class="line labelmedium2" style="border-top:1px solid gray"><td colspan="13" height="30"  align="center" bgcolor="FF0000"><font color="white">Attention: Incorrect assignment. Please contact administrator to remove record.</td></tr>					
+					<tr class="line labelmedium2" style="border-top:1px solid gray"><td colspan="14" height="30"  align="center" bgcolor="FF0000"><font color="white">Attention: Incorrect assignment. Please contact administrator to remove record.</td></tr>					
 					</cfif>
 														
 				    <cfinvoke component="Service.Access"  
@@ -312,17 +312,14 @@
 						 
 						 <cfif OrgUnitCode neq priorOrg or mission neq priorMis>						 	
 						 						 
-							 <tr class="labelmedium2 fixrow2 line" style="height:26px;background-color:f0f0f0">
+							 <tr class="labelmedium2 fixrow2 line" style="height:22px">
+							
+														 
+							 <td colspan="14" style="padding-left:14px;background-color:f1f1f1">
 							 
-							 <cfif mission neq priorMis>						 
-							 <td colspan="3" style="font-weight:bold;padding-left:14px;border-right:1px solid silver;font-size:17px">							 
-							 #Mission#
-							 </td>
-							 <cfelse>
-							 <td colspan="3"></td>
-							 </cfif>
-							 
-							 <td colspan="11" style="padding-left:4px;background-color:e6e6e6">
+							  <cfif mission neq priorMis>	
+							  <span style="font-weight:bold;padding-left:1px;border-right:1px solid silver;font-size:17px">#Mission#</span>
+							  </cfif>
 							 								 
 							  <cfquery name="Parent" 
 								    datasource="AppsOrganization" 

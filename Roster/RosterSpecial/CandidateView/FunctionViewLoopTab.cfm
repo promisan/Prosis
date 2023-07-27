@@ -58,7 +58,7 @@ function bucketsta() {
 			 method="roster" 
 			 Owner="#Bucket.Owner#"
 			 returnvariable="Access"
-			 role="'AdminRoster','CandidateProfile'">
+			 role="'AdminRoster'">
 			 
 	<cfif Access eq "EDIT" or Access eq "ALL">	 
 	
@@ -275,26 +275,36 @@ function bucketsta() {
 				
 		  </cfif>
 		  
-	<cf_UItreeitem value="aut"
-        display="<span style='font-size:17px;padding-top:15px;padding-bottom:15px;font-weight:bold' class='labelit'>Authorization Settings</span>"
-		parent="root"								
-        expand="Yes">	  	  
-			
-	 <cf_UItreeitem value="delm"
-	        display="<span style='font-size:14px;padding-left:8px' class='labelit'>This bucket delegation</span>"
-			parent="aut"	
-			img="#SESSION.root#/Images/Key.png"
-			href="javascript:ptoken.navigate('FunctionViewLoopGrant.cfm?owner=#function.owner#&idfunction=#url.idfunction#&source=manual','detail')"						    				
-			target="right"
-	        expand="No">		
-			
-	<cf_UItreeitem value="delr"
-	        display="<span style='font-size:14px;padding-left:8px' class='labelit'>Role based delegation</span>"
-			parent="aut"	
-			img="#SESSION.root#/Images/Key.png"
-			href="javascript:ptoken.navigate('FunctionViewLoopGrant.cfm?owner=#function.owner#&idfunction=#url.idfunction#&source=manager','detail')"						
-        	target="right"
-	        expand="No">						
+	<cfinvoke component="Service.Access"  
+			 method="roster" 
+			 Owner="#Bucket.Owner#"
+			 returnvariable="Access"
+			 role="'AdminRoster'">
+			 
+	<cfif Access eq "EDIT" or Access eq "ALL">	 	  
+		  
+		<cf_UItreeitem value="aut"
+	        display="<span style='font-size:17px;padding-top:15px;padding-bottom:15px;font-weight:bold' class='labelit'>Authorization Settings</span>"
+			parent="root"								
+	        expand="Yes">	  	  
+				
+		 <cf_UItreeitem value="delm"
+		        display="<span style='font-size:14px;padding-left:8px' class='labelit'>This bucket delegation</span>"
+				parent="aut"	
+				img="#SESSION.root#/Images/Key.png"
+				href="javascript:ptoken.navigate('FunctionViewLoopGrant.cfm?owner=#function.owner#&idfunction=#url.idfunction#&source=manual','detail')"						    				
+				target="right"
+		        expand="No">		
+				
+		<cf_UItreeitem value="delr"
+		        display="<span style='font-size:14px;padding-left:8px' class='labelit'>Role based delegation</span>"
+				parent="aut"	
+				img="#SESSION.root#/Images/Key.png"
+				href="javascript:ptoken.navigate('FunctionViewLoopGrant.cfm?owner=#function.owner#&idfunction=#url.idfunction#&source=manager','detail')"						
+	        	target="right"
+		        expand="No">	
+				
+		</cfif>							
 
 </cf_UItree>		
 	

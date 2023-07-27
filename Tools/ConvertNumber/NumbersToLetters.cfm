@@ -144,9 +144,11 @@
 
 		</cfloop>
 	 
-		<cfset t = replace(t," cero", "")>
+		<cfset t = replace(t," cero", "")>		
+		<cfset t = trim(t)>
+		<cfset t = replace(t," ", "&nbsp;","ALL")>	
 	  
-		<cfreturn t>
+		<cfreturn t>				
 
 </cffunction>
 

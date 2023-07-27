@@ -146,9 +146,9 @@
 		   <tr>
 		    <td height="25" class="labelmedium" style="min-width:200px;padding-left:10px"><cf_tl id="Action">:</td>
 			<td width="80%">
-			<table width="100%" cellspacing="0" cellpadding="0">
+			<table width="100%">
 				<tr>
-				<td class="labelmedium">
+				<td class="labelmedium2" style="font-size:15px">
 				
 				<cfif ActionSpecification neq "">
 				

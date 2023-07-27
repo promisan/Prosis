@@ -1,12 +1,12 @@
 
 <table width="100%" height="100%" align="center" class="formpadding">
 <tr><td>
-	
+		
 	<cfparam name="box" default="1">
 	<cfset color = "ffffff">
 	<cfparam name="script" default="yes">
 		
-		<cfif Mode eq "Inquiry">
+	<cfif Mode eq "Inquiry">
 	
 		<cfif SESSION.isAdministrator eq "Yes"  or session.acc eq Object.OfficerUserid>
 			 <cfset md = "yes">

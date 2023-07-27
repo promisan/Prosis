@@ -4,6 +4,7 @@
 <cfparam name="URL.wparam" 	 default="">
 
 
+
 <cfquery name="Exist" 
 datasource="appsOrganization" 
 username="#SESSION.login#" 
@@ -61,7 +62,7 @@ password="#SESSION.dbpw#">
 action, add a record by a generating (ASIS) or copying (EDIT) --->
 
 	<cfoutput query="Exist">
-	
+		
 		<cfquery name="Check" 
 		datasource="appsOrganization" 
 		username="#SESSION.login#" 
@@ -74,8 +75,8 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 		
 		<cfset priorsign = "">
 		<cfset priorlanguage = "">
-		<cfset priorformat = "">
-						
+		<cfset priorformat = "">			
+								
 		<cfif check.recordcount eq "0" or (check.recordcount eq "1" and Check.documentContent eq "")>
 				
 			<cfquery name="Last" 
@@ -90,12 +91,18 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 									  WHERE  ObjectId = '#Object.ObjectId#')
 				AND      ActionId <> '#URL.ID#'
 				ORDER BY Created DESC				
-			</cfquery>		
+			</cfquery>					
 			
 			<cfset priorsign     = last.SignatureBlock>
 			<cfset priorlanguage = last.DocumentLanguageCode>
 			<cfset priorformat   = last.DocumentFormat>
 			
+			<!--- added to ensure the default works with the header --->
+			<cfif priorformat eq "">
+      			<cfset priorformat   = "Letter">
+				
+			</cfif>
+						
 			<cfquery name="Signature" 
 			 datasource="appsOrganization" 
 			 username="#SESSION.login#" 
@@ -108,7 +115,7 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 		    </cfquery>		
 							
 			<cfif DocumentMode eq "AsIs" and DocumentLayout neq "PDF">
-			
+						
 				<!--- parse the document --->				   
 					    
 				<cfquery name="Language" 
@@ -144,8 +151,9 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 					<cfset url.language          = priorlanguage>
 				    <cfset url.WParam            = DocumentStringList>
 				    <cfset URL.actionId          = "#URL.ID#">
-										
-					<cfinclude template          = "../Report/DocumentFramework.cfm"> 						
+									
+					<cfinclude template          = "../Report/DocumentFramework.cfm"> 		
+							
 									
 				<cfelse>
 				
@@ -272,10 +280,11 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 															
 					</cfif>		
 					
-				</cfif>					 								
+				</cfif>	
+											
 				
 				<cfif check.recordcount eq "0">
-							
+															
 					<cfquery name="Insert" 
 						datasource="appsOrganization" 
 						username="#SESSION.login#" 

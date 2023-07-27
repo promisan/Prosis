@@ -59,7 +59,9 @@
 <!--- this will render a LI to his/her old position and a used psotioon to which another person can have LI to --->
 
 <cfif position.recordcount eq "0">
+
 <cfelse>
+
 
 
 	<cfoutput query="position">
@@ -82,7 +84,7 @@
 		  password="#SESSION.dbpw#">
 			SELECT    IndexNo, PositionId, AssignmentType, DateEffective, DateExpiration 
 			FROM      PersonAssignment
-			WHERE     PositionId = '#positionid#' 
+			WHERE     PositionId = '#positionid#' and PositionId != '99999999'
 	        AND       TransactionStatus = '1' 
 	        AND       DateEffective   < '#dts#' 
 			AND       DateExpiration >= '#dte#'
@@ -92,6 +94,7 @@
 			AND       AssignmentType = 'LI'
 			</cfif>
 		</cfquery>		
+	
 		
 			<cfif not find(positionid,chain)> 
 				<cfset chain = "#chain#,#positionid#">
@@ -123,7 +126,7 @@
 					  password="#SESSION.dbpw#">
 						SELECT    IndexNo, PositionId, AssignmentType, DateEffective, DateExpiration 
 						FROM      PersonAssignment
-						WHERE     PositionId = '#positionid#' 
+						WHERE     PositionId = '#positionid#' and PositionId != '99999999'
 				        AND       TransactionStatus = '1' 
 				        AND       DateEffective   < '#dts#' 
 						AND       DateExpiration >= '#dte#'
@@ -137,6 +140,9 @@
 					<cfif not find(positionid,chain)> 
 						<cfset chain = "#chain#,#positionid#">					
 					</cfif>	
+		
+		
+		            
 									
 					<cfloop query="getDetail_1">
 					
@@ -156,7 +162,8 @@
 								AND       DateEffective   < '#dts#' 
 								AND       DateExpiration >= '#dte#'
 						</cfquery>
-											
+							
+																	
 						<cfloop query="position_2">
 						
 							<cfquery name="getdetail_2" 
@@ -165,7 +172,7 @@
 							  password="#SESSION.dbpw#">
 								SELECT    IndexNo, PositionId, AssignmentType, DateEffective, DateExpiration 
 								FROM      PersonAssignment
-								WHERE     PositionId = '#positionid#' 
+								WHERE     PositionId = '#positionid#' and PositionId != '99999999'
 						        AND       TransactionStatus = '1' 
 						        AND       DateEffective   < '#dts#' 
 								AND       DateExpiration >= '#dte#'
@@ -176,6 +183,8 @@
 								</cfif>
 							</cfquery>	
 							
+							
+
 							<cfif not find(positionid,chain)> 
 								<cfset chain = "#chain#,#positionid#">
 							</cfif>	
@@ -197,7 +206,8 @@
 										AND       DateEffective   < '#dts#' 
 										AND       DateExpiration >= '#dte#'
 								</cfquery>
-													
+								
+																													
 								<cfloop query="position_3">
 								
 									<cfquery name="getdetail_3" 
@@ -206,7 +216,7 @@
 									  password="#SESSION.dbpw#">
 										SELECT    IndexNo, PositionId, AssignmentType, DateEffective, DateExpiration 
 										FROM      PersonAssignment
-										WHERE     PositionId = '#positionid#' 
+										WHERE     PositionId = '#positionid#' and PositionId != '99999999'
 								        AND       TransactionStatus = '1' 
 								        AND       DateEffective   < '#dts#' 
 										AND       DateExpiration >= '#dte#'
@@ -243,7 +253,7 @@
 											  password="#SESSION.dbpw#">
 												SELECT    IndexNo, PositionId, AssignmentType, DateEffective, DateExpiration 
 												FROM      PersonAssignment
-												WHERE     PositionId = '#positionid#' 
+												WHERE     PositionId = '#positionid#' and PositionId != '99999999'
 										        AND       TransactionStatus = '1' 
 										        AND       DateEffective   < '#dts#' 
 												AND       DateExpiration >= '#dte#'
@@ -266,14 +276,15 @@
 									
 									</cfloop>
 													
-								</cfloop>					
+								</cfloop>		
+									
 							
 						    </cfloop>
 																	
 						</cfloop>
-				
+										
 					</cfloop>
-					
+										
 				</cfloop>
 			
 		     </cfloop>
@@ -281,7 +292,7 @@
 	</cfoutput>
 
 	<cfset positions = chain>
-
+	
 	<cfinclude template="ChainView.cfm">
 
 </cfif>

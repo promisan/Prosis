@@ -87,6 +87,7 @@
 			
 </cfif>	
 
+
 <cfif ParameterExists(Form.Submit)> 
 
 	    <!--- verify if transaction can be made for the requested period --->
@@ -150,6 +151,7 @@
 		<CF_DateConvert Value="#Form.DateEffective#">
 		<cfset STR = dateValue>
 		
+				
 		<cfif STR lt Post.DateEffective>
 		    <CF_DateConvert Value="#DateFormat(Post.DateEffective,CLIENT.DateFormatShow)#">
 		    <cfset STR = dateValue>
@@ -532,6 +534,7 @@
 				<!--- ------- --->
 				<!--- perform --->
 				<!--- ------- --->
+				
 								  
 				<cfswitch expression="#dbAction#">
 				
@@ -632,6 +635,8 @@
 							  '#SESSION.first#')
 				    </cfquery>
 					
+					
+					
 					<!--- retrieve assignment no ---->
 					
 					<cfquery name="Get" 
@@ -721,7 +726,7 @@
 				</cfcase> 
 				
 				<cfcase value="create">
-					
+									
 					<!--- current assignment to deleted --->	
 				
 				    <cfquery name="UpdateCurrentAssignment" 
@@ -742,7 +747,7 @@
 						 SELECT *
 						 FROM   PersonAssignment
 						 WHERE  AssignmentNo = '#Form.AssignmentNo#'
-					 </cfquery>
+					 </cfquery>				
 					
 					<!--- create record for period until current date --->
 					
@@ -759,74 +764,31 @@
 						 <cfset srcper = "">
 					 
 					 </cfif>
-							
-					<cfquery name="InsertAssignment1" 
+					 
+					 <cfquery name="Checkme" 
 				     datasource="AppsEmployee" 
 				     username="#SESSION.login#" 
 				     password="#SESSION.dbpw#">
-					     INSERT INTO PersonAssignment
-					         (PersonNo,
-							 PositionNo,
-							 DateEffective,
-							 DateExpiration,
-							 OrgUnit,
-							 LocationCode,
-							 FunctionNo,
-							 FunctionDescription, 
-							 AssignmentStatus,
-							 ActionReference,
-							 AssignmentClass,
-							 AssignmentType,
-							 Incumbency,
-							 Remarks,
-							 Source,
-							 SourceId,
-							 SourcePersonNo,
-							 OfficerUserId,
-							 OfficerLastName,
-							 OfficerFirstName)
-						  SELECT PersonNo, 
-						         PositionNo, 
-								 DateEffective, 
-								 #STR#-1, 
-							     OrgUnit, 
-								 LocationCode, 
-								 FunctionNo,
-							     FunctionDescription, 
-								 '#st#', 
-								 #NoAct#, 
-								 AssignmentClass, 
-								 AssignmentType, 
-								 Incumbency, 
-								 Remarks, 
-								 '#source#',
-							     '#srceid#',
-							     '#srcper#',		
-							     '#SESSION.acc#', 
-								 '#SESSION.last#', 
-								 '#SESSION.first#'
-						  FROM  PersonAssignment
-					      WHERE AssignmentNo = '#Form.AssignmentNo#'	
-						  AND DateEffective < #STR#-1 <!--- prevent creating records with 0 dates --->
-				    </cfquery>
+					      SELECT * 
+						  FROM   PersonAssignment
+					      WHERE  AssignmentNo = '#Form.AssignmentNo#'	
+						  AND    DateEffective < #STR#-1
+					</cfquery>	  
 					
-					<cfquery name="Class" 
-					    datasource="AppsEmployee" 
-					    username="#SESSION.login#" 
-					    password="#SESSION.dbpw#">
-					   	 SELECT   * 
-						 FROM     Ref_AssignmentClass
-						 WHERE    AssignmentClass = '#Position.AssignmentClass#'					   	 
-					</cfquery>
+					<!---
+					<cfoutput>
+					<script>alert('#checkme.recordcount#-#Form.AssignmentNo#-#dateformat(str,client.dateformatshow)#')</script>
+					</cfoutput>
+					<cfabort>
+					--->
 					
-					<cfif class.PositionOwner eq "1">
-					
-						<!--- New : add in case of owner assignment a 0 percent record as well --->
-									
-						<cfquery name="InsertAssignmentLien" 
+					<cfif checkme.recordcount gte "1">
+					 							
+						<cfquery name="InsertAssignment1" 
 					     datasource="AppsEmployee" 
 					     username="#SESSION.login#" 
 					     password="#SESSION.dbpw#">
+						 
 						     INSERT INTO PersonAssignment
 						         (PersonNo,
 								 PositionNo,
@@ -843,15 +805,16 @@
 								 Incumbency,
 								 Remarks,
 								 Source,
-							     SourceId,
-							     SourcePersonNo,
+								 SourceId,
+								 SourcePersonNo,
 								 OfficerUserId,
 								 OfficerLastName,
 								 OfficerFirstName)
+								 
 							  SELECT PersonNo, 
 							         PositionNo, 
-									 #STR#,
-								     #END#,
+									 DateEffective, 
+									 #STR#-1, 
 								     OrgUnit, 
 									 LocationCode, 
 									 FunctionNo,
@@ -860,17 +823,82 @@
 									 #NoAct#, 
 									 AssignmentClass, 
 									 AssignmentType, 
-									 '0', 
-									 'Lien assignment', 
+									 Incumbency, 
+									 Remarks, 
 									 '#source#',
-							         '#srceid#',
-							          '#srcper#',		
+								     '#srceid#',
+								     '#srcper#',		
 								     '#SESSION.acc#', 
 									 '#SESSION.last#', 
 									 '#SESSION.first#'
-							  FROM  PersonAssignment
-						      WHERE AssignmentNo = '#Form.AssignmentNo#'						
+							  FROM   PersonAssignment
+						      WHERE  AssignmentNo = '#Form.AssignmentNo#'	
+							  AND    DateEffective < #STR#-1 <!--- prevent creating records with 0 dates --->
 					    </cfquery>
+					
+						<cfquery name="Class" 
+						    datasource="AppsEmployee" 
+						    username="#SESSION.login#" 
+						    password="#SESSION.dbpw#">
+						   	 SELECT   * 
+							 FROM     Ref_AssignmentClass
+							 WHERE    AssignmentClass = '#Position.AssignmentClass#'				   	 
+						</cfquery>
+					
+						<cfif class.PositionOwner eq "1">
+						
+							<!--- New : add in case of owner assignment a 0 percent record as well --->
+										
+							<cfquery name="InsertAssignmentLien" 
+						     datasource="AppsEmployee" 
+						     username="#SESSION.login#" 
+						     password="#SESSION.dbpw#">
+							     INSERT INTO PersonAssignment
+							         (PersonNo,
+									 PositionNo,
+									 DateEffective,
+									 DateExpiration,
+									 OrgUnit,
+									 LocationCode,
+									 FunctionNo,
+									 FunctionDescription, 
+									 AssignmentStatus,
+									 ActionReference,
+									 AssignmentClass,
+									 AssignmentType,
+									 Incumbency,
+									 Remarks,
+									 Source,
+								     SourceId,
+								     SourcePersonNo,
+									 OfficerUserId,
+									 OfficerLastName,
+									 OfficerFirstName)
+								  SELECT PersonNo, 
+								         PositionNo, 
+										 #STR#,
+									     #END#,
+									     OrgUnit, 
+										 LocationCode, 
+										 FunctionNo,
+									     FunctionDescription, 
+										 '#st#', 
+										 #NoAct#, 
+										 AssignmentClass, 
+										 AssignmentType, 
+										 '0', 
+										 'Lien assignment', 
+										 '#source#',
+								         '#srceid#',
+								          '#srcper#',		
+									     '#SESSION.acc#', 
+										 '#SESSION.last#', 
+										 '#SESSION.first#'
+								  FROM  PersonAssignment
+							      WHERE AssignmentNo = '#Form.AssignmentNo#'						
+						    </cfquery>
+							
+						</cfif>	
 						
 					</cfif>	
 					
@@ -938,7 +966,7 @@
 				     datasource="AppsEmployee" 
 				     username="#SESSION.login#" 
 				     password="#SESSION.dbpw#">
-					     SELECT   top 1 AssignmentNo
+					     SELECT   TOP 1 AssignmentNo
 						 FROM     PersonAssignment
 						 WHERE    PersonNo   = '#Form.PersonNo#'
 						 AND      PositionNo = '#Form.PositionNo#'

@@ -39,9 +39,10 @@
 	returnvariable="access">
 
 <cfoutput>
+
 	<cf_divscroll overflowy="scroll">
 
-		<table style="width:98.5%" align="left">
+		<table style="width:99.5%" align="left">
 										
 		<cfloop query="getPersons">
 																
@@ -52,27 +53,29 @@
 				<tr class="navigation_row clsTimesheetPersonRow" style="border-bottom:1px solid silver;height:18px">
 				
 					<td	height="100%" 
-						style="min-width:301px;width:100%;padding-right:4px" 
+						style="min-width:340px;width:100%;padding-right:4px" 
 						class="clsTimeSheetPerson clsTimeSheetPerson_#personno#"
 						onmouseover="$('.clsTimeSheetPerson_#personno#').css('background-color', '##8AFFBB');" 
 						onmouseout="$('.clsTimeSheetPerson_#personno#').css('background-color', '');">					
-											 												
-					   <table width="100%" height="100%">								   
+										 												
+					   <table width="100%" height="100%">	
+					   							   
 					   	<cfoutput>		
 						<tr class="labelmedium" style="height:18px">
 						   <td width="1%" style="padding-top:1px"><cf_img icon="select" onclick="javascript:EditPerson('#PersonNo#','','leave')"></td>
-						   <td style="min-width:50px;width:40px;" class="ccontent">#PostGrade#</td>
+						   <td style="min-width:50px;width:40px;" title="#FunctionDescription#" class="ccontent">#PostGrade#</td>
 			    			   <td style="min-width:207px;padding-left:3px;padding-right:3px">
 			    			   		<table width="100%">
-			    			   			<tr>
-			    			   				<td class="ccontent">
+			    			   			<tr class="fixlengthlist">
+			    			   				<td class="ccontent" title="#LastName#, #FirstName#">
 			    			   					#LastName#, #FirstName# <!--- - #IndexNo# --->
 										    <cfif DateEffective gt session.timesheet["DateStart"] or DateExpiration lt session.timesheet["DateEnd"]>
 										    	<font color="808080">: #DateFormat(DateEffective, "DD/MM")# - #DateFormat(DateExpiration, "DD/MM")#</font>
 										    </cfif>	
 			    			   				</td>
 			    			   				
-											<cfif getThisOrgUnit.WorkSchema eq 1 and getOrganizationAction.ActionStatus eq "0" or getOrganizationAction.recordcount eq "0">
+											<cfif getThisOrgUnit.WorkSchema eq 1 
+											        and (getOrganizationAction.ActionStatus eq "0" or getOrganizationAction.recordcount eq "0")>
 																														
 				    			   				<cfif trim(url.removeScheduleFunction) neq "" AND access eq "GRANTED">
 			 		    			   				<td width="1%" style="padding-left:5px; padding-right:5px;" align="center" title="#lblRemove#">

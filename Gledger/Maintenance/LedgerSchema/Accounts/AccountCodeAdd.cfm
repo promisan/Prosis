@@ -164,7 +164,8 @@ function lookup(selected)
 		  	   <select name="accountcategory" size"1" class="regularxl">
 		          <option class="radiol" value="Vendor">Vendor</option>
 				  <option class="radiol" value="Customer">Customer</option>
-				  <option class="radiol" value="Neutral">Neutral</option>
+				  <option class="radiol" value="Advance">Advance</option>
+				  <option class="radiol" value="Neutral">Other</option>
 			   </select>
 		    </TD>
 	</tr>		

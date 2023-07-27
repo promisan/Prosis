@@ -246,7 +246,7 @@ WHERE   Role = '#URL.ID#'
 		<cfset child = 1>
 		
 		<tr><td height="5"></td></tr>
-		<TR height="10" class="labelmedium2">
+		<TR class="labelmedium2 fixlengthlist" style="height:20px">
 		    <td width="15%" style="padding-left:13px"><cf_tl id="Owner">:</td>
 			<td width="35%"><cfif Role.RoleOwner eq ""><font color="808080">multiple</font><cfelse>#Role.RoleOwner#</cfif></td>
 			
@@ -254,7 +254,7 @@ WHERE   Role = '#URL.ID#'
 			
 				<td width="15%" style="padding-left:3px"><cf_tl id="Scope">:</td>
 				<td width="35%">
-				 <table cellspacing="0" cellpadding="0"><tr><td width="30">
+				 <table>
 				 <tr><td>
 				 
 					 <cfif Role.OrgUnitLevel eq "Global">					 
@@ -266,7 +266,7 @@ WHERE   Role = '#URL.ID#'
 					 </cfif>
 				 
 		        </td>
-				<td class="labelmedium2">
+				<td class="labelmedium2" style="height:20px">
 				<cfif Role.OrgUnitLevel eq "Global">
 				    <b><cf_tl id="Global"></b>
 				<cfelse>
@@ -291,16 +291,16 @@ WHERE   Role = '#URL.ID#'
 			</cfif>
 		</tr>	
 			
-		<TR class="labelmedium2">
+		<TR class="labelmedium2 fixlengthlist" style="height:20px">
 		    <td style="padding-left:13px"><cf_tl id="User Name">:</td>
 			<td><a href="javascript:ShowUser('#get.Account#')">#Get.FirstName# #Get.LastName# [#get.account#]</a></td>
 		    <td style="padding-left:3px"><cf_tl id="IndexNo">:</td>
 			<td><cfif get.IndexNo eq ""><font color="C0C0C0"><cf_tl id="not set"><cfelse>#Get.IndexNo#</cfif></td>
 		</tr>
 			
-		<TR class="labelmedium2">
-		    <td style="padding-left:13px;"><cf_tl id="LDAP Name">:</td>
-			<td><cfif get.MailServerAccount eq ""><font color="C0C0C0"><cf_tl id="not set"></font><cfelse>#Get.MailServerAccount#</cfif></td>
+		<TR class="labelmedium2 fixlengthlist" style="height:20px">
+		    <td style="padding-left:13px;"><cf_tl id="Corporate">:</td>
+			<td><cfif get.AccountNo eq ""><font color="C0C0C0"><cf_tl id="not set"></font><cfelse>#Get.Accountno#</cfif></td>
 			<cfif Role.Parameter neq "Entity">
 				<td style="min-width:100px;padding-left:3px"><cf_tl id="Batch overwrite">:</td>
 				<td>
@@ -320,7 +320,7 @@ WHERE   Role = '#URL.ID#'
 				
 			<cf_dialogMail>
 			
-			<TR class="labelmedium2 line">
+			<TR class="labelmedium2 fixlengthlist line" style="height:20px">
 			    <td style="padding-left:13px"><cf_tl id="eMail">:</td>
 				<td>
 					<cfif Get.eMailAddress neq "">
@@ -790,15 +790,15 @@ WHERE   Role = '#URL.ID#'
 				<tr>
 				
 				 <td colspan="1" height="30" class="labelmedium" style="padding-left:10px">				
-				  Roll down access to unit (childen) within the staffing period
+				  Roll access down to unit (childen) within the staffing period
 				 </td>
 				
 				 <td align="right" style="padding-left:10px;padding-right:20px" colspan="2" class="labelmedium">
 					<table><tr><td>
-					<input type="radio" style="height:18px;width:18px" name="Rolldown" id="Rolldown" value="1" checked ></td>
+					<input type="radio" style="height:18px;width:18px" name="Rolldown" id="Rolldown" value="1" ></td>
 					<td class="labelmedium" style="padding-left:5px"><cf_tl id="Yes"></td>
 					<td style="padding-left:7px">
-					<input type="radio" style="height:18px;width:18px"  name="Rolldown" id="Rolldown" value="0"></td>
+					<input type="radio" style="height:18px;width:18px"  name="Rolldown" id="Rolldown" value="0" checked></td>
 					<td class="labelmedium" style="padding-left:5px;padding-right:10px"><cf_tl id="No"></td>
 					</tr>
 					</table>
@@ -818,7 +818,7 @@ WHERE   Role = '#URL.ID#'
 		
 		</cfif>
 				
-		<tr><td colspan="4" height="23" align="center" style="padding-top:10px">
+		<tr><td colspan="4" height="23" align="center" style="padding-top:1px">
 				
 			<table width="100%" align="center">
 			<tr><td align="center" id="accessresults" class="line" style="padding-top:3px">
@@ -835,7 +835,8 @@ WHERE   Role = '#URL.ID#'
 				</td>
 				<cfoutput>
 				<td style="padding-left:2px">
-				   	<input type="submit" class="button10g"  style="height:27px;width:200px" value="Apply" onclick="Prosis.busy('yes');ptoken.navigate('#link#?box=#url.box#&Mission=#URL.Mission#&ID=#URL.ID#&ACC=#URL.ACC#&ID2=#URL.ID2#&ID4=#URL.ID4#&requestid=#url.requestid#','accessgo','','','POST','formaccess')">			
+												
+				   	<input type="button" class="button10g"  style="height:27px;width:200px" value="Apply" onclick="Prosis.busy('yes');ptoken.navigate('#link#?box=#url.box#&Mission=#URL.Mission#&ID=#URL.ID#&ACC=#URL.ACC#&ID2=#URL.ID2#&ID4=#URL.ID4#&requestid=#url.requestid#','accessgo','','','POST','formaccess')">			
 					</td>
 					</cfoutput>	
 				</tr>
@@ -852,8 +853,7 @@ WHERE   Role = '#URL.ID#'
 		
 		<tr><td class="xxxhide" colspan="6" id="accessgo"></td></tr>
 		
-		<tr><td style="padding:6px"></td></tr>
-		
+				
 		</table>	
 		
 	</CFFORM>	

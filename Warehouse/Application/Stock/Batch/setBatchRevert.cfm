@@ -31,8 +31,10 @@ password="#SESSION.dbpw#">
 				password="#SESSION.dbpw#">
 					UPDATE WarehouseBatch
 					SET    ActionStatus           = '0',
+					<!--- 2/7/2023 disabled
 						   CustomerId             = NULL, 	
 						   CustomerIdInvoice      = NULL, 	
+						   --->
 						   ActionOfficerDate      = getDate(),
 						   ActionOfficerUserId    = '#SESSION.acc#',
 						   ActionOfficerLastName  = '#SESSION.last#',

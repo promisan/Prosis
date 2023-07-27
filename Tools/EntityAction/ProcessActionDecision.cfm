@@ -19,7 +19,7 @@
     <td height="29" width="90" style="padding-left:10px;padding-right:10px" class="fixlength labelmedium2">#Action.ActionDescription#:</td>
 	--->
  
-    <td>	   
+    <td colspan="2">	   
 	    <table id="processblock">
 		<tr>
 			
@@ -134,7 +134,7 @@
 						  <table>
 						  <tr class="labelmedium2">
 						  <td><img src="#SESSION.root#/Images/Send.png" width="32" height="32" alt="Go back to previous step" border="0" align="absmiddle"></td>
-						  <td style="padding-bottom:1px"><cf_tl id="#ActionGoToLabel#"></td>
+						  <td class="fixlength" style="padding-bottom:1px"><cf_tl id="#ActionGoToLabel#"></td>
 						   
 					      <cfif Status eq "1">
 					  	    <cfset r = "regular">
@@ -148,7 +148,7 @@
 								  
 						   <select style="max-width:280px;border:0px;background-color:f1f1f1" name="ActionCodeOnHold" id="ActionCodeOnHold" class="regularxxl">
 							<cfloop query="Revert">
-							  <option value="#Revert.ActionCode#" style="font-size:12px;">: #ActionDescription# | #ActionReference# [#ActionCode#]</option>
+							  <option value="#Revert.ActionCode#">: #ActionDescription# | #ActionReference# [#ActionCode#]</option>
 							</cfloop>
 						   </select>
 						   

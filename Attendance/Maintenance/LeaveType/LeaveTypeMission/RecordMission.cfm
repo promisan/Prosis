@@ -6,14 +6,17 @@
 				(SELECT Mission FROM Ref_LeaveTypeMission WHERE Mission = M.Mission AND LeaveType = '#url.code#') as Selected
 		FROM   	Ref_ParameterMission M	
 		WHERE   Mission IN (SELECT Mission FROM Organization.dbo.Ref_MissionModule WHERE SystemModule = 'Staffing')
+		AND     Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1)
 		ORDER BY M.Mission
 </cfquery>
 
 <cfset maxCols = 4>
 
+<cf_divscroll>
+
 <cfform action="LeaveTypeMission/RecordSubmitMission.cfm?code=#url.code#" method="POST" name="frmLeaveTypeMission">
 	
-	<table width="90%" align="center" class="formpadding formspacing">
+	<table width="90%" align="center">
 	
 		<tr><td height="10"></td></tr>
 		<tr>
@@ -62,3 +65,5 @@
 		
 	</table>
 </cfform>
+
+</cf_divscroll>

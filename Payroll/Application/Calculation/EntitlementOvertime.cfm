@@ -220,6 +220,8 @@ password="#SESSION.dbpw#">
 				  AND   PayrollCalcNo  = P.Line
 				  AND   SalarySchedule = '#Form.Schedule#'
 				  AND   PayrollStart   = #SALSTR#)	
+				  
+				  
 </cfquery>
 
 
@@ -370,15 +372,20 @@ password="#SESSION.dbpw#">
 		WHERE   S.PersonNo            = T.PersonNo
 		-- AND     S.AmountCalculation <> 0
 		<cfif BaseAmount eq "1">
-		AND     S.PayrollCalcNo       = 1	
+		AND     S.PayrollCalcNo       = (SELECT MIN(Line)
+										 FROM   userTransaction.dbo.sal#SESSION.thisprocess#OvertimePercent
+										 WHERE  PersonNo      = T.PersonNo
+										 AND    CalculationBase = '#code#' )	
 		AND     S.PayrollCalcNo       = T.Line	  
 		<cfelse> 
 		AND     S.PayrollCalcNo       = T.Line	  		<!--- adjusted 23/12/2017 ronmell observation that we took the wrong calcNo --->
 		</cfif>
 		AND     T.CalculationBase     = '#code#' 		
+				
 	</cfquery>
 	
-</cfloop>		
+			
+</cfloop>	
 	
 <cfquery name="InsertLine" 
 datasource="AppsPayroll" 
@@ -449,3 +456,4 @@ password="#SESSION.dbpw#">
 				  AND   PayrollStart    = #SALSTR#)	
 				  
 </cfquery>
+

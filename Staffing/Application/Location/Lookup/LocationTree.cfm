@@ -33,15 +33,13 @@ function search(condition) {
   <tr><td height="10"></td></tr>
   
   <tr>
-  	<td style="padding-left:5px;padding-right:2px" class="labelmedium"><cf_tl id="Find">:</td>
+  	<td style="padding-left:5px;padding-right:6px" class="labelmedium2"><cf_tl id="Find">:</td>
 	
 	<td>
-	  <input type="text" onKeyUp="javascript:check()" id="condition" name="condition" size="10" maxlength="20" class="regularxl">
+	  <input type="text" onKeyUp="javascript:check()" id="condition" name="condition" size="10" maxlength="20" class="regularxxl">
     </td>
 	
-    <td onClick="search(condition.value)" style="padding-left:1px;cursor:pointer">	 
-	  <img height="25" width="24" src="#session.root#/Images/search.png" border="0" alt="submit search">  	 
-   </td>
+    <td onClick="search(condition.value)" id="search" style="padding-left:1px;cursor:pointer"></td>
    
   </tr>
  

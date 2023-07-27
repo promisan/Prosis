@@ -122,7 +122,7 @@ SELECT TOP #last# *
 	ORDER BY SourcePostNumber, DateEffective
 </cfquery>
 
-<table style="98.5%" class="navigation_table">
+<table style="width:100%" class="navigation_table">
 
 <tr class="line"><td height="14" colspan="6">						 
 	 <cfinclude template="PositionSingleNavigation.cfm">	 				 
@@ -132,15 +132,15 @@ SELECT TOP #last# *
 
 <cfif currentrow gte first>
 
-	<tr class="navigation_row line labelmedium2" style="height:19px">	  
-	    <td width="35" style="padding-left:5px;padding-right:6px;padding-top:2px" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#positionNo#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
+	<tr class="fixlengthlist navigation_row line labelmedium2" style="height:19px">	  
+	    <td style="padding-left:5px;padding-right:6px;padding-top:2px" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#positionNo#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
 			<cf_img icon="select">						
 		</td>
-		<td width="10%"><cfif SourcePostNumber eq "">#PositionParentId#<cfelse>#SourcePostNumber#</cfif></td>
-		<TD width="55%">#FunctionDescription#</TD>
-		<TD width="10%">#PostGrade#</TD>	
-		<TD width="10%" style="padding-left:4px">#dateformat(DateEffective,client.dateformatshow)#</TD>	
-		<TD width="10%" style="padding-left:4px;padding-right:4px">#dateformat(DateExpiration,client.dateformatshow)#</TD>		
+		<td><cfif SourcePostNumber eq "">#PositionParentId#<cfelse>#SourcePostNumber#</cfif></td>
+		<TD>#FunctionDescription#</TD>
+		<TD>#PostGrade#</TD>	
+		<TD style="padding-left:4px">#dateformat(DateEffective,client.dateformatshow)#</TD>	
+		<TD style="padding-left:4px;padding-right:4px">#dateformat(DateExpiration,client.dateformatshow)#</TD>		
 	</tr>
 	
 </cfif>	

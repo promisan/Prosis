@@ -1,3 +1,7 @@
+
+
+
+
 <head>
 	<cf_textareascript>
 	<cfajaximport tags="cfform,cfdiv">
@@ -30,6 +34,7 @@
        size="100">
 	 
 </cfoutput>	 
+
 	
 <cfquery name="CheckCustom" 
      datasource="AppsOrganization"
@@ -46,14 +51,12 @@
 </cfquery>		 
  
 <cfif checkCustom.recordcount gte "1">
-    
+  
 	<cfif Client.googlemapid neq "">	  
 		  <cfinclude template="GoogleMAPId.cfm"> 	   	   
 	</cfif>	
 		
 </cfif>
-
-
 
 <script language="JavaScript">
 	
@@ -98,7 +101,6 @@
 	
 	--->
 	
-	
 <cfinclude template="ProcessActionScript.cfm">	
 
 <cfif action.processmode eq "1">
@@ -113,12 +115,13 @@
 	   html="no"	   
 	   jquery="Yes"	   
 	   label="#Object.ObjectReference#: #Action.ActionDescription#">
-	   	   
+		  	   
     <cf_divscroll>		
-				
+		
 		<cfinclude template="ProcessAction8Content.cfm">	
-					
+									
 	</cf_divscroll>
+	
 		
 	<cfset AjaxOnLoad("function(){window.parent.ProsisUI.setWindowTitle('#Action.ActionDescription# #Action.ActionReference# [#Action.ActionCode#]','','gray');}")>		
 	
@@ -198,7 +201,7 @@
 	<cfelse>
 		<cfset html = "Yes">	
 	</cfif>
-
+	
 	<cf_screentop scroll="yes"	   	    
 	   band="No" 
 	   layout="webapp" 

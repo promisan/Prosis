@@ -1,7 +1,7 @@
 <cfcomponent output="false">
 
 	  <cffunction name="googlegeocoder3" returntype="query" access="public">
-	    <cfargument name="address"     required="false" type="string"  default="Aruba">
+	    <cfargument name="address"     required="false" type="string"  default="">
 	    <cfargument name="latlng"      required="false" type="string"  default="">
 	    <cfargument name="language"    required="false" type="string"  default="">
 	    <cfargument name="bounds"      required="false" type="string"  default="">
@@ -24,11 +24,14 @@
 			  	  
 		    <cfelse>
 			
+						
 		      <cfset variables.base_url = "https://maps.google.com/maps/api/geocode/xml?">
 		      <cfif len(trim(arguments.address)) is not 0>
+			 			  
 		        <cfset variables.address_string = urlEncodedFormat(arguments.address)>
 		        <cfset variables.final_url = variables.base_url & "address=" & variables.address_string>
 		      <cfelse>
+			  			 
 		        <cfset variables.latlng_string = Replace(arguments.latlng, " ", "", "all")>
 		        <cfset variables.final_url = variables.base_url & "latlng=" & variables.latlng_string>
 		      </cfif>
@@ -50,10 +53,6 @@
 			  --->
 		
 			  <cfhttp url="#variables.final_url#&key=#client.googlemapid#" result="variables.resultxml">
-			  
-			  <!---
-			  <cfoutput>-----<cfdump var="#variables.resultxml#">-----</cfoutput>
-			  --->
 		
 			  <cfset variables.parsed_result = xmlParse(variables.resultxml.fileContent)>	  	  	  
 		
@@ -64,9 +63,9 @@
 		      <cfset variables.temp = QuerySetCell(variables.geocode_query, "Status", variables.parsed_result.GeocodeResponse.status.xmltext)>
 			  
 		      <cfset variables.result_status = variables.parsed_result.GeocodeResponse.status.xmltext>
-			 
-		      <cfif StructKeyExists(variables.parsed_result.GeocodeResponse, "result")>			  
-			  
+			 			 
+		      <cfif StructKeyExists(variables.parsed_result.GeocodeResponse, "result")>			
+			  			  
 		  	    <cfloop from="1" to="#ArrayLen(variables.parsed_result.GeocodeResponse.result)#" index="counter">  
 		          <cfset variables.type_list = "">
 		          <cfloop from="1" to="#ArrayLen(variables.parsed_result.GeocodeResponse.result[counter].type)#" index="type_counter">

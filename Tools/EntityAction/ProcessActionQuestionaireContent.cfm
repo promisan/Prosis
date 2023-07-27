@@ -362,9 +362,9 @@
 		</cfif>
 		
 		<cfif currentrow neq recordcount>	
-		   		
+		   	<tr><td style="height:4px"></td></tr>			
 	        <tr class="line"><td colspan="3" height="1"></td></tr>	
-			 <tr><td style="height:4px"></td></tr>				
+		    <tr><td style="height:4px"></td></tr>				
 		</cfif>
 	
 	</cfloop>			
@@ -377,11 +377,11 @@
        <cf_tl id="Submit" var="1">				 					 
 							   
 	   <cfset nextbox = boxno+1>
-	   
+	   	   
 	   <cfoutput>		
 		 
-		 <cfif nextbox gt "2">	   					   					   					   					 		 
-		 
+		 <cfif nextbox gt "2">	 
+				 
 		    <input type = "button" 
 			class       = "button10g" 
 			style       = "width:210px;height:29px;font-size:14px;"						
@@ -389,6 +389,7 @@
 			onclick     = "document.getElementById('menu#nextbox#').click()">
 			
 		 <cfelse>	
+		 		
 		 
 		 <!-- Hanno 4/1/2023, there is only one tab in this questionaire step so we go to close it immediately --->
 									   					   					   					   					 		 

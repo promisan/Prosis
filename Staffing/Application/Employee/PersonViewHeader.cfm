@@ -693,7 +693,7 @@
 				  
 				  <cfoutput query="Employee">
 				  
-				    <!--- ------------ --->
+				  <!--- ------------ --->
 				  <!--- picture cell --->
 				      	                       	  		
 				  <cfif indexNo neq "">				  

@@ -1293,9 +1293,9 @@
             datasource="#Datasource#" 
             username="#SESSION.login#" 
             password="#SESSION.dbpw#">
-            SELECT * 
-	        FROM   Organization.dbo.Ref_AuthorizationRole 
-			WHERE  Role = '#Role#'
+	            SELECT * 
+		        FROM   Organization.dbo.Ref_AuthorizationRole 
+				WHERE  Role = '#Role#'
 			</cfquery>
 			
 			<cfif qRole.OrgUnitLevel eq "Global" or OrgUnit eq "0" or OrgUnit eq "">
@@ -1304,13 +1304,13 @@
 				datasource="#Datasource#" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				SELECT Max(AccessLevel) as AccessLevel  
-				FROM   Organization.dbo.OrganizationAuthorization PA
-				WHERE  PA.UserAccount    IN (#preserveSingleQuotes(usr)#)  
-				  AND  PA.ClassParameter = '#ActionCode#' 
-				  <cfif EntityGroup neq "">
-				  AND  PA.GroupParameter = '#EntityGroup#'  
-				  </cfif>
+					SELECT  Max(AccessLevel) as AccessLevel  
+					FROM    Organization.dbo.OrganizationAuthorization PA
+					WHERE   PA.UserAccount    IN (#preserveSingleQuotes(usr)#)  
+					  AND   PA.ClassParameter = '#ActionCode#' 
+					  <cfif EntityGroup neq "">
+					  AND   PA.GroupParameter = '#EntityGroup#'  
+					  </cfif>
 				</cfquery>				
 					
 			<cfelse>
@@ -1362,18 +1362,19 @@
 					datasource="#Datasource#" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">					
-					SELECT Max(AccessLevel) as AccessLevel 
-					FROM   Organization.dbo.OrganizationObjectActionAccess 
-					WHERE  UserAccount    IN (#preserveSingleQuotes(usr)#)  
-					AND    ActionCode     = '#ActionCode#' 
-					AND    ObjectId       = '#ObjectId#' 								
+						SELECT  MAX(AccessLevel) as AccessLevel 
+						FROM    Organization.dbo.OrganizationObjectActionAccess 
+						WHERE   UserAccount    IN (#preserveSingleQuotes(usr)#)  
+						AND     ActionCode     = '#ActionCode#' 
+						AND     ObjectId       = '#ObjectId#' 	
+						AND     AccessLevel != '9'							
 					</cfquery>
 				
 				</cfif>
 				
 			</cfif>
 									
-			<cfif qAccess.RecordCount eq "0" or qAccess.AccessLevel eq "">	
+			<cfif qAccess.RecordCount eq "0" or qAccess.AccessLevel eq "" or qAccess.AccessLevel eq "9">	
                 <CFSET AccessLevel = "9">
             <cfelse>			
 	            <CFSET AccessLevel = qAccess.AccessLevel>
@@ -1386,7 +1387,7 @@
 				</cfif>
 	        </cfif>	  				
 						
-			<!--- NEW a provision to prevent processing your own steps accross the board --->
+			<!--- 2020 a provision to prevent processing your own steps ACCROSS the board --->
 			
 			<cfquery name="Entity" 
 				datasource="#Datasource#" 
@@ -1407,6 +1408,27 @@
 				</cfif>
 			
 			</cfif>
+			
+			<!--- 2023 a provision to prevent processing regardless --->
+			
+			<cfquery name="qDeny" 
+				datasource="#Datasource#" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">					
+					SELECT  *
+					FROM    Organization.dbo.OrganizationObjectActionAccess 
+					WHERE   ObjectId       = '#ObjectId#' 	
+					AND     UserAccount    IN (#preserveSingleQuotes(usr)#)  
+					AND     (ActionCode = '#ActionCode#' or ActionCode is NULL)     
+					AND     AccessLevel = '9'							
+			</cfquery>
+			
+			<cfif qDeny.recordcount gte "1">
+			     <CFSET AccessLevel = "9">	
+			</cfif>
+									
+			
+			
 																				
 			<cfif accesslevel neq "1">  <!--- accesslevel eq "0" or accesslevel = "9" --->
 			

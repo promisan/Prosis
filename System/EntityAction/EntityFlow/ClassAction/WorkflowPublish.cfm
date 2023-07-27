@@ -100,8 +100,7 @@
 		DueEntityStatus,
 		ConditionValue,
 		ConditionField,    
-		ConditionMessage,
-		ConditionShow,
+		ConditionMessage,		
 		ConditionScript,		
 		OfficerUserId,
 		OfficerLastName,
@@ -166,8 +165,7 @@
 		DueEntityStatus,		
 		ConditionValue,
 		ConditionField,    
-		ConditionMessage,
-		ConditionShow,
+		ConditionMessage,		
 		ConditionScript,
 		'#SESSION.acc#',
 		'#SESSION.last#', 
@@ -186,8 +184,8 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		INSERT INTO Ref_EntityActionPublishDocument
-		           (ActionPublishNo, ActionCode, DocumentId,DocumentLanguageCode,ObjectFilter,ForceDocument,ListingOrder)
-		SELECT      DISTINCT #pub#, ActionCode, DocumentId,DocumentLanguageCode,ObjectFilter,ForceDocument,ListingOrder
+		           (ActionPublishNo, ActionCode, DocumentId,DocumentLanguageCode,ObjectFilter,ForceDocument,UsageParameter,ListingOrder)
+		SELECT      DISTINCT #pub#, ActionCode, DocumentId,DocumentLanguageCode,ObjectFilter,ForceDocument,UsageParameter,ListingOrder
 		FROM        Ref_EntityClassActionDocument
 		WHERE       EntityCode  = '#URL.EntityCode#'
 		AND         EntityClass = '#URL.EntityClass#'

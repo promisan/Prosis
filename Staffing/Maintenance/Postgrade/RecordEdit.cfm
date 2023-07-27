@@ -172,7 +172,7 @@ password="#SESSION.dbpw#">
     		<td>Step</td><td>Interval:</td>
     	</tr>
 		
-    	<cfif getIntervals.Recordcount gte 1>
+    	<cfif getIntervals.Recordcount gte 1 and getIntervals.recordcount eq Get.PostGradeSteps>
 
     		<cfloop query ="getIntervals" >
 			    	<tr>
@@ -189,6 +189,7 @@ password="#SESSION.dbpw#">
 		    	</cfloop>
 
     		<cfelse>
+			
     			<cfset thisIndex = 1>
 		    	<cfloop condition = "thisIndex lte Get.PostGradeSteps">
 			    	<tr>

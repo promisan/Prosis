@@ -256,7 +256,7 @@ password="#SESSION.dbpw#">
 			role="'AdminRoster','CandidateProfile','RosterClear'"
 			returnvariable="Access">			   
 			   
-		<cfif Access eq "EDIT" or Access eq "ALL">	 
+		<cfif Access eq "EDIT" or Access eq "ALL">	   
 		
 			<cfquery name="getSource" 
 				datasource="AppsSelection" 
@@ -799,29 +799,36 @@ password="#SESSION.dbpw#">
 				 SELECT    *
 				  FROM     Ref_SubmissionEdition S, Ref_ExerciseClass C	
 				  WHERE    C.ExcerciseClass = S.ExerciseClass		 
-				  AND      Owner = '#OwnerCode#'
+				  AND      Owner            = '#OwnerCode#'
 				  AND      S.Operational = '1'
-				  AND      C.Roster = '1'		
-				  ORDER BY EditionShort	
+				  AND      C.Roster = '1'	
+				  <cfif getAdministrator("*") eq "0">
+				  AND      S.SubmissionEdition IN (SELECT    FO.SubmissionEdition
+												   FROM      RosterAccessAuthorization AS RA INNER JOIN
+                                                             FunctionOrganization AS FO ON RA.FunctionId = FO.FunctionId
+                                                   WHERE     RA.UserAccount = '#session.acc#'	)
+												   
+												   </cfif>
+           				   ORDER BY  EditionShort	
 				</cfquery>
 				
 				<cfif edition.recordcount eq "0000">
 				
-				<cf_UItreeitem value="#Edition.EditionShort#"
-			        display="<span class='labelit' style='font-size:14px'>#Edition.EditionDescription#</span>"
-					parent="Roster"
-					target="right"					
-					href="../Details/Functions/ApplicantFunction.cfm?Owner=#Owner#&ID=#URL.ID#&ID1=#Edition.SubmissionEdition#"				
-			        expand="No">	
+					<cf_UItreeitem value="#Edition.EditionShort#"
+				        display="<span class='labelit' style='font-size:14px'>#Edition.EditionDescription#</span>"
+						parent="Roster"
+						target="right"					
+						href="../Details/Functions/ApplicantFunction.cfm?Owner=#Owner#&ID=#URL.ID#&ID1=#Edition.SubmissionEdition#"				
+				        expand="No">	
 								
 				<cfelse>
 				
 					<cf_UItreeitem value="#OwnerCode#"
-			        display="<span class='labelit' style='font-size:14px'>#Description#</span>"
-					parent="Roster"
-					target="right"					
-					href="Functions/ApplicantFunction.cfm?ID=#URL.ID#&Owner=#Owner#"				
-			        expand="No">	
+				        display="<span class='labelit' style='font-size:14px'>#Description#</span>"
+						parent="Roster"
+						target="right"					
+						href="Functions/ApplicantFunction.cfm?ID=#URL.ID#&Owner=#Owner#"				
+				        expand="No">	
 											
 				  <cfloop query="Edition">
 					  

@@ -232,7 +232,7 @@ in which the leave ends --->
 				--->				
 				AND      ActionStatus != '9'
 				AND      (DateExpiration >= #END# or DateExpiration is NULL)					
-			    AND      Mission       = '#orgunit.mission#'	
+			    AND      (Mission       = '#orgunit.mission#' or Mission = 'UNDEF')	
 				ORDER BY DateEffective DESC   
 		</cfquery>		
 		

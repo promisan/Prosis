@@ -213,7 +213,9 @@
 	
 	<cfelse>
 	
+		
 		<cfif attributes.role eq "1">
+		
 				
 			<cfquery name="Action" 
 			 datasource="AppsOrganization"
@@ -277,8 +279,10 @@
 			            userQuery.dbo.#SESSION.acc#Current_#FileNo# OA ON AA.ObjectId = OA.ObjectId and AA.ActionCode = OA.ActionCode
 				WHERE   AA.AccessLevel >= '0'  	  	
 				AND     AA.UserAccount IN (#preserveSingleQuotes(usr)#)
-				 					
+								 					
 			</cfquery>	
+			
+			
 			
 			<cfquery name="ResultListing" 
 			 datasource="AppsOrganization"
@@ -320,7 +324,8 @@
 				FROM    OrganizationObjectMail AA INNER JOIN
 			            userQuery.dbo.#SESSION.acc#Current_#FileNo# OA ON AA.ObjectId = OA.ObjectId and AA.ActionCode = OA.ActionCode 	
 				WHERE   AA.Account IN (#preserveSingleQuotes(usr)#)
-				  	 								 					
+				  	 
+								 					
 			</cfquery>	
 					
 		</cfif>	

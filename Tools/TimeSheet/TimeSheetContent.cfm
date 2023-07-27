@@ -52,7 +52,7 @@
 							(SELECT   TOP 1 ContractLevel
 							 FROM     PersonContract
 							 WHERE    PersonNo     = P.PersonNo
-							 AND      Mission      = Pos.Mission
+							 AND      (Mission      = Pos.Mission or Mission = 'UNDEF')
 							 AND      ActionStatus IN ('0','1')
 							 AND      DateEffective <= #session.timesheet["DateEnd"]#
 							 ORDER BY DateEffective DESC) as PostGrade
@@ -63,7 +63,7 @@
 					WHERE   P.PersonNo = A.PersonNo
 					<!--- the unit of the operational assignment --->
 					AND     A.OrgUnit = '#url.ObjectKeyValue1#'
-					-- AND     A.Incumbency       > '0'
+					AND     A.Incumbency       > '0'
 					AND     A.AssignmentStatus IN ('0','1')
 					-- AND     A.AssignmentClass  = 'Regular'	<!--- not needed anymore as loaned people have leave as well --->		
 					AND     A.AssignmentType   = 'Actual'
@@ -72,10 +72,10 @@
 			
 				) as P INNER JOIN Ref_PostGrade R ON P.PostGrade = R.PostGrade
 						
-			ORDER BY P.ListingOrder, R.PostOrder, P.LastName, P.DateEffective
-			
+			ORDER BY P.ListingOrder, R.PostOrder, P.LastName, P.DateEffective		 			
 			
 	  </cfquery>	
+	    
 	  
 	  </cftransaction>
 	  
@@ -146,7 +146,8 @@
 			AND     A.DateExpiration  >= #session.timesheet["DateStart"]#		
 			
 	  </cfquery>	  
-  
+	  
+	  
   </cfcase>
   
   <cfcase value="purchase">
@@ -222,6 +223,7 @@
 			AND     A.DateExpiration  >= #session.timesheet["DateStart"]#		
 			
 	  </cfquery>	  
+	  
   
   </cfcase>
   
@@ -250,7 +252,7 @@
 		   
 		   <cfoutput>
    
-		   <table width="99%" align="center">
+		   <table width="100%" align="center">
 		    <tr class="line" style="height:50px;border-top:1px solid silver">
 				<td align="center" class="labelmedium2" style="padding-top:85px;font-size:22px">   
 			   	<font color="FF0000">No staff assigned to organization level : #getUnit.OrgUnitName#</font>
@@ -380,7 +382,7 @@
 				
 				<tr style="height:40px">					
 											
-					<td style="padding-right:<cfoutput>#pad#</cfoutput>px" width="100%" colspan="2">																			
+					<td style="padding-right:<cfoutput>#pad#</cfoutput>px" width="100%">																						
 						<cfinclude template="TimeSheetContentHeader.cfm">																									
 					</td>
 				</tr>
@@ -391,7 +393,7 @@
 				<!--- - Body - --->
 				<!--- -------- --->
 											
-				<tr><td style="height:100%;padding-right:2px" valign="top">										
+				<tr><td style="width:100%;height:100%;padding-right:2px;" valign="top">										
 				  <cfinclude template="TimesheetContentBody.cfm">												
 				</td></tr>
 				

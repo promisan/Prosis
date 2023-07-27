@@ -11,7 +11,7 @@
 		scroll="yes"
 		banner="red">
 
-<cfajaximport tags="cfwindow,cfform">
+<cfajaximport tags="cfform">
 
 <cf_DialogProcurement>
 <cf_DialogStaffing>
@@ -83,13 +83,9 @@
 			cnt++	
 		 }		
 		 
-		 console.log(sel.value);
-		 
-		
+		 console.log(sel.value);		 		
 		 document.getElementById('reqno').value = sel.value
-
-		 ptoken.navigate('setJobOption.cfm','check','','','POST','jobreq')	
-		
+		 ptoken.navigate('setJobOption.cfm','check','','','POST','jobreq')			
 					
 	}		
 	
