@@ -549,21 +549,25 @@ password="#SESSION.dbpw#">
 	
 	</cfif>	   
 					
-	<tr bgcolor="#c#" class="line">
-	   <td class="labelmedium2 fixlength" style="height:30px;background-color:ffffcf;min-width:299px;padding-left:6px"><cf_tl id="Owner">|<cf_tl id="Budget Title">|<cf_tl id="Grade">|<cf_tl id="Period"></td>
-	   <td class="labelmedium2" style="padding-left:10px">	
-	   
-	   <table style="width:100%;height:100%">
-	   <tr class="labelmedium2"><td class="fixlength">   
-		      #PositionParent.OrgUnitName# | #PositionParent.FunctionDescription# | #PositionParent.PostGrade# | #DateFormat(PositionParent.DateEffective,CLIENT.DateFormatShow)#&nbsp;-</font>&nbsp;#DateFormat(PositionParent.DateExpiration,CLIENT.DateFormatShow)#</b>
-	   &nbsp;
-	   <cfif Position.PositionStatus eq "1">
+	<tr bgcolor="#c#" class="line fixrow">
+	   <td class="labelmedium2 fixlength" style="height:30px;background-color:BBF4C4;min-width:299px;padding-left:6px">
+	   <cf_tl id="Owner">|<cf_tl id="Budget Title">|<cf_tl id="Grade">|<cf_tl id="Period">
+	   <br>&nbsp;&nbsp;
+	    <cfif Position.PositionStatus eq "1">
 	   <img src="#SESSION.root#/Images/check_mark.gif" align="absmiddle" alt="" border="0">
 	   <font color="008080"><cf_tl id="Locked"> <cfelse>
 	   <font color="0080FF">[<cf_tl id="Staffing period Pending clearance">]</font>
-	   </cfif>		
-	   </td>
+	   </cfif>	
 	   
+	   </td>
+	   <td class="labelmedium2" style="padding-left:10px">	
+	   
+	   <table style="width:100%;height:100%">
+	   <tr class="labelmedium2"><td class="fixlength" style="font-size:16px">   
+		      #PositionParent.OrgUnitName# | #PositionParent.FunctionDescription# | #PositionParent.PostGrade# | #DateFormat(PositionParent.DateEffective,CLIENT.DateFormatShow)#&nbsp;-</font>&nbsp;#DateFormat(PositionParent.DateExpiration,CLIENT.DateFormatShow)#</b>
+	   
+	  	
+	   </td>	   
 	   	   
 	   <cfquery name="LaterPosition" 
 	     datasource="AppsEmployee" 
@@ -575,14 +579,34 @@ password="#SESSION.dbpw#">
 			 AND    PositionParentId = '#Position.PositionParentid#'
 			 AND    DateEffective  > '#DateFormat(Position.DateExpiration,client.dateSQL)#'
 		</cfquery>	
-	   
-	    
-	   	   
+	   	    	   	   
 	   </tr>
+	   
+	   <cfquery name="Owner" 
+	     datasource="AppsEmployee" 
+	     username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+	   	    SELECT       P.PersonNo, P.IndexNo, P.LastName, P.FirstName, P.Gender, P.Nationality, P.BirthDate, PA.DateExpiration,
+			             PA.AssignmentClass, PA.Incumbency, PA.OfficerLastName, PA.OfficerFirstName, PA.Created
+		    FROM         PersonAssignment AS PA INNER JOIN
+                         Person AS P ON PA.PersonNo = P.PersonNo
+			WHERE        PA.PositionNo = '#Position.PositionNo#' 
+			AND          PA.DateEffective <= GETDATE() 
+			AND          PA.DateExpiration >= GETDATE() 
+			AND          PA.AssignmentStatus IN ('0', '1') 
+			AND          PA.AssignmentType = 'Actual'
+			AND          PA.AssignmentClass = 'Regular'
+		</cfquery>	
+	   
+	   <cfif Owner.recordcount gte "1">	   
+	   
+		   <tr class="labelmedium2"><td style="font-size:14px"><span style="background-color: Yellow;">#Owner.FirstName# #Owner.LastName# #Owner.Gender# #Owner.Indexno# | #Owner.Incumbency#% <cfif Owner.Incumbency eq "0"><b>LIEN&nbsp;</b></cfif>#dateformat(Owner.DateExpiration,client.dateformatshow)#</span></td></tr>
+	   
+	   </cfif>
+	   
 	   </table>		
 	   </td>
-	</tr>
-		
+	</tr>		
 	
 	<cfif url.action neq "view">
 	
@@ -1242,10 +1266,13 @@ password="#SESSION.dbpw#">
 	<TR bgcolor="ffffff">
     <TD style="background-color:f1f1f1;border-bottom:1px solid silver;height:30px;padding-left:6px" class="labelmedium2"><cf_tl id="Location">:</TD>
     <TD style="padding-left:10px" class="labelmedium2">
-		
+	
+			
 	  <cfif (Position.PositionStatus eq "0" AND (AccessPosition eq "EDIT" or AccessPosition eq "ALL"))
 		      OR (Position.PositionStatus eq "1" AND (AccessLocator eq "EDIT" or AccessLocator eq "ALL")) 
 		      OR (URL.Action neq "Edit" and URL.Action neq "View")>
+			  	  
+			  
 			  
 			<cfset editmode = "show">
 			  

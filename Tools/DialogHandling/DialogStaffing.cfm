@@ -279,10 +279,10 @@ function zipapply(zip,city,country) {
 		try {
 			se = document.getElementById(myvar1);
 			se.value = zip;	
-		  	se = document.getElementById(myvar2);
-			se.value = city;	
-	      	se = document.getElementById(myvar3);
-		  	se.value = country;
+		  	// se = document.getElementById(myvar2);
+			// se.value = city;	
+	      	// se = document.getElementById(myvar3);
+		  	// se.value = country;
 		  	 			
 			} catch(se) {} 			
 		     		

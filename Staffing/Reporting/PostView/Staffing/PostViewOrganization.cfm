@@ -132,8 +132,8 @@
 					<tr>
 					
 					<td width="100%" valign="top" 
-					   style="background-color:##e1e1e180;min-width:50px;width:50px;padding-top:5px;padding-right:2px;padding-left:2px;border:1px solid gray;border-right:0px">
-																							
+					   style="background-color:##d1d1d1;min-width:50px;width:50px;padding-top:5px;padding-right:2px;padding-left:2px;border:1px solid gray;border-right:0px">
+					 																							
 						<cfif Check.recordcount gt "1">		
 										
 							
@@ -158,9 +158,11 @@
 					<cfloop index="sp" from="1" to="#Spaces#" step="3">
 					     <cfset indent = indent+1>
 					</cfloop>
+					
+					
 										
-					<td height="100%" valign="top" style="height:100%;width:100%;border:1px solid gray;silver;border-left:0px">
-																								
+					<td height="100%" valign="top" style="height:100%;width:100%;border:1px solid gray;silver;border-left:1px solid silver;padding-left:6px;background-color:##BBF4C4">
+																													
 						<table style="width:100%">
 												
 						<tr>
@@ -185,7 +187,7 @@
 								
 								<cfif AccessStaffing eq "NONE" and AccessPosition eq "NONE">#OrgUnitName#
 								<cfelse>
-									<a href="javascript:maintainQuick('#OrgUnitCode#')" title="#OrgUnitName#">#OrgUnitName#</a>
+									<a href="javascript:maintainQuick('#OrgUnitCode#')" style="color:black" title="#OrgUnitName#">#OrgUnitName#</a>
 								</cfif>
 							
 							<cfelse>							
@@ -232,7 +234,7 @@
 						
 							<table>
 								<tr>
-								<td class="labelmedium" style="font-size:16px;min-width:250px">
+								<td class="labelmedium" style="font-size:13px;min-width:250px">
 								    <cfif OrgUnitCode neq "Tree">
 										<cfloop index="i" from="1" to="#indent#"><cfif i neq "1">&nbsp;&nbsp;</cfif>.</cfloop>
 										#OrgUnitCode#
@@ -331,13 +333,13 @@
 				  <!--- quasi dynamic approach --->
 			  
 			     <cfif ListOrder eq "1">
-				      <cfset cl = "F1F1F1">
+				      <cfset cl = "E1E1E1">
 				  <cfelseif ListOrder eq "2">	
 				     <cfset cl = "F6F6F6">	 	  
 				  <cfelseif ListOrder eq "3">	
 				     <cfset cl = "EEF3E2">	 
 				  <cfelseif ListOrder eq "4">	
-				     <cfset cl = "FFFFCF">	  
+				     <cfset cl = "FFFFAF">	  
 				  <cfelseif ListOrder eq "5">	
 				     <cfset cl = "FFF4F4">	  
 				  <cfelseif ListOrder eq "6">	
@@ -347,7 +349,9 @@
 			      </cfif>	
 			  				  
 				  <cfif PostGradeBudget eq "Total" or PostGradeBudget eq "Subtotal">
-				    <cfset clt = "EEFDF1">
+				 
+				 
+				    <cfset clt = "BBF4C4">
 				  <cfelse>
 				    <cfset clt = "FFFFFF">	
 				  </cfif>						  					
@@ -372,10 +376,10 @@
 			  <cfelse>			
 			  
 			      <cfif PostGradeBudget eq "Total">
-					  <td onmouseover="this.style.backgroundColor='##0B8EDD50'" onmouseout="this.style.backgroundColor='white'" style="#sl#;background-color:white" class="cellR" onClick="<cfif orgUnitCode neq 'Tree'>detaillisting('#OrgUnit#','show','all','','total','#class#',this,'grade',snapshot.value,'#OperationalMission#','#OperationalMandateNo#','#cellspace#')</cfif>">								 
+					  <td onmouseover="this.style.backgroundColor='##0B8EDD'" onmouseout="this.style.backgroundColor='#clt#'" style="#sl#;background-color:#clt#" class="cellR" onClick="<cfif orgUnitCode neq 'Tree'>detaillisting('#OrgUnit#','show','all','','total','#class#',this,'grade',snapshot.value,'#OperationalMission#','#OperationalMandateNo#','#cellspace#')</cfif>">								 
 					  <font color="#fgc#">#Total#</font></td>
 			 	  <cfelseif PostGradeBudget eq "Subtotal">
-					  <td onmouseover="this.style.backgroundColor='##0B8EDD50'" onmouseout="this.style.backgroundColor='#clt#'" bgcolor="#clt#" style="#sl#" class="cellR" onClick="<cfif orgUnitCode neq 'Tree'>detaillisting('#OrgUnit#','show','all','#Code#','subtotal','#class#',this,'grade',snapshot.value,'#OperationalMission#','#OperationalMandateNo#','#cellspace#')</cfif>">
+					  <td onmouseover="this.style.backgroundColor='##0B8EDD'" onmouseout="this.style.backgroundColor='#clt#'" bgcolor="#clt#" style="#sl#" class="cellR" onClick="<cfif orgUnitCode neq 'Tree'>detaillisting('#OrgUnit#','show','all','#Code#','subtotal','#class#',this,'grade',snapshot.value,'#OperationalMission#','#OperationalMandateNo#','#cellspace#')</cfif>">
 					  <font color="#fgc#">#Total#</font></td>
 				  <cfelse>
 					  <td class="cellR" style="#sl#" onmouseover="this.style.backgroundColor='##0B8EDD50'" onmouseout="this.style.backgroundColor='#cl#'" bgcolor="#cl#" onClick="<cfif orgUnitCode neq 'Tree'>detaillisting('#OrgUnit#','show','all','#PostGradeBudget#','grade','#class#',this,'grade',snapshot.value,'#OperationalMission#','#OperationalMandateNo#','#cellspace#')</cfif>">								

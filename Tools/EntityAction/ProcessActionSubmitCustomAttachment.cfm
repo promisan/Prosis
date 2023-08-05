@@ -39,7 +39,7 @@ provided which are explicityly enabled for this Step in the workflow (aka custom
 				
 		<cfif check.recordcount eq "0">
 			
-			  <cf_message message = " <br><span style='color:red;font-size:20px'>#DocumentDescription#</b>" return="false">
+			  <cf_message message = " <br>Please attach <span style='color:red;font-size:20px'>#DocumentDescription#</span> in order to continue" return="false">
 			  <cfabort>
 		
 		</cfif>

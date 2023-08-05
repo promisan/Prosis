@@ -349,15 +349,7 @@ password="#SESSION.dbpw#">
 	AND    E.MandateNo = '#PositionParent.MandateNo#'  
 </cfquery>
 
-<cfquery name="AssignmentClass" 
-datasource="AppsEmployee" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT   * 
-    FROM     Ref_AssignmentClass
-	WHERE    (Operational = 1 or AssignmentClass = '#getAssignment.AssignmentClass#')
-	ORDER BY ListingOrder
-</cfquery>
+
 
 <cfquery name="AssignmentType" 
 datasource="AppsEmployee" 
@@ -1388,35 +1380,14 @@ password="#SESSION.dbpw#">
 				 function getincumbency(cls) {
 					 ptoken.navigate('getIncumbency.cfm?assignmentclass='+cls,'getclass')
 				 }	 
+				 
+				  function getincumbencyclass(cls) {
+				 _cf_loadingtexthtml='';ptoken.navigate('getIncumbencyClass.cfm?mission=<cfoutput>#position.missionoperational#</cfoutput>&incumbency='+cls,'classbox')
+			 }	 
 				
 				</script>
 				
 				<tr class="hide"><td id="getclass"></td></tr>
-				
-				<tr class="labelmedium2" style="height:24px">
-					<td><cf_tl id="Incumbency class">:</td>
-					<td>
-					
-					<cfif (AccessStaffing eq "ALL" OR AccessStaffing eq "EDIT") and edit eq "Yes">
-			   
-			   			   	<select id="assignmentclass" name="assignmentclass" size="1" onChange="hidepost();getincumbency(this.value)" class="regularxl">
-					    <cfoutput query="AssignmentClass">
-						<option value="#AssignmentClass#" <cfif getAssignment.AssignmentClass eq AssignmentClass>selected</cfif>>
-				    		#Description#
-						</option>
-						</cfoutput>
-					    </select>
-						
-					<cfelse>
-						
-							<cfoutput>#getAssignment.AssignmentClass#</cfoutput>
-						
-					</cfif>	
-					
-							
-					</TD>
-					
-				</TR>
 				
 				<TR class="labelmedium2" style="height:25px">
 			    <TD ><cf_tl id="Incumbency">:</TD>
@@ -1426,21 +1397,21 @@ password="#SESSION.dbpw#">
 					<cfif (AccessStaffing eq "ALL" OR AccessStaffing eq "EDIT") and edit eq "Yes">
 					
 				    	<cfoutput>
-						<input type="radio" name="incumbency" value="100" onClick="hidepost()" <cfif getAssignment.Incumbency eq "100">checked</cfif>> 100%
+						<input type="radio" name="incumbency" id="incumbency" value="100" onClick="getincumbencyclass('100');hidepost()" <cfif getAssignment.Incumbency eq "100">checked</cfif>> 100%
 						<!---
 						<INPUT type="radio" name="incumbency" value="90" onClick="hidepost()" <cfif getAssignment.Incumbency eq "90">checked</cfif>> 90%		
 						<INPUT type="radio" name="incumbency" value="80" onClick="hidepost()" <cfif getAssignment.Incumbency eq "80">checked</cfif>> 80%		
 						<INPUT type="radio" name="incumbency" value="70" onClick="hidepost()" <cfif getAssignment.Incumbency eq "70">checked</cfif>> 70%		
 						<INPUT type="radio" name="incumbency" value="60" onClick="hidepost()" <cfif getAssignment.Incumbency eq "60">checked</cfif>> 60%			
 						--->
-						<INPUT type="radio" name="incumbency" value="50" onClick="hidepost()" <cfif getAssignment.Incumbency eq "50">checked</cfif>> 50%
+						<INPUT type="radio" name="incumbency" id="incumbency" value="50" onClick="getincumbencyclass('50');hidepost()" <cfif getAssignment.Incumbency eq "50">checked</cfif>> 50%
 						<!---
 						<INPUT type="radio" name="incumbency" value="40" onClick="hidepost()" <cfif Assignment.Incumbency eq "40">checked</cfif>> 40%
 						<INPUT type="radio" name="incumbency" value="30" onClick="hidepost()" <cfif Assignment.Incumbency eq "30">checked</cfif>> 30%
 						<INPUT type="radio" name="incumbency" value="20" onClick="hidepost()" <cfif Assignment.Incumbency eq "20">checked</cfif>> 20%
 						<INPUT type="radio" name="incumbency" value="10" onClick="hidepost()" <cfif Assignment.Incumbency eq "10">checked</cfif>> 10%
 						--->
-						<INPUT type="radio" name="incumbency" value="0" onClick="hidepost()"  <cfif getAssignment.Incumbency eq "0">checked</cfif>> 0% Lien
+						<INPUT type="radio" name="incumbency" id="incumbency" value="0" onClick="getincumbencyclass('0');hidepost()"  <cfif getAssignment.Incumbency eq "0">checked</cfif>> 0% Lien
 					    </cfoutput>	
 						
 					<cfelse>
@@ -1452,6 +1423,28 @@ password="#SESSION.dbpw#">
 					</td>
 					
 				</tr>
+				
+				<tr class="labelmedium2" style="height:24px">
+					<td><cf_tl id="Incumbency class">:</td>
+					<td id="classbox">
+					
+						<cfif (AccessStaffing eq "ALL" OR AccessStaffing eq "EDIT") and edit eq "Yes">
+						
+						    <cfdiv bind="url:getIncumbencyClass.cfm?missiom=#position.missionoperational#&incumbency=#getAssignment.Incumbency#&assignmentclass=#getAssignment.AssignmentClass#">
+				   
+				   			 
+							
+						<cfelse>
+							
+								<cfoutput>#getAssignment.AssignmentClass#</cfoutput>
+							
+						</cfif>	
+												
+					</TD>
+					
+				</TR>
+				
+				
 				
 				<cfoutput>
 				<input type="hidden" name="assignmenttype" value="#getAssignment.assignmenttype#">

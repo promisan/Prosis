@@ -160,6 +160,12 @@
 			 
 			    </cfif>
 				
+				<cfif Vacant.Original gte now()>
+				
+					<cfset Vacant.Original = "">
+					
+				</cfif>
+				
 				<cfreturn Vacant>
 						 
     </cffunction>				 

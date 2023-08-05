@@ -487,42 +487,44 @@ password="#SESSION.dbpw#">
 				
 		<script>
 		
-		 function getincumbency(cls) {
-			 ptoken.navigate('getIncumbency.cfm?assignmentclass='+cls,'getclass')
-		 }	 
+			 // currently not used
+			
+			 function getincumbency(cls) {
+				 _cf_loadingtexthtml='';ptoken.navigate('getIncumbency.cfm?assignmentclass='+cls,'getclass')
+			 }	 
+			 
+			 function getincumbencyclass(cls) {
+				 _cf_loadingtexthtml='';ptoken.navigate('getIncumbencyClass.cfm?mission=<cfoutput>#position.missionoperational#</cfoutput>&incumbency='+cls,'classbox')
+			 }	 
 		
 		</script>
+		
 		<tr class="hide"><td id="getclass"></td></tr>
 		
-		<TR>
-	    <TD class="labelmedium"><cf_tl id="Incumbency class">:</TD>
-	    <TD>
-		
-			   	<select name="AssignmentClass" size="1" class="regularxl" onchange="getincumbency(this.value)">
-			    <cfoutput query="AssignmentClass">
-				<option value="#AssignmentClass#">
-		    		#Description#
-				</option>
-				</cfoutput>
-			    </select>
-				
-		</TD>
-		</TR>
-				
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Incumbency">:</TD>
 	    <TD class="labelmedium">
 		
 				<cfoutput>
-				<select name="incumbency" class="regularxl">
+				<select name="incumbency" class="regularxl" onchange="getincumbencyclass(this.value)">
 				<cfloop index="itm" from="100" to="0" step="-50">
-					<option value="#itm#" <cfif itm eq 100>selected</cfif>>#itm#% <cfif itm eq "0">lien</cfif></option>
+					<option  value="#itm#" <cfif itm eq 100>selected</cfif>>#itm#% <cfif itm eq "0">lien</cfif></option>
 				</cfloop>				
 				</select>
 				</cfoutput>
 					 		
 		</TD>
 		</TR>
+		
+		<TR>
+	    <TD class="labelmedium"><cf_tl id="Incumbency class">:</TD>
+	    <TD id="classbox">
+		
+		       <cfdiv bind="url:getIncumbencyClass.cfm?missiom=#position.missionoperational#incumbency=100">
+						
+		</TD>
+		</TR>			
+		
 				
 		<cfoutput>
 			<input type="hidden" name="assignmenttype" value="#assignmenttype.assignmenttype#">

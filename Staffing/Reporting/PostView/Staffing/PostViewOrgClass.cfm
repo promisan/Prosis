@@ -92,26 +92,14 @@
 				
 			    <td style="height:100%;width:100%;padding-right:20px" valign="top" rowspan="#span#" class="labellarge">
 							
-					<table bgcolor="FDFEDE" style="width:100%;height:100%;height:90px">
+					<table style="width:100%;height:100%;height:90px;background-color:##93EEA080;border:1px solid gray">
 					
 					<tr>
-					<td valign="top" style="padding-left:10px;padding-top:5px;border:1px solid silver;border-right:0px">
-																	
-					<img src="#session.root#/Images/Logos/Staffing/OrgUnit1.png" 
-						alt="Click to access classe under." height="75"
-						id="classExpand" border="0" class="regular" 
-						align="absmiddle" style="cursor: pointer; border : 1px solid silver;" 
-						onClick="showclass()">
 					
-					<img src="#session.root#/Images/Logos/Staffing/OrgUnit1.png" height="75"
-						id="classMin" alt="Click to hide units" border="0" 
-						align="absmiddle" class="hide" style="cursor: pointer; border : 1px solid silver;" 
-						onClick="showclass()">
-					
-					</td>
-					<td valign="top" style="border:1px solid silver;border-left:0px;min-width:268px;max-width:268px;font-weight:290;width:100%;font-size:31px;padding-top:27px;padding-left:20px" 
+					<td style="color:black;border-left:0px;min-width:268px;max-width:268px;font-weight:bold;width:100%;font-size:31px;text-align:center" 
 					   class="labellarge">#Mission#</td>
 					</tr>
+					
 					
 					</table>					
 					 
@@ -141,7 +129,7 @@
 					  	<cfset bgc = "FFF4F4">
 					  </cfif>
 					  
-					   <td style="height:23px;font-size:12px;padding-left:2px;cursor:pointer;min-width:40;border-bottom:1px solid gray">
+					   <td style="font-size:12px;padding-left:2px;cursor:pointer;min-width:40;border-bottom:1px solid gray">
 					  					  
 					   <cfif Client.LanguageId eq "ESP">
 					   
@@ -187,13 +175,13 @@
 					  	  <cfoutput>
 						  
 					      <cfif ListOrder eq "1">
-						      <cfset cl = "F1F1F1">
+						      <cfset cl = "E1E1E1">
 						  <cfelseif ListOrder eq "2">
 						      <cfset cl = "F6F6F6">	  
 						  <cfelseif ListOrder eq "3">	
 						     <cfset cl = "EEF3E2">	 
 						  <cfelseif ListOrder eq "4">	
-						     <cfset cl = "FFFFCF">	  
+						     <cfset cl = "FFFFAF">	  
 						  <cfelseif ListOrder eq "5">	
 						     <cfset cl = "FFF4F4">	  
 						  <cfelseif ListOrder eq "5">	
@@ -207,7 +195,9 @@
 						     <cfif Total eq "0" or Total eq "">
 								  <cfset clt = "ffffff">
 							 <cfelse>
-							      <cfset clt = "EEFDF1">
+							      <cfset clt = "BBF4C4">
+								  
+								 
 							 </cfif>	
 							    
 							 <td align="center" bgcolor="#clt#" style="font-size:14px;border:1px solid gray;min-width:#cellspace#px">

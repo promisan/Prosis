@@ -358,13 +358,13 @@
 									 <!--- quasi dynamic approach --->
 									  
 									  <cfif ListOrder eq "1">
-										      <cfset cl = "F1F1F1">
+										      <cfset cl = "E1E1E1">
 									  <cfelseif ListOrder eq "2">
 										      <cfset cl = "F6F6F6">	  
 									  <cfelseif ListOrder eq "3">	
 										     <cfset cl = "EEF3E2">	 
 									  <cfelseif ListOrder eq "4">	
-										     <cfset cl = "FFFFCF">	  
+										     <cfset cl = "FFFFAF">	  
 									  <cfelseif ListOrder eq "5">	
 										     <cfset cl = "FFF4F4">	  
 									  <cfelseif ListOrder eq "6">	
@@ -374,7 +374,7 @@
 									  </cfif>	
 									  
 									  <cfif PostGradeBudget eq "Total" or PostGradeBudget eq "Subtotal">
-									    <cfset clt = "D5DAD1">
+									    <cfset clt = "93EEA0">
 									  <cfelse>
 									    <cfset clt = "FFFFFF">	
 									  </cfif>
