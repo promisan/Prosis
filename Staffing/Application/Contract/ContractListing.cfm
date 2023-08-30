@@ -187,20 +187,23 @@
 
 <cfset itm = 0>
 					
-<cfset itm = itm+1>						
-<cfset fields[itm] = {label       = "Last name",                  
+<cfset itm = itm+1>		
+<cf_tl id="Last name" var="1">				
+<cfset fields[itm] = {label       = "#lt_text#",                  
 					field         = "LastName",
 					filtermode    = "0",
 					search        = "text"}>				
 
-<cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "First name",                  
+<cfset itm = itm+1>		
+<cf_tl id="First name" var="1">					
+<cfset fields[itm] = {label       = "#lt_text#",                  
 					field         = "FirstName",
 					filtermode    = "0",
 					search        = "text"}>					
 
 <cfset itm = itm+1>		
-<cfset fields[itm] = {label       = "IndexNo",                  
+<cf_tl id="IndexNo" var="1">		
+<cfset fields[itm] = {label       = "#lt_text#",                  
 					field         = "IndexNo",
 					search        = "text"}>		
 					
@@ -214,16 +217,18 @@
 					align         = "center",
 					search        = "text"}>		
 
-<cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Schedule",  					
+<cfset itm = itm+1>		
+<cf_tl id="Schedule" var="1">						
+<cfset fields[itm] = {label       = "#lt_text#",  					
 					field         = "ScheduleDescription",
 					filtermode    = "3",
 					searchfield   = "ScheduleDescription",
 					fieldsort     = "ScheduleDescription",
 					search        = "text"}>								
 
-<cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Grade",  					
+<cfset itm = itm+1>
+<cf_tl id="Grade" var="1">								
+<cfset fields[itm] = {label       = "#lt_text#",  					
 					field         = "ContractLevel",
 					displayfilter = "Yes",
 					filtermode    = "3",
@@ -232,38 +237,43 @@
 					search        = "text"}>
 
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label      = "Step",  					
+<cf_tl id="Step" var="1">	
+<cfset fields[itm] = {label      = "#lt_text#",  					
 					field        = "ContractStep"}>	
 
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label      = "Time",  					
+<cf_tl id="Time" var="1">	
+<cfset fields[itm] = {label      = "#lt_text#",  					
 					  field      = "ContractTime",
 					  filtermode = "3",
 					  search     = "text"}>					
 
-<cfset itm = itm+1>										
-<cfset fields[itm] = {label      = "App.Status", 					
+<cfset itm = itm+1>		
+<cf_tl id="Appointment" var="1">									
+<cfset fields[itm] = {label      = "#lt_text#", 					
 					field        = "AppointmentStatus",
 					column       = "common",
 					filtermode   = "2",
 					search       = "text"}>	
 					
-<cfset itm = itm+1>										
-<cfset fields[itm] = {label      = "Contract", 					
+<cfset itm = itm+1>		
+<cf_tl id="Contract" var="1">									
+<cfset fields[itm] = {label      = "#lt_text#", 					
 					field        = "ContractType",
 					filtermode   = "2",
 					column       = "common",
 					search       = "text"}>	
 										
-<cfset itm = itm+1>										
-<cfset fields[itm] = {label      = "Location", 					
+<cfset itm = itm+1>
+<cf_tl id="Location" var="1">											
+<cfset fields[itm] = {label      = "#lt_text#", 					
 					field        = "LocationDescription",
 					filtermode   = "2",
 					searchfield  = "LocationDescription",
 					fieldsort    = "LocationDescription",
 					search       = "text"}>	
 
-<cfset itm = itm+1>							
+<cfset itm = itm+1>		
 <cfset fields[itm] = {label      = "A", 					
 					field        = "Assignment",		
 					width        = "3",
@@ -272,21 +282,24 @@
 					search       = "text"}>	
 					
 					
-<cfset itm = itm+1>										
-<cfset fields[itm] = {label      = "Mode", 					
+<cfset itm = itm+1>		
+<cf_tl id="Mode" var="1">									
+<cfset fields[itm] = {label      = "#lt_text#", 					
 					field        = "PayrollMode",
 					search       = "text"}>																						
 
-<cfset itm = itm+1>												
-<cfset fields[itm] = {label      = "Effective",					
+<cfset itm = itm+1>		
+<cf_tl id="Effective" var="1">											
+<cfset fields[itm] = {label      = "#lt_text#",					
 					field        = "DateEffective",
 					search       = "date",
 					display      = "no",
 					align        = "center",
 					formatted    = "dateformat(DateEffective,'#CLIENT.DateFormatShow#')"}>	
 
-<cfset itm = itm+1>							
-<cfset fields[itm] = {label    = "Expiration",  					
+<cfset itm = itm+1>	
+<cf_tl id="Expiration" var="1">							
+<cfset fields[itm] = {label    = "#lt_text#",  					
 					field      = "DateExpiration",
 					align      = "center",
 					column     = "month",

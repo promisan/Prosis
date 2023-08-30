@@ -401,12 +401,12 @@ password="#SESSION.dbpw#">
 		 FROM     PersonAssignment PA, Position P
 		 WHERE    PersonNo           = '#FORM.PersonNo#'
 		 AND      PA.PositionNo      = P.PositionNo
-		 AND      PA.DateEffective   < getdate()
-		 AND      PA.DateExpiration  > getDate()
+		 AND      PA.DateEffective   < getdate()		
 		 AND      PA.AssignmentStatus IN ('0','1')
 		 AND      PA.AssignmentClass = 'Regular'
 		 AND      PA.AssignmentType  = 'Actual'
 		 AND      PA.Incumbency      = '100' 
+		 ORDER BY PA.DateExpiration DESC
 	</cfquery>
 		
 	<!--- create wf record --->
@@ -470,7 +470,7 @@ password="#SESSION.dbpw#">
 		EntityStatus     = ""
 		PersonNo         = "#Person.PersonNo#"
 		Mission          = "#form.Mission#"
-		OrgUnit          = "#OrgUnit#"
+		OrgUnit          = "#OnBoard.OrgUnit#"
 		ObjectReference  = "Overtime : #Form.DocumentReference#"
 		ObjectReference2 = "#Person.FirstName# #Person.LastName# - #Form.OvertimeHours#:#Form.OvertimeMinut#"
 	    ObjectKey1       = "#Form.PersonNo#"

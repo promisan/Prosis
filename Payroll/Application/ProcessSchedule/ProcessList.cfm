@@ -1,7 +1,9 @@
 
 <cf_dialogLedger>
 
-<cf_screentop height="100%" scroll="Yes" jquery="Yes" html="Yes" banner="gray" bannerforce="Yes" layout="webapp" label="Payroll calculation" MenuAccess="Yes" SystemFunctionId="#url.idmenu#">
+<cf_tl id="Payroll calculation" var="1">	
+
+<cf_screentop height="100%" scroll="Yes" jquery="Yes" html="Yes" banner="gray" bannerforce="Yes" layout="webapp" label="#lt_text#" MenuAccess="Yes" SystemFunctionId="#url.idmenu#">
 
 <cf_ProcessScript>
 <cf_dialogstaffing>
@@ -366,7 +368,11 @@ password="#SESSION.dbpw#">
 																			   							  
 							   <TD class="labelmedium2" style="font-size:15px;padding-left:26px;width:100%;min-width:200px">
 							   
-								   <cfif CalculationStatus gte "1"><font color="black"><cfelse><font color="red"></cfif>#dateformat(PayrollStart, "MMMM")#
+								   <cfif CalculationStatus gte "1"><font color="black"><cfelse><font color="red"></cfif>
+								   
+								   <cfset txt = dateformat(PayrollStart, "MMMM")>
+								   <cf_tl id="#txt#">
+								   
 								   #dateformat(PayrollStart, "YYYY")#</font>
 							   
 							   </td>
@@ -860,16 +866,20 @@ password="#SESSION.dbpw#">
 																	 
 																	 <!--- NADA --->
 																	 
-																	 <cfelseif TransactionPayment neq "0">																	 
-																	 <input type="button" value="Undo Posting Initial" id="undo_#CalculationId#" name="undo" class="button10g" style="border:1px solid silver;height:25px;width:140px" onclick="unlock('#CalculationId#')">																	 										 								 
+																	 <cfelseif TransactionPayment neq "0">			
+																	 
+																	 <cf_tl id="Undo Posting Initial" var="1">															 
+																	 <input type="button" value="#lt_text#" id="undo_#CalculationId#" name="undo" class="button10g" style="border:1px solid silver;height:25px;width:140px" onclick="unlock('#CalculationId#')">																	 										 								 
 																	 </cfif>
 																	 
 																 <cfelseif CalculationStatus eq "3">
 																 
-																 	<cfif TransactionPayment neq "0">									 
-																 	<input type="button" value="Undo posting Final" id="undo_#CalculationId#" name="undo" class="button10g"    style="border:1px solid silver;height:25px;width:140px" onclick="unlock('#CalculationId#')">										
+																 	<cfif TransactionPayment neq "0">	
+																	<cf_tl id="Undo posting Final" var="1">										 
+																 	<input type="button" value="#lt_text#" id="undo_#CalculationId#" name="undo" class="button10g"    style="border:1px solid silver;height:25px;width:140px" onclick="unlock('#CalculationId#')">										
 																	<cfelse>				
-																	<input type="button" value="Undo posting" id="undo_#CalculationId#" name="undo" class="button10g"          style="border:1px solid silver;height:25px;width:140px" onclick="unlock('#CalculationId#')">			
+																	<cf_tl id="Undo Posting" var="1">		
+																	<input type="button" value="#lt_text#" id="undo_#CalculationId#" name="undo" class="button10g"          style="border:1px solid silver;height:25px;width:140px" onclick="unlock('#CalculationId#')">			
 																	</cfif>
 																											 
 																</cfif>

@@ -23,8 +23,8 @@
 		SELECT   PA.*
 		FROM     PersonAccount PA INNER JOIN Ref_Bank B ON PA.BankCode = B.Code
 		WHERE    PersonNo = '#url.id#'
-		AND 	 PA.DateEffective <= GETDATE()
-		AND 	 (PA.DateExpiration > GETDATE() OR PA.DateExpiration IS NULL)
+		AND 	 PA.DateEffective <= GETDATE() + 30
+		AND 	 (PA.DateExpiration > GETDATE() - 30 OR PA.DateExpiration IS NULL)
 </cfquery>
 
 <cfquery name="ValidContracts" 

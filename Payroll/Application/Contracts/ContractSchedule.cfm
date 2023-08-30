@@ -1,5 +1,7 @@
 
-<cf_screentop height="100%" scroll="Yes" jquery="Yes" html="Yes" layout="webapp" label="Staff Contracts" MenuAccess="Yes" SystemFunctionId="#url.idmenu#">
+<cf_tl id="Staff contracts" var="1">	
+
+<cf_screentop height="100%" scroll="Yes" jquery="Yes" html="Yes" layout="webapp" label="#lt_text#" MenuAccess="Yes" SystemFunctionId="#url.idmenu#">
 
 <cf_listingscript>
 <cf_calendarscript>

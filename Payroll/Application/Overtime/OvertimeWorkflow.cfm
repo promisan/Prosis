@@ -45,8 +45,7 @@ password="#SESSION.dbpw#">
 		 FROM     PersonAssignment PA INNER JOIN Position P ON PA.PositionNo       = P.PositionNo
 		 WHERE    PersonNo            = '#Get.PersonNo#'
 		 AND      Mission             = '#Object.Mission#'		 
-		 AND      PA.DateEffective    < getdate()
-		 AND      PA.DateExpiration   > getDate()
+		 AND      PA.DateEffective    < getdate()		 
 		 AND      PA.AssignmentStatus IN ('0','1')
 		 AND      PA.AssignmentClass  = 'Regular'
 		 AND      PA.AssignmentType   = 'Actual'
