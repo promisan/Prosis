@@ -7,6 +7,7 @@
         displayname="Gender stat">
 		
 		<cfargument name="Entity" type="string" default="- DPPA" required="yes">
+		<cfargument name="SelectionDates" type="string" default="''" required="yes">
 						
 		<cfquery name="Period" 
 			datasource="martStaffing" 
@@ -14,7 +15,8 @@
 			password="#SESSION.dbpw#">	
 			SELECT        DataMart, SelectionDate, Status, Filter, Preparation, Memo, Created
             FROM            Period
-            WHERE        (DataMart = 'Gender') AND (Status = '5') 		
+            WHERE        (DataMart = 'Gender') AND (Status != '0')
+			AND  		 SelectionDate IN (#preserveSingleQuotes(SelectionDates)#)
 		</cfquery>		
 		
 		<cfquery name="Result" 
@@ -130,15 +132,17 @@
         displayname="geographic">
 		
 		<cfargument name="Entity"        type="string" 	default="- DPPA"   required="yes">	
-				
+		<cfargument name="SelectionDates" type="string" default="''" required="yes">
+
 		<cfquery name="Period" 
 			datasource="martStaffing" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">	
 			SELECT        DataMart, SelectionDate, Status, Filter, Preparation, Memo, Created
             FROM            Period
-            WHERE        (DataMart = 'Gender') AND (Status = '5')			
-		</cfquery>		
+            WHERE        (DataMart = 'Gender') AND (Status != '0')
+			AND  		 SelectionDate IN (#preserveSingleQuotes(SelectionDates)#)
+		</cfquery>	
 		
 		<cfquery name="Result" 
 			datasource="martStaffing" 
@@ -249,16 +253,17 @@
         displayname="geographic">
 		
 		<cfargument name="Entity"        type="string" 	default="- DPPA"   required="yes">		
-		
+		<cfargument name="SelectionDates" type="string" default="''" required="yes">
+						
 		<cfquery name="Period" 
 			datasource="martStaffing" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">	
-			SELECT      DataMart, SelectionDate, Status, Filter, Preparation, Memo, Created
-            FROM        Period
-            WHERE       DataMart = 'Gender' 
-			AND         Status = '5' 	
-		</cfquery>		
+			SELECT        DataMart, SelectionDate, Status, Filter, Preparation, Memo, Created
+            FROM            Period
+            WHERE        (DataMart = 'Gender') AND (Status != '0')
+			AND  		 SelectionDate IN (#preserveSingleQuotes(SelectionDates)#)
+		</cfquery>
 		
 		<cfquery name="Result" 
 			datasource="martStaffing" 
