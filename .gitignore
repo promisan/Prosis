@@ -19,4 +19,4 @@ _*.cfm
 *.txt
 *.config
 _CentralReports/
-
+.idea/
