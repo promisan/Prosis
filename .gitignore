@@ -20,4 +20,4 @@ _*.cfm
 *.config
 _CentralReports/
 .idea/
-.class
+*.class
