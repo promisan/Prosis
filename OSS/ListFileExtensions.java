@@ -9,7 +9,7 @@ public class ListFileExtensions {
             "txt", "java", "xml", "html", "htm", "css", "js", "json", "yml", "yaml",
             "md", "mdown", "markdown", "cfm", "cfc", "sh", "csv", "ts", "scss", "less",
             "php", "csslintrc", "jshintrc", "lock", "nuspec", "ini", "properties", "log",
-            "lang",
+            "lang"
     );
 
     public static void main(String[] args) {
