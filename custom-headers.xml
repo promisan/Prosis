@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additionalHeaders>
+  <cfm_custom_style type="XML_STYLE">
+    <firstLine><![CDATA[<!--]]></firstLine>
+    <beforeEachLine>    </beforeEachLine>
+    <endLine><![CDATA[-->]]></endLine>
+    <skipLine><![CDATA[^<\?xml.*>$]]></skipLine>
+    <firstLineDetectionPattern><![CDATA[(\s|\t)*<!--.*$]]></firstLineDetectionPattern>
+    <lastLineDetectionPattern><![CDATA[.*-->(\s|\t)*$]]></lastLineDetectionPattern>
+    <allowBlankLines>false</allowBlankLines>
+    <isMultiline>true</isMultiline>
+    <padLines>false</padLines>
+  </cfm_custom_style>
+</additionalHeaders>
