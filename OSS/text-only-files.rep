@@ -1,3 +1,4 @@
+✅ Text-based file extensions (alphabetically):
 05152010cfm
 2010-03cfm
 backcfm
@@ -32,6 +33,7 @@ nuspec
 old
 org
 php
+rp
 rtf
 sample
 scss
@@ -44,3 +46,29 @@ txt_
 xml
 yml
 
+❌ Non-text file extensions (alphabetically):
+cfr
+class
+eot
+fla
+gif
+gitattributes
+gitignore
+ico
+idx
+jar
+jbf
+jpg
+otf
+pack
+pdf
+png
+psd
+rep
+scssc
+swf
+template
+ttf
+vsd
+woff
+woff2
