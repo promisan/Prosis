@@ -15,7 +15,7 @@
 
 ## Apply license to text-base files
 
-The migration uses the `license-maven-plugin` to include the Apache License header to text-base files including and 
+The migration uses the `license-maven-plugin` to include Apache license headers recursively to all supported text-base files including and 
 excluding custom extensions: 
 
 
@@ -114,3 +114,12 @@ excluding custom extensions:
           </excludes>
 ```
 
+### Check current License headers in the project
+```shell
+mvn clean license:check
+```
+
+### Apply License headers in the project
+```shell
+mvn clean license:format
+```
