@@ -12,6 +12,12 @@
     #The code contains a list of knownTextExtensions since some files contains non standard MIME types.
     java ListFileExtensions <path/To/Prosis> summary  text-only
 
+## CheckFileEncodings.java
+
+This script was used to check and get the list of text-base files independently of their extension.
+Usage `java CheckFileEncodings <path>`
+
+
 
 ## Apply license to text-base files
 
@@ -137,4 +143,23 @@ mvn clean license:format
 
 The file `OSS/ignoredFilesAfterLicense-maven-plugin.rep` contains the list of files not
 modified by `mvn clean license:format`
+
+### LicenseScanner.java 
+This script was used to Check third-party licenses.
+
+Usage: 
+
+```shell
+# Search and print out all the non-apache licenses recursively in the provided path 
+java LicenseScanner <Path>
+
+# Search and print out all the non-apache licenses recursively in the provided path, and also the files aboslute path.
+# Since the output is quite large, it was pipe to the file OSS/licenseReportThridParty.rep 
+java LicenseScanner <Path> --verbose > licenseReportThridParty.rep
+
+# For detail analysys you can provide the specific license to be analysed:
+java LicenseScanner <Path> --verbose --license="MIT License"
+```
+
+This allowed to analyse and generate a proper `NOTICE` file in the project root. 
 

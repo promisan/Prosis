@@ -1,0 +1,95 @@
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+[--- The full standard Apache License text here ---]
+[--- Omitted here for brevity, but you MUST paste the entire text ---]
+[--- from: https://www.apache.org/licenses/LICENSE-2.0.txt ---]
+
+END OF TERMS AND CONDITIONS
+
+---------------------------------------------------------------------------
+Third-Party Software Notices and Licenses
+---------------------------------------------------------------------------
+
+This product includes software developed by Promisan and is licensed under the Apache License, Version 2.0.
+
+In addition, this product includes components from third-party projects, which are subject to their respective license terms as detailed below.
+
+1. **jQuery**
+   - License: MIT License
+   - Files:
+     - Scripts/jQuery/
+
+2. **Bootstrap**
+   - License: MIT License
+   - Files:
+     - Scripts/Mobile/Resources/vendor/bootstrap/LICENSE
+
+3. **Font Awesome**
+   - License - https://fontawesome.com/license (Commercial License)
+   - Files:
+     - Scripts/Icons/fontawesome/
+
+4. **iCheck**
+   - License: MIT License
+   - Files:
+     - Scripts/Mobile/Resources/vendor/iCheck/
+
+5. **MetisMenu**
+   - License: MIT License
+   - Files:
+     - Scripts/Mobile/Resources/vendor/metisMenu/
+
+6. **Moment.js**
+   - License: MIT License
+   - Files:
+     - Scripts/Mobile/Resources/vendor/moment/
+
+7. **Select2**
+   - License: MIT License
+   - Files:
+     - Scripts/Mobile/Resources/vendor/select2-bootstrap/
+
+8. **Summernote**
+   - License: MIT License
+   - Files:
+     - Scripts/Mobile/Resources/vendor/summernote/dist/summernote-bs3.css
+
+9. **SweetAlert**
+   - License: MIT License
+   - Files:
+     - Scripts/Mobile/Resources/vendor/sweetalert/LICENSE
+
+10. **jQueryFileTree Plugin**
+    - License: Dual-licensed under MIT License and GNU GPL.
+    - Files:
+      - Scripts/FileTree/
+    - For the purposes of this distribution, the MIT License applies.
+
+11. **CKEditor**
+    - License: Dual License (GNU GPL / LGPL / MPL)
+    - Files:
+      - Scripts/TextArea/CK/
+    - For this distribution, permissive licensing terms apply where dual-licensed.
+
+12. **Kendo UI**
+    - License: MPL (Commercial License may be required)
+    - For licensing information about Kendo UI, see the License Agreements page at KendoUI.com
+    - Files:
+      - All files in Scripts/KendoUI/
+
+
+---------------------------------------------------------------------------
+Special Notes Regarding License Compatibility:
+---------------------------------------------------------------------------
+
+- Some components included in this product mention licenses like GPL, LGPL, or MPL in their headers or documentation.
+- Where such components are **dual-licensed under both permissive (MIT/BSD) and restrictive (GPL/LGPL/MPL) licenses**, this distribution adopts the **permissive license**, ensuring compatibility with the Apache License, Version 2.0.
+- For components only licensed under restrictive licenses (GPL, LGPL, MPL), ensure compliance with their terms before redistribution.
+- The inclusion of third-party software does not imply endorsement by the original authors.
+- Refer to the LICENSE file for the full license text of the Apache License, Version 2.0.
+- Third-party license files (e.g., LICENSE-MIT, LICENSE-BSD) are located in their respective directories if required.
+- Dual-licensed components like CKEditor are being used under open-source permissible licenses; verify whether a commercial license is required.
