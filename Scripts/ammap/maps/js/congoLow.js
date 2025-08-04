@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Congo - Low
 // areas: {id:"CG-2"},{id:"CG-5"},{id:"CG-7"},{id:"CG-8"},{id:"CG-9"},{id:"CG-11"},{id:"CG-12"},{id:"CG-13"},{id:"CG-14"},{id:"CG-15"},{id:"CG-16"},{id:"CG-BZV"}
 AmCharts.maps.congoLow={

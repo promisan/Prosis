@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿(function(p){"object"==typeof exports&&"object"==typeof module?p(require("../../lib/codemirror")):"function"==typeof define&&define.amd?define(["../../lib/codemirror"],p):p(CodeMirror)})(function(p){p.defineMode("javascript",function(oa,t){function q(a,c,e){E=a;I=e;return c}function w(a,c){var e=a.next();if('"'==e||"'"==e)return c.tokenize=pa(e),c.tokenize(a,c);if("."==e&&a.match(/^\d+(?:[eE][+\-]?\d+)?/))return q("number","number");if("."==e&&a.match(".."))return q("spread","meta");if(/[\[\]{}\(\),;\:\.]/.test(e))return q(e);
 if("\x3d"==e&&a.eat("\x3e"))return q("\x3d\x3e","operator");if("0"==e&&a.eat(/x/i))return a.eatWhile(/[\da-f]/i),q("number","number");if(/\d/.test(e))return a.match(/^\d*(?:\.\d*)?(?:[eE][+\-]?\d+)?/),q("number","number");if("/"==e){if(a.eat("*"))return c.tokenize=J,J(a,c);if(a.eat("/"))return a.skipToEnd(),q("comment","comment");if("operator"==c.lastType||"keyword c"==c.lastType||"sof"==c.lastType||/^[\[{}\(,;:]$/.test(c.lastType)){a:for(var e=!1,d,b=!1;null!=(d=a.next());){if(!e){if("/"==d&&!b)break a;
 "["==d?b=!0:b&&"]"==d&&(b=!1)}e=!e&&"\\"==d}a.match(/^\b(([gimyu])(?![gimyu]*\2))+\b/);return q("regexp","string-2")}a.eatWhile(K);return q("operator","operator",a.current())}if("`"==e)return c.tokenize=Q,Q(a,c);if("#"==e)return a.skipToEnd(),q("error","error");if(K.test(e))return a.eatWhile(K),q("operator","operator",a.current());if(R.test(e))return a.eatWhile(R),e=a.current(),(d=ba.propertyIsEnumerable(e)&&ba[e])&&"."!=c.lastType?q(d.type,d.style,e):q("variable","variable",e)}function pa(a){return function(c,

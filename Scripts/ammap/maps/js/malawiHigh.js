@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Malawi - High
 // areas: {id:"MW-MW1"},{id:"MW-NA"},{id:"MW-PH"},{id:"MW-MJ"},{id:"MW-MW2"},{id:"MW-BL"},{id:"MW-ZO"},{id:"MW-NS"},{id:"MW-TH"},{id:"MW-CR"},{id:"MW-CK"},{id:"MW-BA"},{id:"MW-SA"},{id:"MW-NI"},{id:"MW-NU"},{id:"MW-MC"},{id:"MW-MG"},{id:"MW-LI"},{id:"MW-DO"},{id:"MW-DE"},{id:"MW-MA"},{id:"MW-RU"},{id:"MW-NK"},{id:"MW-NA"},{id:"MW-MZ"},{id:"MW-KS"},{id:"MW-CT1"},{id:"MW-CT2"}
 AmCharts.maps.malawiHigh={

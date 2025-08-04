@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Indonesia - Low
 // areas: {id:"ID-AC"},{id:"ID-BA"},{id:"ID-BB"},{id:"ID-BE"},{id:"ID-BT"},{id:"ID-GO"},{id:"ID-JA"},{id:"ID-JB"},{id:"ID-JI"},{id:"ID-JK"},{id:"ID-JT"},{id:"ID-KB"},{id:"ID-KI"},{id:"ID-KR"},{id:"ID-KS"},{id:"ID-KT"},{id:"ID-KU"},{id:"ID-LA"},{id:"ID-MA"},{id:"ID-MU"},{id:"ID-NB"},{id:"ID-NT"},{id:"ID-PA"},{id:"ID-PB"},{id:"ID-RI"},{id:"ID-SA"},{id:"ID-SB"},{id:"ID-SG"},{id:"ID-SN"},{id:"ID-SR"},{id:"ID-SS"},{id:"ID-ST"},{id:"ID-SU"},{id:"ID-YO"},{id:"TL"},{id:"MY-12"},{id:"MY-13"},{id:"BN"}
 AmCharts.maps.indonesiaLow={

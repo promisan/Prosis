@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Venezuela - Low
 // areas: {id:"AW"},{id:"BQ"},{id:"CW"},{id:"VE-A"},{id:"VE-B"},{id:"VE-C"},{id:"VE-D"},{id:"VE-E"},{id:"VE-F"},{id:"VE-G"},{id:"VE-H"},{id:"VE-I"},{id:"VE-J"},{id:"VE-K"},{id:"VE-L"},{id:"VE-M"},{id:"VE-N"},{id:"VE-O"},{id:"VE-P"},{id:"VE-R"},{id:"VE-S"},{id:"VE-T"},{id:"VE-U"},{id:"VE-V"},{id:"VE-W"},{id:"VE-X"},{id:"VE-Y"},{id:"VE-Z"}
 AmCharts.maps.venezuelaLow={

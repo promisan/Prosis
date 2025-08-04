@@ -111,6 +111,7 @@ excluding custom extensions:
             <exclude>**/*.woff2</exclude>
             <exclude>**/.gitattributes</exclude>
             <exclude>**/.gitignore</exclude>
+  
           </excludes>
 ```
 

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Seychelles - Low
 // areas: {id:"SC-25"},{id:"SC-24"},{id:"SC-23"},{id:"SC-22"},{id:"SC-21"},{id:"SC-20"},{id:"SC-19"},{id:"SC-18"},{id:"SC-17"},{id:"SC-16"},{id:"SC-15"},{id:"SC-14"},{id:"SC-13"},{id:"SC-12"},{id:"SC-11"},{id:"SC-10"},{id:"SC-09"},{id:"SC-08"},{id:"SC-07"},{id:"SC-06"},{id:"SC-05"},{id:"SC-04"},{id:"SC-03"},{id:"SC-02"},{id:"SC-01"},{id:"SC"}
 AmCharts.maps.seychellesLow={

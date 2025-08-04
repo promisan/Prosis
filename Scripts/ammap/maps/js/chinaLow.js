@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of China - Low
 // areas: {id:"CN-34"},{id:"CN-11"},{id:"CN-50"},{id:"CN-35"},{id:"CN-44"},{id:"CN-62"},{id:"CN-45"},{id:"CN-52"},{id:"CN-46"},{id:"CN-13"},{id:"CN-41"},{id:"CN-91"},{id:"CN-23"},{id:"CN-43"},{id:"CN-42"},{id:"CN-22"},{id:"CN-32"},{id:"CN-36"},{id:"CN-21"},{id:"CN-92"},{id:"CN-15"},{id:"CN-64"},{id:"CN-63"},{id:"CN-61"},{id:"CN-51"},{id:"CN-37"},{id:"CN-31"},{id:"CN-14"},{id:"CN-12"},{id:"CN-71"},{id:"CN-65"},{id:"CN-54"},{id:"CN-53"},{id:"CN-33"}
 AmCharts.maps.chinaLow={

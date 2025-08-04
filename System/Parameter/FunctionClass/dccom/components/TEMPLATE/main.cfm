@@ -1,41 +1,18 @@
-<!------------------------------------------------------------------------------------------------
-Component:            [Component Name]
-Programmers:          [YOUR NAME] <[your email]>
-Version:              [Version]
-Ending Tag:           [Required/Not Required]
-Styleable?:           [Yes/No]
-dcCom Dependencies:   Requires dcSelectImage
-Browser Specific:     Yes. MS Internet Explorer 4.5+ Only
-Copyright:            Copyright (c) 2002 by Peter Coppinger, Digital Crew Ltd
+<!--
+    Copyright © 2025 Promisan
 
-Purpose:
---------------------------------------------------------------------------------------------------
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
 
-Usage:
---------------------------------------------------------------------------------------------------
-<CF_DCCOM component="[component name]"></CF_DCCOM>
-
-
-Examples:
---------------------------------------------------------------------------------------------------
-	Example 1 - [Example Name]
-	<CF_DCCOM component="[component name]"></CF_DCCOM>
-	
-
-Description:	
---------------------------------------------------------------------------------------------------
-
-
-
-CHANGE LOG:
---------------------------------------------------------------------------------------------------
-[DATE]		[INITIALS]	[ACTION]
-
------------------------------------------------------------------------------------------------------->
-<!--- IMPORTANT: In components enableCFOutputOnly="Yes" by default so theres no need to use <cfsetting enableCFOutputOnly="Yes"> --->
-
-
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- RECOMMENDED: Perform URL Variable Passing Security Test --->
 <cfinclude template="../../engine/urlsecurity.cfm">
 

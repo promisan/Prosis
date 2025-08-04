@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Moldova - High
 // areas: {id:"MD-AN"},{id:"MD-BA"},{id:"MD-BD"},{id:"MD-BR"},{id:"MD-BS"},{id:"MD-CA"},{id:"MD-CL"},{id:"MD-CM"},{id:"MD-CR"},{id:"MD-CS"},{id:"MD-CT"},{id:"MD-CU"},{id:"MD-DO"},{id:"MD-DR"},{id:"MD-DU"},{id:"MD-ED"},{id:"MD-FA"},{id:"MD-FL"},{id:"MD-GA"},{id:"MD-GL"},{id:"MD-HI"},{id:"MD-IA"},{id:"MD-LE"},{id:"MD-NI"},{id:"MD-OC"},{id:"MD-OR"},{id:"MD-RE"},{id:"MD-RI"},{id:"MD-SD"},{id:"MD-SI"},{id:"MD-SN"},{id:"MD-SO"},{id:"MD-ST"},{id:"MD-SV"},{id:"MD-TA"},{id:"MD-TE"},{id:"MD-UN"}
 AmCharts.maps.moldovaHigh={

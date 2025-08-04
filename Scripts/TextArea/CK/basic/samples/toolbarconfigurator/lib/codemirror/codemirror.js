@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿(function(q){if("object"==typeof exports&&"object"==typeof module)module.exports=q();else{if("function"==typeof define&&define.amd)return define([],q);this.CodeMirror=q()}})(function(){function q(a,b){if(!(this instanceof q))return new q(a,b);this.options=b=b?V(b):{};V(qf,b,!1);wc(b);var c=b.value;"string"==typeof c&&(c=new P(c,b.mode));this.doc=c;var d=new q.inputStyles[b.inputStyle](this),d=this.display=new rf(a,c,d);d.wrapper.CodeMirror=this;Ad(this);Bd(this);b.lineWrapping&&(this.display.wrapper.className+=
 " CodeMirror-wrap");b.autofocus&&!ab&&d.input.focus();Cd(this);this.state={keyMaps:[],overlays:[],modeGen:0,overwrite:!1,delayingBlurEvent:!1,focused:!1,suppressEdits:!1,pasteIncoming:!1,cutIncoming:!1,draggingText:!1,highlight:new bb,keySeq:null,specialChars:null};var e=this;B&&11>C&&setTimeout(function(){e.display.input.reset(!0)},20);sf(this);Dd||(tf(),Dd=!0);Ja(this);this.curOp.forceUpdate=!0;Ed(this,c);b.autofocus&&!ab||e.hasFocus()?setTimeout(cb(xc,this),20):db(this);for(var f in Ka)if(Ka.hasOwnProperty(f))Ka[f](this,
 b[f],Fd);Gd(this);b.finishInit&&b.finishInit(this);for(c=0;c<yc.length;++c)yc[c](this);La(this);J&&b.lineWrapping&&"optimizelegibility"==getComputedStyle(d.lineDiv).textRendering&&(d.lineDiv.style.textRendering="auto")}function rf(a,b,c){this.input=c;this.scrollbarFiller=t("div",null,"CodeMirror-scrollbar-filler");this.scrollbarFiller.setAttribute("cm-not-content","true");this.gutterFiller=t("div",null,"CodeMirror-gutter-filler");this.gutterFiller.setAttribute("cm-not-content","true");this.lineDiv=

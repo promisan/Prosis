@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Egypt - High
 // areas: {id:"EG-ALX"},{id:"EG-ASN"},{id:"EG-AST"},{id:"EG-BA"},{id:"EG-BH"},{id:"EG-BNS"},{id:"EG-C"},{id:"EG-DK"},{id:"EG-DT"},{id:"EG-FYM"},{id:"EG-GH"},{id:"EG-GZ"},{id:"EG-IS"},{id:"EG-JS"},{id:"EG-KB"},{id:"EG-KFS"},{id:"EG-KN"},{id:"EG-LX"},{id:"EG-MN"},{id:"EG-MNF"},{id:"EG-MT"},{id:"EG-PTS"},{id:"EG-SHG"},{id:"EG-SHR"},{id:"EG-SIN"},{id:"EG-TER"},{id:"EG-HT"},{id:"EG-SUZ"},{id:"EG-WAD"}
 AmCharts.maps.egyptHigh={

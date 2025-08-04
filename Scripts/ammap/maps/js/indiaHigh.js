@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of India - High
 // areas: {id:"IN-AN"},{id:"IN-AP"},{id:"IN-AR"},{id:"IN-AS"},{id:"IN-BR"},{id:"IN-CH"},{id:"IN-CT"},{id:"IN-DD"},{id:"IN-DL"},{id:"IN-DN"},{id:"IN-GA"},{id:"IN-GJ"},{id:"IN-HP"},{id:"IN-HR"},{id:"IN-JH"},{id:"IN-JK"},{id:"IN-KA"},{id:"IN-KL"},{id:"IN-LD"},{id:"IN-MH"},{id:"IN-ML"},{id:"IN-MN"},{id:"IN-MP"},{id:"IN-MZ"},{id:"IN-NL"},{id:"IN-OR"},{id:"IN-PB"},{id:"IN-PY"},{id:"IN-RJ"},{id:"IN-SK"},{id:"IN-TG"},{id:"IN-TN"},{id:"IN-TR"},{id:"IN-UP"},{id:"IN-UT"},{id:"IN-WB"}
 AmCharts.maps.indiaHigh={

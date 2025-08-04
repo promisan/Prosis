@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Thailand - High
 // areas: {id:"TH-10"},{id:"TH-11"},{id:"TH-12"},{id:"TH-13"},{id:"TH-14"},{id:"TH-15"},{id:"TH-16"},{id:"TH-17"},{id:"TH-18"},{id:"TH-19"},{id:"TH-20"},{id:"TH-21"},{id:"TH-22"},{id:"TH-23"},{id:"TH-24"},{id:"TH-25"},{id:"TH-26"},{id:"TH-27"},{id:"TH-30"},{id:"TH-31"},{id:"TH-32"},{id:"TH-33"},{id:"TH-34"},{id:"TH-35"},{id:"TH-36"},{id:"TH-37"},{id:"TH-38"},{id:"TH-39"},{id:"TH-40"},{id:"TH-41"},{id:"TH-42"},{id:"TH-43"},{id:"TH-44"},{id:"TH-45"},{id:"TH-46"},{id:"TH-47"},{id:"TH-48"},{id:"TH-49"},{id:"TH-50"},{id:"TH-51"},{id:"TH-52"},{id:"TH-53"},{id:"TH-54"},{id:"TH-55"},{id:"TH-56"},{id:"TH-57"},{id:"TH-58"},{id:"TH-60"},{id:"TH-61"},{id:"TH-62"},{id:"TH-63"},{id:"TH-64"},{id:"TH-65"},{id:"TH-66"},{id:"TH-67"},{id:"TH-70"},{id:"TH-71"},{id:"TH-72"},{id:"TH-73"},{id:"TH-74"},{id:"TH-75"},{id:"TH-76"},{id:"TH-77"},{id:"TH-80"},{id:"TH-81"},{id:"TH-82"},{id:"TH-83"},{id:"TH-84"},{id:"TH-85"},{id:"TH-86"},{id:"TH-90"},{id:"TH-91"},{id:"TH-92"},{id:"TH-93"},{id:"TH-94"},{id:"TH-95"},{id:"TH-96"},{id:"TH-LKSG"}
 AmCharts.maps.thailandHigh={

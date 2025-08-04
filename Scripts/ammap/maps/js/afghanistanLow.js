@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Afghanistan - Low
 // areas: {id:"AF-PIA"},{id:"AF-WAR"},{id:"AF-SAM"},{id:"AF-PAR"},{id:"AF-LOG"},{id:"AF-LAG"},{id:"AF-PAN"},{id:"AF-KAP"},{id:"AF-KAB"},{id:"AF-BGL"},{id:"AF-TAK"},{id:"AF-NAN"},{id:"AF-KDZ"},{id:"AF-KNR"},{id:"AF-NUR"},{id:"AF-BDS"},{id:"AF-PKA"},,{id:"AF-KHO"},{id:"AF-GHA"},{id:"AF-ZAB"},{id:"AF-KAN"},{id:"AF-DAY"},{id:"AF-URU"},{id:"AF-NIM"},{id:"AF-HEL"},{id:"AF-FRA"},{id:"AF-SAR"},{id:"AF-GHO"},{id:"AF-JOW"},{id:"AF-FYB"},{id:"AF-BAL"},{id:"AF-BAM"},{id:"AF-HER"},{id:"AF-BDG"}
 AmCharts.maps.afghanistanLow={

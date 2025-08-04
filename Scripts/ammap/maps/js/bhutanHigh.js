@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Bhutan - High
 // areas: {id:"BT-11"},{id:"BT-12"},{id:"BT-13"},{id:"BT-14"},{id:"BT-15"},{id:"BT-21"},{id:"BT-22"},{id:"BT-23"},{id:"BT-24"},{id:"BT-31"},{id:"BT-32"},{id:"BT-33"},{id:"BT-34"},{id:"BT-41"},{id:"BT-42"},{id:"BT-43"},{id:"BT-44"},{id:"BT-45"},{id:"BT-GA"},{id:"BT-TY"}
 AmCharts.maps.bhutanHigh={

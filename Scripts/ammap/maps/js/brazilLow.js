@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Brazil - Low
 // areas: {id:"BR-AC"},{id:"BR-AL"},{id:"BR-AM"},{id:"BR-AP"},{id:"BR-BA"},{id:"BR-CE"},{id:"BR-DF"},{id:"BR-ES"},{id:"BR-GO"},{id:"BR-MA"},{id:"BR-MG"},{id:"BR-MS"},{id:"BR-MT"},{id:"BR-PA"},{id:"BR-PB"},{id:"BR-PE"},{id:"BR-PI"},{id:"BR-PR"},{id:"BR-RJ"},{id:"BR-RN"},{id:"BR-RO"},{id:"BR-RR"},{id:"BR-RS"},{id:"BR-SC"},{id:"BR-SE"},{id:"BR-SP"},{id:"BR-TO"}
 AmCharts.maps.brazilLow={

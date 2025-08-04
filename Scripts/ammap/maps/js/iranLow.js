@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Iran - Low
 // areas:{id:"IR-32"},{id:"IR-15"},{id:"IR-13"},{id:"IR-31"},{id:"IR-30"},{id:"IR-29"},{id:"IR-16"},{id:"IR-19"},{id:"IR-17"},{id:"IR-01"},{id:"IR-02"},{id:"IR-28"},{id:"IR-11"},{id:"IR-24},{id:"IR-26"},{id:"IR-22"},{id:"IR-03"},{id:"IR-23"},{id:"IR-05"},{id:"IR-20"},{id:"IR-10"},{id:"IR-08"},{id:"IR-25"},{id:"IR-07"},{id:"IR-12"},{id:"IR-21"},{id:"IR-27"},{id:"IR-14"},{id:"IR-04"},{id:"IR-06"},{id:"IR-18"}
 AmCharts.maps.iranLow={

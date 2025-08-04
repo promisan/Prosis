@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Nepal - High
 // areas: {id:"NP-BA"},{id:"NP-BH"},{id:"NP-DH"},{id:"NP-GA"},{id:"NP-JA"},{id:"NP-KA"},{id:"NP-KO"},{id:"NP-LU"},{id:"NP-MA"},{id:"NP-ME"},{id:"NP-NA"},{id:"NP-RA"},{id:"NP-SA"},{id:"NP-SE"}
 AmCharts.maps.nepalHigh={

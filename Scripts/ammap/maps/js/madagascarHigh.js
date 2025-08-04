@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Madagascar - High
 // areas: {id:"MG-FI-VF"},{id:"MG-AV-VA"},{id:"MG-MA-SF"},{id:"MG-AS-SV"},{id:"MG-TL-ME"},{id:"MG-MA-ME"},{id:"MG-AV-IT"},{id:"MG-FI-HO"},{id:"MG-FI-HM"},{id:"MG-AS-DI"},{id:"MG-AV-BO"},{id:"MG-MA-BO"},{id:"MG-MA-BE"},{id:"MG-TM-AI"},{id:"MG-FI-AA"},{id:"MG-TL-AF"},{id:"MG-TL-AY"},{id:"MG-TL-AD"},{id:"MG-TM-AN"},{id:"MG-AV-AG"},{id:"MG-FI-AM"},{id:"MG-TM-AO"}
 AmCharts.maps.madagascarHigh={

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Moroco - High
 // areas: {id:"MA-01"},{id:"MA-02"},{id:"MA-03"},{id:"MA-04"},{id:"MA-05"},{id:"MA-06"},{id:"MA-07"},{id:"MA-08"},{id:"MA-09"},{id:"MA-10"},{id:"MA-11"},{id:"MA-12"},{id:"MA-13"},{id:"MA-15"},{id:"MA-14"},{id:"MA-16"}
 AmCharts.maps.moroccoHigh={

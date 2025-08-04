@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Colombia
 // areas: {id:"CO-AMA"},{id:"CO-ANT"},{id:"CO-ARA"},{id:"CO-ATL"},{id:"CO-BOL"},{id:"CO-BOY"},{id:"CO-CAL"},{id:"CO-CES"},{id:"CO-CHO"},{id:"CO-CAL"},{id:"CO-COR"},{id:"CO-CAQ"},{id:"CO-CAS"},{id:"CO-CUN"},{id:"CO-DC"},{id:"CO-GUA"},{id:"CO-GUV"},{id:"CO-HUI"},{id:"CO-LAG"},{id:"CO-MAG"},{id:"CO-MET"},{id:"CO-NAR"},{id:"CO-NSA"},{id:"CO-PUT"},{id:"CO-QUI"},{id:"CO-RIS"},{id:"CO-SAN"},{id:"CO-SUC"},{id:"CO-SAP"},{id:"CO-TOL"},{id:"CO-VAC"},{id:"CO-VID"},{id:"CO-VAU"}
 AmCharts.maps.colombiaHigh={

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿(function(){function d(a,b){l.call(this,a,b);this.actualConfig=this.originalConfig=this.removedButtons=null;this.emptyVisible=!1;this.state="edit";this.toolbarButtons=[{text:{active:"Hide empty toolbar groups",inactive:"Show empty toolbar groups"},group:"edit",position:"left",cssClass:"button-a-soft",clickCallback:function(a,b){a[a.hasClass("button-a-background")?"removeClass":"addClass"]("button-a-background");this._toggleVisibilityEmptyElements();this.emptyVisible?a.setText(b.text.active):a.setText(b.text.inactive)}},
 {text:"Add row separator",group:"edit",position:"left",cssClass:"button-a-soft",clickCallback:function(){this._addSeparator()}},{text:"Select config",group:"config",position:"left",cssClass:"button-a-soft",clickCallback:function(){this.configContainer.findOne("textarea").$.select()}},{text:"Back to configurator",group:"config",position:"right",cssClass:"button-a-background",clickCallback:function(){if("paste"===this.state){var a=this.configContainer.findOne("textarea").getValue();(a=d.evaluateToolbarGroupsConfig(a))?
 this.setConfig(a):alert("Your pasted config is wrong.")}this.state="edit";this._showConfigurationTool();this.showToolbarBtnsByGroupName(this.state)}},{text:'Get toolbar \x3cspan class\x3d"highlight"\x3econfig\x3c/span\x3e',group:"edit",position:"right",cssClass:"button-a-background icon-pos-left icon-download",clickCallback:function(){this.state="config";this._showConfig();this.showToolbarBtnsByGroupName(this.state)}}];this.cachedActiveElement=null}var l=ToolbarConfigurator.AbstractToolbarModifier;

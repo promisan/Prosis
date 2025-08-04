@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿(function(){bender.loadExternalPlugin("exportpdf","/apps/plugin/");CKEDITOR.plugins.load("exportpdf",function(){bender.test({setUp:function(){bender.tools.ignoreUnsupportedEnvironment("exportpdf")},"test data is correct at read and send stages":function(){bender.editorBot.create({name:"editor1",config:exportPdfUtils.getDefaultConfig("unit")},function(c){var b=c.editor;c.setHtmlWithSelection('\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e^');b.once("exportPdf",function(a){assert.areEqual(a.data.html,
 b.getData(),"Data from editor is incorrect.");assert.isTrue(CKEDITOR.tools.isEmpty(a.data.options),"`options` object should be initially empty.")});b.once("exportPdf",function(a){a.cancel();assert.areEqual('\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e'+b.getData()+"\x3c/div\x3e",a.data.html,"Preprocessed data sent to endpoint is incorrect.");assert.isNotNull(a.data.css,"CSS should be attached.")},null,null,16);b.execCommand("exportPdf")})},"test options provided via config":function(){bender.editorBot.create({name:"editor2",
 config:exportPdfUtils.getDefaultConfig("unit",{exportPdf_options:{format:"A6"}})},function(c){var b=c.editor;c.setHtmlWithSelection('\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e^');b.once("exportPdf",function(a){a.cancel();assert.areEqual(a.data.options.format,"A6")});b.execCommand("exportPdf")})},"test html changed via event":function(){bender.editorBot.create({name:"editor3",config:exportPdfUtils.getDefaultConfig("unit")},function(c){var b=c.editor;c.setHtmlWithSelection('\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e^');

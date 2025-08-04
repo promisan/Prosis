@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Vietnam - Low
 // areas: {id:"VN-01"},{id:"VN-02"},{id:"VN-03"},{id:"VN-04"},{id:"VN-05"},{id:"VN-06"},{id:"VN-07"},{id:"VN-09"},{id:"VN-13"},{id:"VN-14"},{id:"VN-15"},{id:"VN-18"},{id:"VN-20"},{id:"VN-21"},{id:"VN-22"},{id:"VN-23"},{id:"VN-24"},{id:"VN-25"},{id:"VN-26"},{id:"VN-27"},{id:"VN-28"},{id:"VN-29"},{id:"VN-30"},{id:"VN-31"},{id:"VN-32"},{id:"VN-33"},{id:"VN-34"},{id:"VN-35"},{id:"VN-36"},{id:"VN-37"},{id:"VN-39"},{id:"VN-40"},{id:"VN-41"},{id:"VN-43"},{id:"VN-44"},{id:"VN-45"},{id:"VN-46"},{id:"VN-47"},{id:"VN-49"},{id:"VN-50"},{id:"VN-51"},{id:"VN-52"},{id:"VN-53"},{id:"VN-54"},{id:"VN-55"},{id:"VN-56"},{id:"VN-57"},{id:"VN-58"},{id:"VN-59"},{id:"VN-61"},{id:"VN-63"},{id:"VN-66"},{id:"VN-67"},{id:"VN-68"},{id:"VN-69"},{id:"VN-70"},{id:"VN-71"},{id:"VN-72"},{id:"VN-73"},{id:"VN-CT"},{id:"VN-DN"},{id:"VN-HN"},{id:"VN-HP"},{id:"VN-SG"}
 AmCharts.maps.vietnamLow={

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Hungary - Low
 // areas: {id:"HU-BK"},{id:"HU-BA"},{id:"HU-BE"},{id:"HU-BC"},{id:"HU-BZ"},{id:"HU-BU"},{id:"HU-CS"},{id:"HU-DE"},{id:"HU-DU"},{id:"HU-EG"},{id:"HU-FE"},{id:"HU-GY"},{id:"HU-GS"},{id:"HU-HB"},{id:"HU-HE"},{id:"HU-HV"},{id:"HU-JN"},{id:"HU-KV"},{id:"HU-KM"},{id:"HU-KE"},{id:"HU-MI"},{id:"HU-NK"},{id:"HU-NO"},{id:"HU-NY"},{id:"HU-PS"},{id:"HU-PE"},{id:"HU-SO"},{id:"HU-SN"},{id:"HU-SZ"},{id:"HU-SD"},{id:"HU-SF"},{id:"HU-SK"},{id:"HU-SH"},{id:"HU-TB"},{id:"HU-TO"},{id:"HU-VA"},{id:"HU-VE"},{id:"HU-VM"},{id:"HU-ZA"},{id:"HU-ZE"}
 AmCharts.maps.hungaryLow={

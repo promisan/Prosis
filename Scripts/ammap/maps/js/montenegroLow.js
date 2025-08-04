@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Montenegro - Low
 // areas: {id:"ME-01"},{id:"ME-02"},{id:"ME-03"},{id:"ME-04"},{id:"ME-05"},{id:"ME-06"},{id:"ME-07"},{id:"ME-08"},{id:"ME-09"},{id:"ME-10"},{id:"ME-11"},{id:"ME-12"},{id:"ME-13"},{id:"ME-14"},{id:"ME-15"},{id:"ME-16"},{id:"ME-17"},{id:"ME-18"},{id:"ME-19"},{id:"ME-20"},{id:"ME-21"},{id:"ME-SLK"}
 AmCharts.maps.montenegroLow={

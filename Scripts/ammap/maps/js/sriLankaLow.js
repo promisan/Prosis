@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Sri Lanka - Low
 // areas: {id:"LK-11"},{id:"LK-12"},{id:"LK-13"},{id:"LK-21"},{id:"LK-22"},{id:"LK-23"},{id:"LK-31"},{id:"LK-32"},{id:"LK-33"},{id:"LK-41"},{id:"LK-42"},{id:"LK-43"},{id:"LK-44"},{id:"LK-45"},{id:"LK-51"},{id:"LK-52"},{id:"LK-53"},{id:"LK-61"},{id:"LK-62"},{id:"LK-71"},{id:"LK-72"},{id:"LK-81"},{id:"LK-82"},{id:"LK-91"},{id:"LK-92"}
 AmCharts.maps.sriLankaLow={

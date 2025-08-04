@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Sweden - High
 // areas: {id:"SE-M"},{id:"SE-O"},{id:"SE-K"},{id:"SE-C"},{id:"SE-AB"},{id:"SE-I"},{id:"SE-AC"},{id:"SE-Y"},{id:"SE-BD"},{id:"SE-Z"},{id:"SE-S"},{id:"SE-N"},{id:"SE-U"},{id:"SE-D"},{id:"SE-E"},{id:"SE-T"},{id:"SE-G"},{id:"SE-W"},{id:"SE-H"},{id:"SE-F"},{id:"SE-X"}
 AmCharts.maps.swedenHigh={

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Jamaica - High
 // areas: {id:"JM-03"},{id:"JM-02"},{id:"JM-05"},{id:"JM-14"},{id:"JM-06"},{id:"JM-04"},{id:"JM-01"},{id:"JM-10"},{id:"JM-07"},{id:"JM-08"},{id:"JM-11"},{id:"JM-12"},{id:"JM-09"},{id:"JM-13"}
 AmCharts.maps.jamaicaHigh={

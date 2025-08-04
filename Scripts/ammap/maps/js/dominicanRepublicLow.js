@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Dominican Republic - Low
 // areas: {id:"DO-01"},{id:"DO-02"},{id:"DO-03"},{id:"DO-04"},{id:"DO-05"},{id:"DO-06"},{id:"DO-08"},{id:"DO-09"},{id:"DO-30"},{id:"DO-10"},{id:"DO-11"},{id:"DO-07"},{id:"DO-12"},{id:"DO-13"},{id:"DO-14"},{id:"DO-28"},{id:"DO-15 Monte"},{id:"DO-29"},{id:"DO-16"},{id:"DO-17"},{id:"DO-18"},{id:"DO-19"},{id:"DO-20"},{id:"DO-21"},{id:"DO-31"},{id:"DO-22"},{id:"DO-23"},{id:"DO-24"},{id:"DO-25"},{id:"DO-26"},{id:"DO-32"},{id:"DO-27"}
 AmCharts.maps.dominicanRepublicLow={
