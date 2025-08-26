@@ -16,7 +16,7 @@
 
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>vanpelt</proUsr>
+	<proUsr>dev</proUsr>
 	<proOwn>Hanno van Pelt</proOwn>
 	<proDes>Tuned for multi period</proDes>
 	<proCom></proCom>

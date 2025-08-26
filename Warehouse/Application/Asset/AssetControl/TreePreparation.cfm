@@ -28,7 +28,7 @@
 	<script language="JavaScript">   
 	
 		/**** for further testing 
-	    WORK IN PROGRESS TO BE REVIEWED BY ARMIN TO DO A RECURSIVE FUNCTION
+	    WORK IN PROGRESS TO BE REVIEWED BY dev TO DO A RECURSIVE FUNCTION
 		var nodeList = [];			
 		
 		if (node.hasChildren())

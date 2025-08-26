@@ -44,7 +44,7 @@ password="#SESSION.dbpw#">
 
 	<!--- we found a case where ParentOrgUnit was the same as OrgUnitCode causing an infinite loop, the below lines
 	solve the issue assuming that when the case is present the correct way is to make it root unit 7/1/2015
-	Armin--->
+	dev--->
 	<cfquery name="ResetParent" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 

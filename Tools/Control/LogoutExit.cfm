@@ -70,7 +70,7 @@
 
 <cfset SESSION.sessionTimeout = createTimeSpan( 0, 0, 0, 1 ) />
 
-<!--- Revised logout routine by Armin on 7/30/2014 --->
+<!--- Revised logout routine by dev on 7/30/2014 --->
 <cflock scope="Session" type="Readonly" timeout="20">
     <cfset variables.sessionItems = "#StructKeyList(Session)#">
 </cflock>

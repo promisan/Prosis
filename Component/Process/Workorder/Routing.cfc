@@ -1228,7 +1228,7 @@
 	    <cfargument name="origin"      required="true" type="string" default="">
 	    <cfargument name="destination" required="true" type="string" default="">
 	    <cfargument name="language" required="false" type="string" default="">
-		<!--- by Armin on 1/5/2015, Promisan b.v. ---->
+		<!--- by dev on 1/5/2015, Promisan b.v. ---->
 		
 		<cftry>    
 
@@ -1259,7 +1259,7 @@
 		      </cfif>
 
 		      
-		      <!--- This is a new key I needed to generated using our gmail account bvpromisan@gmail.com, to discuss with Hanno
+		      <!--- This is a new key I needed to generated using our gmail account dev@email, to discuss with Hanno
 		      on how to add this to the client variables 1/5/2015 ---->
 		      
 		      <cfif len(trim(client.googleMAPId)) is not 0>
@@ -1297,7 +1297,7 @@
 	  <cffunction name="getDistanceMapQuest" returntype="any" access="public">
 	    <cfargument name="origin"      required="true" type="string" default="">
 	    <cfargument name="destination" required="true" type="string" default="">
-		<!--- by Armin on 3/17/2015, Promisan b.v. ---->
+		<!--- by dev on 3/17/2015, Promisan b.v. ---->
 	
 			<cftry>   
 		  
@@ -1323,7 +1323,7 @@
 			      <cfabort>
 		      </cfif>
 		      
-		      <!--- This is a new key I needed to generated using our gmail account bvpromisan@gmail.com, to discuss with Hanno
+		      <!--- This is a new key I needed to generated using our gmail account dev@email, to discuss with Hanno
 		      on how to add this to the client variables 1/5/2015 ---->
 		      <cfset variables.final_url = variables.final_url & "&key=Fmjtd%7Cluu82lut2l%2C7g%3Do5-9480qu&unit=k">
 

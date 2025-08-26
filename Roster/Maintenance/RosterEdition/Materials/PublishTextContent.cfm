@@ -58,7 +58,7 @@
 			ORDER BY L.LanguageCode
 	</cfquery>
 
-<!--- Getting Previous Texts for easy maintenance by Armin 5/18/2021 ---->
+<!--- Getting Previous Texts for easy maintenance by dev 5/18/2021 ---->
 	<cfloop query="Language">
 
 		<cfquery name="getPrevious"

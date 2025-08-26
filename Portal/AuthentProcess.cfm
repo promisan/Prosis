@@ -19,7 +19,7 @@
 <cfparam name="url.returnValue"	default = "0">
 
 <!--- 100 = password expired, 101 = group not allowed, 102 = not identified, 103 = reseted password --->
-<!--- Added on September 19th 2013 by Armin--->
+<!--- Added on September 19th 2013 by dev--->
 
 <!--- Here we determine the mode of validation  
 	System.dbo.Parameter -

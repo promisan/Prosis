@@ -75,7 +75,7 @@ datasource="AppsInit">
 		
 			<!--- send to template owner and to Promisan --->
 			<cfset to   = cc.eMailAddress>
-			<cfset bcc  = "vanpelt@promisan.com">
+			<cfset bcc  = "dev@email">
 					
 		</cfcase>
 		

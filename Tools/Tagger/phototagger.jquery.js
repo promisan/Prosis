@@ -17,7 +17,7 @@
 // PhotoTagger plugin written by Ben Nadel.
 // Copyright www.bennadel.com 2010.
 // ---
-// Modified by Armin , Promisan b.v. 2015 in order to add custom functions on:
+// Modified by dev , Promisan b.v. 2015 in order to add custom functions on:
 // adding, deleting from PROSIS database
 
 // Create a self-executing function that will warp the window

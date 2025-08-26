@@ -65,7 +65,7 @@ FROM (
 	<!--- tp prevent mixing in journals --->
 	AND         W.Currency   = '#workorder.currency#'
 	
-	<!--- Condition added by Armin on 3/31/2014 
+	<!--- Condition added by dev on 3/31/2014 
 	<cfif url.transactionlot neq "">
 		AND        W.WorkorderId IN 
 		                        (SELECT WorkOrderId 

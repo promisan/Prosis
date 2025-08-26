@@ -20,7 +20,7 @@ for entry of associate an item --->
 <cfoutput>
 FROM : #url.elementid#
 To : #url.elementclass#
-Added by Armin, url.drillid now correctly identifies each form and submit button.
+Added by dev, url.drillid now correctly identifies each form and submit button.
 </cfoutput>
 --->
 

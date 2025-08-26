@@ -18,7 +18,7 @@
 
 <cfoutput>
 
-	/* Begining of settlement scripts - by Armin , Promisan b.v. April 2012 */		
+	/* Begining of settlement scripts - by dev , Promisan b.v. April 2012 */		
 	
 	function saveline(whs,cus,bat,ter,tr_d,tr_h,tr_m,addr,req,ref) {
 	

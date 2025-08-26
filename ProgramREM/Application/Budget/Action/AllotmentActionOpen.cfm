@@ -18,7 +18,7 @@
 
 <cfparam name="URL.UNIT" default="-">
 <cfparam name="URL.MID" default="-">
-<!---- Added by Jorge Mazariegos on 9/22/2010 ---->
+<!---- Added by dev dev on 9/22/2010 ---->
 <cf_screentop html="no" jquery="yes">
 
 <cfoutput>

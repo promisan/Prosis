@@ -94,7 +94,7 @@
 							WHERE Customerid = '#URL.Customerid#' 			
 						</cfquery>
 						<!--- Fixing Sync  issue with customerName as in some instances is blank
-						11/23/2020 - by Armin
+						11/23/2020 - by dev
 						---->
 						<cfif Customer.CustomerName eq "" AND Customer.PersonNo neq "">
 							<cfquery name="qApplicant"

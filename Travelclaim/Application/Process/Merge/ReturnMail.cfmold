@@ -193,10 +193,10 @@
 				
 				<cfset mailsubject1 = "Travel Claim REMINDER - TVRQ #Return1.DocumentNo# - #Return1.IndexNo# - #Return1.FirstName# #Return1.LastName#">
 				<!------HS 22 December 2008: Added a <Do-not-reply>	at the end in the from field to indidcate to travellers not to reply as a traveller sent 
-						out an email to all of oppba ------>
+						out an email to all of dev ------>
 				<cfmail 
 			        to       = "#address#"
-					from     = "Travel Claim Portal <tcp_Do-not-reply@un.org>"
+					from     = "Travel Claim Portal <dev@email>"
 			        subject  = "#mailsubject1#"
 			        failto   = "#Parameter.PortalMailAddress#"
 			        mailerid = "TCP"

@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- By Armin Generic function as of 11/23/2012 it has been decided the use jquery in a broader scope of tasks as it can help search features.--->
+<!--- By dev Generic function as of 11/23/2012 it has been decided the use jquery in a broader scope of tasks as it can help search features.--->
 
 <cfoutput>
 

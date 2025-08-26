@@ -35,7 +35,7 @@ password="#SESSION.dbpw#">
 
  <cfoutput>
  
-<!--- refresh button to be discussed with armin 5/9/2014 --->
+<!--- refresh button to be discussed with dev 5/9/2014 --->
 <tr class="hide"><td>   
 	<input type="button" id="refresh_uomlist" onclick="ptoken.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/ItemUoMList.cfm?id=#url.id#&uomselected=#url.uomselected#','uomlist');">	
     </td>

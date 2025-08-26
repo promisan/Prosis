@@ -1028,7 +1028,7 @@ var datePickerController = (function datePickerController() {
                         b.className = b.className.replace(/fd-drag-active/g, "");
                         removeEvent(document,'mousemove',o.trackDrag, false);
                         removeEvent(document,'mouseup',o.stopDrag, false);
-                        o.div.style.zIndex = 99999; //modified by Armin 12/26/2014 - a 9 was added 
+                        o.div.style.zIndex = 99999; //modified by dev 12/26/2014 - a 9 was added 
                 }; 
                 this.onmousedown = function(e) {
                         e = e || document.parentWindow.event;
@@ -1103,7 +1103,7 @@ var datePickerController = (function datePickerController() {
                                 addEvent(document,'mouseup',o.stopDrag, false);
                                 var b = document.getElementsByTagName("body")[0];
                                 b.className = b.className.replace(/fd-drag-active/g, "") + " fd-drag-active";
-                                o.div.style.zIndex = 100000; //modified by Armin 12/26/2014 -  a 0 was added.
+                                o.div.style.zIndex = 100000; //modified by dev 12/26/2014 -  a 0 was added.
                                 
                                 return stopEvent(e);
                         };

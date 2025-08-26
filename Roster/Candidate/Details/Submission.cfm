@@ -142,7 +142,7 @@ password="#SESSION.dbpw#">
 					</tr>
 				  </cfif>
 				  
-				  <!--- nery I would show here the result of the submission record in more details --->
+				  <!--- dev I would show here the result of the submission record in more details --->
 				  
 				  <cfif EntityClass eq "">
 				  				  

@@ -35,7 +35,7 @@
 	<!--- this means we are taking out the invoices and redo them : carefull here-- --->
 	<!--- ------------------------------------------------------------------------- --->
 <!-----
-Removed  by Armin on October 2 2016
+Removed  by dev on October 2 2016
 	<cfquery name="DeleteInvoiceDetails" 
 		datasource="NovaLedger" 
 		username="#SESSION.login#" 

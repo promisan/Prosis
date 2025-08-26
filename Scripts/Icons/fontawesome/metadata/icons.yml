@@ -13114,7 +13114,7 @@ farm:
       - agriculture
       - barn
       - dairy
-      - farming
+      - fdevg
       - ranch
       - silo
   styles:
@@ -28720,7 +28720,7 @@ sheep:
     terms:
       - agriculture
       - animal
-      - farming
+      - fdevg
       - fauna
       - mammal
       - wool
@@ -37611,7 +37611,7 @@ wheat:
     terms:
       - argriculture
       - fall
-      - farming
+      - fdevg
       - grain
       - seasonal
   styles:

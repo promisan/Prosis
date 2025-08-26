@@ -88,7 +88,7 @@ password="#SESSION.dbpw#">
 
 <!--- Query returning search results --->
 
-<!--- I am using stPostNumber_2 testing purposes , Jorge Mazariegos 20-03-2010 ---->
+<!--- I am using stPostNumber_2 testing purposes , dev dev 20-03-2010 ---->
 
 <cfquery name="SearchResult" 
 datasource="AppsEmployee" 

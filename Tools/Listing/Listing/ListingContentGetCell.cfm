@@ -40,7 +40,7 @@
 				<cfif rowshow eq "2" and last2nd eq current.label>
 						   
 				   <!--- fill the cols of the second row --->
-				   <!--- <cfset colspan = col - (cols2nd-current.colspan) +1> This formula didn't work - Nery Nov 29th '11--->
+				   <!--- <cfset colspan = col - (cols2nd-current.colspan) +1> This formula didn't work - dev Nov 29th '11--->
 		   		   <!--- +1 added for the last column annotation --->
 				   <cfset colspan = cols2nd-current.colspan> 
 				   

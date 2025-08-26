@@ -323,7 +323,7 @@
 								    GLAccountDebit       = "#GLStock.GLAccount#"									
 									Shipping             = "Yes">
 
-									<!---- Added by Armin on 2/25/2015 --->
+									<!---- Added by dev on 2/25/2015 --->
 								   <cfquery name="CheckLoc" 
 								   datasource="AppsMaterials" 
 								   username="#SESSION.login#" 

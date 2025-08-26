@@ -52,7 +52,7 @@ username="#SESSION.login#"
 		
 	 <cfelse>
 	 
-	    <cfif URL.topic neq "All" > <!---- and #CLIENT.submission# eq "Skill" Removed by Armin May 5th 2011 --->
+	    <cfif URL.topic neq "All" > <!---- and #CLIENT.submission# eq "Skill" Removed by dev May 5th 2011 --->
 		    <cfinclude template="CompetenceEntry.cfm">
 		<cfelse>
 						

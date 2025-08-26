@@ -3412,7 +3412,7 @@ https://developer.mozilla.org/en-US/docs/HTML/Element/Input
 @final
 @since 1.3.0
 @example
-<a href="#" id="email" data-type="email" data-pk="1">admin@example.com</a>
+<a href="#" id="email" data-type="email" data-pk="1">dev@email</a>
 <script>
 $(function(){
     $('#email').editable({

@@ -51,9 +51,9 @@ SELECT    	TRXA1.db_mdst_source, TRXA1.part1_doc_id, IUSER.f_ugrp_id_code, UGRP.
 			PRSN.calc_fullname_LFM AS AdminAsstFullName
 INTO       	dbo.IMP_CLAIMREQEO
 FROM       	#DBDW#.#SCHdw#.DW_Ref_user_grp UGRP INNER JOIN
-           	WarehouseOPPBA.dbo.DW_Ref_user_h IUSER ON UGRP.db_mdst_source = IUSER.db_mdst_source AND UGRP.id_code = IUSER.f_ugrp_id_code INNER JOIN
+           	Warehousedev.dbo.DW_Ref_user_h IUSER ON UGRP.db_mdst_source = IUSER.db_mdst_source AND UGRP.id_code = IUSER.f_ugrp_id_code INNER JOIN
            	#DBDW#.#SCHdw#.DW_Ref_trans_approval TRXA1 ON IUSER.db_mdst_source = TRXA1.db_mdst_source AND IUSER.id_code = TRXA1.f_user_id_code INNER JOIN
-			WarehouseOPPBA.dbo.DW_sum_person_name_curr PRSN ON PRSN.db_mdst_source = IUSER.db_mdst_source AND PRSN.f_prsn_index_num = IUSER.f_prsn_index_num 
+			Warehousedev.dbo.DW_sum_person_name_curr PRSN ON PRSN.db_mdst_source = IUSER.db_mdst_source AND PRSN.f_prsn_index_num = IUSER.f_prsn_index_num 
 WHERE     	(TRXA1.part1_doc_id IN
                           (SELECT     doc_id
                             FROM          IMP_ClaimReq)) 
@@ -66,7 +66,7 @@ AND (TRXA1.f_adlh_tran_ser_num IN
 							AND f_adme_id_code = 'TVQY' AND f_dorf_id_code = 'TVRQ'
                             GROUP BY part1_doc_id)) 
 AND (IUSER.f_adlh_tran_ser_num  = (SELECT MAX(f_adlh_tran_ser_num)
-				  FROM WarehouseOPPBA.dbo.DW_Ref_user_h IUSER1
+				  FROM Warehousedev.dbo.DW_Ref_user_h IUSER1
 				  WHERE TRXA1.proc_date BETWEEN IUSER1.eff_beg_date AND IUSER1.eff_end_date
 				  AND IUSER1.db_mdst_source = IUSER.db_mdst_source
 				  AND IUSER1.id_code = IUSER.id_code
@@ -85,7 +85,7 @@ AdminAsstFullName = PRSN.calc_fullname_LFM
 FROM      
 #DBDW#.#SCHdw#.DW_Ref_imis_user IUSER INNER JOIN
 #DBDW#.#SCHdw#.DW_Ref_trans_approval TRXA1 ON IUSER.db_mdst_source = TRXA1.db_mdst_source AND IUSER.id_code = TRXA1.f_user_id_code INNER JOIN
-WarehouseOPPBA.dbo.DW_sum_person_name_curr PRSN ON PRSN.db_mdst_source = IUSER.db_mdst_source AND PRSN.f_prsn_index_num = IUSER.f_prsn_index_num 
+Warehousedev.dbo.DW_sum_person_name_curr PRSN ON PRSN.db_mdst_source = IUSER.db_mdst_source AND PRSN.f_prsn_index_num = IUSER.f_prsn_index_num 
 WHERE
 IMP_CLAIMREQEO.part1_doc_id = TRXA1.part1_doc_id
 AND (TRXA1.part1_doc_id IN (SELECT doc_id
@@ -112,27 +112,27 @@ SELECT DISTINCT
 INTO
 	IMP_CLAIMREQ_TRAVELLER_ORG
 FROM
-	WarehouseOPPBA.dbo.DW_sum_post_asof POST,
+	Warehousedev.dbo.DW_sum_post_asof POST,
 	dbo.IMP_CLAIMREQ TVRQ,
-	WarehouseOPPBA.dbo.DW_Rfg_org_unit ORGU
+	Warehousedev.dbo.DW_Rfg_org_unit ORGU
 WHERE 
 	ORGU.id_code = POST.post_f_orgu_id_code
 	AND POST.db_mdst_source = TVRQ.db_mdst_source 
 	AND POST.calc_asof_date <= TVRQ.creat_date
 	AND POST.pasn_f_prsn_index_num = TVRQ.f_prsn_index_num
 	AND POST.calc_asof_date = (SELECT MAX(POST1.calc_asof_date)
-				   FROM WarehouseOPPBA.dbo.DW_sum_post_asof POST1
+				   FROM Warehousedev.dbo.DW_sum_post_asof POST1
 				   WHERE POST.db_mdst_source = POST1.db_mdst_source
 				   AND POST.pasn_f_prsn_index_num = POST1.pasn_f_prsn_index_num
 				   AND POST1.calc_asof_date <= TVRQ.creat_date)
 	AND POST.pasn_incmb_pct = (SELECT MAX(POST2.pasn_incmb_pct)
-				FROM WarehouseOPPBA.dbo.DW_sum_post_asof POST2
+				FROM Warehousedev.dbo.DW_sum_post_asof POST2
 				WHERE POST.db_mdst_source = POST2.db_mdst_source
 				AND POST.pasn_f_prsn_index_num = POST2.pasn_f_prsn_index_num
 				AND POST.calc_asof_date = POST2.calc_asof_date
 				)
 	AND POST.post_chg_eff_date = (SELECT MAX(POST3.post_chg_eff_date)
-				FROM WarehouseOPPBA.dbo.DW_sum_post_asof POST3
+				FROM Warehousedev.dbo.DW_sum_post_asof POST3
 				WHERE POST.db_mdst_source = POST3.db_mdst_source
 				AND POST.pasn_f_prsn_index_num = POST3.pasn_f_prsn_index_num
 				AND POST.calc_asof_date = POST3.calc_asof_date

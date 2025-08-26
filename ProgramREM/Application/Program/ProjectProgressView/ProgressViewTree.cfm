@@ -15,8 +15,8 @@
 -->
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Progress View Tree</proDes>
 	<proCom>This file generates the progress view tree for progress reporting</proCom>
 </cfsilent>

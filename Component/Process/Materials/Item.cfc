@@ -410,7 +410,7 @@
 			
 			<cfif ParentItemNo neq "">
 			
-					<!--- added on 7/16/2013 by Armin--->
+					<!--- added on 7/16/2013 by dev--->
 					<cfquery name="qItemParent" 
 					datasource="#datasource#" 
 					username="#SESSION.login#" 

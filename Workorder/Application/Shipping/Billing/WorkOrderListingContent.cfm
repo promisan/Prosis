@@ -105,7 +105,7 @@ FROM (
 	WHERE       W.Mission = '#URL.Mission#'
 	AND         W.ActionStatus IN ('0','1')  <!--- exclude closed workorders --->
 	
-	<!--- Condition added by Armin on 3/31/2014 --->
+	<!--- Condition added by dev on 3/31/2014 --->
 	<cfif url.transactionlot neq "">
 		AND        W.WorkorderId IN 
 		                        (SELECT WorkOrderId 

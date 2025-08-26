@@ -104,7 +104,7 @@
 					Key1Value       = "#URL.ID2#"
 					Name1           = "Tooltip">								
 					
-	<!--- Nery: To be adjusted 
+	<!--- dev: To be adjusted 
 	<cfif form.classform eq "Pending">				
 	
 			<cf_TopicListingsubmitclass alias="#alias#" 
@@ -234,7 +234,7 @@
 					Key1Value       = "#Form.Code#"
 					Name1           = "Tooltip">		
 			
-			<!--- Nery: To be adjusted 
+			<!--- dev: To be adjusted 
 			<cfif form.topicclassValues neq "" and form.classform eq "Pending">
 			
 				<cf_TopicListingsubmitclass 

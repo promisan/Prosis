@@ -26,7 +26,7 @@
 			         Ref_EntityDocument D 
 			WHERE    A.ActionId   = '#url.id#' 
 			AND      A.DocumentId = D.DocumentId			
-			<!--- Added by Jorge Armin Mazariegos as an enhancement 
+			<!--- Added by dev dev dev as an enhancement 
 			September 2010 to shown only operational reports for that entity ---->
 			AND      D.Operational = '1'
 			ORDER BY D.DocumentOrder, A.Created			

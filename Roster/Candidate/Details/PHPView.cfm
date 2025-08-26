@@ -163,7 +163,7 @@ password="#SESSION.dbpw#">
 						
 					</tr>
 					
-					<!---  Enabled back by Armin on Jan 21 2021---->
+					<!---  Enabled back by dev on Jan 21 2021---->
 									
 					<cfquery name="PHPSource" 
 						datasource="AppsSelection" 

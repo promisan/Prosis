@@ -140,7 +140,7 @@
 			LanguageCode    = "ENG"
 			DocumentDate	= "#vDate#"
 			Reference	    = ""
-			To			    = "Mr. Chulmin Kang, Chief<br>Central Accounts Division, DM/OPPBA<br><br>"
+			To			    = "Mr. Chulmin Kang, Chief<br>Central Accounts Division, DM/dev<br><br>"
 			From		    = "Yin Wang-Beissel, Chief<br>Operations Support Unit, DM/OICT<br><br>"
 			Subject		    = "ICT Services: #ServiceDescription# - #CustomerNameLong# (#CustomerName#)"
 			Logo            = "#vLogo#"

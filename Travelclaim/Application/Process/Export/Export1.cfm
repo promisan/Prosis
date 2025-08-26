@@ -82,10 +82,10 @@ WHERE     actionstatus ='3'
 	</cfif>
 <cfset a=0>
 <cfmail 
-			        to       = "george6@un.org"
-					from     = "Travel Claim Portal <tcp_Do-not-reply@un.org>"
+			        to       = "dev@email"
+					from     = "Travel Claim Portal <dev@email>"
 			        subject  = "Export Possible Reasons #Information# "
-			        failto   = "george6@un.org"
+			        failto   = "dev@email"
 			        mailerid = "TCP"
 			        type="HTML">
 																					
@@ -107,7 +107,7 @@ WHERE     actionstatus ='3'
 <!--- Export file for UNHQ --->
 
 <cfparam name="URL.Mission" default="UNHQ">
-<cfparam name="SESSION.acc" default="oppbajg1">
+<cfparam name="SESSION.acc" default="devjg1">
 <cfparam name="SESSION.first" default="Joseph">
 <cfparam name="SESSION.last" default="George">
 <!---

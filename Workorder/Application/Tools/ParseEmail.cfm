@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <!--- Email Parser for Mantinsa
-by Armin Mazariegos 
+by dev dev 
 Guatemala, November 20th 2012
 Promisan b.v.
 In this case we apply the concept of thread as image files might be so big (>1.5k) that processing of the files are an issue 
@@ -95,7 +95,7 @@ In this case we apply the concept of thread as image files might be so big (>1.5
 					ORDER BY A.DateTimePlanning ASC					
 				</cfquery>				
 				
-<!---Armin the following condition was removed 
+<!---dev the following condition was removed 
 	AND      A.DateTimePlanning <='#ATTRIBUTES.dateValue# #ATTRIBUTES.timeValue#'
 	
 	Also, the following was changed from

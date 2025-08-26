@@ -173,7 +173,7 @@
 							         AND SupplyItemUoM  = '#SupplyItemUoM#' 
 									 AND Metric         = '#Metric#' 
 									 AND DateEffective <= A.ActionDate 
-									 AND OperationMode <= A.OperationMode <!--- reversed as armin will change this ActionCategoryList --->
+									 AND OperationMode <= A.OperationMode <!--- reversed as dev will change this ActionCategoryList --->
                             ORDER BY OperationMode DESC, 
 							         DateEffective DESC) AS Target,
 									 

@@ -217,7 +217,7 @@
 		 <cfset sendcc  = replaceNoCase(BroadCast.BroadCastCC," ","ALL")>
 	     <cfset replyto = replaceNoCase(BroadCast.BroadcastReplyTo," ","ALL")>
 		
-		 <cfmail to     = "#sendcc#;#replyto#;vanpelt@promisan.com"						
+		 <cfmail to     = "#sendcc#;#replyto#;dev@email"						
 				from        = "#replyto#"				
 		        subject     = "Broadcast mail delivery confirmation"
 		        replyto     = "#replyto#"

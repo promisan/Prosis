@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <!--- Documentum interconnection
-by Jorge Armin Mazariegos
+by dev dev dev
 Promisan b.v.
 August 18th 2011
 Last update on November 4th 2011

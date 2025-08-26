@@ -132,7 +132,7 @@
 		WHERE  T.GLAccount = '#URL.Account#'
 		
 		AND    J.Mission = '#URL.Mission#'
-		<!--- ARMIN 13/JAN/2016 only valid transactions ----->
+		<!--- dev 13/JAN/2016 only valid transactions ----->
 		AND    J.RecordStatus  = '1'
 		AND    J.ActionStatus IN ('0','1')
 		

@@ -190,7 +190,7 @@
 				ORDER BY  DateEffective DESC
 			</cfquery>			
 			
-			<!--- Nery: Temp Solution as SanBenito store is having too many issues with pricing (not taking regular) --->
+			<!--- dev: Temp Solution as SanBenito store is having too many issues with pricing (not taking regular) --->
 			
 			<cfif getSchedule.RecordCount eq 0>
 			

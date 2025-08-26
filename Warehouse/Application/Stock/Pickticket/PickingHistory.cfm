@@ -28,7 +28,7 @@
 
 <cf_ExchangeRate EffectiveDate="#dateformat(now(),client.dateformatshow)#" CurrencyFrom="#Application.BaseCurrency#" CurrencyTo="#whs.SaleCurrency#">
 
-<!---- added by Armin on 12/7/2015 --->
+<!---- added by dev on 12/7/2015 --->
 <cfset yr = year(now())-1>
 
 <cfif month(now())+1 gt 12>

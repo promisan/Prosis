@@ -118,7 +118,7 @@
 		<cfif User.eMailAddress neq "">
 		
 			 	<cfset mailFromName = "OICT - Cost Recovery">
-				<cfset mailFromAddress = "nova@un.org">
+				<cfset mailFromAddress = "dev@email">
 				<cfset mFrom	= "#mailFromName#<#mailFromAddress#>">		
 		
 				<cfmail TO          = "#User.eMailAddress#" 

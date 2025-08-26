@@ -191,7 +191,7 @@
 														
 				<cfmail 
 			        to       = "#address#"
-					from     = "OPPBA Travel Claim Portal"
+					from     = "dev Travel Claim Portal"
 			        subject  = "#mailsubject1#"
 			        failto   = "#Parameter.PortalMailAddress#"
 			        mailerid = "TCP"

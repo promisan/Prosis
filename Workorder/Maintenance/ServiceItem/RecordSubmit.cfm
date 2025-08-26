@@ -207,7 +207,7 @@ password="#SESSION.dbpw#">
 				           1)
 					</cfquery>	
 					
-					<!--- following was changed by Armin on Sept 20 2013 from
+					<!--- following was changed by dev on Sept 20 2013 from
 									           'Financials', to 'Position',
 						---->					   
 					  <cfquery name="InsertTabs" 

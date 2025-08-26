@@ -286,7 +286,7 @@ improve performance, the sktable should go into appsOLAP --->
 				
 </cfquery>	
 
-<!--- Below, by Jorge Mazariegos, Promisan b.v. : see my comments 24/9/2011 --->
+<!--- Below, by dev dev, Promisan b.v. : see my comments 24/9/2011 --->
 
 <!---
 <cfinclude template = "Consumption.cfm">

@@ -264,7 +264,7 @@
 		AND       PC.PersonNo = Ext.PersonNo
 		AND       ActionStatus = '1' 
 		AND       PC.DateExpiration = #STR1# <!--- if contract is null is automatically extends itself OR DateExpiration IS NULL) ---> 
-	    <!---- Removed on June 30th 2011 BY ARMIN AND     HistoricContract = 0 --->
+	    <!---- Removed on June 30th 2011 BY dev AND     HistoricContract = 0 --->
 		<!--- do not carry over already existing records --->
 		AND       PC.PersonNo NOT IN (
 		                              SELECT PersonNo 
@@ -332,7 +332,7 @@
 							   WHERE   Mission = '#URL.Mission#' 
 							   AND     ActionStatus = '1' 
 							   AND     PC.DateExpiration = #STR1# <!--- if contract is null is automatically extends itself OR DateExpiration IS NULL) ---> 
-							  <!---- Removed on June 30th 2011 BY ARMIN AND     HistoricContract = 0 --->
+							  <!---- Removed on June 30th 2011 BY dev AND     HistoricContract = 0 --->
 								<!--- do not carry over with already existing records --->
 							   AND     PC.PersonNo NOT IN (SELECT PersonNo 
 								                              FROM   Payroll.dbo.PersonEntitlement

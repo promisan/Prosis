@@ -163,7 +163,7 @@ password="#SESSION.dbpw#">
 			Key1Value       = "#Form.Category#"
 			Name1           = "Description">
 					
-	<!--- I, Armin, placed this before the verification otherwise the server got down as the verification is  heavy ---->
+	<!--- I, dev, placed this before the verification otherwise the server got down as the verification is  heavy ---->
 		
 	<!--- 5/8/2016, this is now disabled as we don't allow GL stock accounts to be changed anymore once used
 	now we check of the value in the general ledger would need to be corrected by comparing transaction value with GL value 

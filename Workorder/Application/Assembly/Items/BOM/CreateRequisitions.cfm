@@ -76,7 +76,7 @@
 	<cfif Quantity gte "0">
 		
 		<!----
-			Removed by Armin 4/21/2014
+			Removed by dev 4/21/2014
 		<cfset qty = Quantity-Procurement>
 		---->
 		

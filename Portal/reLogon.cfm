@@ -23,7 +23,7 @@
 		FROM   Parameter
 </cfquery>
 	
-<!--- provision to link to https Armin 8/10/2011--->
+<!--- provision to link to https dev 8/10/2011--->
 	
 <cfif CGI.HTTPS eq "off">
 	<cfset tpe = "http">

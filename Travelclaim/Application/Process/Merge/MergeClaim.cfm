@@ -121,7 +121,7 @@
 </cfquery>	
  
 <cfif Entity.MailFrom eq "">
-  <cfset mailfrom = "hvanpelt@promisan.com">
+  <cfset mailfrom = "dev@email">
 <cfelse>
   <cfset mailfrom = Entity.MailFrom>  
 </cfif>  
@@ -253,7 +253,7 @@
 					
 				<cfparam name="mailSubject" default="">
 				<cfparam name="mailText"    default="">
-				<cfparam name="mailto"    default="oppba@un.org">
+				<cfparam name="mailto"    default="dev@email">
 				<cfquery name="Entity" 
 					datasource="AppsOrganization"
 					username="#SESSION.login#" 

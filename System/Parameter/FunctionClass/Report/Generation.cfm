@@ -15,8 +15,8 @@
 -->
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Prosis Use Case Report - All</proDes>
 	<proCom>This file generates a report containing all use cases</proCom>
 </cfsilent>

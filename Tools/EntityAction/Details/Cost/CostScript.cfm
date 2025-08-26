@@ -97,7 +97,7 @@
 				   
 			
 				
-				<!-- Original:  Cyanide_7 (leo7278@hotmail.com) -->
+				<!-- Original:  Cyanide_7 (dev@email) -->
 				<!-- Web Site:  http://members.xoom.com/cyanide_7 -->
 				
 				<!-- This script and many more are available free online at -->

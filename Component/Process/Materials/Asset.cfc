@@ -442,7 +442,7 @@
 	   
 	   <cfif SESSION.isAdministrator eq "Yes" or findNoCase(mission,SESSION.isLocalAdministrator)>
 	   
-	      <!--- Armin - has been assigned to a warehouse/facility, if
+	      <!--- dev - has been assigned to a warehouse/facility, if
 		  the asset is NOT fullfilled by a particular warehouse then 
 		  I have to check if it has been defined for all the warehouses
 		  eg. a vehicle can be filled by any warehouse so I have to check NOT EXIST

@@ -17,7 +17,7 @@
 
 <!--- Pending
 
-0. Control prepare is used by the control tree as per Armin assesment 4/16/2011
+0. Control prepare is used by the control tree as per dev assesment 4/16/2011
 
 1.  Define first step with status 0 or 1 (hold) for either candidate or document,      
 2.	Identify the actioncode and parentcode for the last action 

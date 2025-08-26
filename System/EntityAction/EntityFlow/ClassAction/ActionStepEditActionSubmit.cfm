@@ -408,7 +408,7 @@
 			
 			<cfelse>
 			
-					<!---- added by Armin on 4/10/2012 --->
+					<!---- added by dev on 4/10/2012 --->
 			
 					 <cfquery name="CLng" 
 						datasource="AppsOrganization" 

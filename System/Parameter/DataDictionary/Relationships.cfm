@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- Test made by Jorge Mazariegos on the new features of cfmx 9 on OOP --->
+<!--- Test made by dev dev on the new features of cfmx 9 on OOP --->
 <cf_screentop height="100%" scroll="Yes" layout="webapp" title="" label="Relationship checking tool">
 
 <cfset vDS = "AppsProgram">

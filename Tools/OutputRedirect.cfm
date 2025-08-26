@@ -16,7 +16,7 @@
 <!---
  Tag:     <CF_OutputRedirect> ... </CF_OutputRedirect>
  File:    OutputRedirect.cfm
- Author:  Ben Forta - ben@forta.com
+ Author:  Ben Forta - dev@email
  Version: 1.0
  Date:    7/1/2000
  

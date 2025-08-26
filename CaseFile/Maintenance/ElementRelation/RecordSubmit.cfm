@@ -25,7 +25,7 @@
 		FROM Ref_ElementRelation
 		WHERE Code = '#Form.Code#' 
 <!---	
-	Remove by Nery's request on 3/8/2011	
+	Remove by dev's request on 3/8/2011	
 	    AND ElementClassFrom = '#Form.ElementFrom#'
 		AND ElementClassTo = '#Form.ElementTo#' 
 --->

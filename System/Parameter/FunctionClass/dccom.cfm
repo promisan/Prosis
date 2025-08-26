@@ -19,7 +19,7 @@
 Application:	Any
 Project:		Any
 Filename:		dccom.cfm
-Programmers:	Peter Coppinger <peter@digital-crew.com>
+Programmers:	Peter Coppinger <dev@email>
 
 Description:	Interface to invoke a dccom component.
 				Syntax: <cf_DCCOM component="[COMPONENT NAME]" [...x=y...]>

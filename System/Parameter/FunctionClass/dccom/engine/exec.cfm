@@ -19,7 +19,7 @@
 Application:	Any
 Project:		Any
 Filename:		exec.cfm
-Programmers:	Peter Coppinger <peter@digital-crew.com>
+Programmers:	Peter Coppinger <dev@email>
 				
 Purpose:		Includes the dcComponent for execution or the sets-up the parameters of the attribute
 

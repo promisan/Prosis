@@ -101,7 +101,7 @@ password="#SESSION.dbpw#">
 	   <cfif attributes.requestId neq "00000000-0000-0000-0000-000000000000" and attributes.requestid neq "">
 	   AND       R.RequestId = '#attributes.requestId#' 
 	   <cfelse>
-	   <!--- following was enabled by Armin on 11/15/2014 as it was resetting the status every day--->
+	   <!--- following was enabled by dev on 11/15/2014 as it was resetting the status every day--->
 	   AND       R.Status != '3'
 	   </cfif>	   
 </cfquery>   

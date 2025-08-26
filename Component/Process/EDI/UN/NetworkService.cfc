@@ -125,9 +125,9 @@
 							 '#qCustomer.CustomerId#',
 							 '#qCustomer.OrgUnit#',
 							 '2018-01-01',
-							 'jamazariegosr',
-							 'jamazariegosr',
-							 'jamazariegosr'	
+							 'jadevr',
+							 'jadevr',
+							 'jadevr'	
 							)
 						</cfquery>
 					<cfelse>
@@ -419,9 +419,9 @@
 								'#vTopic#',
 								'#vTopicValue#',
 								1,
-								'jamazariegosr',
-								'jamazariegosr',
-								'jamazariegosr'
+								'jadevr',
+								'jadevr',
+								'jadevr'
 								)
 					 	</cfquery>		
 								<br>
@@ -887,9 +887,9 @@
 								VALUES (
 									'UserAccount',
 									'#vEmailAddress#',
-									'jamazariegosr',
-									'jamazariegosr',
-									'jamazariegosr',
+									'jadevr',
+									'jadevr',
+									'jadevr',
 									getdate()
 									)
 				 			</cfquery>						 				
@@ -947,9 +947,9 @@
 									NULL,
 									NULL,
 								</cfif>	
-								'jamazariegosr',
-								'jamazariegosr',
-								'jamazariegosr',
+								'jadevr',
+								'jadevr',
+								'jadevr',
 								getdate(),
 								'#vFirstName# #vLastName#')
 				 			</cfquery>	
@@ -1038,9 +1038,9 @@
 								<cfif vUnitDateExpiration neq "">
 									'#vUnitDateExpiration#',
 								</cfif>	
-								'jamazariegosr',
-								'jamazariegosr',
-								'jamazariegosr',
+								'jadevr',
+								'jadevr',
+								'jadevr',
 								getdate())
 				 			</cfquery>	
 
@@ -1075,9 +1075,9 @@
 								1,
 								'USD',
 								'#vStandardCost#',
-								'jamazariegosr',
-								'jamazariegosr',
-								'jamazariegosr',
+								'jadevr',
+								'jadevr',
+								'jadevr',
 								getdate())		
 				 			</cfquery>	
 

@@ -166,7 +166,7 @@
 	    <cfargument name="destination" required="true" type="string" default="">
 	    <cfargument name="language" required="false" type="string" default="">
 	
-		<!--- by Armin on 1/5/2015, Promisan b.v. ---->
+		<!--- by dev on 1/5/2015, Promisan b.v. ---->
 		
 		<cftry>    
 
@@ -194,7 +194,7 @@
 		      </cfif>
 
 		      
-		      <!--- This is a new key I needed to generated using our gmail account bvpromisan@gmail.com, to discuss with Hanno
+		      <!--- This is a new key I needed to generated using our gmail account dev@email, to discuss with Hanno
 		      on how to add this to the client variables 1/5/2015 ---->
 		      
 		      <cfif len(trim(client.googleMAPId)) is not 0>

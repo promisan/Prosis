@@ -21,7 +21,7 @@ function customAddServerBehavior() {
 }
 
 function customMyclick() {
-	alert('toggling menu from server armin');
+	alert('toggling menu from server dev');
 	$('#menuContainer').toggle();
 }
 

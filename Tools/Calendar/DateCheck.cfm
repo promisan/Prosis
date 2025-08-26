@@ -25,7 +25,7 @@
 
 <!--- This script and many more are available free online at --->
 <!--- The JavaScript Source!! http://javascript.internet.com --->
-<!--- Original:  Torsten Frey (tf@tfrey.de) --->
+<!--- Original:  Torsten Frey (dev@email) --->
 <!--- Web Site:  http://www.tfrey.de --->
 
 function check_date(field,format){

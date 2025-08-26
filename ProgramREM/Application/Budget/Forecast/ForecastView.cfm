@@ -16,8 +16,8 @@
 
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Displays the groups allowed for the period</proDes>
 	<proCom>STL CHANGE</proCom>
 </cfsilent>

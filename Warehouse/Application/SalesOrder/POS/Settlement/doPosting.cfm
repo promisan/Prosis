@@ -202,7 +202,7 @@
 		---->
 		
 		<!--- <cfif getPrior.total eq getNewSale.Total> --->
-        <!--- Here we need a better way to indicate we operate in new e-invoice mode, Armin 10/6/2020 --->
+        <!--- Here we need a better way to indicate we operate in new e-invoice mode, dev 10/6/2020 --->
 		
 		<cfif getPriorTotal.total eq getNewSaleTotal.Total>
 
@@ -292,7 +292,7 @@
 	Do note that url.batchid is different from vBatchId
 	URL.batchId : is the batchId for retrieving purposes
 	vBatchId : is the generated Id that was given after calling postTransaction
-	11/13/2014 	Armin 
+	11/13/2014 	dev 
 	--->
 	
 	<cfif url.batchid neq "">

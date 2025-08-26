@@ -297,7 +297,7 @@ password="#SESSION.dbpw#">
 										  <option value="Number"     <cfif fieldoutputformat eq "Number">selected</cfif>>F:Number</option> 
 									   	  <option value="Amount"     <cfif fieldoutputformat eq "Amount">selected</cfif>>F:Amount [,000.00]</option> 
 										  <option value="Amount0"    <cfif fieldoutputformat eq "Amount0">selected</cfif>>F:Amount [,000]</option> 
-										  <option value="eMail"      <cfif fieldoutputformat eq "eMail">selected</cfif>>Mail [nn@dd.cc]</option> 		
+										  <option value="eMail"      <cfif fieldoutputformat eq "eMail">selected</cfif>>Mail [dev@email]</option> 		
 										  <option value="Attachment" <cfif fieldoutputformat eq "Attachment">selected</cfif>>Attachment</option> 									
 									 </select>
 								</td>

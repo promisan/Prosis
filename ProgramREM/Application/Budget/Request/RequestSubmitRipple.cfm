@@ -275,7 +275,7 @@
 	
 					   <cfif budgetMode eq "2" or budgetMode eq "3">
 					   
-							<!---- now we populate ProgramAllotmentRequestQuantity Armin -- 5/28/2014 ---->
+							<!---- now we populate ProgramAllotmentRequestQuantity dev -- 5/28/2014 ---->
 							
 							 <cfquery name="InsertQuantities" 
 								  datasource="AppsProgram" 

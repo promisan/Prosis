@@ -36,7 +36,7 @@
     <cfset CLIENT.VirtualDir  = "">
 </cfif>
  
-<!--- Table generation checking by Armin 08/30/2014 ---->
+<!--- Table generation checking by dev 08/30/2014 ---->
 <cfinclude template="PostViewInit.cfm">
 <cf_systemscript>
   

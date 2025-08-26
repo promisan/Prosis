@@ -177,7 +177,7 @@
 	            <!--- process the criteria selection form --->
 				<!--- ----------------------------------- --->
 								
-				<!---- Armin changed this line on 25 Feb 2012, as a way of improving the cfprogressbar document.selection.submit() ---->
+				<!---- dev changed this line on 25 Feb 2012, as a way of improving the cfprogressbar document.selection.submit() ---->
 				var rpt = document.getElementById ('report');
 								
 				if (rpt)

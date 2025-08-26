@@ -43,7 +43,7 @@ fc.sourceNormalizers.push(function(sourceOptions) {
 	if (!googleCalendarId && url) {
 
 		// detect if the ID was specified as a single string.
-		// will match calendars like "asdf1234@calendar.google.com" in addition to person email calendars.
+		// will match calendars like "dev@email" in addition to person email calendars.
 		if ((match = /^[^\/]+@([^\/\.]+\.)*(google|googlemail|gmail)\.com$/.test(url))) {
 			googleCalendarId = url;
 		}

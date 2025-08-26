@@ -28,7 +28,7 @@
 </cfif>
 <cfparam name="CLIENT.Browser" default="Explorer">
 
-<!--- removed by Armin as it is duplicated from SubmenuMission.cfm 7/21/2013 
+<!--- removed by dev as it is duplicated from SubmenuMission.cfm 7/21/2013 
 <link href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>" rel="stylesheet" type="text/css">
 --->
 

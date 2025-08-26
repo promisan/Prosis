@@ -32,7 +32,7 @@
 		           INNER JOIN Purchase.dbo.ItemMaster IM ON I.ItemMaster = IM.Code 
 				   INNER JOIN Ref_Category C ON I.Category = C.Category			
 		
-		<!--- change done by Armin on 1/22/2014 --->
+		<!--- change done by dev on 1/22/2014 --->
 		
 		<cfif url.class eq "Supply">
 		WHERE      (

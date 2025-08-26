@@ -159,7 +159,7 @@ password="#SESSION.dbpw#">
 <cfparam name="Entitlement.RecordCount" default="0">
 <cfparam name="allowOverlap" default="1">
 
-<!--- added by Jorge Mazariegos as per Eybi's request 
+<!--- added by dev dev as per devs request 
 there are people who will have more than one entitlement in one month.
 June 2007
 --->

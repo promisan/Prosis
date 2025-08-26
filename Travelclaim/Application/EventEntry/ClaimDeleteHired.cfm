@@ -16,7 +16,7 @@
 <!--- Prosis template framework --->
 
 <cfsilent>
-<proUsr>oppbajg1</proUsr>
+<proUsr>devjg1</proUsr>
 <proOwn>Joseph George</proOwn>
 <proDes>Just to delete unwanted </proDes>
 <proCom></proCom>

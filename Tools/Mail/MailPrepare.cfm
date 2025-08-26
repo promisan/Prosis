@@ -25,7 +25,7 @@
 <cfparam name="URL.templatepath"   default="#url.id0#">
 
 <cfparam name="URL.subject"        default="#URL.ID1#">
-<cfparam name="URL.to"             default="xxxx@un.org">
+<cfparam name="URL.to"             default="dev@email">
 <cfparam name="URL.filename"       default="Document">
 <cfparam name="URL.format"         default="PDF">
 <cfparam name="URL.marginTop"      default="2.2">

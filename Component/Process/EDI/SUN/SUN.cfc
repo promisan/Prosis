@@ -826,7 +826,7 @@
 				<cfif qCheck.recordcount eq 0>
 				
 						<!--- Column 6 history, 
-							by Armin
+							by dev
 							17/01/2018, please note the replacement statement 
 							SUN expects 2017 as 217, 2018 as 218, 2029 as 229
 							The reason for this is unknown at this time

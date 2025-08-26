@@ -38,7 +38,7 @@
 <!--- just a batch clean requisitionline that have not been processed yet- --->
 <!--- -------------------------------------------------------------------- --->
 
-<!--- commented out 11/30/2015 by Armin , requested by Carolina 
+<!--- commented out 11/30/2015 by dev , requested by Carolina 
 <cfquery name="reset" 
 	datasource="AppsWorkOrder" 
 	username="#SESSION.login#" 

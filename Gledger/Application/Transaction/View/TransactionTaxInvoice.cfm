@@ -231,7 +231,7 @@
 		
 						<cfif stResponse.Status neq "OK">	
 														   					
-							 <!--- manual 5/7/2021 by Armin	<cfset Invoice.Mode = "1"> --->
+							 <!--- manual 5/7/2021 by dev	<cfset Invoice.Mode = "1"> --->
 							 <cfset Invoice.Status = "9">
 							 <cfset Invoice.ErrorDescription = stResponse.ErrorDescription>
 							 <cfif StructKeyExists(stResponse,"ErrorDetail")>
@@ -278,7 +278,7 @@
 		   
 		    </cfoutput>   	 
 			
-			<!--- Armin : do record action and other stuff --->	
+			<!--- dev : do record action and other stuff --->	
 	
 	</cfif>
 

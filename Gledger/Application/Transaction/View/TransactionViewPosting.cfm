@@ -59,7 +59,7 @@
 		to have a proper matching to the children. We enforce the sorting by giving the current transaction lines a sorting = 1,
 		then we sort by transaction date followed by transaction header to ensure detailes from the sme transacfion are show in conjunction
 
-Armin 10/4/2013: Very important query as it combines child/parent transactions. Example:
+dev 10/4/2013: Very important query as it combines child/parent transactions. Example:
 
 1. 	Purchases
 		Invoices Received

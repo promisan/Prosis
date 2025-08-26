@@ -1720,7 +1720,7 @@
 							
 							<dte:DatosEmision ID="DatosEmision">
 								<dte:DatosGenerales CodigoMoneda="#vCurrency#" FechaHoraEmision="#DateFormat(dts,"yyyy-mm-dd")#T#TimeFormat(dta,"hh:mm:ssXXX")#" Tipo="#vInvoiceType#"></dte:DatosGenerales>
-								<cfif GetWarehouseSeries.OrgUnitName eq "DR. JORGE MANUEL ALDANA SAENZ">
+								<cfif GetWarehouseSeries.OrgUnitName eq "dev">
 									<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetWarehouseSeries.OrgUnitName#">
 								<cfelse>
 									<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetMission.MissionName#">

@@ -106,7 +106,7 @@
 			  <cfset  sc = "">			 
 			</cfif> 
 
-			<!--- removing the following line  - Armin 1/4/2015
+			<!--- removing the following line  - dev 1/4/2015
 					script           = "#sc#"
 			--->		
 			

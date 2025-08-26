@@ -357,7 +357,7 @@
 					
 			<tr>	 	 
 				
-				 <td class="labelmedium" style="cursor:pointer;padding:<cfoutput>#pd#</cfoutput>" title="eMail address (example : kyriacou@un.org)"><cf_tl id="Mail Cc">:</td>	
+				 <td class="labelmedium" style="cursor:pointer;padding:<cfoutput>#pd#</cfoutput>" title="eMail address (example : dev@email)"><cf_tl id="Mail Cc">:</td>	
 				 <td style="padding:<cfoutput>#pd#</cfoutput>">
 				 <cfinput type="Text" 
 				         name="DistributionEMailCC" 
@@ -392,7 +392,7 @@
 						 validate="email"
 						 message="Please enter a valid eMail address" 
 						 style="text-align: left;;width:100%"
-						 tooltip="<table><tr><td>eMail address (example : vanpelt@un.org)</td></table>">	
+						 tooltip="<table><tr><td>eMail address (example : dev@email)</td></table>">	
 						 
 				 </td>		 
 				 

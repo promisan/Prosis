@@ -205,7 +205,7 @@
 				DocumentDescription =  '#Form.DocumentDescription# -#url.curraction#-',
 				<cfif Form.ClaimMemo neq "null">
 					<!---Preventing a fast clicker to break the code 
-					Jorge Mazariegos on Sept 8 2010 --->
+					dev dev on Sept 8 2010 --->
 					ClaimMemo       = '#Form.ClaimMemo#',
 				</cfif>					
 				OrgUnit         = '#Form.OrgUnit#',

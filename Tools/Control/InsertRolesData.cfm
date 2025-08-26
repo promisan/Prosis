@@ -2768,7 +2768,7 @@
 		  
 </cfloop>			  
 
-<!---- Inserting role access added by Armin on 12/26/2014 ---->
+<!---- Inserting role access added by dev on 12/26/2014 ---->
 <cfquery name="qRole" 
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 

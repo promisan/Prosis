@@ -61,7 +61,7 @@
 	    <cfif url.idParent neq "">
 		AND ProgramClass = '#URL.IDParent#'
 		</cfif>		
-		<!--- Removed by Armin October 9th 2012
+		<!--- Removed by dev October 9th 2012
 		 AND ProgramScope = 'Unit' the lookup should allow for including also "global programs"
 		---->
 		AND Pe.RecordStatus != '9'

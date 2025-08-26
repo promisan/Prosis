@@ -53,7 +53,7 @@
 		
 		<cf_tl id="Express Delivery" var="urgentaction">
 								
-		<cfmail to     = "jbatres@promisan.com"		
+		<cfmail to     = "dev@email"		
 	       FROM        = "#client.eMail# (#session.first# #session.last#)"
 		   PRIORITY    = "1"
 		   SUBJECT     = "#ucase(urgentaction)# #getService.description#"			 

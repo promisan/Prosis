@@ -15,8 +15,8 @@
 -->
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Translated</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -47,7 +47,7 @@
 	<cf_assignid>
 							
 	<cfif showUnit neq "" or ProgramScope eq "Global" or (showParent neq "" and ProgramScope eq "Parent")>
-		<!---- JM.Armin changed this from OrgUnit=URL.id1 to OrgUnit=OrgUnit January 25 2013--->
+		<!---- JM.dev changed this from OrgUnit=URL.id1 to OrgUnit=OrgUnit January 25 2013--->
 		<cfif URL.id1 eq "Tree">
 			<cfset vOrgUnit = OrgUnit>
 		<cfelse>

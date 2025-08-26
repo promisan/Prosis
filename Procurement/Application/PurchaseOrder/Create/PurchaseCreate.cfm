@@ -15,8 +15,8 @@
 -->
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Translated</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -497,7 +497,7 @@ password="#SESSION.dbpw#">
 			</cfquery>			
 			
 			
-			<!---- URL.MISSION Added by Jorge Mazariegos on feb 03/2011 ---->
+			<!---- URL.MISSION Added by dev dev on feb 03/2011 ---->
 			
 			<tr>
 			   <td style="min-width:200;width:100" class="labelmedium2"><cf_tl id="Order Class">:</td>

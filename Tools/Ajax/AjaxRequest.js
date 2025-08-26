@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 // ===================================================================
-// Author: Matt Kruse <matt@ajaxtoolbox.com>
+// Author: Matt Kruse <dev@email>
 // WWW: http://www.AjaxToolbox.com/
 //
 // NOTICE: You may use this code for any purpose, commercial or

@@ -19,7 +19,7 @@
 Application:	Any
 Project:		Any
 Filename:		dcHTMLRect.cfm
-Programmers:	Peter Coppinger <peter@digital-crew.com>
+Programmers:	Peter Coppinger <dev@email>
 				
 Purpose:		Part of dcComponent engine!
 				Sets up easy to use paths to component data.

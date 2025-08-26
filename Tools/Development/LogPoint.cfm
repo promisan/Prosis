@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <!--- 
-by Jorge Armin Mazariegos
+by dev dev dev
 Promisan b.v.
 This is a custom tag developed to help developer place a break point 
 to troubleshoot a particular piece of code.
@@ -27,7 +27,7 @@ b) Writing from scratch an existing file
 
 it can be write or append. 
 
-The name of the output file can now be defined as well in parameter FileName. Added by Nery on 27 oct 2011
+The name of the output file can now be defined as well in parameter FileName. Added by dev on 27 oct 2011
 
 --->
 

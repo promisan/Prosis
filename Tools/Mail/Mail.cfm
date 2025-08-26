@@ -538,7 +538,7 @@
 				</cfloop>
 				
 				<!---- PLEASE CONSIDER HERE INVOKING DOCUMENT SERVER REMOTE COPYING ROUTINE 
-				JORGE ARMIN MAZARIEGOS
+				dev dev dev
 				----------------->
 																			
 				<cfdirectory action="LIST" 

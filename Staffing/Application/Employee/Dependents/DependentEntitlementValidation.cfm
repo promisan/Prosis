@@ -107,7 +107,7 @@
 				<cfset vEff = vDates[i][2]>
 				<cfset vExp = vDates[i][3]>
 	
-				<!--- added by Armin on June 2013 --->
+				<!--- added by dev on June 2013 --->
 				<cfset dateValue = "">
 				<CF_DateConvert Value="#vEff#">
 				<cfset cEff = dateValue>

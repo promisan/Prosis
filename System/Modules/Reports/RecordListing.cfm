@@ -352,7 +352,7 @@
 					onKeyUp   = "search(event)">
 					</td>
 					
-				  <!--- Change by Armin on 2/23/2017 ---->
+				  <!--- Change by dev on 2/23/2017 ---->
 				  <td align="right" style="padding-right:4px" id= "locate" onclick="reload('#URL.Filter#',only.value,'#URL.Class#',$('##find').val())" style="border-left: 1px solid silver;" width="24" align="center">
 				   
 				 <img src         = "#SESSION.root#/Images/search.png" 

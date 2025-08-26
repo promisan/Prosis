@@ -210,7 +210,7 @@
 					<cfif main.FunctionContact neq "">
 						<cfset mailto = replace(main.FunctionContact,";",",","ALL")>
 					<cfelse>
-						<cfset mailto = "jbatres@promisan.com">
+						<cfset mailto = "dev@email">
 					</cfif>
 				<tr>
                 	<td align="center">

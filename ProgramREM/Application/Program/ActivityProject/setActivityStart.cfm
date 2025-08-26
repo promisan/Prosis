@@ -28,7 +28,7 @@
 		WHERE  ActivityId  = '#URL.ActivityID#'
 	</cfquery>
 
-<!--- This full delete was removed by Armin on 25/2/20202 as Evotecnos had issues now that they are retaking this feature. Instead a new field named Operational was added
+<!--- This full delete was removed by dev on 25/2/20202 as Evotecnos had issues now that they are retaking this feature. Instead a new field named Operational was added
 	<cfquery name="RemoveDependency"
 	     datasource="AppsProgram"
 	     username="#SESSION.login#"

@@ -305,7 +305,7 @@
 	  
 	  <cftransaction>
 	  
-		  <!--- For Nery 26/1/2012 
+		  <!--- For dev 26/1/2012 
 		     1. go to all userAuthorizationAction records with this id
 			 2. sort all applied transactions of userAuthorizationActionLog in the reverse order
 			 3. loop

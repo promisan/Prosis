@@ -87,7 +87,7 @@
 		
 		--->
 		
-	    <cfset frommail = "noreply@promisan.com">
+	    <cfset frommail = "dev@email">
 	
 		<cfquery name="Param" 
 			datasource="AppsSystem" 

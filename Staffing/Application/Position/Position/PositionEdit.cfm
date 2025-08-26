@@ -15,7 +15,7 @@
 -->
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
+	<proUsr>dev</proUsr>
 	<proOwn>Hanno van Pelt</proOwn>
 	<proDes>ST version 1</proDes>
 	<proCom></proCom>
@@ -2017,7 +2017,7 @@ password="#SESSION.dbpw#">
 	</cftry>
 			
 	<!--- template to add a custom link to the field 
-	on April 15, 2009, Jorge Mazariegos changed it from SourcePostNumber to PositionNo
+	on April 15, 2009, dev dev changed it from SourcePostNumber to PositionNo
 	
 	
 	<cf_customLink

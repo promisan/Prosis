@@ -16,8 +16,8 @@
 
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>hvanpelt</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Show resources budget</proDes>
 	<proCom></proCom>
 </cfsilent>

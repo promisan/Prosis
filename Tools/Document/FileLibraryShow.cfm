@@ -968,7 +968,7 @@
 
 </table>
 
-<!--- check with armin
+<!--- check with dev
 	<cfset AjaxOnLoad("doHighlight")>
 --->
 

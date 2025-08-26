@@ -72,7 +72,7 @@
  * Replaces accented characters with their non accented closest equivalents.
  * 
  * @return Returns a string. 
- * @author Rachel Lehman (raelehman@gmail.com) 
+ * @author Rachel Lehman (dev@email) 
  * @version 1, November 15, 2010 
  */
 function deAccent(str){

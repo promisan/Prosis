@@ -80,7 +80,7 @@
 	
 	<tr class="line"><td colspan="12" style="height:40px;font-size:24px" class="labellarge line"><font size="3">Topic:</font>&nbsp;#TopicClass#</font></td></tr>
 	
-	  <!--- Nery : determine the number --->
+	  <!--- dev : determine the number --->
 		
 	  <cfset topicscopetable="">
 	  <cfset datatable = "">

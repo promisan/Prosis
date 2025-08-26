@@ -20,7 +20,7 @@
 
 <cfparam name="Form.Workgroup" default="">
 
-<!--- Don't think this is needed anymore, Nery: 24/04/2012
+<!--- Don't think this is needed anymore, dev: 24/04/2012
 <cfif form.workgroup eq "">
 
 	<script>

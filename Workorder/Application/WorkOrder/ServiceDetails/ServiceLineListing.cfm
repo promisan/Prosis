@@ -16,7 +16,7 @@
 
 <!--- container for the service workorder lines to be shown --->
 
-<!--- Removed by Armin on 9/6/2013 due to flickering issues on IE 10 --->
+<!--- Removed by dev on 9/6/2013 due to flickering issues on IE 10 --->
 
 <cfparam name="url.ref"       default="">
 <cfparam name="url.domain"    default="">

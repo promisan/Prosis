@@ -16,7 +16,7 @@
 //***********************************************
 //  Javascript Menu (c) 2006, by Deluxe-Menu.com
 //  version 2.01
-//  E-mail:  cs@deluxe-menu.com
+//  E-mail:  dev@email
 //***********************************************
 // Obfuscated by Javascript Obfuscator
 // http://javascript-source.com

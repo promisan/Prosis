@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!---- By Jorge Armin Mazariegos, 
+<!---- By dev dev dev, 
 Promisan b.v. 
 November 2015
 --->

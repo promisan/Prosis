@@ -606,9 +606,9 @@
 											<td><font size="1">
 												<ul>
 													<li>Iseek Wireless Webpage <a href="https://iseek-newyork.un.org/webpgdept2152_1">https://iseek-newyork.un.org/webpgdept2152_1</a></li>
-													<li>Wireless Support <a href="mailto:Wireless@un.org">Wireless@un.org</a></li>
-													<li>Service Support <a href="mailto:ITServices@un.org">ITServices@un.org</a></li>
-													<li>Technical Support <a href="mailto:HelpdeskOICT@un.org">HelpdeskOICT@un.org</a></li>
+													<li>Wireless Support <a href="mailto:dev@email">dev@email</a></li>
+													<li>Service Support <a href="mailto:dev@email">dev@email</a></li>
+													<li>Technical Support <a href="mailto:dev@email">dev@email</a></li>
 												</ul>
 												</font>
 												<br>

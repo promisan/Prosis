@@ -286,7 +286,7 @@ but only for documentNo that do not have already an occurance with the base (A).
 		WHERE  PersonNo = '#Form.Wrong#' 
 	</cfquery>
 
-	<!---- Below added by Armin on Jan 21 2021 ---->
+	<!---- Below added by dev on Jan 21 2021 ---->
 	<cfquery name="qCheckCustomer"
 			datasource="appsSelection" username="#SESSION.login#" password="#SESSION.dbpw#">
 		SELECT * FROM Workorder.dbo.Customer

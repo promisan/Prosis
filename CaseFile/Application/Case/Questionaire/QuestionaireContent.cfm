@@ -115,7 +115,7 @@
 				<cfset itm = 0>
 						
 				<!--- show for collaborator and up --->
-				<!--- REMOVED BY ARMIN ON AUGUST 2011 
+				<!--- REMOVED BY dev ON AUGUST 2011 
 			    <cfif accessGranted gte "0">		
 				
 						<cfset itm = itm+1>
@@ -242,14 +242,14 @@
 			 
 			
 			<cf_menucontainer item="1" class="regular">
-				  <!--- Removed as per OHRM (Jasmin) request on November 18th - Nery
+				  <!--- Removed as per OHRM (Jasmin) request on November 18th - dev
 					<cfset url.objectId = Object.Objectid>
 					<cfinclude template="../Additional/Additional.cfm">
 					--->
 			</cf_menucontainer>
 			<cf_menucontainer item="2" class="hide">
 		
-			<!--- added as per OHRM (Jasmin) request on November 18th - Nery --->
+			<!--- added as per OHRM (Jasmin) request on November 18th - dev --->
 			<script>
 				document.getElementById("death1").click();
 			</script>

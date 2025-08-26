@@ -18,7 +18,7 @@
 - expected attribute: sleep (specified in seconds)
 - example: <cf_sleep seconds="n"> 
 
-- by Charlie Arehart, carehart@systemanage.com
+- by Charlie Arehart, dev@email
 --->
 
 <cfparam name="attributes.seconds" default="2">

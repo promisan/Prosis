@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- To improve performance Armin changed IN statement to NOT EXIST --->
+<!--- To improve performance dev changed IN statement to NOT EXIST --->
 
 <cfparam name="attributes.itemNo" default="">
 

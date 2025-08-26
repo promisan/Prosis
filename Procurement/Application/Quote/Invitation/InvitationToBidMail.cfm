@@ -48,5 +48,5 @@
 <cfif isValid("email", Address.eMailAddress)>
 	<cfset mailto = "#Address.eMailAddress#">
 <cfelse>
-    <cfset mailto = "vanpelt@promisan.com">
+    <cfset mailto = "dev@email">
 </cfif>	

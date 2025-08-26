@@ -496,7 +496,7 @@ Button SEND
 	
 - trigger the email
 - save eMail action in Ref_SubmissionEditionPublish
-	[Jorge, how can we capture we delivery confirmation ?]
+	[dev, how can we capture we delivery confirmation ?]
 - Prevent sending eMails twice, unless Ref_SubnmissionEditionPublish allows for it.
 
  --->

@@ -37,7 +37,7 @@
               ServiceItemMission AS M ON S.Code = M.ServiceItem
     WHERE     (S.Selfservice = '1') 
 	AND       (M.Mission = '#url.mission#')
-    AND       (S.Operational = '1') <!--- added by jBatres 12/03/2012 --->
+    AND       (S.Operational = '1') <!--- added by dev 12/03/2012 --->
     ORDER BY  S.ListingOrder
 </cfquery>	
 

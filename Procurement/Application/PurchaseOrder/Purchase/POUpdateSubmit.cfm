@@ -15,8 +15,8 @@
 -->
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Translated</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -359,7 +359,7 @@
 	  
 	 </cfif> 
 	  
-<!--- Updating funding JORGE MAZARIEGOS --->
+<!--- Updating funding dev dev --->
 <cfquery name="Delete" 
   datasource="AppsPurchase" 
   username="#SESSION.login#" 

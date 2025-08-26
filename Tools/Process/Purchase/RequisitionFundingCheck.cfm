@@ -17,8 +17,8 @@
 
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Translated</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -1086,7 +1086,7 @@ password="#SESSION.dbpw#">
 				        <cfset res = res+Preencum.Amount>				    
 				    </cfif>				   		 			
 												 
-					<!---- Check on -res from the below as it might giving issues for this mode Armin, 11-20-2019, no change --->							 
+					<!---- Check on -res from the below as it might giving issues for this mode dev, 11-20-2019, no change --->							 
 					<cfset bal = bud - res - obl - dis>
 
 					 

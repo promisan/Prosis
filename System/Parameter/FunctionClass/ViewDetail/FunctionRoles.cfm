@@ -15,8 +15,8 @@
 -->
 <!--- Prosis template framework --->
 <cfsilent>
- <proUsr>jmazariegos</proUsr>
-�<proOwn>Jorge Mazariegos</proOwn>
+ <proUsr>dev</proUsr>
+�<proOwn>dev dev</proOwn>
  <proDes>Roles identification</proDes>
  <!--- specific comments for the current change, may be overwritten --->
 �<proCom></proCom>

@@ -141,7 +141,7 @@
 		</TR>
 		
 		<TR>
-	    <td class="labellarge" style="padding-left:40;cursor:pointer" title="Database server license</b> Contact : info@promisan.com to acquire one">Server Usage/Upgrade License:</td>
+	    <td class="labellarge" style="padding-left:40;cursor:pointer" title="Database server license</b> Contact : dev@email to acquire one">Server Usage/Upgrade License:</td>
 	    <TD>
 			<table
 			<tr class="fixlengthlist">

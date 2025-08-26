@@ -285,7 +285,7 @@
 	 
     <cfelse>
 			
-		<!--- As per discussion with Hanno on Feb 29th, 2012 the below cleaning is safe. Nery --->
+		<!--- As per discussion with Hanno on Feb 29th, 2012 the below cleaning is safe. dev --->
 		<cfquery name="Check"
 		datasource="AppsProgram" 
 		username="#SESSION.login#" 

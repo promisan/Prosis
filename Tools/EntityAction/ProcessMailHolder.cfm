@@ -403,7 +403,7 @@
 			   <cfelse>
 			   		
 					<!--- should never occur --->	   
-			      	<cfset sendto = "vanpelt@promisan.com">  
+			      	<cfset sendto = "dev@email">  
 			  
 			   </cfif> 	
 			
@@ -488,7 +488,7 @@
 				  
 				  <cfif sendto eq "">
 				  	<!--- should never occur --->	   
-			      	<cfset sendto = "vanpelt@promisan.com"> 
+			      	<cfset sendto = "dev@email"> 
 				  </cfif>	 
 				  				
 			</cfcase>
@@ -512,7 +512,7 @@
 				  <cfelse>
 				  
 				  	<!--- should never occur --->	   
-			      	<cfset sendto = "vanpelt@promisan.com">  
+			      	<cfset sendto = "dev@email">  
 				  
 				  </cfif>
 			

@@ -140,7 +140,7 @@
 					  
 				<cfelse>	
 				
-					<!---- Modification on August 25th 2011 as per discussion with Nery, Jorge Mazariegos ---->
+					<!---- Modification on August 25th 2011 as per discussion with dev, dev dev ---->
                    <cfif valueclass eq "Time">
                   
                         <cfset new = Evaluate("FORM.Topic_#Code#_hour") & ":" & Evaluate("FORM.Topic_#Code#_minute") >

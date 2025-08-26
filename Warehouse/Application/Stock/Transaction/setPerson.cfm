@@ -53,7 +53,7 @@ password="#SESSION.dbpw#">
     <table border="0" cellspacing="0" width="90%" align="center" class="formpadding">
 	
 	<tr><td height="8"></td></tr>
-	   <!--- Added field by Jorge --->
+	   <!--- Added field by dev --->
     <TR>
     <TD class="labelit"><cf_tl id="ExternalReference">: <font color="FF0000">*</font></TD>
     <TD>

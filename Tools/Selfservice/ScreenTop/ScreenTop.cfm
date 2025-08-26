@@ -849,7 +849,7 @@ datasource="AppsInit">
 		<cfelseif attributes.layout eq "None">
 
 		<cfelse>
-			<!--- It seems this part is for the login in selfservice (comment by Armin 8/8/2013)--->
+			<!--- It seems this part is for the login in selfservice (comment by dev 8/8/2013)--->
 			<cfset row = "9">	
 			<cfset image = "#SESSION.root#/tools/selfservice/LoginImages">			
 														
@@ -966,7 +966,7 @@ datasource="AppsInit">
 	</cfif>
 
 	<!---
-	Removed by Armin on 29/Jan/2020
+	Removed by dev on 29/Jan/2020
 	<cfif attributes.HTML eq "No" and attributes.mail eq "No">
 		<cf_waitend>
 	</cfif>

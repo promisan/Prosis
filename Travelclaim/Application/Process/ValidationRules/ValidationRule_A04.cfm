@@ -300,7 +300,7 @@ where ClaimObligated =0
 							<cfif Parameter.AliasSourceData neq "" AND Valpap neq "">
 															
 								<!--- enable above change once in production Hanno --->
-								<cfset sp = "WarehouseOPPBA">
+								<cfset sp = "Warehousedev">
 								<!--- <cfset sp = "#Parameter.AliasSourceData#"> --->
 															 																														
 								<cfstoredproc procedure="up_fn_val_ldgb_suf" 
@@ -523,7 +523,7 @@ where ClaimObligated =0
 						
 						<!--- enable above change once in production Hanno --->
 							
-						<cfset sp = "WarehouseOPPBA">
+						<cfset sp = "Warehousedev">
 								<!--- <cfset sp = "#Parameter.AliasSourceData#"> --->
 															 																														
 								<cfstoredproc procedure="up_fn_val_ldgb_suf" 

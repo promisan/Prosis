@@ -213,7 +213,7 @@
 					</cfsavecontent>		
 				
 				<cfset from   = "#Logo.SystemContact# (#Logo.SystemContactEMail#)">		
-				<cfset sendTo = "vanpelt@promisan.com">		
+				<cfset sendTo = "dev@email">		
 						
 				<cf_tl id="Delivery" var="qdelivery" languagecode="#language#">
 								

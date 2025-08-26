@@ -48,7 +48,7 @@ Applies only to transaction of journals that are not in base currency
 
 	<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#Exchange">
 	
-	<!--- Armin this is the proposed new code for defining the base to calculate exchange rate differences for a GLaccount, which correctly
+	<!--- dev this is the proposed new code for defining the base to calculate exchange rate differences for a GLaccount, which correctly
 	applies the balance to be revaluated in case a transactionaction is settled with a different currency as it was originally raised. 
 	like invoice in Euro, but paid in dollars, contract in dollars but received in Euros
 	--->

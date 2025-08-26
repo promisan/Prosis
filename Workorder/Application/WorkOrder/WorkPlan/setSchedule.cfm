@@ -327,7 +327,7 @@
 				try {
 			        parent.workplanaction('#url.workactionid#') } catch(e) {}
 				try {
-				    //removed by Armin as it gave issues on refreshing not needed 10-31-2018
+				    //removed by dev as it gave issues on refreshing not needed 10-31-2018
 				    //parent.opener.applyfilter('','','#url.workactionid#') 
 				    
 				    } catch(e) {}	
@@ -350,7 +350,7 @@
 				try {
 			        parent.workplanaction('#url.workactionid#') } catch(e) {}
 				try {
-				    //removed by Armin as it gave issues on refreshing not needed 10-31-2018
+				    //removed by dev as it gave issues on refreshing not needed 10-31-2018
 				    //parent.opener.applyfilter('','','#url.workactionid#') 
 				    
 				    } catch(e) {}	

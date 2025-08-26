@@ -24,7 +24,7 @@ password="#SESSION.dbpw#">
 	WHERE   ItemNo = '#url.ItemNo#'		
 </cfquery>
 
-<!---- 12-19-2013 removed by Armin
+<!---- 12-19-2013 removed by dev
 	<cfoutput>#url.itemno#</cfoutput>
 --->
 

@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <!--- Xythos interconnection
-by Jorge Armin Mazariegos
+by dev dev dev
 Promisan b.v.
 Last modification on May 24th 2010
 ----->
@@ -440,7 +440,7 @@ Last modification on May 24th 2010
 				AND    (ServerPath != '' and ServerPath is not NULL)
 			</cfquery>				
 			
-			<!--- Jorge Mazariegos added a condition to Filename not blank or serverpath not blank
+			<!--- dev dev added a condition to Filename not blank or serverpath not blank
 			from South Africa on Dec 10th 2010
 			 ----->
 

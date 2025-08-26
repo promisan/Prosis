@@ -213,7 +213,7 @@
                 settings.finalYear = attrFinalYear;
             }
 
-			//MODIFIED BY ARMIN ON 8/21/2013
+			//MODIFIED BY dev ON 8/21/2013
 			//top: monthpicker.offset().top + monthpicker.outerHeight(),
 			
             container.css({

@@ -145,7 +145,7 @@
  
  <cfif check.recordcount eq "1">
   
-    <!---- added by Armin on Nov 9th 2012---->
+    <!---- added by dev on Nov 9th 2012---->
 	    
 		<cfset Object.ObjectKeyValue4 = qContract.ObjectId>
 		<cfinclude template="../../../../Staffing/Application/Employee/Contract/ContractEditSubmitCommit.cfm">

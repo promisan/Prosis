@@ -25,7 +25,7 @@
   Release: 2/1/2001
     
   Author..: Peter A Bassey
-  mailto..: BTCheckwriter@basstechconsulting.com
+  mailto..: dev@email
     
   What does it do?
     BTCheckwriter is a custom control that converts numbers to words. It's great for Check Printing
@@ -46,7 +46,7 @@
   Additional Notes:
     BTCheckwriter is compatible with all versions of Cold Fusion
     If you have any problems,comments, or would like any improvements to be 
-	made to this tag please email me at BTCheckwriter@basstechconsulting.com and let me know.
+	made to this tag please email me at dev@email and let me know.
         
   Usage:
 	<cf_BTCheckwriter

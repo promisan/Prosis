@@ -43,7 +43,7 @@
 	WHERE     AttachmentId = '#url.id#'
 </cfquery>
 
-<!---- Modification on cfcontent by Armin on Feb 18th 2012 --->
+<!---- Modification on cfcontent by dev on Feb 18th 2012 --->
 
 <cfquery name="Parameter"
 		datasource="AppsSystem"

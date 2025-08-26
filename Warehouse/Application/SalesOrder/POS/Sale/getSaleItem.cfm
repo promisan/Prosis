@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 				</cfif>		    
 		</cfquery>
 		
-		<!--- Added by Armin on April 4th 2019 ---->
+		<!--- Added by dev on April 4th 2019 ---->
 		
 		<cfif get.recordcount gt 1 and URL.search neq "">
 		

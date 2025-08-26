@@ -21,7 +21,7 @@
 // The other significant difference from the built-in JavaScript Date is that `timezoneJS.Date` also has named properties that store the values of year, month, date, etc., so it can be directly serialized to JSON and used for data transfer.
 
 /*
- * Copyright 2010 Matthew Eernisse (mde@fleegix.org)
+ * Copyright 2010 Matthew Eernisse (dev@email)
  * and Open Source Applications Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,14 +37,14 @@
  * limitations under the License.
  *
  * Credits: Ideas included from incomplete JS implementation of Olson
- * parser, "XMLDAte" by Philippe Goetz (philippe.goetz@wanadoo.fr)
+ * parser, "XMLDAte" by Philippe Goetz (dev@email)
  *
  * Contributions:
  * Jan Niehusmann
  * Ricky Romero
- * Preston Hunt (prestonhunt@gmail.com)
- * Dov. B Katz (dov.katz@morganstanley.com)
- * Peter Bergström (pbergstr@mac.com)
+ * Preston Hunt (dev@email)
+ * Dov. B Katz (dev@email)
+ * Peter Bergström (dev@email)
  * Long Ho
  */
 (function () {

@@ -49,7 +49,7 @@
 <cfparam name="client.veffects"      default="">
 
 <cfset SESSION.acc            = Form.Account>
-<!--- Added by Armin on 2/25/2015 ---->
+<!--- Added by dev on 2/25/2015 ---->
 <cfset CLIENT.logon           = Form.Account>
 
 <cfset CLIENT.logonCredential = Form.Account>

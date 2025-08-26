@@ -45,7 +45,7 @@
 			 WHERE  EntityCode = '#Attributes.EntityCode#' 
 			</cfquery>		
 		
-			<!--- Changed it by Armin on Sept 20th 2013--->			
+			<!--- Changed it by dev on Sept 20th 2013--->			
 			<cfif qCheck.recordcount eq 1>
 					<cf_AssignId>
 														

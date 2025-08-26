@@ -48,7 +48,7 @@ password="#SESSION.dbpw#">
 		AND   Fund != 'ZTA'
 		
 	<!----
-	Removed by Armin on 3/30/2015
+	Removed by dev on 3/30/2015
 	cfif URL.Mission neq "CMP">
 		AND    I.FiscalYear = '#Period.AccountPeriod#'
 	cfif	

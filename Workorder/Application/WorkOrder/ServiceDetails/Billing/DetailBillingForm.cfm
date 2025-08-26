@@ -545,7 +545,7 @@ password="#SESSION.dbpw#">
 												
 				</cfif>
 				
-				<!--- Force this date as for concurrent =1 , better to use the current date , by Armin, Jan 8 2019---->
+				<!--- Force this date as for concurrent =1 , better to use the current date , by dev, Jan 8 2019---->
 				<cfset date = dateformat(now(),CLIENT.DateFormatShow)>
 				
 				<cfset sc = "0">

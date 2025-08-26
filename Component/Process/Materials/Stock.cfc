@@ -3012,7 +3012,7 @@
 			is to change through creating a new item or manual fix --->
 			
 						
-			<!--- To improve performance Armin changed IN statement to NOT EXIST --->
+			<!--- To improve performance dev changed IN statement to NOT EXIST --->
 						
 			<!---
 			

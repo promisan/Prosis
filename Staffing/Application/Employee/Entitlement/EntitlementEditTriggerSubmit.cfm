@@ -92,7 +92,7 @@ password="#SESSION.dbpw#">
 	AND    EntitlementId != '#Form.EntitlementId#' 
 </cfquery>
 
-<!----- the following lines were added by Jorge Armin Mazariegos on may 29th 2008 ----->
+<!----- the following lines were added by dev dev dev on may 29th 2008 ----->
 <cfset overlaps=0>
 <cfloop query="Check">
 

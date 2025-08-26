@@ -36,7 +36,7 @@
 	
     <!--- get the recorded error in the log file of cf 	
 	
-	Note:  April 10, 2015. by Nery.
+	Note:  April 10, 2015. by dev.
 	As discussed with Hanno, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database so no 
 	need for exception.log file to be populated
 	
@@ -80,7 +80,7 @@
 			WHERE  HostName = '#CGI.HTTP_HOST#'
 		</cfquery>
 		
-		<!--- Nery, on 21/05/2015: removed as per discussion with Hanno.
+		<!--- dev, on 21/05/2015: removed as per discussion with Hanno.
 		<cfif Parameter.ErrorMailToOwner eq "9">
 			
 			<script>

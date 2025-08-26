@@ -100,7 +100,7 @@
 			   <!--- check custom dialog if fields are pending --->
 			  	  		   		   		  
 			       <!--- -------------------------------------------------------------- --->
-				   <!--- IMPORTANT to keep this in the order of form embeded, custom and normal submit  (Jorge Mazariegos) --->
+				   <!--- IMPORTANT to keep this in the order of form embeded, custom and normal submit  (dev dev) --->
 				   <!--- -------------------------------------------------------------- --->
 				   				   
 				   embed  = document.getElementById("formembed")	

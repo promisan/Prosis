@@ -383,7 +383,7 @@
 			
 			<!--- get the recorded error in the log file of cf
 			
-			 Note:  April 10, 2015. by Nery.
+			 Note:  April 10, 2015. by dev.
 			 As discussed with Hanno, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database therefore no
 			 need for exception.log file to be populated (b) Even though this is "display:none", it is a security vulnerability to output detailed error information to clients.
 			
@@ -416,7 +416,7 @@
 
 	<cfelse>
 
-<!--- Oct 1, 2016 by Nery: Somehow, som errors still make it to be displayed fully detailed, so below condition makes sures that only Admin or Session overwrite =1 can see that--->
+<!--- Oct 1, 2016 by dev: Somehow, som errors still make it to be displayed fully detailed, so below condition makes sures that only Admin or Session overwrite =1 can see that--->
 
 		<cfif SESSION.isAdministrator eq "Yes" or Session.Overwrite eq "1">
 

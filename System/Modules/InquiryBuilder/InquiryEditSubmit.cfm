@@ -18,7 +18,7 @@
 
 <cfparam name="form.FunctionHeaderLabel" default="">
 <cfparam name="form.EntityCode" default="">
-<!--- Added by Jorge Mazariegos on 9/23/2010 ---->
+<!--- Added by dev dev on 9/23/2010 ---->
 <cfparam name="form.QueryTable" default="">
 
 <cfif form.FunctionHeaderLabel neq "">

@@ -19,7 +19,7 @@
 Application:	Any
 Project:		Any
 Filename:		setup.cfm
-Programmers:	Peter Coppinger <peter@digital-crew.com>
+Programmers:	Peter Coppinger <dev@email>
 				
 Purpose:		Part of dcComponent engine!
 				This document is part of an effort to reduce the bulk of each dcComponent,

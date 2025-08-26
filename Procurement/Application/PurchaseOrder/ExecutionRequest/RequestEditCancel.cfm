@@ -30,7 +30,7 @@
 	
 	<cfcase value="cancel">
 
-		<!--- Added by Jorge Mazariegos on 10/4/2010 as CMP request for reason for cancellation
+		<!--- Added by dev dev on 10/4/2010 as CMP request for reason for cancellation
 		on purchase requests --->
 		<cftransaction>
 		<cfquery name="Options" 

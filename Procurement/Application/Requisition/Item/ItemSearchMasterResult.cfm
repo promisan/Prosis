@@ -15,8 +15,8 @@
 -->
 <!--- Prosis template framework --->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Translated</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -102,7 +102,7 @@ password="#SESSION.dbpw#">
 	AND    Period    = '#url.period#' 
 </cfquery>
 
-<!--- Query returning search results :  Jorge Mazariegos: Added a LEFT outer join with Ref_Object as per Kristina's request from CMP--->
+<!--- Query returning search results :  dev dev: Added a LEFT outer join with Ref_Object as per Kristina's request from CMP--->
 <cfquery name="SearchResult" 
 datasource="AppsPurchase" 
 username="#SESSION.login#" 
