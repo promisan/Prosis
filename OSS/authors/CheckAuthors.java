@@ -40,8 +40,19 @@ public class CheckAuthors {
             "/Users/kulbilal/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/chartjs/",
             "/Users/kulbilal/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/select2-3.5.2/",
             "/Users/kulbilal/promi-universe/git/Prosis/Scripts/TextArea/CK/basic",
-            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/sweetalert/"
-
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/sweetalert/",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/TextArea/CK/full/plugins/exportpdf/",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/TextArea/CK/full",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/jQuery/",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/summernote",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/moment/min/",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/moment/locale",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/bootstrap-star-rating",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/TextArea/CK/standard/",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/TextArea/CK/standard",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/iCheck/",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/ammap/plugins/export/",
+            "/Users/kulbilal/promi-universe/git/Prosis/Scripts/ammap/plugins/"
 
     );
 
@@ -141,7 +152,7 @@ public class CheckAuthors {
         if (fixMode && found) {
             Path backup = filePath.resolveSibling(filePath.getFileName() + ".bak");
             Files.copy(filePath, backup, StandardCopyOption.REPLACE_EXISTING);
-            Files.write(filePath, updatedLines, StandardCharsets.UTF_8);
+            Files.write(filePath, updatedLines, StandardCharsets.ISO_8859_1);
             System.out.println("→ Updated: " + filePath + " (Backup: " + backup + ")");
         }
 
