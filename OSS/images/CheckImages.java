@@ -14,16 +14,26 @@ public class CheckImages {
             "apng", "heic", "heif", "avif", "jfif"
     ));
 
-
     private static final List<String> IGNORED_PATHS = Arrays.asList(
             "/Users/cesar/promi-universe/git/Prosis/Scripts/ammap/plugins/export/libs",
             "/Users/cesar/promi-universe/git/Prosis/OSS",
-            "/Users/cesar/promi-universe/git/Prosis/System/Parameter/FunctionClass/dccom/components/dcFileManagerV3/actions"
+            "/Users/cesar/promi-universe/git/Prosis/System/Parameter/FunctionClass/dccom/components/dcFileManagerV3/actions",
+            "/Users/cesar/promi-universe/git/Prosis/Scripts/ammap/",
+            "/Users/cesar/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/jquery-ui",
+            "/Users/cesar/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/blueimp-gallery/",
+            "/Users/cesar/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/iCheck/"
     );
 
     private static final Set<String> IGNORED_FILES = new HashSet<>(Arrays.asList(
-            "logo.png", "favicon.ico" // Add known safe or needed images
+            "logo.png", "favicon.ico"
     ));
+
+    private static final List<String> COPYRIGHT_KEYWORDS = Arrays.asList(
+            "logo", "brand", "partner", "client", "copyright", "icon", "identity", "header", "sponsor"
+    );
+
+    private static final List<Path> flagged = new ArrayList<>();
+    private static final List<Path> clean = new ArrayList<>();
 
     public static void main(String[] args) {
         if (args.length == 0 || args.length > 2) {
@@ -47,15 +57,33 @@ public class CheckImages {
                     .filter(CheckImages::isNotIgnoredFile)
                     .forEach(file -> {
                         try {
+                            boolean isFlagged = isPotentiallyCopyrighted(file);
                             if (fixMode) {
                                 replaceWithPlaceholder(file);
                             } else {
-                                System.out.println("Image found: " + file);
+                                if (isFlagged) {
+                                    flagged.add(file);
+                                } else {
+                                    clean.add(file);
+                                }
                             }
                         } catch (IOException e) {
                             System.err.println("Error handling file: " + file + " – " + e.getMessage());
                         }
                     });
+
+            if (!fixMode) {
+                System.out.println("\n===============================================");
+                System.out.println("✅ Images without copyright risk:");
+                clean.forEach(f -> System.out.println("   " + f));
+
+                System.out.println("\n⚠️  Images with potential copyright issues:");
+                flagged.forEach(f -> System.out.println("   " + f));
+                System.out.println("===============================================");
+                System.out.println("Total scanned: " + (clean.size() + flagged.size()));
+                System.out.println("Potentially copyrighted: " + flagged.size());
+            }
+
         } catch (IOException e) {
             System.err.println("Error walking directory: " + e.getMessage());
         }
@@ -67,12 +95,31 @@ public class CheckImages {
     }
 
     private static boolean isNotInIgnoredPaths(Path filePath) {
-        String path = filePath.toAbsolutePath().toString().replace('\\', '/');
-        return IGNORED_PATHS.stream().noneMatch(path::startsWith);
+        String normalized = filePath.toAbsolutePath().normalize().toString().replace('\\', '/').toLowerCase();
+        return IGNORED_PATHS.stream()
+                .map(p -> p.trim().toLowerCase())
+                .noneMatch(normalized::startsWith);
     }
 
     private static boolean isNotIgnoredFile(Path filePath) {
-        return IGNORED_FILES.stream().noneMatch(filePath.getFileName().toString()::equalsIgnoreCase);
+        return IGNORED_FILES.stream()
+                .noneMatch(filePath.getFileName().toString()::equalsIgnoreCase);
+    }
+
+    private static boolean isPotentiallyCopyrighted(Path filePath) {
+        String name = filePath.getFileName().toString().toLowerCase();
+        String path = filePath.toAbsolutePath().toString().toLowerCase();
+
+        boolean keywordMatch = COPYRIGHT_KEYWORDS.stream()
+                .anyMatch(k -> name.contains(k) || path.contains(k));
+
+        try {
+            long size = Files.size(filePath);
+            boolean largeFile = size > 10 * 1024; // 10 KB threshold
+            return keywordMatch || largeFile;
+        } catch (IOException e) {
+            return true; // if we can't read it, better to be safe
+        }
     }
 
     private static void replaceWithPlaceholder(Path imagePath) throws IOException {
@@ -111,6 +158,6 @@ public class CheckImages {
         for (String ext : IMAGE_EXTENSIONS) {
             if (fileName.endsWith("." + ext)) return ext;
         }
-        return "png"; // fallback
+        return "png"; // fallback format
     }
 }
