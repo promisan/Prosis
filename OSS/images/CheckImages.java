@@ -19,7 +19,7 @@ public class CheckImages {
             "/Users/cesar/promi-universe/git/Prosis/OSS",
             "/Users/cesar/promi-universe/git/Prosis/System/Parameter/FunctionClass/dccom/components/dcFileManagerV3/actions",
             "/Users/cesar/promi-universe/git/Prosis/Scripts/ammap/",
-            "/Users/cesar/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/jquery-ui",
+            "/Users/cesar/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/jquery-ui",--
             "/Users/cesar/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/blueimp-gallery/",
             "/Users/cesar/promi-universe/git/Prosis/Scripts/Mobile/Resources/vendor/iCheck/"
     );
