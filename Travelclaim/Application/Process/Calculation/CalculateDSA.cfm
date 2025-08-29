@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <!--- this calculation is for DSA only, it creates day records for each travel day, except for the return
 date and it will determine the DSA code (Express) and elborate on the available DSA code as entered
 in the detailed claim.

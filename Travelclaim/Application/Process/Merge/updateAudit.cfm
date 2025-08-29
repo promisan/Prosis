@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- JG Added this since we are creating a One to Many relationship between Auditing and Claims adding some more comments--->
-
-<!--- Will be  interested in inserting the latest records only upon once the claim is settled  --->
 <!--- JG3 Query that will be used intially and made changes further
 
 --->

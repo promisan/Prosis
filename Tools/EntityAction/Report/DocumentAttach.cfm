@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- declare documents to be attached if you have custom for with attachment included you no longer have to show them here. --->
-
 <cfparam name="setattachment" default="0">
 
 <cfif setattachment eq "0">

@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <!--- the purpose of this template is to manage the content of the helper table
 WorkOrderLineSchedulePosition to have its data refreshed in order to be3
 used for the scheduling of actions onwards --->

@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- initiates and log workflows reminder mails --->
-
 <!--- 1 define pending actions
       2. determine overdue.
 	  3. only for enabled mission

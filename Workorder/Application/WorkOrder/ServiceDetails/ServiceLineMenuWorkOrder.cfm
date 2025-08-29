@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- ------------------------------------------------------------------------------------------------------------ --->
 <!--- this menu is for a process in which stock is both obtained (proocured/earmerked from other) and then shipped --->
 <!--- ------------------------------------------------------------------------------------------------------------ --->
 <!--- ---------used by Hicosa and could work for sherwin as well as they move into projects ---------------------- --->

@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- this will be a batch that runs around 30 of each month after the payroll is locked and posted --->
-
 <cfparam name="URL.Period"       default="FY18,FY19">
 <cfparam name="URL.ForecastDate" default="15/11/2018">
 

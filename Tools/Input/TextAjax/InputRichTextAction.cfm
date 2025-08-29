@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cfparam name="url.keyvalue"   default="FCA625C6-508B-6D75-2177-29DC1951AE5D">
 <cfparam name="url.mode"       default="FCA625C6-508B-6D75-2177-29DC1951AE5D">
  <cfoutput>	

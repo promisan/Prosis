@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- box to perform the check and then to launch the dialog screen to be shown --->
 <span id="sessionvalid" style="width: 0px; height: 0px; line-height: 0px; font: 0px;display:none;"></span>
 		
 <!--- box to keep on checking if maybe the session is reestablished to then hide the password screen --->			

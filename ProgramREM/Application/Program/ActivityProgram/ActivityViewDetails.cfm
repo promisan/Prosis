@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-
 <cfif SearchResult.recordcount eq "0">
 
 <tr><td colspan="6" align="center" style="padding-top:5px" class="labelmedium"><cf_tl id="There are no records to show in this view"></td></tr>

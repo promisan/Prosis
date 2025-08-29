@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cfif mode eq "edit">
 	<tr><td height="19" colspan="3"  class="labelmedium" style="font-size:22px;border-top:1px solid silver;border-bottom:1px solid silver;height:45px;padding-left:3px"><cf_tl id="Leave"><cf_tl id="Entitlements"></td></tr>
 </cfif>

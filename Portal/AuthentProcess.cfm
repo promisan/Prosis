@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- July 07, 2012:  This is to return a value instead of automatically redirect to pages, or show cf_message tags. --->
-
 <cfparam name="url.returnValue"	default = "0">
 
 <!--- 100 = password expired, 101 = group not allowed, 102 = not identified, 103 = reseted password --->

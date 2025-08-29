@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- activity --->
-
 <table height="100%"><tr><td valign="top" class="labelmedium" style="padding:10px">
 We show the activities of the CA for the selected date in a similar way as they are represented into the mobile 
 </td></tr></table>

@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-
-<!--- START // CALENDAR STYLE --->
 <link href="<cfoutput>#SESSION.root#</cfoutput>/Tools/Calendar/calendar-default.css" rel="stylesheet" type="text/css" media="all" title="system">
 <!--- END // CALENDAR STYLE --->
 

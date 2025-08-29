@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<cfparam name="url.isFullLoad" 				default="0"> <!--- 0 incremental, 1 full calculation, 2 full selective calculation --->
 <cfparam name="url.incrementalName" 		default="ItemTransactionDay">
 <cfparam name="url.incrementalGroupName"	default="Warehouse">
 <cfparam name="url.selectiveName" 			default="SelectiveItemTransactionDay">

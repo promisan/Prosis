@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,10 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-
-<cfset thisDivName	="#LEFT(REPLACE(url.mission,"__","","ALL"),25)#YKK"> <!----throwing an error when selecting more than 7 entities---->
-
 <cfoutput>
 			
 		<table width="100%" style="height:320;border:0px solid silver">

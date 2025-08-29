@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <!--- here we show only relevant contributions based on the selected program through the transactionid and we 
 show along the same lines as for the initial assignment of funding only contribution lines that indeed
 have funding left that matches the amount of this line ProgramAllotmentDetailContribution ---> 

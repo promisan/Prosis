@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- RELATIONS --->
 <!--- *************************************************************************** --->
 <cfset R01 = "19. Are any of your relatives employed by a public international organization?">
 <cfset R02 = "If you answered yes in 19, list any relatives employed by the United Nations or its Specialized Agencies below:">

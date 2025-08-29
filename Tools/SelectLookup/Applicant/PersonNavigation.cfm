@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cfoutput>
 
 <cfset nav = "#SESSION.root#/tools/selectlookup/Applicant/PersonResult.cfm?height=#url.height#&close=#url.close#&box=#box#&link=#url.link#&des1=#des1#&filter1=#url.filter1#&filter1value=#url.filter1value#&filter2=#url.filter2#&filter2value=#url.filter2value#&filter3=#url.filter3#&filter3value=#url.filter3value#">

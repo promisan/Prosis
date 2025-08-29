@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<cfparam name="URL.Section"      default="">  <!--- section of the navigation framework --->
 <cfparam name="URL.Code"         default="">
 <cfparam name="URL.Source"       default="">  <!--- PHP source to filter on the topics like we do for the parent --->
 

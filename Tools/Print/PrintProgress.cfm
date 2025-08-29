@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-    
-
-	
     <cfoutput>
 	<cf_divscroll id="printingprogress" float="yes" width="400" height="100" overflowy="hidden" zindex="11" padding="3px" close="no">
 		<cf_tableround mode="modal" totalheight="100%">

@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cfoutput>
 <TR>
 <td width="5%" align="middle" valign="top" class="regular"><a href="javascript:EditProgram('#ProgramCode#','#Period#','Program')" onMouseOver="document.img0_#programid#.src='#SESSION.root#/Images/Button.jpg'" onMouseOut="document.img0_#programid#.src='#SESSION.root#/Images/view.JPG'">

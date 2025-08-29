@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- reinstated 31/3/2017 as I don't recall immediately how it was handled otherwise --->
 <!--- ----------- select access for mandate 1 --->
 
 <cfparam name="url.mission"          default="DPA">

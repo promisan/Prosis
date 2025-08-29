@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <!--- Hanno 8/8 this will have to be adjusted to work this on the period, in this process we check if the parent 
 is indeed enabled for that period, if not, we move this to the top of the hierarchy 
 

@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cfset vyear = mid(url.effectiveDate, 1, 4)>
 <cfset vmonth = mid(url.effectiveDate, 6, 2)>
 <cfset vday = mid(url.effectiveDate, 9, 2)>

@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- PositionListing.cfm?ID1=#Level02.OrgUnitCode#&ID2=#Mission#&ID3=#URL.MandateNo#&Source=#URL.Source#&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#' --->
-
 <cfoutput query="level01">
 	  
 	   ['#Level01.OrgUnitName#','PositionPassTru.cfm?class=#class#&ID1=#Level01.OrgUnit#&ID2=#Mission#&ID3=#URL.MandateNo#&Source=#URL.Source#&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#',		

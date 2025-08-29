@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-
 <table width="100%"><tr><td style="padding-top:40px">
 <table style="width:70%; text-align:center; margin-left:15%; padding-top:30px; padding-bottom:30px; color:#FFFFFF; font-size:30px; font-family:Verdana; background-color:#E08283; border-radius:10px;">
 <tr><td>

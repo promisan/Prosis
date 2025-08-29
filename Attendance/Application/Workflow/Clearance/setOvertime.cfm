@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- apply the results of process for Werner to apply --->
-
 <!--- steps : obtain the context of overtime = night different --->
 
 <!--- first we check if the overtime has been recorded already and one of the records has a status = '5' which we 

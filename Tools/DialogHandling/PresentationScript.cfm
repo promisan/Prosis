@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- By dev Generic function as of 11/23/2012 it has been decided the use jquery in a broader scope of tasks as it can help search features.--->
-
 <cfoutput>
 
 	<script language="JavaScript">

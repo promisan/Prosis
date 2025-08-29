@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Promisan
+ * Copyright © 2025 Promisan B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* Arabic Translation for jQuery UI date picker plugin. */
-/* Khaled Alhourani -- me@khaledalhourani.com */
 /* NOTE: monthNames are the original months names and they are the Arabic names, not the new months name فبراير - يناير and there isn't any Arabic roots for these months */
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {

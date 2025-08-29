@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <!--- The purpose of this tool is to define the funding of the charges based on the settings
 if the posting mode is defined as "Funding". The system tries to assign the
 funding as good as possible based on the effective date for the funding in a top down fashion --->

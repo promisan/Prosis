@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- this component is always in the default currency, so no need to convert currencies here !! --->
-
 <CF_DropTable dbName="AppsTransaction" tblName="sal#SESSION.thisprocess#EntitlementRateAmount">	
 
 <!--- get rates but we have two types of entitlement ones that are rules by the entitlement group

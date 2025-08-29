@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- dialog to show the batch transaction information to be processed --->
-
 <cfparam name="URL.Drillid"            default="0">
 <cfparam name="URL.Mission"            default="">
 <cfparam name="URL.BatchNo"            default="#url.drillid#">

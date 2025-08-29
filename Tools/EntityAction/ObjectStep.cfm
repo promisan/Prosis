@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- define which steps will need to be added --->
-<!--- start from the beginning, check if exists, otherwise add --->
 <!--- if action = decision, check result 4 : yes, 5, no --->
 <!--- locate the actionorder for YES --->
 <!--- start steps from this order --->

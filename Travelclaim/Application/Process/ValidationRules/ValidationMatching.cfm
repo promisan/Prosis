@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- step 1 ; focus on easy cases, this is 95% already --->
 <!--- step 2 ; match non-obligated lines based on rule 41/61 --->
 <!--- step 3 : additional obvious matching rules in document --->
 <!--- step 4 : non-obligated lines (combination index/category does not exist --->

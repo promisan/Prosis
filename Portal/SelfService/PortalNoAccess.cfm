@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- deny access to portal --->
-
 <table width="100%" align="center" height="100%" bgcolor="white">
 <tr><td align="center" height="120">
 <font face="Verdana" size="3" color="black">

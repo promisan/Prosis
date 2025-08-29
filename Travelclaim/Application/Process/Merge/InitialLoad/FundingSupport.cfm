@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cfquery name="step" 
 datasource="appsTravelClaim" >
 SELECT     RA.db_mdst_source, RA.f_tvrq_doc_id, RA.f_tvrl_seq_num, 

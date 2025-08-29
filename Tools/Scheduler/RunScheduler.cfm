@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- run init.cfm --->
-
 <cfparam name="SESSION.acc"       default="Batch">
 <cfparam name="CLIENT.style"     default="/Portal/Logon/Bluegreen/pkdb.css">
 <cfparam name="URL.ID"           default="0">

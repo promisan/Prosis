@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cfoutput>
 <cfset vLogo       = "<img src='#SESSION.root#/Images/UN_LOGO_BLUE.gif' alt='' width='64' height='57' border='0'>">
 <cfset vTitleLine1 = "United Nations">

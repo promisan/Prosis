@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- verify script --->
-
 <cfif form.conditionalias neq "" AND form.conditionscript neq "" AND len(form.conditionscript) gte 10>
 	
 	<cftry>

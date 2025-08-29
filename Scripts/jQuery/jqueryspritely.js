@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Promisan
+ * Copyright © 2025 Promisan B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* kherrera: Aug 06, 2013 */
-/* This makes this library compatible with JQuery 1.9* */
 var vDetectBrowser = {};
 vDetectBrowser.msie = "";
 if (/msie 7/.test(navigator.userAgent.toLowerCase()) || /msie 6/.test(navigator.userAgent.toLowerCase()) || /msie 5/.test(navigator.userAgent.toLowerCase())) { 

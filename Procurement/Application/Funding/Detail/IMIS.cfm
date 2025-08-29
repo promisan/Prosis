@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cfsavecontent variable="option">
 	<cfoutput>Fiscal Year:<font face="Verdana" size="4"> #url.Year# <font face="Verdana" size="2">Activity: <font face="Verdana" size="4">#url.activity#
 	&nbsp;<a href="javascript:window.print()"><font size="2" color="0080C0">[Print]</a>

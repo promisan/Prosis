@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,10 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-
-<!--- attention : we need to likely adjust this by currency as it can be different !!!!! --->
-
 <!--- we have to keep in mind that here we can have once invoice billed one line 
 but associated to several workorders, so on 5/9/2016 I adjusted this to look at the transaction lines  --->
 		

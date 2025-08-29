@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cf_screentop height="100%" label="Function Title" 
   option="Maintain functional title" user="yes" html="no" banner="gray" bannerforce="Yes" layout="webapp" jquery="yes"
   close="parent.ColdFusion.Window.destroy('functionedit',true)"	

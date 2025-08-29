@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-
 <cfset buttonlayout = {Label="Print Instructions", mode="silver", width="160px", color= "636334", iconheight= "15px", fontsize= "11px", paddingleft = "5px"}>
 <table style="width:100%; height:100%">
 	<tr>

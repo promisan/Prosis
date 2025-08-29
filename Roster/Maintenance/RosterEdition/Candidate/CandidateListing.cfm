@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <table style="height:100%;width:100%"><tr><td style="padding-left:10px;padding-right:10px;padding-bottom:7px;height:100%">
 
 	<cfinclude template="CandidateListingContent.cfm">

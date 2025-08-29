@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,10 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- retrieve from database --->
-	
-<!--- step 1 we check if there is an application server specific language label --->
-	
 <!--- specific for this site --->
 <cfparam name="url.languageCodeDB" 	default="ENG">
 <cfparam name="#CLIENT.LanguageId#" default="ENG">

@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<cfparam name="attributes.id"          default="btn_Print">			<!--- ID for the button, must always be something otherwise onmouseover wont work for <cf_button--->
 <cfparam name="attributes.wrap"        default="no">				<!--- When tool is used in conjuction with <cf_printcontent in a wrapped fashion, to print innerHTML--->
 <cfparam name="attributes.cfbutton"    default="yes">				<!--- triggers a cf_button, but this is guided by the mode now--->
 <cfparam name="attributes.bgcolor"     default="transparent">		<!--- bgcolor of container table--->

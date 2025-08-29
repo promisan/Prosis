@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cfparam name="attributes.docType"			default="<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>">
 <cfparam name="attributes.meta"				default="<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>">
 <cfparam name="attributes.stylesheet"		default="Custom/BCN/Warehouse/Invoice/InvoiceStyle.css">

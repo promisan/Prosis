@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- claim generated amount information --->
-<!--- Prosis template framework --->
 <cfsilent>
  	<proOwn>Huda Seid</proOwn>
 	<proDes>Claim Generate Amount Info </proDes>

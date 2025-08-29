@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <cfparam name="Attributes.objectid"          default="47939CF6-CF9B-8A52-AFB7-4CBAE9DB7C63">
 <cfparam name="Attributes.threadid"          default="47939CF6-CF9B-8A52-AFB7-4CBAE9DB7C63">
 <cfparam name="Attributes.serialno"          default="1">

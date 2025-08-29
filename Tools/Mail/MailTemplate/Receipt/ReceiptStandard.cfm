@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- eMail of sales --->
-
 <cfparam name="attributes.BatchId" default="BBA46599-AAB2-6219-3BE7-BE282B60E820">
 
 <cfset batchid = attributes.batchid>

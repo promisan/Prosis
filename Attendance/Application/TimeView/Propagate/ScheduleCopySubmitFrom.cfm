@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!--- ****************** CALCULATE HOW MANY TIMES (WEEKS) THE BLOCK WILL BE COPIED *********************** --->
 <cfset vTimesToBeCopied = ceiling((dateDiff('d', vEffective, vMax) + 1) / 7 / url.weeks)>
 <cfset vLastDayWillBeCopied = dateAdd('d', (7 * vTimesToBeCopied) - 1, vEffective)>
 <cfset vCountInserts = 0>

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Promisan
+ * Copyright © 2025 Promisan B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* 2009-03-13 12:38:00 MEZ created by Nils Schreiber (n dot schreiber at gmx dot de) */
 var fdLocale = {
 /* Uncomment the following line if the first day of the week does not start on Monday */
 //firstDayOfWeek:0,

@@ -1,5 +1,5 @@
 <!--
-    Copyright © 2025 Promisan
+    Copyright © 2025 Promisan B.V.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- show fund/object amount log --->
 <cfset fdlist = replaceNoCase(url.fdlist,":","","ALL")> 
 
 <table width="99%" cellspacing="0" cellpadding="0" style="border:0px dashed silver" class="formpadding">
