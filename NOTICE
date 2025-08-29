@@ -273,6 +273,12 @@ In addition, this product includes components from third-party projects, which a
     - Files:
       - All files in Scripts/KendoUI/
 
+ 13. **Hammer JS**
+     - License: Dual-licensed under MIT License and GNU GPL.
+     - For licensing information about Hammer, see the License Agreements page at https://github.com/hammerjs/hammer.js
+     - Files:
+       - All files in Scripts/Hammer
+
 
 ---------------------------------------------------------------------------
 Special Notes Regarding License Compatibility:
