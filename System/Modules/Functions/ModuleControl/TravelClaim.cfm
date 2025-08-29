@@ -82,7 +82,7 @@
    MenuClass = "Main"
    MenuOrder = "3"
    MainMenuItem = "1"
-   FunctionMemo = "Maintain Executive Office and Travel Request Association"
+   FunctionMemo = ""
    FunctionDirectory = "TravelClaim/Maintenance/"
    FunctionPath = "RequestUnit/RecordListing.cfm"
    FunctionIcon = "Maintain">         
