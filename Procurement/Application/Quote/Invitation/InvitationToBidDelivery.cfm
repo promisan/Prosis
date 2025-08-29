@@ -34,10 +34,10 @@
 	<table width="90%" cellspacing="0" cellpadding="0" align="center" class="formpadding"></table>
 		<tr><td><img src="#SESSION.root#/images/TableMidTop.gif" height="1" WIDTH="100%" alt="" border="0"></td></tr>
 		<tr>
-			<td>United Nations (Maximum overhead clearance for truck delivieries - 11.9 Ft)</td>
+			<td>Organizations (Maximum overhead clearance for truck delivieries - 11.9 Ft)</td>
 		</tr>
-		<tr><td>48th Street and 1st Avenue</td></tr>
-		<tr><td>New York, N.Y. 10017</td></tr>
+		<tr><td>Address</td></tr>
+		<tr><td>New York, N.Y. ####</td></tr>
 	    <tr><td><img src="#SESSION.root#/images/TableMidTop.gif" height="1" WIDTH="100%" alt="" border="0"></td></tr>
 		<tr><td height="10"></td></tr>
 	</table>

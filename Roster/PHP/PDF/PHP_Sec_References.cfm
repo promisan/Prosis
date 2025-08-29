@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <!--- *************************************************************************** --->
-<cfset R01 = "30. List three persons, not related to you, and who are not current United Nations Staff Members, who are familiar with your character and qualifications.  Do not repeat the names of supervisors listed under Employment.">
+<cfset R01 = "30. List three persons, not related to you, and who are not current Organizations Staff Members, who are familiar with your character and qualifications.  Do not repeat the names of supervisors listed under Employment.">
 
 <table width="100%" border="0" align="center" >
 	<tr><td class="title">References</td></tr>

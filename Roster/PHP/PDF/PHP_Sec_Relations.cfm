@@ -15,7 +15,7 @@
 -->
 <!--- *************************************************************************** --->
 <cfset R01 = "19. Are any of your relatives employed by a public international organization?">
-<cfset R02 = "If you answered yes in 19, list any relatives employed by the United Nations or its Specialized Agencies below:">
+<cfset R02 = "If you answered yes in 19, list any relatives employed by the Organizations or its Specialized Agencies below:">
 <cfset R03 = "If you have any dependents, list them below:">
 
 <table width="100%" border="0" align="center" >

@@ -28,7 +28,7 @@
 	</cfquery>
 
 	<cfset vLogo       = "<img src='#SESSION.root#/Images/UN_LOGO_BLUE.gif' alt='' width='64' height='57' border='0'>">
-	<cfset vTitleLine1 = "United Nations">
+	<cfset vTitleLine1 = "Organizations">
 	<cfset vTitleLine2 = "Nations Unies" >
 	<cfset vTitleLine3 = "">
 	<cfset vTitleLine4 = "">
@@ -109,7 +109,7 @@
 
 						<tr><td colspan="2" class="line"></td></tr>
 						<tr>
-							<td colspan="2"><b>United Nations Core Values: Integrity, Professionalism, Respect for Diversity</b></td>
+							<td colspan="2"><b>Organizations Core Values: Integrity, Professionalism, Respect for Diversity</b></td>
 						</tr>
 						<tr><td colspan="2" class="linedotted"></td></tr>
 						</cfcase>

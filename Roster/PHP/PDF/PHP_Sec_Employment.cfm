@@ -226,7 +226,7 @@
 <tr></tr>
 <!--- GENERAL EMPLOYMENT QUESTIONS --->
 <cfset E1 = "Have you any objections to our making inquiries of your present employer?">
-<cfset E2 = "Other Agencies of the United Nations System may be interested in our applicants.  Do you have any objections to your Personal History Profile being made available to them?">
+<cfset E2 = "Other Agencies of the Organizations System may be interested in our applicants.  Do you have any objections to your Personal History Profile being made available to them?">
 <cfset E3 = "For clerical grades only:">
 <cfset E4 = "Indicate typing speed in words per minute: English - ">
 <cfset E5 = "French - ">

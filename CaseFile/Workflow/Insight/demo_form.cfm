@@ -87,9 +87,9 @@
                   <p align="center"><font size="3" face="Times New Roman, Times, serif"><strong><cfoutput></cfoutput></strong></font></p>
                   <p align="center"><font size="3" face="Times New Roman, Times, serif"></font></p>
                   <h2 align="center"><font size="4" face="Times New Roman, Times, serif"><strong>Medical Instructions</strong> </font></h2>
-                  <p align="justify"><font size="3" face="Times New Roman, Times, serif">All United Nations appointments are
+                  <p align="justify"><font size="3" face="Times New Roman, Times, serif">All Organizations appointments are
                       subject to receiving asatisfactory medical clearance by a
-                      medical physician accredited to the UN. Our records show
+                      medical physician accredited to the Organization. Our records show
                       the location(s)
                   for this purpose closest to your address as:</font></p>
                   <p align="justify"><font size="3" face="Times New Roman, Times, serif"> Any licensed practicing Medical Doctor.</font></p>
@@ -119,13 +119,13 @@
                   <p><font size="3" face="Times New Roman, Times, serif"> 4. electrocardiogram (EKG) tracing, regardless of age.                  </font></p>
                   <p align="justify"><font size="3" face="Times New Roman, Times, serif"><strong>Please ensure that you have the immunizations and/or malaria
                   prophylaxis required prior to departure. </strong></font></p>
-                  <p align="justify"><font size="3" face="Times New Roman, Times, serif">The United Nations
+                  <p align="justify"><font size="3" face="Times New Roman, Times, serif">The Organizations
                       will reimburse you for the cost of this pre-placement medical
                       examination, consisting of those tests required to complete
                       the medical forms, the X-ray, and the electrocardiogram.
                       It is expected that the cost of pre-placement medical examinations
                       will be consistent with the prevailing medical fees of the
-                      country concerned. The United Nations will not be responsible
+                      country concerned. The Organizations will not be responsible
                       for fees for medical procedures which are not required by
                       this
                       pre-placement examination and will not on any account be

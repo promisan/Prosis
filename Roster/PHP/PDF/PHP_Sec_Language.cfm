@@ -56,7 +56,7 @@
 		<table width="96%" border="0" align="center" >
 		<Cfoutput>
 		<tr><td colspan="6" bgcolor="333333"><td></td></tr>
-		<tr><td colspan="6">List any of the Official Languages of the United Nations you know.</td></tr>
+		<tr><td colspan="6">List any of the Official Languages of the Organizations you know.</td></tr>
 		</Cfoutput>
 		<tr></tr>
 		
@@ -93,7 +93,7 @@
 		<table width="96%" border="0" align="center" >
 		
 		<Cfoutput>
-		<tr><td colspan="6">In addition to the six United Nations Official Languages, list any other languages you know.</td></tr>
+		<tr><td colspan="6">In addition to the six Organizations Official Languages, list any other languages you know.</td></tr>
 		</Cfoutput>
 		<tr></tr>
 

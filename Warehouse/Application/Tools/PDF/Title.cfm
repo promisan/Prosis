@@ -33,7 +33,7 @@
                <textEdit/>
             </ui>
             <value>
-               <text>United Nations                                                       Nations Unies</text>
+               <text>Organizations                                                       Nations Unies</text>
             </value>
             <font typeface="Myriad Pro"/>
             <margin topInset="0.5mm" bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm"/>

@@ -711,7 +711,7 @@
 						</table>
 					</td>
 				</tr>
-				<tr><td align="center"><font size="1"><br>Office of Information and Communications Technology - United Nations Secretariat - New York</font></td></tr>
+				<tr><td align="center"><font size="1"><br>Office - Organizations Secretariat - New York</font></td></tr>
 			</table>
 			
 			</cfif>

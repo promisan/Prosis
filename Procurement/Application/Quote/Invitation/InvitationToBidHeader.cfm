@@ -19,9 +19,9 @@
 <tr><td>
 	<table width="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
 	<tr>
-		<td align="right" width="45%">UNITED NATIONS</td>
+		<td align="right" width="45%">OrganizationS</td>
 		<td align="center"><img src="#SESSION.root#/Images/_unlogo.gif" width="60" height="50" border="0"></td>
-		<td  width="45%">UNITED NATIONS</td>
+		<td  width="45%">OrganizationS</td>
 	</tr>
 	</table>
 </td></tr>

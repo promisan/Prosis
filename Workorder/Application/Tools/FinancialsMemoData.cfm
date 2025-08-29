@@ -15,7 +15,7 @@
 -->
 <cfoutput>
 <cfset vLogo       = "<img src='#SESSION.root#/Images/UN_LOGO_BLUE.gif' alt='' width='64' height='57' border='0'>">
-<cfset vTitleLine1 = "United Nations">
+<cfset vTitleLine1 = "Organizations">
 <cfset vTitleLine2 = "Nations Unies" >
 <cfset vTitleLine3 = "INTEROFFICE MEMORANDUM">
 <cfset vTitleLine4 = "MEMORANDUM INTERIEUR">
@@ -162,7 +162,7 @@
 				 	<tr >
 						<td align="right" width="5%" valign="top">1.</td>
 						<td  style="font-size:11pt" align="justify">
-							Please find attached the details of the charges to be recovered for <strong>#ServiceDescription#</strong> provided by the Office of Information and Communications Technology (DM/OICT) to the 
+							Please find attached the details of the charges to be recovered for <strong>#ServiceDescription#</strong> provided by the Office (DM/OICT) to the
 							<strong>#CustomerNameLong# (#CustomerName#)</strong> for <strong>#JournalBatchYear#</strong>, as described in the attached document and in compliance with the service request document signed by the aforementioned office.
 							<br><br>						
 						</td>
