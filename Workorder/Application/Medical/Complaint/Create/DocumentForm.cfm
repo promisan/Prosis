@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <cfparam name="URL.scope"         default="Portal">
-<cfparam name="url.mission"       default="Aldana">
+<cfparam name="url.mission"       default="A">
 
 <cfparam name="URL.drillid"       default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.requestid"     default="#url.drillid#">

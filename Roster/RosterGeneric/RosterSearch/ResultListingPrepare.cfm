@@ -340,7 +340,7 @@ password="#SESSION.dbpw#">
 																    WHERE  SearchId    = #URL.ID1#
 																    AND    SearchClass = 'Function')) 	
 			   
-			   <!--- added on the request of charles --->
+			   <!--- added on the request of ch --->
 			   																		
 			   AND A.Status IN (
 			   		      SELECT SelectID 

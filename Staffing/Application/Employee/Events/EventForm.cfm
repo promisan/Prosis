@@ -442,7 +442,7 @@
 	                             (SELECT     TOP (1) SourceId
 	                               FROM      PersonAssignment
 	                               WHERE     PersonNo = '#url.PersonNo#' 
-								   <!--- made this process a bit more leniet as it did not always work for Giorgia 
+								   <!--- made this process a bit more leniet as it did not always work for G
 								   AND       PositionNo IN (
 								   
 															    SELECT      DP.PositionNo

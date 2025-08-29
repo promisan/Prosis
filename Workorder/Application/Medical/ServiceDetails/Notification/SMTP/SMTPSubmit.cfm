@@ -230,7 +230,7 @@
 								
 								<tr>
 								<td align="center">
-								Dr. Manuel Aldana S&aacute;enz
+								Dr. Manuel A S&aacute;enz
 								</td>
 								</tr>
 								

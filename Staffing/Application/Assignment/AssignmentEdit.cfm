@@ -591,7 +591,7 @@ password="#SESSION.dbpw#">
 							AND   PositionNo IN (SELECT PositionNo 
 							                      FROM  Position
 												  WHERE Mission   = '#PositionParent.Mission#'
-												  <!--- added for charles --->
+												  <!--- added for ch --->
 												  AND   MandateNo = '#PositionParent.MandateNo#'
 												  AND   PositionNo = A.PositionNo
 												 )

@@ -161,7 +161,7 @@
 			<cfset orgunitimplementername = last.OrgUnitImplementerName>
 			<cfset lastReference          = Last.Reference>
 								
-			<!--- specific for Aldana --->
+			<!--- specific for A --->
 			
 			<cfquery name="topic" 
 			 datasource="AppsSelection" 
@@ -170,7 +170,7 @@
 			 
 				SELECT    TopicValue
 				FROM      ApplicantSubmissionTopic
-				WHERE     Topic = 'MED102' <!--- specific for Aldana 7/10/2016 --->
+				WHERE     Topic = 'MED102' <!--- specific for A 7/10/2016 --->
 				AND       ApplicantNo IN (SELECT ApplicantNo 
 				                          FROM   ApplicantSubmission 
 										  WHERE  PersonNo= '#customer.personno#')

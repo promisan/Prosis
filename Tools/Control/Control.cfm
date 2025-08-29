@@ -278,7 +278,7 @@
 		</cfloop>	
 		
 		<!--- Dev detect if template may be opened without any MID included which them bypasses the
-		MIP validation as soon as we have reason to believe this link is controlled by MID before
+		M validation as soon as we have reason to believe this link is controlled by MID before
 		
 		right now we do this for ajax links but i think we should do this for any links
 		

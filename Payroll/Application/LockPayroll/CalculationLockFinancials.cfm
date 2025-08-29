@@ -1328,7 +1328,7 @@ password="#SESSION.dbpw#">
 												   ESD.PayThroughBankName, 
 												   ESD.PaymentCurrency,
 												   ESD.PersonNo						
-												   <!--- rfuentes to avoid offset for the ones on LWOP in negative settlement --->
+												   <!--- r to avoid offset for the ones on LWOP in negative settlement --->
 										/*HAVING ROUND(SUM(ESD.PaymentAmount), 2) >0*/
 							</cfquery>
 							
@@ -1640,7 +1640,7 @@ password="#SESSION.dbpw#">
 													   ESD.PayThroughBankName, 
 													   ESD.PaymentCurrency,
 													   ESD.PersonNo						
-													   <!--- rfuentes to avoid offset for the ones on LWOP in negative settlement --->
+													   <!--- r to avoid offset for the ones on LWOP in negative settlement --->
 											/*HAVING ROUND(SUM(ESD.PaymentAmount), 2) >0*/
 								</cfquery>
 							

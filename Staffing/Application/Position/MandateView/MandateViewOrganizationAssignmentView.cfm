@@ -431,7 +431,7 @@
 	
   </cfif>	
   
-  <!--- this was just a wiggle for ruy to show the red line under the 2nd row of the position assignments --->
+  <!--- this was just a wiggle for r to show the red line under the 2nd row of the position assignments --->
 	 
   <cfif ParentOrgUnit neq OrgUnitOperational and Class eq "Used" and (occurence eq "1" or prior eq PositionNo)>
   

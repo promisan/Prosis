@@ -116,7 +116,7 @@
 					                          WHERE  UserAccount = '#SESSION.acc#'
 											  AND    FunctionId  = FO.FunctionId
 											  AND    Role        = A.Role 
-											   <!--- added condition on 12/4 for charles --->
+											   <!--- added condition on 12/4 for ch --->
 											  AND    AccessLevel IN ('1','2')) 
 							   
 				</cfquery>
@@ -177,7 +177,7 @@
 					                           WHERE  UserAccount = '#SESSION.acc#'
 											   AND    FunctionId  = FO.FunctionId
 											   AND    Role        = 'RosterClear'
-											   <!--- added condition on 12/4 for charles --->
+											   <!--- added condition on 12/4 for ch --->
 											   AND    AccessLevel IN ('1','2')) 
 				
 				
@@ -212,7 +212,7 @@
 		                         WHERE  UserAccount = '#SESSION.acc#'
 								 AND    FunctionId  = FO.FunctionId
 								 AND    Role        = 'RosterClear' 
-								 <!--- added condition on 12/4 for charles --->
+								 <!--- added condition on 12/4 for ch --->
 								 AND    AccessLevel IN ('1','2')) 
 				
 			UNION	
@@ -245,7 +245,7 @@
 	                            WHERE  UserAccount = '#SESSION.acc#'
 							    AND    FunctionId  = FO.FunctionId
 							    AND    Role        = 'RosterClear' 
-							    <!--- added condition on 12/4 for charles --->
+							    <!--- added condition on 12/4 for ch --->
 							    AND    AccessLevel IN ('1','2')) 
 			</cfquery>									   
 										   

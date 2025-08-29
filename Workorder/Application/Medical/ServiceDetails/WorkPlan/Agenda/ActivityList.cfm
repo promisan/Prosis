@@ -250,7 +250,7 @@
 				
 			   (
     				<!---- to point to the invoice specifically for this date 
-					For : Ronmell if you do this again, please help me to understand, took me 20 mins to align this query properly
+					For : R if you do this again, please help me to understand, took me 20 mins to align this query properly
 					and still not sure i this is the most effective query
 					----->
     				SELECT TOP 1 WorkActionId 

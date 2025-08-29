@@ -113,7 +113,7 @@ SELECT     newid() as RecordId,
 
 INTO 	   userTransaction.dbo.sal#SESSION.thisprocess#Entitlements
 
-<!--- 17/1/2018 adjusted in order to prevent generating duplicates that exist between scales as Ronmell left a difference --->
+<!--- 17/1/2018 adjusted in order to prevent generating duplicates that exist between scales as R left a difference --->
 
 FROM       SalaryScale AS C 
            INNER JOIN SalaryScaleComponent AS S ON C.ScaleNo = S.ScaleNo
@@ -643,7 +643,7 @@ password="#SESSION.dbpw#">
 		
 		I am not sure if we need this condition I think it applies always
 		
-		Ronmell: true, always applies.at least should.
+		R: true, always applies.at least should.
 					
 		---> 
 									
@@ -965,8 +965,8 @@ we can overrule salaryday pointer set on the entitlement record ITSELF, to rever
 			  FROM     PersonDependentEntitlement PD 
 			  WHERE    PD.PersonNo         = P.PersonNo
 			  AND      PD.SalaryTrigger   = D.SalaryTrigger		
-			  AND      PD.DateEffective   <=  P.DateExpiration /*#SALEND# CHANGED BY RONMELL ON KARIN CHECK for MIP person 9134*/ 
-			  AND      (PD.DateExpiration >=  P.DateEffective /*#SALSTR# CHANGED BY RONMELL ON KARIN CHECK for MIP person 9134*/
+			  AND      PD.DateEffective   <=  P.DateExpiration /*#SALEND# CHANGED BY R ON KARIN CHECK for M person 9134*/
+			  AND      (PD.DateExpiration >=  P.DateEffective /*#SALSTR# CHANGED BY R ON KARIN CHECK for M person 9134*/
 			  								or PD.DateExpiration is NULL)				  		 
 	 		  AND      Status             = '2'
 			  

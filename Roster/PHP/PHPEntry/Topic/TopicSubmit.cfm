@@ -53,7 +53,7 @@ datasource="AppsSelection">
 	  <cfif url.topics neq "">
 	  WHERE TOPIC IN (#preserveSingleQuotes(url.topics)#) 
 	  <cfelseif URL.source eq "">
-	  <!--- hardcode for Aldana outside portal --->
+	  <!--- hardcode for A outside portal --->
 	  WHERE Topic IN ('MED003','MED003a','MED004','MED102','MED101','MED305')
 	  <cfelse>
 	  WHERE  Source = '#URL.Source#' 		  

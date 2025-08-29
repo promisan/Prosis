@@ -487,7 +487,7 @@ Button SEND
 
 - retrieve the nodes (Organization, OrganziationAddress) [we validate on the effective/expiration date]
 
-- generate document of note verbale (combinate standard and variable text, check with Giorgia)
+- generate document of note verbale (combinate standard and variable text, check with G)
 
 - retrieve the associated Buckets 
    

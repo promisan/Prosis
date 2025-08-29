@@ -596,7 +596,7 @@ password="#SESSION.dbpw#">
 			    <cf_wfActive entitycode="workorder" objectkeyvalue4="#workactionid#">	
 				
 				<cfif wfstatus eq "open" and DateTimePlanning gt now()-1 and DateTimeActual eq "">
-				<!------rfuentes 13-DEc-2016 on Hannos email to always show this open  it was: delay as wfstatus ---->
+				<!------r 13-DEc-2016 on Hannos email to always show this open  it was: delay as wfstatus ---->
 					<cfset wfStatus = "open">
 				
 				</cfif>

@@ -304,7 +304,7 @@ password="#SESSION.dbpw#">
 		    </select>
 			</td>			
 						 
-			  <!---- RFUENTES 5/21/2015, set this filter only for the Result accounts --->
+			  <!---- r 5/21/2015, set this filter only for the Result accounts --->
 			  
 			 <cfif GLACcount.AccountClass eq "Result">
 			 	<td class="labelmedium2" style="padding-left:3px;;border-right:0px"><cf_tl id="Warehouse"></td>

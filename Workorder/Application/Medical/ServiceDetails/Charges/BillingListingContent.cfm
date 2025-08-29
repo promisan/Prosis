@@ -216,11 +216,11 @@ ELSE 0 END as CxC,SettleDesc
 				AND	WLBD.ServiceItem = SIU.ServiceItem AND WLBD.ServiceItemUnit = SIU.Unit
 		WHERE 1=1
 		AND		L.Operational = 1
-		AND   W.Mission       = 'ALDANA'
+		AND   W.Mission       = 'A'
 		AND   L.ActionStatus  != '9'
 		AND   W.OrderDate >= (SELECT DatePostingStart
 		                      FROM   ServiceItemMission
-							  WHERE  Mission = 'ALDANA'
+							  WHERE  Mission = 'A'
 							  AND    ServiceItem = W.ServiceItem)  
 		) as Sub
 		WHERE 1=1

@@ -355,7 +355,7 @@
 				AND      C.ActionStatus != '9' 
 				ORDER BY DateEffective DESC) as ContractStep
 				
-				<!--- rfuentes added on ruys request 13-May-2019 --->
+				<!--- r added on ruys request 13-May-2019 --->
 				
 				,(
 					SELECT TOP 1 PACx.ContactCallSign
@@ -381,7 +381,7 @@
 					AND 	C.ContactCode IN ('Office', 'Extension')
 				) as AddressRoom
 				
-				<!--- /rfuentes added on ruys request 13-May-2019 --->
+				<!--- /r added on ruys request 13-May-2019 --->
 			   
 		INTO  userQuery.dbo.#SESSION.acc#Position_#url.box#	   
 		

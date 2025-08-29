@@ -37,7 +37,7 @@
 	
 <cfset dblist =  ValueList(dbserverlist.dbserver,";")>
 
-<!--- issue by Khurshid in NY on 16/4/2009
+<!--- issue by K in NY on 16/4/2009
 
 dbserver is the db server of the production systems, the function
 will fail in case you want to deploy a function which is on the same server

@@ -162,7 +162,7 @@
 			
 			    <!--- NEW additionally we check if the SAME user/session has this link 
 				  matched in length which qualifies for now as well
-				  as we have in cfdiv the issue of the {mission} not to fire an MIP yet : Dev 19/5/2020 --->
+				  as we have in cfdiv the issue of the {mission} not to fire an M yet : Dev 19/5/2020 --->
 				  		
 			
 				<cfquery name="check" 

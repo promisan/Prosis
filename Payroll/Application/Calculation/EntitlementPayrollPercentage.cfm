@@ -288,7 +288,7 @@ password="#SESSION.dbpw#">
 					AND       PD.Recordstatus = '1' 		
 					AND       PDE.DateEffective  <= #SALSTR# 
 				    AND      (PDE.DateExpiration >= #SALEND# or PDE.DateExpiration is NULL)		
-					<!--- the same Dependent but also in MIP, must not count. --->
+					<!--- the same Dependent but also in M, must not count. --->
 					AND  	  EXISTS (
 										SELECT TOP 1 'X'
 										FROM   Payroll.dbo.PersonDependentEntitlement as TMP1 

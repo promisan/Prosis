@@ -1672,7 +1672,7 @@
 					
 					<!--- once this is completed we make a service booking for the service items involved
 					in the production as part of the BOM 
-					RFUENTES: 10-14-2016, to post the Services (labour) and the Indirect Costs of production (GIF)		
+					r: 10-14-2016, to post the Services (labour) and the Indirect Costs of production (GIF)
 					Production 
 					a/ coming from: Materials.dbo.Ref_CategoryGledger.Area="COGS"
 					

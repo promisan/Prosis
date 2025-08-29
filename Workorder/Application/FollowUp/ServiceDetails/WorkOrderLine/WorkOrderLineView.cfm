@@ -17,7 +17,7 @@
 
 WorkOrder + Customer : show the name, the date and the type of service
 
-WorkOrderLine : show the class  : workorderline person : this can follow the aldana portion
+WorkOrderLine : show the class  : workorderline person : this can follow the A portion
 
 WorkOrderLineAction + workflow
 

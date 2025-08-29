@@ -200,7 +200,7 @@
                             FROM   Materials.dbo.WarehouseBatch  
 				            WHERE  BatchId   = LH.TransactionSourceId
 							AND    #url.conditionfield# = '#url.conditionvalue#'
-							AND    BatchClass = 'WhsSale')  <!--- added to prevent mixing with workorder : aldana related sales --->
+							AND    BatchClass = 'WhsSale')  <!--- added to prevent mixing with workorder : A related sales --->
 											   
 			AND      LH.RecordStatus    = '1'
 	 		AND      LH.ActionStatus IN ('0','1')	

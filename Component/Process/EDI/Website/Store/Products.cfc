@@ -108,16 +108,16 @@
 							IU.UoMDescription,
 							I.ItemPrecision,
 							I.ItemNoExternal,
-							MIP.FieldDefault,
-							MIP.PriceSchedule,
-							MIP.PriceScheduleDescription,
-							MIP.Currency,
+							M.FieldDefault,
+							M.PriceSchedule,
+							M.PriceScheduleDescription,
+							M.Currency,
 							CU.CurrencySymbol,
-							MIP.PriorPrice,
-							MIP.SalesPrice,
-							MIP.PriceDate,
-							MIP.PriceOffPercentage,
-							MIP.PriceOff,
+							M.PriorPrice,
+							M.SalesPrice,
+							M.PriceDate,
+							M.PriceOffPercentage,
+							M.PriceOff,
 							ISNULL((
 								SELECT	IWx.MinReorderQuantity
 								FROM	ItemWarehouse IWx WITH (NOLOCK) 
@@ -154,18 +154,18 @@
 								ON IU.ItemNo = I.ItemNo 
 							INNER JOIN ItemUoMMission MI WITH (NOLOCK)
 								ON MI.ItemNo = I.ItemNo
-							INNER JOIN skMissionItemPrice MIP WITH (NOLOCK)
-								ON MIP.Mission = MI.Mission
-								AND MIP.ItemNo = IU.ItemNo
-								AND MIP.UoM = IU.UoM
-								AND MIP.Currency = '#arguments.Currency#' -- Param: Currency
+							INNER JOIN skMissionItemPrice M WITH (NOLOCK)
+								ON M.Mission = MI.Mission
+								AND M.ItemNo = IU.ItemNo
+								AND M.UoM = IU.UoM
+								AND M.Currency = '#arguments.Currency#' -- Param: Currency
 								<cfif trim(arguments.PriceSchedule) eq "">
-									AND MIP.FieldDefault = 1
+									AND M.FieldDefault = 1
 								<cfelse>
-									AND MIP.PriceSchedule = '#arguments.PriceSchedule#' -- Param: PriceSchedule
+									AND M.PriceSchedule = '#arguments.PriceSchedule#' -- Param: PriceSchedule
 								</cfif>
 							INNER JOIN Accounting.dbo.Currency CU WITH (NOLOCK)
-								ON CU.Currency = MIP.Currency
+								ON CU.Currency = M.Currency
 					WHERE	MI.Mission       = '#arguments.mission#' -- Param: Mission
 					AND		IU.EnablePortal  = '1'
 
@@ -179,8 +179,8 @@
 
 					<cfif trim(arguments.onSale) eq "1">
 						--On sale items
-						AND 	MIP.Promotion = 1 
-						AND 	MIP.PriorPrice > 0 
+						AND 	M.Promotion = 1
+						AND 	M.PriorPrice > 0
 					</cfif>
 			
 					<cfif trim(arguments.itemno) neq "">

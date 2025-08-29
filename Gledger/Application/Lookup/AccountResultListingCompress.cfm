@@ -97,7 +97,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 		AND    L.ParentJournal IS NULL		 
 		
-		<!---RFUENTES 21/5/2015 adding: CC for the accounts that are Result Class  ---->
+		<!---r 21/5/2015 adding: CC for the accounts that are Result Class  ---->
 		<cfif url.costcenter neq "All" and url.costcenter neq "" and url.costcenter neq "undefined">
 		AND	   L.OrgUnit IN ('#URL.costcenter#')
 		</cfif>
@@ -106,7 +106,7 @@ password="#SESSION.dbpw#">
 		AND	   H.OrgUnitOwner IN ('#URL.owner#')			
 		</cfif>
 
-		<!--- RFUENTES 12/10/2015 added: to filter only valid transactions ----->
+		<!--- r 12/10/2015 added: to filter only valid transactions ----->
 		AND H.RecordStatus   != '9'
 		AND H.ActionStatus 	 != '9'
 

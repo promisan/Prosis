@@ -392,7 +392,7 @@ password="#SESSION.dbpw#">
 										 AND    CalculationBase = '#code#' )	
 		AND     S.PayrollCalcNo       = T.Line	  
 		<cfelse> 
-		AND     S.PayrollCalcNo       = T.Line	  		<!--- adjusted 23/12/2017 ronmell observation that we took the wrong calcNo --->
+		AND     S.PayrollCalcNo       = T.Line	  		<!--- adjusted 23/12/2017 R observation that we took the wrong calcNo --->
 		</cfif>
 		AND     T.CalculationBase     = '#code#' 		
 				

@@ -136,7 +136,7 @@ password="#SESSION.dbpw#">
 							
 				AND  J.Mission = '#URL.Mission#'
 				
-				<!---RFUENTES 21/5/2015 adding: CC for the accounts that are Result Class  ---->
+				<!---r 21/5/2015 adding: CC for the accounts that are Result Class  ---->
 				<cfif url.costcenter neq "All" and url.costcenter neq "" and url.costcenter neq "undefined">
 				AND	   T.OrgUnit IN ('#URL.costcenter#')							
 				</cfif>
@@ -148,7 +148,7 @@ password="#SESSION.dbpw#">
 							
 				
 				
-				<!--- RFUENTES 12/10/2015 added: to filter only valid transactions ----->
+				<!--- r 12/10/2015 added: to filter only valid transactions ----->
 				AND J.RecordStatus    != '9'
 				AND J.ActionStatus 	  != '9'
 									

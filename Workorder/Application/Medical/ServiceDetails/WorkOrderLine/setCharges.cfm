@@ -34,7 +34,7 @@
 		WHERE       WorkOrderId   = '#get.WorkOrderid#'
 		AND         WorkOrderLine = '#get.WorkOrderLine#'
 		<!--- if the charge is already billed we are NOT removing it 
-		      until a user resets it and thus the charles can be redone --->
+		      until a user resets it and thus the ch can be redone --->
 		AND         Journal is NULL	
 </cfquery>		
 

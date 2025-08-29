@@ -106,7 +106,7 @@ function toggleMenu(){
 	  
 <cfelse>
 
-	<!--- we have an MIP which indicates the context --->
+	<!--- we have an M which indicates the context --->
 
 	<cf_screenTop border="0" 
       height="100%" 

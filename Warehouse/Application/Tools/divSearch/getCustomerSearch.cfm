@@ -95,7 +95,7 @@
 						)
 			
 			<cfif Parameter.CustomerSearch eq '0'>
-			AND        Mission = '#url.mission#'  <!--- for Samaliz we allow for multiple --->
+			AND        Mission = '#url.mission#'  <!--- for s we allow for multiple --->
 		    </cfif>	
 				
 			AND        Operational = 1

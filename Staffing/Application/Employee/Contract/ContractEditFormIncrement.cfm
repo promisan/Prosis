@@ -118,7 +118,7 @@
 	<cfoutput>
 						
 		<select name="StepIncreaseDate" style="width:150px;<cfif url.entry eq 'edit'>border:0px</cfif>" class="<cfif url.lastcontractid eq "">regularxxl<cfelse>regularxxl</cfif>">
-			<!--- was before; rfuentes, STL tmp 
+			<!--- was before; r, STL tmp
 		     <option value="" selected><cf_tl id="No applicable"></option>
 			 
 		     <cfloop index="yr" from="#year(sel)-20#" to="#year(sel)+20#" step="1">

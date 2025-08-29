@@ -858,7 +858,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 					</cfoutput>
 
 					<cfif ParentJournal neq "" and ParentJournalSerialNo neq Transaction.JournalSerialNo>
-<!----to show the reference for the parent transaction rfuentes 2017-06-08  ----->
+<!----to show the reference for the parent transaction r 2017-06-08  ----->
 						<cfquery name="getParentDocument"
 								datasource="AppsLedger"
 								username="#SESSION.login#"

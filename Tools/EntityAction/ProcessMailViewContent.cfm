@@ -153,7 +153,7 @@
 					  System.dbo.UserNames U ON A.UserAccount = U.Account  
 			 WHERE    A.ClassParameter = '#Action.ActionCode#' 
 			 AND      A.GroupParameter = '#Object.EntityGroup#' 
-			 AND      A.AccessLevel IN ('0','1','2')  <!--- 0 = collaborator, 1 common, 2 special Fatemeh ruy --->	 
+			 AND      A.AccessLevel IN ('0','1','2')  <!--- 0 = collaborator, 1 common, 2 special Fatemeh r --->
 			 AND      U.Disabled = 0
 			 
 			 <cfif Object.OrgUnit eq "0" or Object.OrgUnit eq "">

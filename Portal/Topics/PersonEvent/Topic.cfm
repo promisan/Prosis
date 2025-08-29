@@ -131,7 +131,7 @@ password="#SESSION.dbpw#">
 		AND      year(DateEvent) < 2030	
 		AND      ActionStatus <> '9'
 
-		<!--- added by rfuentes because year 2021 was not showing in dppadpo --->
+		<!--- added by r because year 2021 was not showing in dppadpo --->
 		UNION
 		SELECT   DISTINCT Year(ActionDateEffective) as Year
 		FROM     PersonEvent 

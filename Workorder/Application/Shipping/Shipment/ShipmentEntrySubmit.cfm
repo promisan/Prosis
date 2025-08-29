@@ -460,7 +460,7 @@ password="#SESSION.dbpw#">
 								TaxIncluded           = "#getWorkOrderLines.TaxIncluded#"								
 								TaxCode 			  = "#getWorkOrderLines.TaxCode#">
 								
-								<!--- rfuentes 2017-06-09 to let StockTransact component calculate the Tax than then is saved to ItemTransactionShipping, which then
+								<!--- r 2017-06-09 to let StockTransact component calculate the Tax than then is saved to ItemTransactionShipping, which then
 								is taken from SetTotal.cfm file to calculate the amount of the Tax at the moment the Invoice is issued --->
 															
 						</cfif>									

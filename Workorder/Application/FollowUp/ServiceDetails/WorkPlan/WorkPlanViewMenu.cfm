@@ -86,7 +86,7 @@
 			}
 			else if (tpe == 'smtp' || tpe=='SMTP'){
 				se='';
-				ptoken.navigate('#session.root#/Workorder/Application/Medical/ServiceDetails/Notification/SMTP/SMTPListing.cfm?mission=ALDANA&date='+se,'listing')
+				ptoken.navigate('#session.root#/Workorder/Application/Medical/ServiceDetails/Notification/SMTP/SMTPListing.cfm?mission=A&date='+se,'listing')
 			}	 
 		}				
 	

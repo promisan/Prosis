@@ -1019,7 +1019,7 @@
 												
 											</cfif>
 											
-											<!-----rfuentes to show approbals without editting ---->
+											<!-----r to show approbals without editting ---->
 											<cfif GetPL.Status eq "1" or GetPL.Status eq "0">
 												<td width="50%">								    
 												<cf_securediv bind="url:#link#&Account=" id="super1">						

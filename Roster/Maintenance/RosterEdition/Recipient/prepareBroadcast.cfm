@@ -79,7 +79,7 @@ password="#SESSION.dbpw#">
 		  '#SESSION.first#')
 </cfquery>
 
-<cfif Session.Status lte 0> <!---- rfuentes because the ajax somehow it was calling it many times, June-17 2020 ------->
+<cfif Session.Status lte 0> <!---- r because the ajax somehow it was calling it many times, June-17 2020 ------->
 	
 	<cftransaction>
 		
