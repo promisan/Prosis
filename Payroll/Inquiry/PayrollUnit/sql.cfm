@@ -28,7 +28,7 @@ into userquery.dbo.#Answer1#
 from EmployeeSettlementLine esp,organization.dbo.Organization o,
      Payroll.dbo.ref_PayrollItem pitem
 where esp.OrgUnit = o.OrgUnit
-  and o.Mission = 'SAT'
+  and o.Mission = 'S'
   and esp.PayrollItem = pitem.PayrollItem
   and esp.PaymentMonth = '#Month#'
   and esp.PaymentYear = '#Period#'

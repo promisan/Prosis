@@ -33,7 +33,7 @@ from EmployeeSettlementLine esp,employee.dbo.Person p,organization.dbo.Organizat
      Payroll.dbo.ref_PayrollItem pitem
 where esp.PersonNo = p.PersonNo
   and esp.OrgUnit = o.OrgUnit
-  and o.Mission = 'SAT'
+  and o.Mission = 'S'
   and esp.PayrollItem = pitem.PayrollItem
   and esp.SalarySchedule = '#Type#'
   and esp.PaymentMonth = '#Month#'

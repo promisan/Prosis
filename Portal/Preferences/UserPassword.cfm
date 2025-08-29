@@ -16,8 +16,8 @@
 <cfsilent>
 	<proUsr>dev</proUsr>
 	<proOwn>dev dev</proOwn>
-	<proDes>SAT CHANGE</proDes>
-	<proCom>SAT CHANGE</proCom>
+	<proDes>S CHANGE</proDes>
+	<proCom>S CHANGE</proCom>
 </cfsilent>
 <!--- End Prosis template framework --->
 

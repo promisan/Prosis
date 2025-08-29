@@ -790,14 +790,14 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 					ProcessBatchId = "#calculationid#"				
 					Description    = "Entitlements, calculated on PRIOR period"> 
 					
-					<!--- reminder : SAT aguinaldo was to be calculated until the prior month --->
+					<!--- reminder : S aguinaldo was to be calculated until the prior month --->
 					
 					<cfinclude template="EntitlementPayrollRate.cfm">						
 					<cfinclude template="EntitlementPayrollPercentage.cfm">		 
 					
 			</cfif>	 			
 			
-			<!--- to be adjusted for SAT as Aguinaldo comes afterwards 
+			<!--- to be adjusted for S as Aguinaldo comes afterwards
 			
 			<!--- 8. Special provision to trigger entitlements usually delayed but now to be release as part of Final payment
 			like : Aguinaldo to be released   --->

@@ -16,7 +16,7 @@
  <cf_InterfaceTextInsert TextClass='Help' TextId = 'Help' TextENG = 'Help' TextESP = 'Ayuda' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Help' TextId = 'Where is my travel request' TextENG = 'Where is my travel request' TextESP = '' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Account' TextENG = 'Account' TextESP = 'Usuario' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Action' TextENG = 'Action' TextESP = 'Acción' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Action' TextENG = 'Action' TextESP = 'Acciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Action status' TextENG = 'Action status' TextESP = 'Estado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'ActionPlanDetail' TextENG = 'Action Plan Detail' TextESP = 'Perfil del Proyecto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Active' TextENG = 'Active' TextESP = 'Activo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -35,14 +35,14 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Add SubProject' TextENG = 'Add SubProject' TextESP = 'Agregar Subproyecto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'AddActivity' TextENG = 'Add Activity' TextESP = 'Agregar o modificar una actividad' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Additional' TextENG = 'Additional' TextESP = 'Adicional' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Address' TextENG = 'Address' TextESP = 'Dirección' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Address type' TextENG = 'Address type' TextESP = 'Tipo de dirección' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Address' TextENG = 'Address' TextESP = 'Direcciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Address type' TextENG = 'Address type' TextESP = 'Tipo de direcciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Address Zone' TextENG = 'Address Zone' TextESP = 'Zona' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Administrative' TextENG = 'Administrative' TextESP = 'Normativa' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Administrative Organization' TextENG = 'Administrative Organization' TextESP = 'Organización administrativa' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Administrative Organization' TextENG = 'Administrative Organization' TextESP = 'Organizaciï¿½n administrativa' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Ahead of schedule' TextENG = 'Ahead of schedule' TextESP = 'Adelantado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'All' TextENG = 'All' TextESP = 'Todos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'All categories' TextENG = 'All categories' TextESP = 'Todas las categorías' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'All categories' TextENG = 'All categories' TextESP = 'Todas las categorï¿½as' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'All classes' TextENG = 'All classes' TextESP = 'Todas las clases' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'All groups' TextENG = 'All groups' TextESP = 'Todos los grupos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'All program groups' TextENG = 'All program groups' TextESP = 'Todos los grupos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -54,16 +54,16 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Application Agent' TextENG = 'Application Agent' TextESP = 'Agente de trabajo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Applications' TextENG = 'Applications' TextESP = 'Candidaturas' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Applying access rights, please be patient.....' TextENG = 'Applying access rights, please be patient.....' TextESP = 'Estableciendo permisos, por favor sea paciente...' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Approval' TextENG = 'Approval' TextESP = 'Aprobación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Approval' TextENG = 'Approval' TextESP = 'Aprobaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'AreaOfExpertise' TextENG = 'Area Of Expertise' TextESP = 'Area de experiencia' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Arrival' TextENG = 'Arrival' TextESP = 'Llegó a la SAT' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Aspects' TextENG = 'Aspects' TextESP = 'Planificación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Arrival' TextENG = 'Arrival' TextESP = 'Llegï¿½ a la S' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Aspects' TextENG = 'Aspects' TextESP = 'Planificaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Assigned to' TextENG = 'Assigned to' TextESP = 'Asignado a' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Assignment' TextENG = 'Assignment' TextESP = 'Asignación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Assignment-type-class' TextENG = 'Assignment type/class' TextESP = 'Tipo de asignación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Assignment' TextENG = 'Assignment' TextESP = 'Asignaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Assignment-type-class' TextENG = 'Assignment type/class' TextESP = 'Tipo de asignaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Attach' TextENG = 'Attach' TextESP = 'Adjuntar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Attachment' TextENG = 'Attachment' TextESP = 'Documentos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Attention' TextENG = 'Attention' TextESP = 'Atención' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Attention' TextENG = 'Attention' TextESP = 'Atenciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Authorised' TextENG = 'Authorised' TextESP = 'Autorizada' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Automatic eMail' TextENG = 'Automatic eMail' TextESP = 'e-Mail automatico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Back' TextENG = 'Back' TextESP = 'Anterior' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -81,20 +81,20 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Cellular' TextENG = 'Cellular' TextESP = 'Celular' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'City' TextENG = 'City' TextESP = 'Ciudad' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Class' TextENG = 'Class' TextESP = 'Clase' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Classification' TextENG = 'Classification' TextESP = 'Clasificación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Classification' TextENG = 'Classification' TextESP = 'Clasificaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Classified level' TextENG = 'Classified level' TextESP = 'Nivel clasificado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Clearance' TextENG = 'Clearance' TextESP = 'Revisión' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Clearance' TextENG = 'Clearance' TextESP = 'Revisiï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Cleared' TextENG = 'Cleared' TextESP = 'Aprobado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Close' TextENG = 'Close' TextESP = 'Cerrar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Cluster' TextENG = 'Cluster' TextESP = 'Agrupación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Cluster' TextENG = 'Cluster' TextESP = 'Agrupaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Code' TextENG = 'Code' TextESP = 'Codigo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Combined Roster Summary' TextENG = 'Combined Roster Summary' TextESP = 'Resultados combinados de cubetas de reclutamiento' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Competencies' TextENG = 'Competencies' TextESP = 'Habilidades' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Completed' TextENG = 'Completed' TextESP = 'Completado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Component' TextENG = 'Component' TextESP = 'Componente' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Components' TextENG = 'Components' TextESP = 'Proyectos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Computing' TextENG = 'Computing' TextESP = 'Computación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Computing skills' TextENG = 'Computing skills' TextESP = 'Computación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Computing' TextENG = 'Computing' TextESP = 'Computaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Computing skills' TextENG = 'Computing skills' TextESP = 'Computaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Contact' TextENG = 'Contact' TextESP = 'Persona de Contacto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Continue' TextENG = 'Continue' TextESP = 'Continuar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Continue later' TextENG = 'Continue later' TextESP = 'Continuar despues' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -102,7 +102,7 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'ContractHasExpired' TextENG = 'Contract Has Expired' TextESP = 'Contrato ha expirado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'ContractNo' TextENG = 'ContractNo' TextESP = 'Numero de contrato' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Costing' TextENG = 'Costing' TextESP = 'Presupuesto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Country' TextENG = 'Country' TextESP = 'País' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Country' TextENG = 'Country' TextESP = 'Paï¿½s' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'CourseName' TextENG = 'Course Name' TextESP = 'Nombre del curso' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Create Account' TextENG = 'Create Account' TextESP = 'Crear cuenta' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'CreateAccount' TextENG = 'Create Account' TextESP = 'Crear Cuenta' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -118,33 +118,33 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Default' TextENG = 'Default' TextESP = 'Predefinido' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Degree' TextENG = 'Degree' TextESP = 'Grado alcanzado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Delete' TextENG = 'Delete' TextESP = 'Borrar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Departure' TextENG = 'Departure' TextESP = 'Se retiró de la SAT' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Departure' TextENG = 'Departure' TextESP = 'Se retirï¿½ de la S' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Dependent activities' TextENG = 'Dependent activities' TextESP = 'Actividades dependientes' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Description' TextENG = 'Description' TextESP = 'Descripción' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Description' TextENG = 'Description' TextESP = 'Descripciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Details' TextENG = 'Details' TextESP = 'Detalles' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Diploma' TextENG = 'Diploma' TextESP = 'Diploma' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'DOB' TextENG = 'DOB' TextESP = 'Fecha de Nacimiento (dd/mm/YYYY)
 ' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Document' TextENG = 'Document' TextESP = 'Documento' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Done' TextENG = 'Done' TextESP = 'Hecho' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Duration' TextENG = 'Duration' TextESP = 'Duración' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Duration' TextENG = 'Duration' TextESP = 'Duraciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Edit' TextENG = 'Edit' TextESP = 'Editar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Edit Address' TextENG = 'Edit Address' TextESP = 'Edición' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Edit Address' TextENG = 'Edit Address' TextESP = 'Ediciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Edit Parent Position' TextENG = 'Edit Parent Position' TextESP = 'Editar plaza maestra' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Edit position assignment' TextENG = 'Edit position assignment' TextESP = 'Editar esta asignación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'EditAddress' TextENG = 'Edit Address' TextESP = 'Editar dirección' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Edit position assignment' TextENG = 'Edit position assignment' TextESP = 'Editar esta asignaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'EditAddress' TextENG = 'Edit Address' TextESP = 'Editar direcciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'EditAppointmentContract' TextENG = 'Edit Appointment Contract' TextESP = 'Editar contrato' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'EducationRecord' TextENG = 'Education Record' TextESP = 'Registro de educación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'EducationRecord' TextENG = 'Education Record' TextESP = 'Registro de educaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Effective' TextENG = 'Effective' TextESP = 'Efectivo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Effective date' TextENG = 'Effective date' TextESP = 'Fecha de inicio' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'eMail' TextENG = 'eMail' TextESP = 'Correo electrónico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'eMail' TextENG = 'eMail' TextESP = 'Correo electrï¿½nico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'eMail Subject' TextENG = 'eMail Subject' TextESP = 'Asunto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'eMail Text' TextENG = 'eMail Text' TextESP = 'Texto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'eMailAddress' TextENG = 'eMail Address' TextESP = 'Dirección de correo electrónico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'eMailAddress' TextENG = 'eMail Address' TextESP = 'Direcciï¿½n de correo electrï¿½nico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Employee' TextENG = 'Employee' TextESP = 'Datos Generales' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Employee lookup' TextENG = 'Employee lookup' TextESP = 'Buscar empleado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Employee-Candidate' TextENG = 'Employee / Candidate' TextESP = 'Empleado / Candidato' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Employees' TextENG = 'Employees' TextESP = 'Empleados SAT' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Employees' TextENG = 'Employees' TextESP = 'Empleados S' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'employees found' TextENG = 'employees found' TextESP = 'empleados encontrados' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Employer' TextENG = 'Employer' TextESP = 'Empresa' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Employment' TextENG = 'Employment' TextESP = 'Datos Laborales' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -155,18 +155,18 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'End' TextENG = 'End' TextESP = 'Fin' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'End Date' TextENG = 'End Date' TextESP = 'Fecha final' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Enter Address' TextENG = 'Enter Address' TextESP = 'Ingreso' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'EnterAddress' TextENG = 'Enter Address' TextESP = 'Ingrese dirección' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'EnterAddress' TextENG = 'Enter Address' TextESP = 'Ingrese direcciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Entered' TextENG = 'Entered' TextESP = 'Ingresado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Entered by' TextENG = 'Entered by' TextESP = 'Ingresado por' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'EOD' TextENG = 'EOD' TextESP = 'Inicio de labores' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Estimated End' TextENG = 'Estimated End' TextESP = 'Fin' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Evaluator' TextENG = 'Evaluator' TextESP = 'Responsable de la evaluación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Evaluator' TextENG = 'Evaluator' TextESP = 'Responsable de la evaluaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Event' TextENG = 'Event' TextESP = 'Evento' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'events' TextENG = 'events' TextESP = 'Eventos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Exit' TextENG = 'Exit' TextESP = 'Salir' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Expected Outcomes' TextENG = 'Expected Outcomes' TextESP = 'Entregable esperados' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Expiration' TextENG = 'Expiration' TextESP = 'Expiración' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Expiration date' TextENG = 'Expiration date' TextESP = 'Fecha de expiración' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Expiration' TextENG = 'Expiration' TextESP = 'Expiraciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Expiration date' TextENG = 'Expiration date' TextESP = 'Fecha de expiraciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'External reference' TextENG = 'External reference' TextESP = 'Referencia externa' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Factor' TextENG = 'Factor' TextESP = 'Factores' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Fax' TextENG = 'Fax' TextESP = 'Fax' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -179,14 +179,14 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'FirstName' TextENG = 'First Name' TextESP = 'Primer Nombre' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'FirstName2' TextENG = 'First Name2' TextESP = 'Segundo Nombre' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'FirstName3' TextENG = 'First Name3' TextESP = 'Tercer Nombre' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'ForgetYourPassword' TextENG = 'Forget Your Password' TextESP = '¿Olvido su PIN?' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'ForgetYourPassword' TextENG = 'Forget Your Password' TextESP = 'ï¿½Olvido su PIN?' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Forward' TextENG = 'Forward' TextESP = 'Siguiente' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'from' TextENG = 'from' TextESP = 'desde' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Function' TextENG = 'Function' TextESP = 'Función' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Function' TextENG = 'Function' TextESP = 'Funciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Functional title' TextENG = 'Functional title' TextESP = 'Titulo funcional' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'FunctionalTitle' TextENG = 'Functional Title' TextESP = 'Puesto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Gender' TextENG = 'Gender' TextESP = 'Género' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'General Information' TextENG = 'General Information' TextESP = 'Información General' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Gender' TextENG = 'Gender' TextESP = 'Gï¿½nero' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'General Information' TextENG = 'General Information' TextESP = 'Informaciï¿½n General' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Goal' TextENG = 'Goal' TextESP = 'Meta' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Grade' TextENG = 'Grade' TextESP = 'Grado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Grade approved' TextENG = 'Grade approved' TextESP = 'Grado aprobado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -200,12 +200,12 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'History' TextENG = 'History' TextESP = 'No laborando' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Home' TextENG = 'Home' TextESP = 'Inicio' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Hostname' TextENG = 'Hostname' TextESP = 'Servidor' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Identification' TextENG = 'Identification' TextESP = 'Identificación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Identification' TextENG = 'Identification' TextESP = 'Identificaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Implementer' TextENG = 'Implementer' TextESP = 'Implementador' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Importancy' TextENG = 'Importancy' TextESP = 'Importancia' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Incumbency' TextENG = 'Incumbency' TextESP = 'Compromiso ante la SAT' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Incumbency' TextENG = 'Incumbency' TextESP = 'Compromiso ante la S' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Incumbent' TextENG = 'Incumbent' TextESP = 'Ocupar la plaza' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Index No Explanation' TextENG = 'Index No Explanation' TextESP = 'Numero de Identificación Tributaria' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Index No Explanation' TextENG = 'Index No Explanation' TextESP = 'Numero de Identificaciï¿½n Tributaria' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'IndexNo' TextENG = 'IndexNo' TextESP = 'NIT' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Indicator' TextENG = 'Indicator' TextESP = 'Indicador' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Indicator status' TextENG = 'Indicator status' TextESP = 'Revisar indicadores' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -213,7 +213,7 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Initiate Account' TextENG = 'Initiate Account' TextESP = 'Iniciar tu cuenta aqui' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Initiate Recruitment' TextENG = 'Initiate Recruitment' TextESP = 'Iniciar reclutamiento' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Inquiry' TextENG = 'Inquiry' TextESP = 'Analizar datos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Instruction' TextENG = 'Instruction' TextESP = 'Instrucción' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Instruction' TextENG = 'Instruction' TextESP = 'Instrucciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Issued' TextENG = 'Issued' TextESP = 'Emision' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Issued contract' TextENG = 'Issued contract' TextESP = 'Contrato emitido' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'IssuedContractsAndExtensions' TextENG = 'Issued Contracts And Extensions' TextESP = 'Contratos actuales' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -221,11 +221,11 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Job profile' TextENG = 'Job profile' TextESP = 'Perfil ' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Language' TextENG = 'Language' TextESP = 'Lenguaje' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Last report' TextENG = 'Last report' TextESP = 'Ultimo reporte' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Last updated' TextENG = 'Last updated' TextESP = 'Ultima actualización' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Last updated' TextENG = 'Last updated' TextESP = 'Ultima actualizaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Last visit' TextENG = 'Last visit' TextESP = 'Ultima visita' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'LastName' TextENG = 'Last Name' TextESP = 'Primer Apellido' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'LastName2' TextENG = 'Last Name2' TextESP = 'Segundo Apellido' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Less than 30 days' TextENG = 'Less than 30 days' TextESP = 'Menos de 30 días' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Less than 30 days' TextENG = 'Less than 30 days' TextESP = 'Menos de 30 dï¿½as' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Level' TextENG = 'Level' TextESP = 'Nivel' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Line' TextENG = 'Line' TextESP = 'Linea' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Links' TextENG = 'Links' TextESP = 'Vinculos importantes' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -234,8 +234,8 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Loading staffing table' TextENG = 'Loading staffing table' TextESP = 'Generando tabla de plazas' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Loan status' TextENG = 'Loan status' TextESP = 'Estado del prestamo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Loaned to' TextENG = 'Loaned to' TextESP = 'Dado en prestamo a' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Locate employee' TextENG = 'Locate employee' TextESP = 'Localizar a empleado SAT' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Location' TextENG = 'Location' TextESP = 'Ubicación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Locate employee' TextENG = 'Locate employee' TextESP = 'Localizar a empleado S' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Location' TextENG = 'Location' TextESP = 'Ubicaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Login Instructions' TextENG = 'Login Instructions' TextESP = 'Instrucciones' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Logoff' TextENG = 'Logoff' TextESP = 'Salir del sistema' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Logout' TextENG = 'Logout' TextESP = 'Salir del sistema' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -248,30 +248,30 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Maintain' TextENG = 'Maintain' TextESP = 'Mantenimiento' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Male' TextENG = 'Male' TextESP = 'Masculino' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Manager' TextENG = 'Manager' TextESP = 'Administrador' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Manual action' TextENG = 'Manual action' TextESP = 'Acción manual' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Manual action' TextENG = 'Manual action' TextESP = 'Acciï¿½n manual' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Med.' TextENG = 'Med.' TextESP = 'Seguro medico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Medical insurance' TextENG = 'Medical insurance' TextESP = 'Seguro medico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Memo' TextENG = 'Memo' TextESP = 'Memorando' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'MilestoneOutput' TextENG = 'Milestone/Output' TextESP = 'Entregable' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Miscellaneous' TextENG = 'Miscellaneous' TextESP = 'Varios' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Mission' TextENG = 'Mission' TextESP = 'Organización' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Mission' TextENG = 'Mission' TextESP = 'Organizaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Mode' TextENG = 'Mode' TextESP = 'Modo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Monitoring status' TextENG = 'Monitoring status' TextESP = 'Monitorear' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Month' TextENG = 'Month' TextESP = 'Mes' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'More details' TextENG = 'More details' TextESP = 'Más detalles' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'More details' TextENG = 'More details' TextESP = 'Mï¿½s detalles' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Mother tongue/Proficiency' TextENG = 'Mother tongue/Proficiency' TextESP = 'Idioma materno' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'MotherTongue' TextENG = 'MotherTongue' TextESP = 'Idioma Materno' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'MoveProject' TextENG = 'Move this project to another unit' TextESP = 'Mover este proyecto a otra dependencia' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'My clearances' TextENG = 'My clearances' TextESP = 'Para evaluar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'My Dashboard' TextENG = 'My Dashboard' TextESP = 'Mi tablero de comandos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'My Profile' TextENG = 'My Profile' TextESP = 'Mi perfil' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'My topics' TextENG = 'My topics' TextESP = 'Información de interes' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'My topics' TextENG = 'My topics' TextESP = 'Informaciï¿½n de interes' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'N/A' TextENG = 'N/A' TextESP = 'No Aplica' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Name' TextENG = 'Name' TextESP = 'Nombre' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'NameInstitute' TextENG = 'Name Institute' TextESP = 'Universidad' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'NameSchool' TextENG = 'Name School' TextESP = 'Colegio' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'NameSupervisor' TextENG = 'Name Supervisor' TextESP = 'Jefe inmediato' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'NameTrainingCenter' TextENG = 'Name TrainingCenter' TextESP = 'Institución o Centro de Estudios que impartió la capacitación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'NameTrainingCenter' TextENG = 'Name TrainingCenter' TextESP = 'Instituciï¿½n o Centro de Estudios que impartiï¿½ la capacitaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Nat.' TextENG = 'Nat.' TextESP = 'Nac.' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Nationality' TextENG = 'Nationality' TextESP = 'Nacionalidad de Nacimiento' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Nationality2' TextENG = 'Nationality2' TextESP = 'Otra Nacionalidad adoptada legalmente' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -290,10 +290,10 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Not applicable' TextENG = 'Not applicable' TextESP = 'No aplica' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Not easily' TextENG = 'Not easily' TextESP = 'No facilmente' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Not started' TextENG = 'Not started' TextESP = 'No iniciado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Notification' TextENG = 'Notification' TextESP = 'Notificación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Notification' TextENG = 'Notification' TextESP = 'Notificaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Number' TextENG = 'Number' TextESP = 'Numero' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Objective' TextENG = 'Objective' TextESP = 'Objetivo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Objectives' TextENG = 'Objectives' TextESP = 'Objetivos Estratégicos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Objectives' TextENG = 'Objectives' TextESP = 'Objetivos Estratï¿½gicos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Objetivo de rendimiento' TextENG = 'Objetivo de rendimiento' TextESP = 'Objetivo de Rendimiento' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Occ Group' TextENG = 'Occ Group' TextESP = 'Grupo ocupacional' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Occ. group' TextENG = 'Occ. group' TextESP = 'Grupos ocupacionales' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -310,51 +310,51 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'OnlyActivitybyDay' TextENG = 'Only Activity by Day' TextESP = 'Por dia' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'OnlySelectedUnit' TextENG = 'OnlySelected Unit' TextESP = 'Solamente unidades seleccionadas' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Operational' TextENG = 'Operational' TextESP = 'Funcional' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'OperationNotAllowed' TextENG = 'Operation Not Allowed' TextESP = 'Operación no permitida' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'OperationNotAllowed' TextENG = 'Operation Not Allowed' TextESP = 'Operaciï¿½n no permitida' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Options' TextENG = 'Options' TextESP = 'Opciones' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Order' TextENG = 'Order' TextESP = 'Orden' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Org unit' TextENG = 'Org unit' TextESP = 'Dependencia' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Org. start' TextENG = 'Org. start' TextESP = 'Inició en SAT' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Organization' TextENG = 'Organization' TextESP = 'Organización' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Org. start' TextENG = 'Org. start' TextESP = 'Iniciï¿½ en S' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Organization' TextENG = 'Organization' TextESP = 'Organizaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Output due' TextENG = 'Output due' TextESP = 'Planeado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Output/milestones' TextENG = 'Output/milestones' TextESP = 'Productos esperados' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'OutputMilestone' TextENG = 'Output and Milestone' TextESP = 'Salida/Entregable' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Over 30 days' TextENG = 'Over 30 days' TextESP = 'Mas de 30 días' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Over 60 days' TextENG = 'Over 60 days' TextESP = 'Mas de 60 días' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Over 30 days' TextENG = 'Over 30 days' TextESP = 'Mas de 30 dï¿½as' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Over 60 days' TextENG = 'Over 60 days' TextESP = 'Mas de 60 dï¿½as' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Owner' TextENG = 'Owner' TextESP = 'Propietario' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Page' TextENG = 'Page' TextESP = 'Página' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Page' TextENG = 'Page' TextESP = 'Pï¿½gina' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Parent' TextENG = 'Parent' TextESP = 'Proyecto padre' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Part-time' TextENG = 'Part-time' TextESP = 'Medio tiempo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Password' TextENG = 'Password' TextESP = 'PIN' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Password was modified on' TextENG = 'Password was modified on' TextESP = 'Clave de acceso fue modificada el día' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Password was modified on' TextENG = 'Password was modified on' TextESP = 'Clave de acceso fue modificada el dï¿½a' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PasswordHint' TextENG = 'PasswordHint' TextESP = 'Recordatorio de clave' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Payroll' TextENG = 'Payroll' TextESP = 'Planilla' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Payroll scale' TextENG = 'Payroll scale' TextESP = 'Escala salarial' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Pen.' TextENG = 'Pen.' TextESP = 'Pension' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Pending' TextENG = 'Pending' TextESP = 'Pendiente' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Pending clearance' TextENG = 'Pending clearance' TextESP = 'Pendiente de revisión' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Pending clearance' TextENG = 'Pending clearance' TextESP = 'Pendiente de revisiï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PendingActivitiesInProjects' TextENG = 'Pending Activities In Projects' TextESP = 'Actividades pendientes de completar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Pension fund' TextENG = 'Pension fund' TextESP = 'Fondo de pensión' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Pension fund' TextENG = 'Pension fund' TextESP = 'Fondo de pensiï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PeopleSupervised' TextENG = 'People Supervised' TextESP = 'Personal supervisado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Period' TextENG = 'Period' TextESP = 'Periodo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Phone' TextENG = 'Phone' TextESP = 'Teléfono' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'PHP' TextENG = 'PHP' TextESP = 'Curriculo Electrónico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'PHP Logon' TextENG = 'PHP Logon' TextESP = 'Curriculo electrónico - SAT' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Please sign in' TextENG = 'Please sign in' TextESP = '<b>Validación de Acceso</b>' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Phone' TextENG = 'Phone' TextESP = 'Telï¿½fono' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'PHP' TextENG = 'PHP' TextESP = 'Curriculo Electrï¿½nico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'PHP Logon' TextENG = 'PHP Logon' TextESP = 'Curriculo electrï¿½nico - S' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Please sign in' TextENG = 'Please sign in' TextESP = '<b>Validaciï¿½n de Acceso</b>' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Please, wait' TextENG = 'Please, wait' TextESP = 'Por favor espere' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseContact' TextENG = 'Please Contact' TextESP = 'Por favor contacte al' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnter' TextENG = 'Please Enter' TextESP = 'Favor ingrese' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterAddress' TextENG = 'Please Enter Address' TextESP = 'Favor ingrese dirección' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterAddress' TextENG = 'Please Enter Address' TextESP = 'Favor ingrese direcciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterCity' TextENG = 'Please Enter City' TextESP = 'Favor ingrese ciudad' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterDate' TextENG = 'Please Enter Date' TextESP = 'Favor ingrese fecha' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterEMail' TextENG = 'Please Enter EMail' TextESP = 'Favor ingrese correo electrónico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterEMail' TextENG = 'Please Enter EMail' TextESP = 'Favor ingrese correo electrï¿½nico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterNumberSupervised' TextENG = 'Please Enter Number Supervised' TextESP = 'Favor ingrese numero de personas supervisadas' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterOrganization' TextENG = 'Please Enter Organization' TextESP = 'Favor ingrese Organización' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterOrganization' TextENG = 'Please Enter Organization' TextESP = 'Favor ingrese Organizaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterPhone' TextENG = 'Please Enter Phone' TextESP = 'Favor ingrese telefono' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterSalaryRange' TextENG = 'Please Enter Salary Range' TextESP = 'Favor ingrese rango salarial' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterTitleDescription' TextENG = 'Please Enter Title Description' TextESP = 'Favor ingrese puesto desempeñado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'PleaseEnterTitleDescription' TextENG = 'Please Enter Title Description' TextESP = 'Favor ingrese puesto desempeï¿½ado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Position' TextENG = 'Position' TextESP = 'Plaza' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Position action' TextENG = 'Position action' TextESP = 'Acción en la plaza' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Position action' TextENG = 'Position action' TextESP = 'Acciï¿½n en la plaza' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Position History' TextENG = 'Position History' TextESP = 'Historial' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Position number' TextENG = 'Position number' TextESP = 'Numero de plaza' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PositionId' TextENG = 'PositionId' TextESP = 'Id de la plaza' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -366,25 +366,25 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PostNo' TextENG = 'PostNo' TextESP = 'Id. Plaza' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Preferences' TextENG = 'Preferences' TextESP = 'Preferencias' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Prepare' TextENG = 'Prepare my' TextESP = 'Preparar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Prepare my' TextENG = 'Prepare my' TextESP = 'Preparación de Curriculo Electrónico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Prepare my PHP' TextENG = 'Prepare my PHP' TextESP = 'Curriculo Electrónico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Prepare my' TextENG = 'Prepare my' TextESP = 'Preparaciï¿½n de Curriculo Electrï¿½nico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Prepare my PHP' TextENG = 'Prepare my PHP' TextESP = 'Curriculo Electrï¿½nico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Preparing' TextENG = 'Preparing' TextESP = 'Preparando' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Press HERE to refresh' TextENG = 'Press HERE to refresh' TextESP = 'De click aquí para refrescar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'PressHere' TextENG = 'Press Here' TextESP = 'De click aquí' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Press HERE to refresh' TextENG = 'Press HERE to refresh' TextESP = 'De click aquï¿½ para refrescar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'PressHere' TextENG = 'Press Here' TextESP = 'De click aquï¿½' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'PreviouslySubmittedBy' TextENG = 'Previously Submitted By' TextESP = 'Anteriormente reportado por' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Price' TextENG = 'Price' TextESP = 'Precio' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Print' TextENG = 'Print' TextESP = 'Imprimir' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Priority' TextENG = 'Priority' TextESP = 'Prioridad' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Process' TextENG = 'Process' TextESP = 'Procesar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Proficiency' TextENG = 'Proficiency' TextESP = 'Desempeño' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Program Officer' TextENG = 'Program Officer' TextESP = 'Profesional de Planificación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Proficiency' TextENG = 'Proficiency' TextESP = 'Desempeï¿½o' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Program Officer' TextENG = 'Program Officer' TextESP = 'Profesional de Planificaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Programa' TextENG = 'Programa' TextESP = 'Programa' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'ProgramListing' TextENG = 'Program Listing' TextESP = 'Listado de Programas, proyectos e indicadores' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Programs' TextENG = 'Programs' TextESP = 'Programas' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Progress' TextENG = 'Progress' TextESP = 'Progreso' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'ProgressForThisUnit' TextENG = 'Progress For This Unit' TextESP = 'Progreso para esta unidad' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'ProgressReport' TextENG = 'Progress Report' TextESP = 'Reportar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'ProgressReporting' TextENG = 'Progress Reporting' TextESP = 'Reporte de progreso al Plan Estratégico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'ProgressReporting' TextENG = 'Progress Reporting' TextESP = 'Reporte de progreso al Plan Estratï¿½gico' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Project' TextENG = 'project' TextESP = 'Proyecto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Project name' TextENG = 'Project name' TextESP = 'Nombre del proyecto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Project output status per' TextENG = 'Project output status per' TextESP = 'Estado de entregables al' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -401,25 +401,25 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'recapitulation' TextENG = 'recapitulation' TextESP = 'Resumen del perfil' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Record' TextENG = 'Record' TextESP = 'Registros del ' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Recruitment' TextENG = 'Recruitment' TextESP = 'Reclutamiento' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Reference' TextENG = 'Reference' TextESP = 'Cédula' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Reference' TextENG = 'Reference' TextESP = 'Cï¿½dula' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Reference2' TextENG = 'Reference' TextESP = 'Referencia' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'References' TextENG = 'References' TextESP = 'Referencias' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Refresh' TextENG = 'Refresh' TextESP = 'Refrescar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Refresh this view' TextENG = 'Refresh this view' TextESP = 'Refrescar esta vista' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Region' TextENG = 'Region' TextESP = 'En esta área debes ingresar la región geográfica en la cual desempeñaste tus funciones' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Region' TextENG = 'Region' TextESP = 'En esta ï¿½rea debes ingresar la regiï¿½n geogrï¿½fica en la cual desempeï¿½aste tus funciones' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Register' TextENG = 'Register' TextESP = 'Registrar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Register Address' TextENG = 'Register Address' TextESP = 'Registrar Dirección' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Register Address' TextENG = 'Register Address' TextESP = 'Registrar Direcciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Register program officer' TextENG = 'Register program officer' TextESP = 'Registrar a empleado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Register School Record' TextENG = 'Register School Record' TextESP = 'Registrar educación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Register School Record' TextENG = 'Register School Record' TextESP = 'Registrar educaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Register Training Record' TextENG = 'Register Training Record' TextESP = 'Registrar capacitacion' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Register University Record' TextENG = 'Register University Record' TextESP = 'Registrar educación superior' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Register University Record' TextENG = 'Register University Record' TextESP = 'Registrar educaciï¿½n superior' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'RegisterEmployment' TextENG = 'RegisterEmployment' TextESP = 'Registar nuevo empleo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Reject if any active assignment exists.' TextENG = 'Reject if any active assignment exists.' TextESP = 'No proceder en caso de que exista una asignación activa' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Reject if any active assignment exists.' TextENG = 'Reject if any active assignment exists.' TextESP = 'No proceder en caso de que exista una asignaciï¿½n activa' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Relationship' TextENG = 'Relationship' TextESP = 'Parentesco' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Relative Weight' TextENG = 'Relative Weight' TextESP = 'Peso relativo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Remarks' TextENG = 'Remarks' TextESP = 'Información importante adicional' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Remarks' TextENG = 'Remarks' TextESP = 'Informaciï¿½n importante adicional' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Remove document' TextENG = 'Remove document' TextESP = 'Remover documento' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Report Subscription' TextENG = 'Report Subscription' TextESP = 'Suscripción a reportes' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Report Subscription' TextENG = 'Report Subscription' TextESP = 'Suscripciï¿½n a reportes' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'ReportDate' TextENG = 'ReportDate' TextESP = 'Dia de reporte' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Reported' TextENG = 'Reported' TextESP = 'Reportado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Required resources' TextENG = 'Required resources' TextESP = 'Recursos requeridos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -444,7 +444,7 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Save and enter Next activity' TextENG = 'Save and enter Next activity' TextESP = 'Guardar e ingresar otra actividad' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'SaveAs' TextENG = 'SaveAs' TextESP = 'Salvar como' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Schedule-Series' TextENG = 'Schedule-Series' TextESP = 'Tipo de pago' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'School' TextENG = 'School' TextESP = 'Educación primaria y secundaria' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'School' TextENG = 'School' TextESP = 'Educaciï¿½n primaria y secundaria' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'SchoolRecord' TextENG = 'SchoolRecord' TextESP = 'Registro de Colegio' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Scope' TextENG = 'Scope' TextESP = 'Alcance' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Search' TextENG = 'Search' TextESP = 'Buscar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -458,12 +458,12 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Set password' TextENG = 'Set password' TextESP = 'Favor establezca su clave de acceso' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Set Preferences' TextENG = 'Set Preferences' TextESP = 'Establecer preferencias' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Sex' TextENG = 'Sex' TextESP = 'Gen.' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Short Description' TextENG = 'Short Description' TextESP = 'Descripción corta' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Short Description' TextENG = 'Short Description' TextESP = 'Descripciï¿½n corta' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Show' TextENG = 'Show' TextESP = 'Mostrar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Show All' TextENG = 'Show All' TextESP = 'Mostrar todos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'ShowAllUnits' TextENG = 'Show All Units' TextESP = 'Mostrar todas las unidades' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Sign in' TextENG = 'Sign in' TextESP = 'Ingresar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'SignIn' TextENG = 'SignIn' TextESP = 'Curriculo Electronico - SAT' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'SignIn' TextENG = 'SignIn' TextESP = 'Curriculo Electronico - S' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'SignOff' TextENG = 'Sign Off' TextESP = 'Salir' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Skill Summary' TextENG = 'Skill Summary' TextESP = 'Habilidades' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Sort result by' TextENG = 'Sort result by' TextESP = 'Resultados ordenados por' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -472,8 +472,8 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Special studies' TextENG = 'Special studies' TextESP = 'Estudios especiales' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'SpecialStudy' TextENG = 'SpecialStudy' TextESP = 'Especialidad de Estudio' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'ST maintenance' TextENG = 'ST maintenance' TextESP = 'Mantenimiento' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Staff assessment' TextENG = 'Staff assessment' TextESP = 'Evaluación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Staffing details by unit for' TextENG = 'Staffing details by unit for' TextESP = 'Detalle de empleados SAT' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Staff assessment' TextENG = 'Staff assessment' TextESP = 'Evaluaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Staffing details by unit for' TextENG = 'Staffing details by unit for' TextESP = 'Detalle de empleados S' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Staffing Summary' TextENG = 'Staffing Summary' TextESP = 'Resumen de plazas' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Stall' TextENG = 'Stall' TextESP = 'Escondido' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Start' TextENG = 'Start' TextESP = 'Inicio' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -488,7 +488,7 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'StudyPeriod' TextENG = 'StudyPeriod' TextESP = 'Periodo de estudio' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Subject' TextENG = 'Subject' TextESP = 'Asunto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Submit' TextENG = 'Submit' TextESP = 'Aceptar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Submit decision' TextENG = 'Submit decision' TextESP = 'Aceptar decisión' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Submit decision' TextENG = 'Submit decision' TextESP = 'Aceptar decisiï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Submit Evaluation' TextENG = 'Submit Evaluation' TextESP = 'Aceptar evaluacion' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Submit process' TextENG = 'Submit process' TextESP = 'Aplicar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'SubmitProgressReport' TextENG = 'Submit Progress Report' TextESP = 'Reportar avance' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -496,17 +496,17 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Subproject' TextENG = 'Subproject' TextESP = 'Etapa' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Summary' TextENG = 'Summary' TextESP = 'Resumen' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Summary and documents' TextENG = 'Summary and documents' TextESP = 'Resumen' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Supervised' TextENG = 'Supervised' TextESP = 'Número de personas supervisadas' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Supervised' TextENG = 'Supervised' TextESP = 'Nï¿½mero de personas supervisadas' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Target' TextENG = 'Target' TextESP = 'Meta' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Target Date' TextENG = 'Target Date' TextESP = 'Fecha de finalización' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Target Date' TextENG = 'Target Date' TextESP = 'Fecha de finalizaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'TargetDate' TextENG = 'Target Date' TextESP = 'Fecha de entrega' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Task' TextENG = 'Task' TextESP = 'Tarea' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Terminate any conflicting assignments.' TextENG = 'Terminate any conflicting assignments.' TextESP = 'Eliminar cualquier asignación en conflicto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Terminate other current assignments for this employee.' TextENG = 'Terminate other current assignments for this employee.' TextESP = 'Eliminar cualquier otra asignación de este empleado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Terminate any conflicting assignments.' TextENG = 'Terminate any conflicting assignments.' TextESP = 'Eliminar cualquier asignaciï¿½n en conflicto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Terminate other current assignments for this employee.' TextENG = 'Terminate other current assignments for this employee.' TextESP = 'Eliminar cualquier otra asignaciï¿½n de este empleado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'This position incumbered until' TextENG = 'This position incumbered until' TextESP = 'Esta plaza esta ocupada hasta' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Time' TextENG = 'Time' TextESP = 'Tiempo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Time recorded' TextENG = 'Time recorded' TextESP = 'Tiempo grabado' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Timestamp' TextENG = 'Timestamp' TextESP = 'Ultima actualización' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Timestamp' TextENG = 'Timestamp' TextESP = 'Ultima actualizaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Title' TextENG = 'Title' TextESP = 'Titulo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'to' TextENG = 'to' TextESP = 'Para' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'to2' TextENG = 'to' TextESP = 'al' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -520,17 +520,17 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'tree' TextENG = 'tree' TextESP = 'Vista' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Tree - Unit' TextENG = 'Tree - Unit' TextESP = 'Estructura Organizacional' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Type' TextENG = 'Type' TextESP = 'Tipo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'TypeOrganization' TextENG = 'Type Organization' TextESP = 'Tipo de Organización' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'TypeOrganization' TextENG = 'Type Organization' TextESP = 'Tipo de Organizaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Undefined' TextENG = 'Undefined' TextESP = 'Indefinido' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Understand' TextENG = 'Understand' TextESP = 'Entiende' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Unit' TextENG = 'Unit' TextESP = 'Unidad' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Unit class' TextENG = 'Unit class' TextESP = 'Tipo de unidad' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Unit totals' TextENG = 'Unit totals' TextESP = 'Totales por unidad' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'University' TextENG = 'University' TextESP = 'Educación Universitaria' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'University' TextENG = 'University' TextESP = 'Educaciï¿½n Universitaria' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'until' TextENG = 'until' TextESP = 'hasta' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Update' TextENG = 'Update' TextESP = 'Actualizar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Update and close' TextENG = 'Update and close' TextESP = 'Aceptar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'UpdateSkills' TextENG = 'UpdateSkills' TextESP = 'Habilidades de computación' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'UpdateSkills' TextENG = 'UpdateSkills' TextESP = 'Habilidades de computaciï¿½n' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Urgency' TextENG = 'Urgency' TextESP = 'Urgencia' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Use word variants' TextENG = 'Use word variants' TextESP = 'Usar palabras' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Utilities' TextENG = 'Utilities' TextESP = 'Utilitarios' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -543,23 +543,23 @@
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'WeCanFixThis' TextENG = 'We Can Fix This' TextESP = 'Podemos solucionar esto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Weight' TextENG = 'Weight' TextESP = 'Peso' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Whoisonline' TextENG = 'Who is online?' TextESP = 'Quien esta conectado?' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'Workflow action' TextENG = 'workflow action' TextESP = 'Acción en PROSIS-RH' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'Workflow action' TextENG = 'workflow action' TextESP = 'Acciï¿½n en PROSIS-RH' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Workhours' TextENG = 'Workhours' TextESP = 'Horas de trabajo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Write' TextENG = 'Write' TextESP = 'Escribe' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Yes' TextENG = 'Yes' TextESP = 'Si' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Label' TextId = 'Yes, agreed' TextENG = 'Yes, agreed' TextESP = 'Si, Aceptar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Label' TextId = 'YesShort' TextENG = 'Yes' TextESP = 'Sí' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Message' TextId = 'Action:Create' TextENG = 'Action:Create' TextESP = 'Aquí podras crear tu cuenta de acceso para nuestra bolsa de trabajo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Message' TextId = 'AddThis' TextENG = 'Add this page to your favorites' TextESP = 'Agregue esta página a sus favoritos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Label' TextId = 'YesShort' TextENG = 'Yes' TextESP = 'Sï¿½' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Message' TextId = 'Action:Create' TextENG = 'Action:Create' TextESP = 'Aquï¿½ podras crear tu cuenta de acceso para nuestra bolsa de trabajo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Message' TextId = 'AddThis' TextENG = 'Add this page to your favorites' TextESP = 'Agregue esta pï¿½gina a sus favoritos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='message' TextId = 'ContractOverlaps' TextENG = 'Problem, contract period overlaps with an existing contract which starts' TextESP = 'Problema, el periodo del contrato se traslapa con un existente contrato' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Message' TextId = 'eMail:Entry' TextENG = 'eMail:Entry' TextESP = 'Dirección de correo electrónico: Ingresar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Message' TextId = 'eMail:Entry' TextENG = 'eMail:Entry' TextESP = 'Direcciï¿½n de correo electrï¿½nico: Ingresar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'FirstName:Entry' TextENG = 'FirstName:Entry' TextESP = 'Primer Nombre: Ingresar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'ifyouhave' TextENG = 'if you have any questions.' TextESP = 'si usted tiene cualquier inquietud' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'incorrectaccount' TextENG = 'You have entered an incorrect account/password' TextESP = 'Usted ha ingresado una cuenta o PIN incorrecto' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'invalidaccount' TextENG = 'You have entered an invalid account' TextESP = 'Usted ha ingresado una cuenta invalida' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'LastName:Entry' TextENG = 'Last Name:Entry' TextESP = 'Primer Apellido: Ingresar' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'Link:NotValid' TextENG = 'Link:NotValid' TextESP = 'No valido' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Message' TextId = 'Login Instructions' TextENG = 'Login Instructions' TextESP = 'Aquí podrás validar tus datos para acceder a tu cuenta o crear tu cuenta si aun no la tienes' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Message' TextId = 'Login Instructions' TextENG = 'Login Instructions' TextESP = 'Aquï¿½ podrï¿½s validar tus datos para acceder a tu cuenta o crear tu cuenta si aun no la tienes' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'Logon:AccountInUse' TextENG = 'Logon:AccountInUse' TextESP = 'Su cuenta ya esta en uso. Favor intente de nuevo' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'Logon:IncorrectAccount' TextENG = 'Logon:IncorrectAccount' TextESP = 'Su cuenta o clave de acceso ingresados son incorrectos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'Logon:IncorrectPassword' TextENG = 'Logon:IncorrectPassword' TextESP = 'Su cuenta o clave de acceso ingresados son incorrectos' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
@@ -570,12 +570,12 @@
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'notavailable' TextENG = 'is not available at this point.' TextESP = 'no disponible en este momento.' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'Password:Retype' TextENG = 'Password:Retype' TextESP = 'Favor reingrese su clave de acceso' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Message' TextId = 'PleaseEnterAValue' TextENG = 'Please Enter A Value' TextESP = 'Favor ingrese un valor' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Message' TextId = 'PressToReturnToThePriorPage' TextENG = 'Press To Return To The Prior Page' TextESP = 'Regresar a la página anterior' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Message' TextId = 'Reference:Entry' TextENG = 'Reference:Entry' TextESP = 'Ingresar cédula' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Message' TextId = 'Remove document' TextENG = 'Do you want to remove this document?' TextESP = '¿Usted quiere remover el documento?' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Message' TextId = 'YourRequestCouldNotBeProcessed' TextENG = 'Your Request Could Not Be Processed' TextESP = 'Su petición no pudo ser procesada' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Question' TextId = 'Password:Forget' TextENG = 'Password:Forget' TextESP = ' ¿Recuperar clave?' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Message' TextId = 'PressToReturnToThePriorPage' TextENG = 'Press To Return To The Prior Page' TextESP = 'Regresar a la pï¿½gina anterior' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Message' TextId = 'Reference:Entry' TextENG = 'Reference:Entry' TextESP = 'Ingresar cï¿½dula' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Message' TextId = 'Remove document' TextENG = 'Do you want to remove this document?' TextESP = 'ï¿½Usted quiere remover el documento?' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Message' TextId = 'YourRequestCouldNotBeProcessed' TextENG = 'Your Request Could Not Be Processed' TextESP = 'Su peticiï¿½n no pudo ser procesada' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Question' TextId = 'Password:Forget' TextENG = 'Password:Forget' TextESP = ' ï¿½Recuperar clave?' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Question' TextId = 'Password:New' TextENG = 'Password:New' TextESP = 'Clave de acceso nueva' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Question' TextId = 'Password:NewConfirm' TextENG = 'Password:New Confirm' TextESP = 'Confirmar Clave de acceso' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
  <cf_InterfaceTextInsert TextClass='Question' TextId = 'Password:Old' TextENG = 'Password:Old' TextESP = 'Clave de acceso anterior' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
- <cf_InterfaceTextInsert TextClass='Question' TextId = 'Password:PHP' TextENG = 'Password:PHP' TextESP = '¿Ya tienes cuenta creada en la Bolsa de empleo SAT?' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>
+ <cf_InterfaceTextInsert TextClass='Question' TextId = 'Password:PHP' TextENG = 'Password:PHP' TextESP = 'ï¿½Ya tienes cuenta creada en la Bolsa de empleo S?' TextFRA = '' TextGER = '' TextNED = '' TextPOR = ''  TextCHI = ''>

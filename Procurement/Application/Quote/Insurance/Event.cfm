@@ -22,11 +22,11 @@
 <!--- End Prosis template framework --->
 
 
-<!--- SAT, procurement contract follow-up template
+<!--- S, procurement contract follow-up template
 There are three fields which are custom fields. 
 Please embed these fields ala Insight into this template 
-after carolina informs you about the field reference number 
-they have in SAT
+after C informs you about the field reference number
+they have in S
  ---->
 
 

@@ -250,7 +250,7 @@ password="#SESSION.dbpw#">
 				  </td>		
 			  </cfoutput>
 			   
-			   <!--- hidden after discussion for SAT, maybe paramrter later --->
+			   <!--- hidden after discussion for S, maybe paramrter later --->
 			   <cfoutput> <input type="hidden" name="transactioncategory" id="transactioncategory" value="#TraCat#" size="16" readonly></cfoutput>
 			   
 			   </tr></table>

@@ -299,7 +299,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <!--- ATTENTION to read from SalaryScaleComponent file --->
-<!--- SPECIAL SALARY DAY RATES : Bono SAT aniversario --->
+<!--- SPECIAL SALARY DAY RATES : Bono S aniversario --->
 
 <cfquery name="DayRate" 
 datasource="AppsPayroll" 

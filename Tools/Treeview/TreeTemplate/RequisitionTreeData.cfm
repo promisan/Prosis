@@ -182,7 +182,7 @@
 
 			<cfelse>
 
-				<!--- SAT mode, no longer relevant --->
+				<!--- S mode, no longer relevant --->
 
 				<cf_tl id = "(Partially) Invoiced" var ="vInvoiced">
 

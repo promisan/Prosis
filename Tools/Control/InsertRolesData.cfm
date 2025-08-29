@@ -1628,7 +1628,7 @@
 					  OrgUnitLevel="Parent"   		Description="Requisition Funding clearer" 
 					  ListingOrder="6"				Memo="May clear funding of prepared requisitions">
 	
-	<!--- Note both roles below can be set to either parent or all : Parent is default and has been set for SAT Guatemala --->
+	<!--- Note both roles below can be set to either parent or all : Parent is default and has been set for S --->
 	
 	<cf_insertRoles   Role="ProcReqCertify" 				Area="Material Management" 
 					  SystemModule="Procurement" 			SystemFunction="Requisition"

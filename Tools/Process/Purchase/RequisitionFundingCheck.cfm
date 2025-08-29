@@ -130,7 +130,7 @@ password="#SESSION.dbpw#">
 			   <cfset FA = "ByPass">
 						  
 		<!--- do not check the funding of this is turned-off
-		        after funding review stage introduced for SAT (Carolina) --->
+		        after funding review stage introduced for S --->
 		
 	<cfelseif (Parameter.FundingByReviewer eq "2" or Parameter.FundingByReviewer eq "1e")
 	           and

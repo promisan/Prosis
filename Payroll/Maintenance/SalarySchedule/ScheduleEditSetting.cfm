@@ -206,7 +206,7 @@
 				
 		<TR>
 	    <TD style="padding-left:10" class="labelmedium2">
-			<cf_UItooltip tooltip="Option to allow settlement of entitlements enabled for this schedule and that were build-up under a different payroll schedule and that were not settled yet. (SAT related)"><cf_tl id="Settlement Mode">:</cf_UItooltip></TD>
+			<cf_UItooltip tooltip="Option to allow settlement of entitlements enabled for this schedule and that were build-up under a different payroll schedule and that were not settled yet. (S related)"><cf_tl id="Settlement Mode">:</cf_UItooltip></TD>
 	    <TD>		
 		   <select name="SettleOtherSchedules" class="regularxxl">
 		   <option value="1" <cfif Get.SettleOtherSchedules eq "1">selected</cfif>>Settle always all entitlements</option>

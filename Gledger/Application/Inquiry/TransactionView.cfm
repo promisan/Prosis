@@ -50,7 +50,7 @@ function search() {
 
 </cfoutput>
 
-<cfparam name="URL.Mission" default="SAT">
+<cfparam name="URL.Mission" default="S">
 
 <!--- Search form --->
    

@@ -294,7 +294,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif Schedule.ProcessMode eq "Procurement">
 	
-		<!--- old SAT mode to post through the Procurement module, disabled 
+		<!--- old S mode to post through the Procurement module, disabled
 	
 		<cf_verifyOperational 
 		  datasource= "appsOrganization"

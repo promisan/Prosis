@@ -140,7 +140,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 		
 		<!---
-		Remed out per Carolina's request because it was -unnecessarily- inverting the sign of the quantity: the TransactionQuantity
+		Remed out per C request because it was -unnecessarily- inverting the sign of the quantity: the TransactionQuantity
 		is displayed with the sign inverted, but the value in the Form.TransactionQuantity is passed with the correct sign, thus,
 		no need to change it again in this spot.
 		
