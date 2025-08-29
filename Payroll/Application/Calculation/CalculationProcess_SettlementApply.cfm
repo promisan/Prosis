@@ -140,7 +140,7 @@
 								  AND     ES.PaymentDate    > #CALCEND-90#   <!--- recent, can be removed in my views  --->	
 							      AND     OOA.ActionStatus = '0' <!--- has one ore more steps open --->
 							      AND     OO.Operational = 1) 	
-		<!--- added Hanno 7/10 : does NOT have a last record which is off-cycle and this not needed --->				
+		<!--- added Dev 7/10 : does NOT have a last record which is off-cycle and this not needed --->
 		AND     PersonNo NOT IN (SELECT PersonNo
 								  FROM   Payroll.dbo.EmployeeSettlement ES 
 								  <!--- does NOT have a last record which is off-cycle --->			
@@ -653,7 +653,7 @@
 			   
 			   	    <!--- 1 standard, 3 only final, 4 as early as possible 
 					
-					Hanno 27/8/2018 : in case of a retro-active payment likely that one should not be applied the
+					Dev 27/8/2018 : in case of a retro-active payment likely that one should not be applied the
 					ratio but given the full amount 					
 					--->	
 			   
@@ -678,7 +678,7 @@
 			   
 		FROM    userTransaction.dbo.sal#SESSION.thisprocess#SettledDiff D
 		
-		<!--- Hanno we show A00 as zero if it applies to the same month --->
+		<!--- Dev we show A00 as zero if it applies to the same month --->
 		WHERE   (abs(DiffCalc) > 0.02 OR abs(DiffPay) > 0.02 
 		           OR (PayrollItem = 'A00' AND #CALCEND# = #SALEND# AND D.Personno IN (SELECT PersonNo 
 					                                                                   FROM   userTransaction.dbo.sal#SESSION.thisprocess#OnBoard 

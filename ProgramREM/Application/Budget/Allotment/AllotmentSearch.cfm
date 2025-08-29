@@ -41,7 +41,7 @@ password="#SESSION.dbpw#">
 	WHERE    Mission = '#Mission.Mission#'
 </cfquery>
 
-<!--- Hanno 2008, limit the entry of periods based on the period class to which a tree
+<!--- Dev 2008, limit the entry of periods based on the period class to which a tree
 belongs, check how this is used for the Program Module indicator --->
 
 <cfif Mission.recordcount eq "0">

@@ -133,7 +133,7 @@ WHERE  PendingBilling >  0
 
 
 <!--- condition to show only workorders that have confirmed shipment pending to be invoiced,
-Hanno 23/3/2014 : technically we sould also filter to take only WorkOrderLine that are meant for sale !!
+Dev 23/3/2014 : technically we sould also filter to take only WorkOrderLine that are meant for sale !!
 --->
 
 </cfsavecontent>

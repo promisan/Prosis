@@ -127,7 +127,7 @@
 						AND NOT EXISTS
 						(
 							#getDetails#
-							<!--- show be 0 ? hanno --->
+							<!--- show be 0 ? Dev --->
 							AND    RT.DeliveryStatus != '0'					
 							AND    RT.RecordStatus   != '9'
 						)
@@ -144,7 +144,7 @@
 						AND NOT EXISTS
 						(
 							#getDetails#
-							<!--- show be 0 ? hanno --->
+							<!--- show be 0 ? Dev --->
 							AND    RT.DeliveryStatus != '0'					
 							AND    RT.RecordStatus   != '9'
 						)

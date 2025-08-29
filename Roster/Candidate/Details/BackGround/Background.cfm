@@ -435,7 +435,7 @@ password="#SESSION.dbpw#">
 		   <table>
 		   <tr>		
 		   
-	       <cfif mode eq "edit" or client.applicantno eq applicantno>  <!--- added by hanno to allow EAD portal access to edit --->
+	       <cfif mode eq "edit" or client.applicantno eq applicantno>  <!--- added by Dev to allow EAD portal access to edit --->
 		   <td style="padding-left:3px;padding-top:2px">
 		      <cf_img icon="edit" onclick="bgedit('#applicantno#','#ExperienceId#','#ExperienceCategory#','#Source#')">
 		    </td>	 					 

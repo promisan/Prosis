@@ -974,7 +974,7 @@
 	  ORDER BY MandateDefault DESC
 </cfquery>		
 
-<!--- Hanno this is tricky once a mandate which is set as default is removed, as it will remove the access as well  but this
+<!--- Dev this is tricky once a mandate which is set as default is removed, as it will remove the access as well  but this
 is an SOP action as it is not new for other access as well --->
 
 <!--- --------------------------------------- --->

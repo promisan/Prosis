@@ -100,7 +100,7 @@
 
 <cfif Report.TemplateReport eq "Excel">
 
-<!--- disabled Hanno : the purpose was to generate and attach excels 
+<!--- disabled Dev : the purpose was to generate and attach excels
 
 <cfparam name="ControlId" default="#URL.ControlId#">
 

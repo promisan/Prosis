@@ -320,7 +320,7 @@
 			
 			</cfif>	
 			
-			<!--- Hanno 9/4/2008
+			<!--- Dev 9/4/2008
 			reset a claim to express only through the workflow sendback 
 			
 			<cfif URL.Express neq "">

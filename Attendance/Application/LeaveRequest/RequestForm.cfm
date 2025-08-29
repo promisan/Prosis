@@ -185,7 +185,7 @@
 			  		    
 		  <cfelse>
 		  
-		  	  <!--- Hanno comment in STL 01/10/2018 we best check also here if the leavetype has 
+		  	  <!--- Dev comment in STL 01/10/2018 we best check also here if the leavetype has
 			      been set for any of the appointment types, then then we show the type
 				  the same for the classes, so we can control interns and temp contracts --->
 		  			
@@ -312,7 +312,7 @@
 						class="regularxxl enterastab"										
 						AllowBlank="No">	
 					
-					<!---	disable by Hanno 10/5		
+					<!---	disable by Dev 10/5
 					<cfajaxproxy bind="javascript:setmydate('dateexpiration',{dateeffective})"> 													
 					--->
 					

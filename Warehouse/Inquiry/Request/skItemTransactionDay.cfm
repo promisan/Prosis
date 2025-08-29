@@ -22,7 +22,7 @@
 <!--- kherrera [2014-04-29]: Provision made to calculate only FUEL items for performance matters --->
 <cfset vItemCategoryRestriction = "'FUEL'">
 
-<!--- Hanno comment for diaz 01/12/2012 ----------------------------- --->
+<!--- Dev comment for diaz 01/12/2012 ----------------------------- --->
 <!--- this portion we take from the table Ref_CategoryClassification 
 for class=Consumption to prevent we have to change this as hardcoding --->
 <!--- --------------------------------------------------------------- --->

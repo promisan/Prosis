@@ -120,7 +120,7 @@ password="#SESSION.dbpw#">
 		
 		<cfelse>
 		
-			<!--- Hanno : 28/11/2013 we select any items with the same parent 
+			<!--- Dev : 28/11/2013 we select any items with the same parent
 			    for the same UoM to widen the allocation --->
 			
 			<cfif line.PointerStock eq "1">		
@@ -323,7 +323,7 @@ password="#SESSION.dbpw#">
 					
 					<cfif StockControlMode eq "Individual">
 					
-							<!--- Hanno 18/11/2013 attention the below query could well not be the same as the above query for its total, 
+							<!--- Dev 18/11/2013 attention the below query could well not be the same as the above query for its total,
 							this has to be carefully analyses and then tuned the query to prevent it --->							
 											
 							<cfquery name="getTransaction" 

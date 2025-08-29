@@ -1010,7 +1010,7 @@
 		  
 		  </cfif>
 		  		  
-		<!--- 23/7 external Hanno correction for date --->
+		<!--- 23/7 external Dev correction for date --->
 		<cfif CriteriaType eq "date" and CriteriaDateRelative eq "0">
 			<cfset val = Replace(val, "/", "", "ALL")>
 			<cfset val = Replace(val, "-", "", "ALL")>

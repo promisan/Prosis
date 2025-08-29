@@ -150,7 +150,7 @@
 			<!--- run condition script ------------- --->
 			<!--- ---------------------------------- --->		
 			
-			<!--- 14/7/2009 : Hanno 
+			<!--- 14/7/2009 : Dev
 			I am not sure if this is correct here as part of the deny 
 			
 			<cf_ProcessActionMethod

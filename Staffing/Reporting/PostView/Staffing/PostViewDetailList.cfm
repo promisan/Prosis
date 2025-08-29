@@ -1041,7 +1041,7 @@
 								
 				<cfif ContractNo gt "0">
 				
-					 <!--- Hanno 8/10/2017 to be adjusted as this is linked to an assignment and some assignments will be overwritted if matter like the
+					 <!--- Dev 8/10/2017 to be adjusted as this is linked to an assignment and some assignments will be overwritted if matter like the
 					 title changes and so we miss history to be shown --->
 				
 					  <cfquery name="ePasList" 

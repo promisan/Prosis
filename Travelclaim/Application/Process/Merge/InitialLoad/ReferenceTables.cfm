@@ -69,7 +69,7 @@ INSERT INTO Ref_PayrollLocation
 SELECT 	rtrim(f_cnty_id_code) + id_code, 
         f_cnty_id_code, 
 	    id_code, 
-	    name,'nova','Van Pelt','Hanno'
+	    name,'nova','Van Pelt','Dev'
 FROM    IMP_DSALocation
 WHERE rtrim(f_cnty_id_code) + id_code NOT IN (SELECT LocationCode 
                                               FROM   Ref_PayrollLocation)
@@ -97,7 +97,7 @@ SELECT 	rtrim(A.f_cnty_id_code) + A.id_code,
 		name,
           min(B.eff_date),
           max(isnull(B.term_date,'01/01/3099')) ,
-           'nova','Van Pelt','Hanno'
+           'nova','Van Pelt','Dev'
 FROM    IMP_DSALocation A, IMP_DSARATE B
 
 where  rtrim(A.f_cnty_id_code) = rtrim(B.f_cnty_id_code)

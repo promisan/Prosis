@@ -269,7 +269,7 @@
 				 <cfelseif url.billingid eq "">
 				 AND     1=0				 
 				 </cfif>
-				 <!--- 18/9/2015 : added by Hanno to ensure in case of edit the right selection is shown --->				 
+				 <!--- 18/9/2015 : added by Dev to ensure in case of edit the right selection is shown --->
 				 <cfif url.billingid neq "00000000-0000-0000-0000-000000000000" and url.billingid neq "">
 				 AND     B.BillingId = '#url.billingid#'				 
 				 </cfif>				 

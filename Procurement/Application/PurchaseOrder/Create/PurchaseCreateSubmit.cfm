@@ -227,7 +227,7 @@
 	  Both 7. insert purchase lines
 --->
 
-<!--- Both 1. verify amounts with requisition : pending Hanno 14/1/05 --->
+<!--- Both 1. verify amounts with requisition : pending Dev 14/1/05 --->
 
 	<cfquery name="Parameter" 
 	datasource="AppsPurchase" 

@@ -162,7 +162,7 @@
 			
 			    <!--- NEW additionally we check if the SAME user/session has this link 
 				  matched in length which qualifies for now as well
-				  as we have in cfdiv the issue of the {mission} not to fire an MIP yet : Hanno 19/5/2020 --->		
+				  as we have in cfdiv the issue of the {mission} not to fire an MIP yet : Dev 19/5/2020 --->
 				  		
 			
 				<cfquery name="check" 
@@ -177,7 +177,7 @@
 									
 				</cfquery>	
 				
-				<!--- Hanno temp measure : an almost match qualifies for a fresh link to be given --->
+				<!--- Dev temp measure : an almost match qualifies for a fresh link to be given --->
 				
 				<cfif check.recordcount gte "1">
 				

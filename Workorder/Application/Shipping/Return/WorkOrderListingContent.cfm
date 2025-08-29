@@ -56,9 +56,9 @@ AND         W.ActionStatus IN ('0','1','2')
 
 a.	 Show only workorders that issue / return lines that are NOT billed,
 
-b.	 Hanno 18/1/2016 consideration show in principle all workorders 
+b.	 Dev 18/1/2016 consideration show in principle all workorders
 
-c.   Hanno 23/3/2014 : technically we sould also filter to take only WorkOrderLine that are meant for sale !!
+c.   Dev 23/3/2014 : technically we sould also filter to take only WorkOrderLine that are meant for sale !!
 
 d.   Formally closed order are not shown 
 

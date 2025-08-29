@@ -15,7 +15,7 @@
 -->
 <cfsilent>
 <proUsr>administrator</proUsr>
-<proOwn>Hanno van Pelt</proOwn>
+<proOwn>Dev van Pelt</proOwn>
 <proDes>Scheduled Tasks</proDes>
  <!--- specific comments for the current change, may be overwritten --->
 <proCom>Add eMail Reference</proCom>

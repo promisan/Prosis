@@ -192,7 +192,7 @@
 			   AND	      D.WorkOrderLine = '#url.workorderline#'	
 			   AND        D.TransactionDate >= #str#
 			   AND        D.TransactionDate <= #end#		
-			   <!--- added hanno 13/11/2017 --->
+			   <!--- added Dev 13/11/2017 --->
 			   AND        D.ActionStatus != '9'
 	           GROUP BY   D.TransactionId, 
 			              D.WorkOrderId, 

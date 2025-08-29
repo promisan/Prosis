@@ -268,7 +268,7 @@
 	<cfset condition = condition & " AND O.ObjectFilter= '#Attributes.ObjectFilter#' ">
 </cfif>
 
-<!--- disabled by hanno to support crossing classes
+<!--- disabled by Dev to support crossing classes
 <cfset condition = "#condition# AND O.EntityCode = '#Attributes.EntityCode#'">
 --->
 

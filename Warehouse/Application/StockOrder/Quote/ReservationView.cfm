@@ -51,7 +51,7 @@
 	AND           vw.RequestClass = 'QteReserve' 
 	AND           vw.ActionStatus IN ('0','1')
 				
-	<!--- Hanno 10/9/2021 once the real workorder is reserved 
+	<!--- Dev 10/9/2021 once the real workorder is reserved
 	    we need to reset the quote to release the request --->
 	
 </cfquery>

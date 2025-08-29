@@ -226,7 +226,7 @@
 										<cfif StructKeyExists(EDIResult,"SeriesNo")>
 										'#EDIResult.SeriesNo#',
 										<cfelse>
-											'FEL',   <!--- hardcoded hanno --->
+											'FEL',   <!--- hardcoded Dev --->
 										</cfif>										
 										<cfif StructKeyExists(EDIResult,"Series")>
 										'#EDIResult.Series#',

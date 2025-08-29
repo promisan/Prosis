@@ -277,7 +277,7 @@
 					   <cfset st = "1">
 					  					   
 					   <!--- if GLOBAL, CLEAN the unit as you want to give it globally now --->					   
-					   <!--- ----------Hanno Info : id2 = unit \ id4= mandate------------- --->
+					   <!--- ----------Dev Info : id2 = unit \ id4= mandate------------- --->
 																	   
 					   <cfif orgunit eq "">
 					   
@@ -643,7 +643,7 @@ password="#SESSION.dbpw#">
 		AND      UserAccount = '#URL.ACC#'		
 	</cfquery>
 	
-	<!--- B. 10/12/2010 Hanno special action to clean missions that are no longer valid for this role 
+	<!--- B. 10/12/2010 Dev special action to clean missions that are no longer valid for this role
 	driven by account of alex sokol --->
 	
 	<cfquery name="CleanMission" 
@@ -755,7 +755,7 @@ password="#SESSION.dbpw#">
 <cfelse>
 
 	<script language="JavaScript"> 	   
-		   <!--- adjusted by hanno 25-4 to ensure refresh --->
+		   <!--- adjusted by Dev 25-4 to ensure refresh --->
 	    history.go()		
 	//     parent.parent.history.go()	
 	//     parent.parent.ProsisUI.closeWindow('myaccess',true)	  

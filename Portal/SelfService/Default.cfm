@@ -15,7 +15,7 @@
 -->
 <cfinclude template="LogonClient.cfm">
 
-<!--- added by hanno on 14/9/2011 --->
+<!--- added by Dev on 14/9/2011 --->
 <cfparam name="url.mission" 		default="">
 
 <!--- the purchase of this template is to pass thru to the correct Prosis portal opening page --->

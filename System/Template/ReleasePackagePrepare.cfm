@@ -15,7 +15,7 @@
 -->
 <cfsilent>
  <proUsr>administrator</proUsr>
-�<proOwn>Hanno van Pelt</proOwn>
+�<proOwn>Dev van Pelt</proOwn>
  <proDes>Version Distribution Batch</proDes>
  <proCom>Made a provision for busy signal</proCom>
 </cfsilent>

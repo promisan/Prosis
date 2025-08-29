@@ -104,7 +104,7 @@
 					<!--- this is to remove settlements recorded for staff under a month for which in the
 					current contract legs he / she is no longer working, otherwise these would remain 
 					as its amount would no longer be considered for calcuation to be corrected in the next
-					run. Hanno:  I am not sure if this is a good idea to remove at the moment I write this comment.
+					run. Dev:  I am not sure if this is a good idea to remove at the moment I write this comment.
 					--->
 						
 				  		( PersonNo NOT IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#Payroll) 	

@@ -53,7 +53,7 @@
 
 </cfif>
 
-<!--- 17/8/2008 Hanno the below cftry code can be reviewed if still needed for TCP --->
+<!--- 17/8/2008 Dev the below cftry code can be reviewed if still needed for TCP --->
 
 <cftry>
 

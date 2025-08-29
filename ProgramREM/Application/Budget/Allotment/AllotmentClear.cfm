@@ -297,7 +297,7 @@ password="#SESSION.dbpw#">
 			
 			    <cfif Check.Status eq "0" and Parameter.EnableDonor eq "0"> <!--- handle as snapshot as it is the first submission but only if the donor option is turned off --->
 															
-					<!--- Hanno disabled 16/7/2018 , as it SHOULD go through the review part of the workflow to be openened as status = 1 and then
+					<!--- Dev disabled 16/7/2018 , as it SHOULD go through the review part of the workflow to be openened as status = 1 and then
 					picked up by the allotment process screen we have  
 					
 					<cfoutput>	

@@ -180,7 +180,7 @@ password="#SESSION.dbpw#">
 																					
 						</cfif>
 						AND         Fund        = '#fd#'				
-						AND         Status IN ('P','0','1') <!--- corrected hanno upon refreshing 16/10 status IN ('0','1') --->  
+						AND         Status IN ('P','0','1') <!--- corrected Dev upon refreshing 16/10 status IN ('0','1') --->
 						GROUP BY Fund
 						
 				   </cfquery>					  
@@ -258,7 +258,7 @@ password="#SESSION.dbpw#">
 						<cfelse>
 						AND         (ObjectCode  = '#ObjectCode#' or ObjectCode IN (SELECT Code FROM Ref_Object WHERE ParentCode = '#ObjectCode#'))
 						</cfif>				
-						AND         Status IN ('P','0','1') <!--- corrected hanno upon refreshing 16/10 not showing status IN ('0','1') --->			
+						AND         Status IN ('P','0','1') <!--- corrected Dev upon refreshing 16/10 not showing status IN ('0','1') --->
 				</cfquery>	
 				
 				<cfparam name="searchresult.Edition_#Edition#_total" default="0">	

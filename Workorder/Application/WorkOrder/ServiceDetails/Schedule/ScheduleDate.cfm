@@ -136,7 +136,7 @@
 						<cfoutput>
 							<cfsavecontent variable="scheduleQuery">    	
 								SELECT	(DATEPART(hour, DateTimePlanning) + (CONVERT(FLOAT, DATEPART(minute, DateTimePlanning)) / 60.0)) ScheduleHour,
-										'' as Memo,  <!--- removed memo hanno --->
+										'' as Memo,  <!--- removed memo Dev --->
 										1 as ValidHour
 								FROM	WorkOrderLineAction
 								WHERE	ScheduleId              = '#url.ScheduleId#'

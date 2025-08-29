@@ -490,7 +490,7 @@ password="#SESSION.dbpw#">
 	                            WHERE     PF.DateEffective <= '#PayrollEnd#'
 								
 								<!--- Attention --->
-								<!--- Hanno 22/7 only programs that belong to this mission, maybe we should even add the ProgramPeriod here 
+								<!--- Dev 22/7 only programs that belong to this mission, maybe we should even add the ProgramPeriod here
 								as otherwise it might not show in the budget execution view if it is not enabled for that year --->
 								
 								AND       PF.ProgramCode IN (SELECT ProgramCode 
@@ -514,7 +514,7 @@ password="#SESSION.dbpw#">
 												
 	                             WHERE     ESET.Mission             = '#Period.Mission#' 								 
 								 AND       ESET.SettlementSchedule  = '#Period.SalarySchedule#' 
-								  <!--- Hanno ticket 62 
+								  <!--- Dev ticket 62
 								 AND       ESET.SettlementSchedule  = '#Period.SalarySchedule#' 
 								 --->
 								 AND       ESET.PaymentDate         = '#PayrollEnd#' 

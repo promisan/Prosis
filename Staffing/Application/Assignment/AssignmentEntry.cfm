@@ -276,7 +276,7 @@ password="#SESSION.dbpw#">
 				
 					<!--- ---------------------------------------- --->
 					<!--- check the last contract for this mission --->					
-					<!--- --- 29/6/2010 Hanno I changed this------ --->
+					<!--- --- 29/6/2010 Dev I changed this------ --->
 					
 					<cfquery name="LastContract" 
 					  datasource="AppsEmployee" 

@@ -75,7 +75,7 @@
 		    var grd = "#URL.fldGrade#";
 			var pos = "#URL.fldPosNo#";
 			
-			<!--- corrected again hanno --->
+			<!--- corrected again Dev --->
 				
 			eval("parent.opener.document." + form + "." + pst + ".value = '" + postnum + "'");
 			eval("parent.opener.document." + form + "." + fno + ".value = '" + funno + "'");

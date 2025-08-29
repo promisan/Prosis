@@ -69,7 +69,7 @@
 				 f_refx_tvrq_seq_num,
 				 'Nova', 
 				 'Van Pelt', 
-				 'Hanno'
+				 'Dev'
 	FROM         tmp_Claim1
 	WHERE        ClaimRequestid is NULL
 	AND          PersonNo is not NULL
@@ -181,7 +181,7 @@
 		             f_curr_code,
 		             oblg_curr_amt,
 		             remrk,
-		             'Nova', 'Van Pelt', 'Hanno'
+		             'Nova', 'Van Pelt', 'Dev'
 		FROM         tmp_tvli
 		WHERE   f_refx_tvrq_seq_num IN (SELECT Code FROM Ref_ClaimPurpose)
 		AND     f_refx_trpn_seq_num IN (SELECT Code FROM Ref_Claimant)
@@ -235,7 +235,7 @@
 	              f_curr_code,
 	              oblg_curr_amt,
 	              remrk,
-	              'Nova', 'Van Pelt', 'Hanno'
+	              'Nova', 'Van Pelt', 'Dev'
 	FROM         tmp_tvlm
 	</cfquery>
 	

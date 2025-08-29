@@ -47,7 +47,7 @@
 	</cfquery>
 		
 	<!--- -------------------------------------------------------- --->
-	<!--- Hanno 6/12/2012 : maybe this one is taking too much time --->
+	<!--- Dev 6/12/2012 : maybe this one is taking too much time --->
 	<!--- -------------------------------------------------------- --->
 	
 	<cfset tot=ArrayNew(2)>

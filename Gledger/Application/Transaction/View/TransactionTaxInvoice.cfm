@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <cfparam name="url.currency"     default="QTZ">
-<cfparam name="url.mode"         default="3">  <!--- new mode FEL by Hanno which handles discounts and enforces 12% --->
+<cfparam name="url.mode"         default="3">  <!--- new mode FEL by Dev which handles discounts and enforces 12% --->
 <cfparam name="url.terminal"     default="">
 <cfparam name="url.actionid"     default="">
 
@@ -52,7 +52,7 @@
 
 <cfif qHeader.TransactionSource eq "SalesSeries" and url.scope eq "pos">  
 		
-		<!--- Hanno : verify if this is still used
+		<!--- Dev : verify if this is still used
 		
 		this one makes still use of the V2 component also used for POS Cash and Carry --->
 	

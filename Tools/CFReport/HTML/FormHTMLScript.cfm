@@ -109,7 +109,7 @@
 	   			
 		ptoken.navigate('#SESSION.root#/Tools/Control/Abort.cfm?id=abort&id1=#controlid#','stopping')		
 		
-		// added by Hanno		
+		// added by Dev
 		printmenu()					
 					
 	}

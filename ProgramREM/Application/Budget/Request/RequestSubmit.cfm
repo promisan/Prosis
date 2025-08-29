@@ -383,7 +383,7 @@ password="#SESSION.dbpw#">
 	   
 	   <cfset processmode = "Add">
 		 
-	  <!--- attention : Object.RequirementMode added by hanno to allow for adding --->	
+	  <!--- attention : Object.RequirementMode added by Dev to allow for adding --->
 		 
 	  <!--- add new entries as we do not have any entries or we are 
 	  						 in the travel mode or we have selected ADD --->
@@ -857,7 +857,7 @@ password="#SESSION.dbpw#">
 			
 			</cfif>		 	  
 											
-			<!--- Hanno problem if you would add an lines, which did not exisit before it will not be picked up --->	
+			<!--- Dev problem if you would add an lines, which did not exisit before it will not be picked up --->
 			
 						
 			
@@ -1301,7 +1301,7 @@ password="#SESSION.dbpw#">
 			  WHERE  RequirementId = '#requirementId#'
 			</cfquery>  
 				
-			<!--- hanno removed we can NOT really remove ripples here as they might be alloted refer to
+			<!--- Dev removed we can NOT really remove ripples here as they might be alloted refer to
 			code under rippkied 9/13/2014 --->
 			
 			<!--- removed  !!!!!!!					

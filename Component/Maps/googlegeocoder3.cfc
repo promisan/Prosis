@@ -194,7 +194,7 @@
 		      </cfif>
 
 		      
-		      <!--- This is a new key I needed to generated using our gmail account dev@email, to discuss with Hanno
+		      <!--- This is a new key I needed to generated using our gmail account dev@email, to discuss with Dev
 		      on how to add this to the client variables 1/5/2015 ---->
 		      
 		      <cfif len(trim(client.googleMAPId)) is not 0>

@@ -1389,7 +1389,7 @@
 									<cfset calc = ContributionMapped * (Percentage/100)>
 									<cfset calc = round(calc*100)/100>
 									
-									<!--- Hanno : correction needed, that incase we exceed we do not used that contribution !--->
+									<!--- Dev : correction needed, that incase we exceed we do not used that contribution !--->
 									
 									<cfif amountPosted eq "">
 										<cfset diff = calc>

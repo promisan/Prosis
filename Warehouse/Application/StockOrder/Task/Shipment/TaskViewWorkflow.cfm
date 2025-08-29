@@ -58,7 +58,7 @@
 	ToolBar          = "Yes"
 	AllowProcess     = "#AllowProcess#">
 
-<!---	removed by hanno as it seems to give issues
+<!---	removed by Dev as it seems to give issues
 
 <script>
 	try {opener.document.getElementById('tasktreerefresh').click();}  catch(e){};			

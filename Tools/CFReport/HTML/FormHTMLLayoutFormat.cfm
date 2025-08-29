@@ -249,7 +249,7 @@
 		<cfif url.sel eq "RTF">checked</cfif>>
 		</td><td style="padding-left:4px" class="labelmedium">MS Word</td>		
 	
-	<!--- DISABLED Hanno
+	<!--- DISABLED Dev
 	
 		<td style="padding-left:6px">				 
 	<input type="Radio" class="radiol" name="FileFormat" id="FileFormat" value="Excel"

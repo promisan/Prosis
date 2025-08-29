@@ -26,7 +26,7 @@
 <cfparam name="Attributes.legend"          default="No">
 <cfparam name="Attributes.fontsize"        default="14">
 <cfparam name="Attributes.suffixvalue"     default="">
-<!--- last change was made because of the size of the font requested by Hanno --->
+<!--- last change was made because of the size of the font requested by Dev --->
 
 <cfif thisTag.executionmode is 'start'>
     <cfoutput>

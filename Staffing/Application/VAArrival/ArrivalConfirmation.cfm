@@ -75,8 +75,8 @@ password="#SESSION.dbpw#">
 --->
 
 <!--- ----------------------------------------------------------------------------------------------- --->
-<!--- Hanno 27/10/2014 need to tune this query so it will show ONLY if the last step has been reached --->
-<!--- Hanno 17/10/2022 was tuned --->
+<!--- Dev 27/10/2014 need to tune this query so it will show ONLY if the last step has been reached --->
+<!--- Dev 17/10/2022 was tuned --->
 <!--- ----------------------------------------------------------------------------------------------- --->
 
 <cfquery name="SearchResult"

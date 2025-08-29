@@ -72,7 +72,7 @@ the item master that were added temp for the OICT-M usage class --->
 							</cfif>		
 							
 							<!--- period is NOT a planning period itself 
-							Hanno 10/10/2012 : this needs review, better to drop the isPlanning period and
+							Dev 10/10/2012 : this needs review, better to drop the isPlanning period and
 							let is be defined on the dbo.missionperiod level if a period is a plan period.
 							The below prevents for example in OICT to show B14-15 to be recorded under
 							plan period B12-13, which is not the intention hence it was removed.
@@ -486,7 +486,7 @@ the item master that were added temp for the OICT-M usage class --->
 						AND EPAD.TransactionType = 'Standard'
 						AND EPAD.Amount <> 0)
 						
-						<!--- removed hanno 14/1/2013
+						<!--- removed Dev 14/1/2013
 					   #PreserveSingleQuotes(BudgetCond)# 
 					   --->
 				   

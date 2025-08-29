@@ -106,7 +106,7 @@
 					 
 				 AND       ItemCategory IN ( SELECT Category FROM Materials.dbo.Ref_Category WHERE StockControlMode = 'Stock' )
 	
-					 <!--- Hanno, rethink this embedded query as it is a bit slow 5/4/2021 --->
+					 <!--- Dev, rethink this embedded query as it is a bit slow 5/4/2021 --->
 					 
 				 AND       ( RequirementId IS NULL OR RequirementId IN (#preservesingleQuotes(notearmarked)#) )
 							 				 

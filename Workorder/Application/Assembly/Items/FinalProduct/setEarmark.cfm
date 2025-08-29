@@ -238,7 +238,7 @@
 					
 		<cfelse>
 		
-			<!--- 	Hanno 18/11/2013 attention the below query could well not be the same as the above query for its total, 
+			<!--- 	Dev 18/11/2013 attention the below query could well not be the same as the above query for its total,
 					this has to be carefully analyses and then tuned the query to prevent it 
 					
 					NOTE: based on the item 

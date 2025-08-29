@@ -480,7 +480,7 @@ which is beyond the line information
 	
 				<cfloop query="Lines">
 				
-					<!--- Hanno 19/1/2022 if the charge is for an item, we pass the itemNo 
+					<!--- Dev 19/1/2022 if the charge is for an item, we pass the itemNo
 					          as the reference instead --->
 					
 					<cfif ItemNo neq "">

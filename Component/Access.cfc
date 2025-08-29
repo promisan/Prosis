@@ -323,7 +323,7 @@
 		        		        Organization.dbo.Ref_Entity R ON O.EntityCode = R.EntityCode INNER JOIN
 		                		Ref_ModuleControlRoleLevel M ON OA.AccessLevel = M.AccessLevel AND R.Role = M.Role
 						WHERE   OA.UserAccount = '#SESSION.acc#' 
-						<!--- 10/10/2010 by hanno based on monica having too much access --->
+						<!--- 10/10/2010 by Dev based on monica having too much access --->
 						AND     M.SystemFunctionId = '#SystemFunctionId#'					 				 
 					 
 				   <cfelse>		  			   
@@ -2424,7 +2424,7 @@
 		
 	</cffunction>
 				
-	<!--- ATTENTION 3.6 and 3.6B : these ones can be disabled once old track is no longer valid : Hanno 01/04/06 --->
+	<!--- ATTENTION 3.6 and 3.6B : these ones can be disabled once old track is no longer valid : Dev 01/04/06 --->
 				
 	<!--- 3.6 Recruitment officer : access to an vacancy record --->
 	

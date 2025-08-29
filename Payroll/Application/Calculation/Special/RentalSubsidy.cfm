@@ -40,7 +40,7 @@ allowance is not higher than 40% of the NET RENT
 			  
 			  PayrollDaysCorrectionPointer,
 			  
-			  <!---  Attention Hanno! here I made the change person 8871 lwop made 2.75 days it should be 4 --->
+			  <!---  Attention Dev! here I made the change person 8871 lwop made 2.75 days it should be 4 --->
 			  CASE WHEN PayrollDaysCorrectionPointer = 1 THEN 			  
 			  		    EntitlementDays - EntitlementLWOP
 				   ELSE EntitlementDays
@@ -200,7 +200,7 @@ allowance is not higher than 40% of the NET RENT
 		
 		<!--- 3/8/2018, correction as the amountincome has to be expressed 
 					along the same lines as the rent period for correct comparisn, as otherwise the RS might be too low 
-		<cfif PayrollDaysCorrectionPointer  eq 1 > <!---- ATTENTION HANNO!!! here I made the change for person 8871, two LWOPs 2,75 days must be 4 days ---->
+		<cfif PayrollDaysCorrectionPointer  eq 1 > <!---- ATTENTION Dev!!! here I made the change for person 8871, two LWOPs 2,75 days must be 4 days ---->
 				
 				<cfset Threshold = AmountIncome * (EntitlementDays/AmountDays ) * rperc> <!--- rperc is fair for a person to pay 23% of his income for rent --->
 				<!--- <cfoutput><br> threshold (#Threshold#  = #AmountIncome# * (#EntitlementDays#/#AmountDays#) * #rperc#)    #line#</cfoutput>  --->

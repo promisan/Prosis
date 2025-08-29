@@ -143,7 +143,7 @@ BUT ONLY IF of this is NOT an SLA enabled workorder  --->
 		<!--- define only matching funding period --->
 		
 		<!--- ------------------------------------------------------------------------------------------------------------------------------- --->
-		<!--- 26/01/2012  HANNO we need to do a better job to take ONLY the most recent funding record here as these may have several results --->
+		<!--- 26/01/2012  Dev we need to do a better job to take ONLY the most recent funding record here as these may have several results --->
 		<!--- ------------------------------------------------------------------------------------------------------------------------------- --->
 				    
 		AND       C.SelectionDate >= F.DateEffective		

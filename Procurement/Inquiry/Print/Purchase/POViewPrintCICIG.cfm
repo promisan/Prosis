@@ -179,7 +179,7 @@ WHERE     L.PurchaseNo = '#URL.ID1#'
 	 <cfoutput> 
 	 <table width="98%" border="1" cellspacing="0" cellpadding="0" align="center" bordercolor="gray" class="formpadding">
 	 <tr>
-	 	<td align="center" valign="center" width="70%">COMISION INTERNATICIONAL CONTRA LA IMPUNIDAD EN GUATEMALA</TD>
+	 	<td align="center" valign="center" width="70%">text</TD>
 		<TD>AVISO IMPORTANTE<BR>
 			Toda correspondencia, factura y embarque debe mostrar este numero</TD>
 	 </tr>	
@@ -200,7 +200,7 @@ WHERE     L.PurchaseNo = '#URL.ID1#'
 	   		<cfoutput>
 		    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
 				<tr><td width="30%" valign="top">COMPRADOR:</TD>
-				<td>COMISION INTERNACIONAL CONTRA LA IMPUNIDAD EN GUATEMALA</td></tr>
+				<td>text</td></tr>
 				<TR><TD>OFICINA:</TD>
 					<td>#Buyer.OrgUnitName#</td>
 				</TR>
@@ -362,7 +362,7 @@ WHERE     L.PurchaseNo = '#URL.ID1#'
 	 <cfoutput> 
 	 <table width="98%" border="1" cellspacing="0" cellpadding="0" align="center" bordercolor="gray" class="formpadding">
 	 <tr>
-	 	<td align="center" valign="center" width="70%">COMISION INTERNATICIONAL CONTRA LA IMPUNIDAD EN GUATEMALA</TD>
+	 	<td align="center" valign="center" width="70%">text</TD>
 		<TD>AVISO IMPORTANTE<BR>
 			Toda correspondencia, factura y embarque debe mostrar este numero</TD>
 	 </tr>	

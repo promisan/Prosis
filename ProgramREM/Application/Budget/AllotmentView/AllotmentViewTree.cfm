@@ -237,7 +237,7 @@
 							</cfif>
 																		
 							<!--- period is NOT a planning period itself 
-							Hanno 10/10/2012 : this needs review, better to drop the isPlanning period and
+							Dev 10/10/2012 : this needs review, better to drop the isPlanning period and
 							let is be defined on the dbo.missionperiod level if a period is a plan period.
 							The below prevents for example in OICT to show B14-15 to be recorded under
 							plan period B12-13, which is not the intention hence it was removed.

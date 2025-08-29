@@ -53,7 +53,7 @@
         <!--- record this template/URL but ONLY if the token is valid which is defined 
 		by the time this screen loaded as we have a window of timing for it to be valid ---> 
 		
-		<!--- Hanno 2/11/2015 as we moved this to application.cfc it is likely not needed here anymore as its scope
+		<!--- Dev 2/11/2015 as we moved this to application.cfc it is likely not needed here anymore as its scope
 		is now much wider
 		
 		<cfif url.mid neq "">

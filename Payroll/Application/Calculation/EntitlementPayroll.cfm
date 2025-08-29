@@ -44,7 +44,7 @@ AND      Status <> '9'
 
 <CF_DropTable dbName="AppsTransaction" tblName="sal#SESSION.thisprocess#Entitlements">	
 
-<!--- Hanno 31/1/2018 entitlements are obtained for each of the legs, and then adjusted for the days/slwop, 
+<!--- Dev 31/1/2018 entitlements are obtained for each of the legs, and then adjusted for the days/slwop,
 it is pretty unlikely days would have to be adjusted in that case, but if it does
 it is well possible that we need to embed the code as we do for the legs to calculate
 the currect number of days / SLWOP and suspect, SO WE KEEP TUNED FOR THIS TO HAPPEN --->
@@ -352,7 +352,7 @@ SELECT     newid() as RecordId,
 		   E.EntitlementGroup,
 		   
       		<!--- attention not sure if this is correct was ::: P.EntitlementGroup ::: as I recall we had something 
-                        in CICIG to have the highest survive on the level of the Breda : EURO / US insurance rate 
+                        in Cto have the highest survive on the level of the Breda : EURO / US insurance rate
 				  but this is not relevant here as 'insurance' and 'housing' is only a counter --->  
 				  
 		   E.EntitlementSalaryDays, <!--- added to overrule calculations to include SLWOP for example  --->
@@ -612,7 +612,7 @@ password="#SESSION.dbpw#">
 	    </cfquery>	
 		
 		<!--- 
-			 ALERT Tuning 19/07/2011 by Hanno for Karin in case of CICIG
+			 ALERT Tuning 19/07/2011 by Dev for Karin in case of C
 			 
 			 First tuning for net dependent payroll adjustment which was split over different dependent
 			 and which total can not exceed 21.75 combined in that case as it is calculated over the payroll
@@ -797,7 +797,7 @@ password="#SESSION.dbpw#">
 	the entitlements that do no longer appear in the suspend/LWOP period. The rationale is that those entitlements
 	are	considered to be ending, and this the counting is just on working days over that period
 	like 14 days instead of 15.75 days in case of a full month to the complementing part 
-	likely only relevant for 21.75 scenario Hanno
+	likely only relevant for 21.75 scenario Dev
  --->
  
   
@@ -1034,7 +1034,7 @@ we can overrule salaryday pointer set on the entitlement record ITSELF, to rever
 	         userTransaction.dbo.sal#SESSION.thisprocess#PointerTrigger L				 
 	 WHERE   P.PersonNo                 = L.PersonNo
 	  AND     P.TriggerDependent         = L.SalaryTrigger
-	 <!--- Hanno 25/3 I noted that for RS the indicator was not set correctly in case of 2 RS records, like for MR West who had 2 entitlements for Rental subsidy  --->
+	 <!--- Dev 25/3 I noted that for RS the indicator was not set correctly in case of 2 RS records, like for MR West who had 2 entitlements for Rental subsidy  --->
 	 AND     (P.DateEffective            = L.DateEffective  OR P.DateExpiration  = L.DateExpiration)			 
 </cfquery>  
 

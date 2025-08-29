@@ -15,7 +15,7 @@
 -->
 <cfsilent>
  <proUsr>administrator</proUsr>
- <proOwn>Hanno van Pelt</proOwn>
+ <proOwn>Dev van Pelt</proOwn>
  <proDes>Staffing Table validation</proDes>
  <!--- specific comments for the current change, may be overwritten --->
  <proCom>Added on request of PMSS</proCom>

@@ -78,7 +78,7 @@
 
 <cfparam name="url._cf_containerId" default="">
 
-<!--- added by hanno to load the review screen upon changing of the period in the interface 
+<!--- added by Dev to load the review screen upon changing of the period in the interface
 and do not do this upon initial opening without ajax --->
 
 <cfif url._cf_containerid neq "">

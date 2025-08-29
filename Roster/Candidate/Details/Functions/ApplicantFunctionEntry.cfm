@@ -145,7 +145,7 @@ d. does not exist in the default roster yet --->
 
 <cfif Parameter.DefaultRosterAdd eq "1">
 
-<!--- Hanno : the sole purpose of this is sync any qualifying buckets from this
+<!--- Dev : the sole purpose of this is sync any qualifying buckets from this
 owner to the default roster under DIRECT (no VA related)
 and use this to manage candidates in general to be rostered in general. --->
 
@@ -236,7 +236,7 @@ AND    R.ShowRosterSearch = 1  <!--- was AND    M.Status NOT IN ('5','9') out of
 
 	<cfif Parameter.DefaultRoster eq "#URL.ID1#">
 		AND   V.FunctionRoster = '1'
-<!--- remove by hanno to enable for titles that are intended for the roster
+<!--- remove by Dev to enable for titles that are intended for the roster
 AND   R.ReferenceNo IN ('Direct','direct')
 --->
 	</cfif>

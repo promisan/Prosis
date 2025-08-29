@@ -23,7 +23,7 @@ password="#SESSION.dbpw#">
 				    ORDER BY  Updated DESC) as LastUpdated
     FROM   ApplicantSubmission AS APPS	
     WHERE  APPS.PersonNo = '#URL.PersonNo#' 
-	<!--- hardcoded by hanno --->
+	<!--- hardcoded by Dev --->
 	AND    APPS.Source IN ('Inspira','Galaxy')
 </cfquery>
 

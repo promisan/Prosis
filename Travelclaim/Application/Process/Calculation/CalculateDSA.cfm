@@ -287,7 +287,7 @@ datasource="appsTravelClaim">
 			    <!--- determine the event (=where is he/she) situation per calendar date
 				from the event transactions --->
 				  
-				<!--- 28/9 : Hanno 
+				<!--- 28/9 : Dev
 				disable older section as this is determined in Subsistence portion --->
 																												
 			<cfelse>

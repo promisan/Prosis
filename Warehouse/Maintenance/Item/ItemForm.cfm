@@ -149,7 +149,7 @@
 		    <td>
 				<select name="itemclass" id="itemclass" class="regularxl">		
 				<cfloop query="Cls">
-				    <!--- hidden other by hanno 16/1/2012 --->
+				    <!--- hidden other by Dev 16/1/2012 --->
 				    <cfif code neq "Other">
 						<option value="#Code#" <cfif Item.ItemClass eq Code>selected</cfif>>#Description# [#Code#]</option>
 					</cfif>

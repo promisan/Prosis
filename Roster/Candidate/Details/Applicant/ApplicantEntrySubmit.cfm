@@ -516,7 +516,7 @@ password="#SESSION.dbpw#">
 			  <script>
 			
 				  window.location = "#SESSION.root#/Roster/Candidate/Details/Functions/ApplicantManualSubmit.cfm?ID=#URL.ID#&PersonNo=#personNo#"
-				  <!--- added 7/7/2010 Hanno to close and refresh the bucket dialog for manual people --->				 
+				  <!--- added 7/7/2010 Dev to close and refresh the bucket dialog for manual people --->
 				  returnValue = "refresh"
 				  window.close()
 				

@@ -48,7 +48,7 @@
 			AND       TransactionLot = '#TransactionLot#'			
 		</cfquery>		
 		
-		PENDING hanno, see whiteboard 
+		PENDING Dev, see whiteboard
 		
 		--->
 						

@@ -849,7 +849,7 @@ refer to line 710
 								
 								WHERE      I.InvoiceId = '#URL.INVID#' 
 								AND        IP.PurchaseNo = '#purchaseno#'
-								AND        PL.ActionStatus != '9' <!--- added hanno 25/4/2016 --->
+								AND        PL.ActionStatus != '9' <!--- added Dev 25/4/2016 --->
 								
 								GROUP BY   IP.PurchaseNo,
 										   FUN.ProgramPeriod,

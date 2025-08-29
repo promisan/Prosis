@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- Hanno 21/10/2015 
+<!--- Dev 21/10/2015
  ideally we need to log this access in the structure we have for old access logging --->
 
 <cfquery name="FLY" 

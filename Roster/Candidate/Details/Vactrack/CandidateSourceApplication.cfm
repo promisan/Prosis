@@ -37,7 +37,7 @@
 	
 </script>	
 
-<!--- Hanno 10/3/2016 
+<!--- Dev 10/3/2016
  ideally we do move this to FunctionOrganization / FunctionOrganizationNotes 
  and in ApplicantFunction but with a status to we hide them in Function --->
 

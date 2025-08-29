@@ -80,7 +80,7 @@ FROM (
 WHERE  abs(PendingBilling) >= 0.5
 
 <!--- condition to show only workorders that have confirmed shipment pending to be invoiced,
-Hanno 23/3/2014 : technically we should also filter to take only WorkOrderLine that are meant for sale !!
+Dev 23/3/2014 : technically we should also filter to take only WorkOrderLine that are meant for sale !!
 --->
 
 </cfquery>

@@ -84,7 +84,7 @@
 </cfquery>
 
 <!--- currently all tables are personalised in appstransaction; this condition prevents overlapping calculations
-but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep it open : Hanno van Pelt
+but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep it open : Dev van Pelt
 
 <cfif calculation.recordcount gt "0" and getAdministrator("*") eq "0">
 	
@@ -176,7 +176,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 					  <cfelse>	<!--- through the workflow final payment process --->			  
 					  #EOD# as PeriodStart, 	
 				      </cfif>
-					  <!--- Hanno 6/10 : adjust in case of a found period in the payroll action --->
+					  <!--- Dev 6/10 : adjust in case of a found period in the payroll action --->
 				      isNULL(DateExpiration+3000,'2050/12/31') as PeriodEnd
 					  
 			 FROM     PersonContract
@@ -548,7 +548,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 									
 		<cfelse>
 		
-			<!--- Hanno adjustment for off-cycle payment as part of the final workflow
+			<!--- Dev adjustment for off-cycle payment as part of the final workflow
 			In case of an off-cycle payment the calcend is driven by the last settlement and if this
 			last settlement is off-cycle then we use CALEND to be the last date instead. --->	
 		
@@ -655,7 +655,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 				</cfif>
 				
 				<!--- ---------------------------------------------------------------------------------- --->
-				<!--- 19/5/2014 adjustment Hanno do not reset entitlement if a person has an action to 
+				<!--- 19/5/2014 adjustment Dev do not reset entitlement if a person has an action to
 				prevent entitlement correction                                                           --->
 				<!--- ---------------------------------------------------------------------------------- --->
 				

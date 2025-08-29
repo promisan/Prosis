@@ -251,7 +251,7 @@
 						precision         = "ItemPrecision",
 						search            = "number"}>		
 	
-	<!--- Hardcoded temporarily as per Hanno's advise, until we discuss about the Lot barcode. --->	
+	<!--- Hardcoded temporarily as per Dev's advise, until we discuss about the Lot barcode. --->
 					
 	<cfif mode eq "Item">				
 	

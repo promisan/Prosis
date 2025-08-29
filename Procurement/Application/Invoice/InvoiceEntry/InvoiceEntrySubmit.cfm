@@ -1303,7 +1303,7 @@ b. in case of Enforce Currency = 1 on purchase amount
 
 <script language="JavaScript">    
      parent.ptoken.location ( "../Matching/InvoiceMatch.cfm?html=#html#&Id=#url.guid#" )
-	 // added by hanno 19/2/2015
+	 // added by Dev 19/2/2015
 	 try {
 	 parent.parent.opener.history.go() } catch(e) {}
 	 <!--- alert("Invoice has been recorded.") parent.document.getElementById("search").click()	--->

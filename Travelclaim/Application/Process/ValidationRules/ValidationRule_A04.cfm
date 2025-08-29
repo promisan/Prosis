@@ -299,7 +299,7 @@ where ClaimObligated =0
 						   
 							<cfif Parameter.AliasSourceData neq "" AND Valpap neq "">
 															
-								<!--- enable above change once in production Hanno --->
+								<!--- enable above change once in production Dev --->
 								<cfset sp = "Warehousedev">
 								<!--- <cfset sp = "#Parameter.AliasSourceData#"> --->
 															 																														
@@ -521,7 +521,7 @@ where ClaimObligated =0
 							<!--- JG3  Added the following stuff below directly calling 
 							the original SP as in IMIS on 11-Feb-2008  --->
 						
-						<!--- enable above change once in production Hanno --->
+						<!--- enable above change once in production Dev --->
 							
 						<cfset sp = "Warehousedev">
 								<!--- <cfset sp = "#Parameter.AliasSourceData#"> --->

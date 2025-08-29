@@ -84,7 +84,7 @@ password="#SESSION.dbpw#">
 		ORDER BY Status 
 	</cfquery>	
 	
-	<!--- 12/10/2014 : pendi ng Hanno if url.mode = vacancy we check if we have to filter the results by the to the 
+	<!--- 12/10/2014 : pendi ng Dev if url.mode = vacancy we check if we have to filter the results by the to the
 	vacancy associated buchkets as defined in the edition of that bucket --->
 		
 	<cftry>		

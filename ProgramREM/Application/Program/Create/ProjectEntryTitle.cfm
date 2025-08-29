@@ -136,7 +136,7 @@ password="#SESSION.dbpw#">
 				
 		  <cfoutput>	
 		  
-		   <!--- Hanno 16/5/2015 : hiding it 		 
+		   <!--- Dev 16/5/2015 : hiding it
 		   		   
 		   <cfif Parent.ProgramClass eq "Program" and ParentList.recordcount gte "1">
 		   		   

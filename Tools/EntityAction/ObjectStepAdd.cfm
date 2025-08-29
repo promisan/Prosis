@@ -123,7 +123,7 @@
 	   
 <cfelse>
 
-	<!--- added by hanno 24/3/2016 --->
+	<!--- added by Dev 24/3/2016 --->
 
 		<cfquery name="Current" 
 		 	datasource="AppsOrganization"

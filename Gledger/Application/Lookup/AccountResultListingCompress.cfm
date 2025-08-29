@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- Hanno 8/7/2013 use the parent association of the line to reconstruct for the same account so we do not have
+<!--- Dev 8/7/2013 use the parent association of the line to reconstruct for the same account so we do not have
 repeated debits and credits if not needed --->
 
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#GLedgerCompress"> 

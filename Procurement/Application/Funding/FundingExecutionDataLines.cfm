@@ -62,7 +62,7 @@
 		
 		<!--- master views of programs to be shown in the execution view --->
 		
-		<!--- Hanno : I move the GL outside for a issue with DPA 10/10 --->
+		<!--- Dev : I move the GL outside for a issue with DPA 10/10 --->
 		
 		<cfquery name="getProgramLedger" 
 		datasource="AppsLedger" 

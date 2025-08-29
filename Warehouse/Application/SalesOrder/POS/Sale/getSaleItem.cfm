@@ -90,7 +90,7 @@ password="#SESSION.dbpw#">
 
 	<cfif get.recordcount neq "1">
 	
-	    <!--- Hanno, I am not convinced if there are lot this could would be correct --->
+	    <!--- Dev, I am not convinced if there are lot this could would be correct --->
 	
 		<cfquery name="get" 
 		  datasource="AppsMaterials" 

@@ -746,7 +746,7 @@
 		<td  height="34" colspan="2" style="padding-left:4px;height:30px;font-size:16px;font-weight:bold" class="labelmedium2" width="15%"><cf_tl id="Planned actions"></td>
 	</tr>
 			
-	<!--- Note for the file : Hanno 10/10/2016 ------------------------------------------------------- --->
+	<!--- Note for the file : Dev 10/10/2016 ------------------------------------------------------- --->
 	<!--- attention : if the implementing orgunit changes 
 	     we should allow here to pass a different orgunit for the action fields : this is pending here --->
 	<!--- -------------------------------------------------------------------------------------------- --->	 

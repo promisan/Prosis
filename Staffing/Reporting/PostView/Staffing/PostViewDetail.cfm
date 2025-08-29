@@ -328,7 +328,7 @@
 				 <cfelse>
 				 
 				 				 
-				 	  <!--- select track occurence this query is heavy and should be tuned Hanno : 4/9/2013 --->
+				 	  <!--- select track occurence this query is heavy and should be tuned Dev : 4/9/2013 --->
 												  
 							(
 							
@@ -829,7 +829,7 @@
 						OR Staff.PositionParentId LIKE '%#sp##URL.fld##sp#%' 
 					    OR Staff.SourcePostNumber LIKE '%#sp##URL.fld##sp#%' 
 					    
-					    <!--- added by hanno to allow searching in the new mandate --->
+					    <!--- added by Dev to allow searching in the new mandate --->
 					    OR Staff.RecruitmentTrack IN (
 												
 					    						SELECT D.DocumentNo 
@@ -933,7 +933,7 @@
 						    OR Staff.IndexNo     LIKE '%#sp##URL.fld##sp#%'
 						    OR Staff.Nationality LIKE '#URL.fld#%'
 						    
-						    <!--- added by hanno to allow searching in the new mandate --->
+						    <!--- added by Dev to allow searching in the new mandate --->
 						     
 					    	OR Staff.RecruitmentTrack IN (
 					    				SELECT D.DocumentNo 
@@ -942,7 +942,7 @@
 										AND    DC.Status IN ('2','2s') 
 										AND    D.Status != '9' )              											
 					
-							<!--- to be tuned Hanno 4/9/2013 to take a wider selection --->
+							<!--- to be tuned Dev 4/9/2013 to take a wider selection --->
 							<!--- look for information in the recruitment record --->			   
 
 							OR (

@@ -270,7 +270,7 @@ password="#SESSION.dbpw#">
 											
 							<cfif ((URL.Topic neq "All" or url.entryScope eq "Portal") and getSource.allowEdit eq "1" and getSource.operational eq "1")>
 							
-								<!--- Hanno : we need a provision for the online user to process it, even if allowedit = 0
+								<!--- Dev : we need a provision for the online user to process it, even if allowedit = 0
 									<cfif Source neq "#Parameter.PHPSource#" and URL.Topic neq "All">		
 								--->
 				

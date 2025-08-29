@@ -238,7 +238,7 @@ password="#SESSION.dbpw#">
                    Applicant A ON R.PersonNo = A.PersonNo INNER JOIN
                    ApplicantSubmission H ON R.PersonNo = H.PersonNo INNER JOIN
                    System.dbo.Ref_Nation N ON A.Nationality = N.Code LEFT OUTER JOIN				   
-                   Employee.dbo.skPersonContract C ON A.IndexNo = C.IndexNo	AND C.IndexNo <> '' <!--- added by Hanno to prevent duplicates --->	
+                   Employee.dbo.skPersonContract C ON A.IndexNo = C.IndexNo	AND C.IndexNo <> '' <!--- added by Dev to prevent duplicates --->
 				   
 		  WHERE  R.SearchId = #URL.ID1#	   					  
 			 

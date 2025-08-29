@@ -901,7 +901,7 @@ password="#SESSION.dbpw#">
 				   
 						<table cellspacing="0" cellpadding="0" class="formpadding">
 						
-							<!--- added by hanno 15/8/2012 to split the amount by transaction / category --->
+							<!--- added by Dev 15/8/2012 to split the amount by transaction / category --->
 							
 							<cfquery name="getTotalDetails" 
 							  datasource="AppsMaterials" 

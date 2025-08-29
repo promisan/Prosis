@@ -1152,7 +1152,7 @@
 												
 		<cfelseif Check.PositionStatus eq "0" or form.forceamend eq "1">  <!--- changed to allow to make some changes --->
 		
-				<!--- NOTE : hanno correction for evelyn only to allow changes on the position
+				<!--- NOTE : Dev correction for evelyn only to allow changes on the position
 					
 		        <cfif (Check.FunctionNo eq Form.FunctionNo OR
 			       	   Check.OrgUnitOperational eq Form.OrgUnit OR
@@ -1204,7 +1204,7 @@
 				         password="#SESSION.dbpw#">
 	
 				    	 UPDATE PositionParent
-				    	 SET <!--- added by hanno to prevent resets --->
+				    	 SET <!--- added by Dev to prevent resets --->
 						 <cfif form.mission eq form.missionoperational>
 						 	 OrgUnitOperational    = '#Form.OrgUnit#',  
 							 </cfif>
@@ -1245,7 +1245,7 @@
 						 WHERE  PositionNo = '#Form.PositionNo#'
 						 
 						 <!--- disabled as this code cause the full history of the assignments to be overwritten
-						 26/10/2018 : Hanno
+						 26/10/2018 : Dev
 				    	 WHERE PositionNo IN (SELECT PositionNo 
 						                      FROM   Position 
 											  WHERE  PositionParentId = '#Form.PositionParentId#')

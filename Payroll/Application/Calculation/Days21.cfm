@@ -202,7 +202,7 @@
 								<cfelse>
 								    <!--- if for one reason the record has 3 instances we also correct for this --->
 								    <cfset t = Form.SalaryDays-Prior.total-days.total>						
-									<!--- revision, it is better to set this scenario to 0 for CICIG as this is for closure --->						
+									<!--- revision, it is better to set this scenario to 0 for Cas this is for closure --->
 									<cfset t = 0>
 								</cfif>	
 							
@@ -216,9 +216,9 @@
 						<!--- person is arriving during the month and ends by the end or earlier --->
 						<!--- ------------------------------------------------------------------ --->
 					
-						<cfif form.Mission eq "CICIG">
+						<cfif form.Mission eq "C">
 						
-							<!--- 16/4/2011 In case of CICIG a correction was requested by German that in case the person is leaving. He/she to be paid the
+							<!--- 16/4/2011 In case of Ca correction was requested by German that in case the person is leaving. He/she to be paid the
 							working days during that month and NOT the complement to be consistent --->
 						
 							<cfquery name="Days" 

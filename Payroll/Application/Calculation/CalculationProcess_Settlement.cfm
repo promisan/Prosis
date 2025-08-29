@@ -95,7 +95,7 @@ but EXCLUDE entitlements for a COMPLETE MONTH deferred by a PAYROLL action 4001 
 	<cfset compUntilDate = SALSTR>
 </cfif>
 
-<!--- Hanno : line 134, 222, 299 --->
+<!--- Dev : line 134, 222, 299 --->
 
 <cfquery name="Deferred" 
 datasource="AppsPayroll" 
@@ -384,7 +384,7 @@ password="#SESSION.dbpw#">
 							 AND      PayrollItem = S.PayrollItem 
 							 AND      Source      = S.Source
 							 AND      Mission     = '#Form.Mission#'
-							 <!--- added by hanno 19/10/2022 --->
+							 <!--- added by Dev 19/10/2022 --->
 							 AND      PayrollStart >= ( SELECT TOP 1 EntitlementEffective
 	                                                    FROM   userTransaction.dbo.sal#SESSION.thisprocess#Payroll
 								                        WHERE  PersonNo = S.PersonNo) 								 
@@ -409,7 +409,7 @@ password="#SESSION.dbpw#">
 
 
 <!--- not sure what below was used for in reality, 
-disabled Hanno 24/2/2021 as we had cents correction in the payroll calculation
+disabled Dev 24/2/2021 as we had cents correction in the payroll calculation
 which is wrong effect 
 
 <cfquery name="qCeiling1" 

@@ -164,7 +164,7 @@
 	
 	<cfset reviewflow = Requisition.ReviewClass>
 	
-	<!--- Hanno note : this is for the CMP additional budget, 
+	<!--- Dev note : this is for the CMP additional budget,
 	    however I am not certain on its purpose at this moment 17 May 2010, it cleans if there is not flow, which is right I believe --->
 	
 	<cfif reviewflow eq "">
@@ -291,7 +291,7 @@ password="#SESSION.dbpw#">
           or	<!--- 1. no itemmaster defined yet --->
          (url.enforceFund eq "0" 		 
 		     and Parameter.FundingByReviewer eq "2" 
-			 and fullfunded.total eq "1"  <!--- Hanno 17/1/2011 added to show the funding if it is not fully funded yet --->
+			 and fullfunded.total eq "1"  <!--- Dev 17/1/2011 added to show the funding if it is not fully funded yet --->
 			 
 			 <!---  hide if the status is passed and user has not right for funding   --->			 
 			 <!--- 8/8/2010 removed  or Requisition.ActionStatus gte "3" in the below ---> 

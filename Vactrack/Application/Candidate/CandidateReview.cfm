@@ -681,7 +681,7 @@ password="#SESSION.dbpw#">
 						  '#SESSION.first#')
 				</cfquery>			
 			
-				<!--- framework function added by hanno --->
+				<!--- framework function added by Dev --->
 				<cfset showProcess = "0">	
 		
 		</cfif>
@@ -1094,7 +1094,7 @@ password="#SESSION.dbpw#">
 					</tr>
 					</table>		
 			
-			    <!--- we do allow to select now : Hanno 25/9/2023
+			    <!--- we do allow to select now : Dev 25/9/2023
 	
 			    <cfif (PreventSelection.recordcount eq "0" or Validation.recordcount eq "1") and 
 				  (Selected.recordcount eq "0" or Status eq "9" or Selected.Status gte "2" or Selected.Status lte "2s")>

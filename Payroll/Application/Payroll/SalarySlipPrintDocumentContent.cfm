@@ -203,7 +203,7 @@
 			
 			<cfif Settle.PayslipMode eq "2">
 			
-					<!--- check with Hanno on getdate() replacement on the query below --->
+					<!--- check with Dev on getdate() replacement on the query below --->
 					
 					<cfquery name="qPayslipEntitlementRates" 
 					datasource="AppsPayroll">

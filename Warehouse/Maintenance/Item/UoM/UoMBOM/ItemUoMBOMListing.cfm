@@ -257,7 +257,7 @@ password="#SESSION.dbpw#">
 				
 					    <!--- at this point we will also check if the standard cost would have to be adjusted.
 						
-						Hanno : 18/1/2014, 
+						Dev : 18/1/2014,
 						
 						Attention it is better to move this to the ItemUoMBOMSubmit.cfm --->
 					

@@ -44,7 +44,7 @@ SELECT     PersonNo, f_refx_adtr_seq_num, strt_addr, addnl_strt_addr,
 city, postl_code, f_cnty_id_code, contact_name, phone_1_num, 
 email_addr, 
                       'Nucleus' AS Expr1, 'Van 
-Pelt' AS Expr2, 'Hanno' AS Expr3
+Pelt' AS Expr2, 'Dev' AS Expr3
 FROM         tmp_ref3
 WHERE  (AddressId IS NULL)
 </cfquery>

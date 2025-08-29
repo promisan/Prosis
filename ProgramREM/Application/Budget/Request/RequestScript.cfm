@@ -79,7 +79,7 @@
 		
 		if (scope == "dialog") {
 		
-		    // not sure if this is still in use, can be removed i think : Hanno 23/3/2015 
+		    // not sure if this is still in use, can be removed i think : Dev 23/3/2015
 	       		  	  	
 		    try {
 		    se = dialogview.document.getElementById("entrydialog")			
@@ -113,7 +113,7 @@
 			   ptoken.open("#SESSION.root#/programrem/Application/Budget/Request/RequestDialog.cfm?mode="+mode+"&requirementid="+id+"&programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid="+edi+"&objectcode="+obj+"&cell="+cell,"requirement")						
 			} else {
 			
-			    // not sure if this is still in use hanno 22/9/2015						
+			    // not sure if this is still in use Dev 22/9/2015
 					    							
 				if (id == "") {
 				 alert("please contact administrator code:modaldialog")

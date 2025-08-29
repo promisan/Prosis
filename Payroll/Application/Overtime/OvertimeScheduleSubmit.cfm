@@ -112,7 +112,7 @@
 			<cfelseif mode eq "Contract">
 			
 				<!--- not sure this is a good idea as this will be overwritten when you press update in the schedule 
-				disabled by Hanno 08/09/2020 ---->
+				disabled by Dev 08/09/2020 ---->
 			
 				<cfquery name="get" 
 				  	datasource="AppsEmployee" 
@@ -129,7 +129,7 @@
 			
 			<cfelseif findNoCase("overtime",mode)>
 						
-				<!--- added by Hanno as this would allow to replace break days with overtime --->
+				<!--- added by Dev as this would allow to replace break days with overtime --->
 						
 				<cfquery name="reset" 
 				  	datasource="AppsEmployee" 

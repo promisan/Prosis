@@ -89,7 +89,7 @@
 		  password="#SESSION.dbpw#">
 			UPDATE    ProgramAllotmentRequest
 			SET       ResourceQuantity =
-	                          (SELECT     ISNULL(SUM(ResourceQuantity),1)   <!--- correction hanno 21/10/2016 as ripple did not work --->
+	                          (SELECT     ISNULL(SUM(ResourceQuantity),1)   <!--- correction Dev 21/10/2016 as ripple did not work --->
 	                            FROM      ProgramAllotmentRequestQuantity
 	                            WHERE     RequirementId = '#requirementId#'),
 					  ResourceDays =

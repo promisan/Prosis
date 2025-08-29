@@ -16,7 +16,7 @@
 <cfsilent>
 
 	<proUsr>administrator</proUsr>
-	<proOwn>Hanno van Pelt</proOwn>
+	<proOwn>Dev van Pelt</proOwn>
 	<proDes></proDes>
 	<proCom></proCom>
 	<proCM></proCM>

@@ -206,7 +206,7 @@ password="#SESSION.dbpw#">
 					  P.FirstName+' '+P.LastName as Name, 
 					  <!---	  -- L.PayrollStart, L.PayrollEnd, --->
 					  
-					  <!--- Hanno these amounts are not immediately populated : we have several values Payment to staff amount, cost to the organization
+					  <!--- Dev these amounts are not immediately populated : we have several values Payment to staff amount, cost to the organization
 				    	  L.DocumentCurrency, 
 					      <!--- L.PaymentAmount  * F.Percentage AS AmountPayUSD, --->
 					      ROUND(L.DocumentAmount,2)  as DocumentAmount <!--- * F.Percentage AS DocumentAmount, --->

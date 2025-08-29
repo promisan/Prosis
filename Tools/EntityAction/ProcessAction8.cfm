@@ -23,7 +23,7 @@
 	<cf_LedgerTransactionScript>	
 </head>
 
-<!--- disabled by hanno, maybe this was needed in the past to show
+<!--- disabled by Dev, maybe this was needed in the past to show
 <table class="hide"><tr><td><cf_textarea name="FieldDocument" height="2" init="Yes"></cf_textarea></td></tr></table>
 --->
 

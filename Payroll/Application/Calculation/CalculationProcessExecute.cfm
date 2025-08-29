@@ -45,7 +45,7 @@
 		<tr class="line"><td class="labelmedium" style="padding:2px"><cf_tl id="Officer">:</b></td>
 		    <td class="labelmedium" style="padding:2px">#SESSION.first# #SESSION.last# on #timeformat(now(),"HH:MM:SS")#</td></tr>
 		
-		<!--- at some point for CICIG 
+		<!--- at some point for C
 					
 		<tr class="hide"><td class="labelmedium" style="padding:2px"><cf_tl id="Specific Employee"></td>
 		    <td class="labelmedium" style="padding:2px">

@@ -507,7 +507,7 @@
 		
 		</cfif>	
 			
-		<!--- hanno added lines to check first if we already have a line here --->
+		<!--- Dev added lines to check first if we already have a line here --->
 		
 		<cfquery name="check" 
 		     datasource="AppsWorkOrder" 
@@ -1582,7 +1582,7 @@
 							
 							--->
 							
-							<!--- removed by hanno for now 	
+							<!--- removed by Dev for now
 							
 							<cfloop query="getNext">
 							

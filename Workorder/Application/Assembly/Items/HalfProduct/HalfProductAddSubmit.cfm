@@ -171,7 +171,7 @@
 					
 				<cfelse>
 				
-				     <!--- Hanno added the value on 6/10/2014 --->
+				     <!--- Dev added the value on 6/10/2014 --->
 				
 					<cfset aClassification[f_itm] = {Item       = "#f_itm#", 
 													Topic       = "#Class#", 
@@ -415,12 +415,12 @@
 	
 		<cfset vResponse = vResponse & "#Item.ItemNo#/#Item.ItemUoM# defined">
 	
-		<!---- Hanno 9/8/2103 we check if the bill of materials for the item would need to be refreshed based on the
+		<!---- Dev 9/8/2103 we check if the bill of materials for the item would need to be refreshed based on the
 		parent item, this we likely adjust because of the need to add an instance record
 		to the ItemMaterals which indicates such a situation --->
 		
 		<!--- ------------------------------------------ --->
-		<!--- retored Hanno to be moved to the component --->
+		<!--- retored Dev to be moved to the component --->
 		<!--- ------------------------------------------ --->
 		
 		<cfquery name="BOMParent" 

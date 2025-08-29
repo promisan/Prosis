@@ -425,7 +425,7 @@
 		
 				WHERE    H.Mission             = '#url.mission#' 
 				
-				<!--- added by Hanno 16/01/2018 --->
+				<!--- added by Dev 16/01/2018 --->
 				AND      H.TransactionSource   NOT IN ('PayrollSeries','ForecastSeries')
 				AND      L.TransactionSerialNo <> '0' 
 				AND      H.RecordStatus        != '9'

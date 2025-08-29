@@ -2852,7 +2852,7 @@
 									
 					</cfloop>	
 					
-					<!--- Hanno better to use the component we have to correct this, but it can work here --->			
+					<!--- Dev better to use the component we have to correct this, but it can work here --->
 		
 					<cfquery name="qUpdateOutstanding"
 					datasource="AppsMaterials" 
@@ -3313,7 +3313,7 @@
 				<cfset Invoice.ErrorDetail       = "">
 				<cfset Invoice.Status            = "1">							   	
 					
-				<!--- validate series otherwise Invoice.Mode = "1" : Manual which was removed by Hanno 13 June 2021 --->
+				<!--- validate series otherwise Invoice.Mode = "1" : Manual which was removed by Dev 13 June 2021 --->
 												
 					<cfquery name="getSeries"
 					 datasource="AppsOrganization" 
@@ -3336,7 +3336,7 @@
 							<cfset Invoice.ErrorDescription = "No tax series set">
 							<cfset Invoice.ErrorDetail      = "">
 							
-							<!--- Hanno 6/13/2021 here we need to add the logging TransactionHeaderAction 
+							<!--- Dev 6/13/2021 here we need to add the logging TransactionHeaderAction
 							                               for the manual mode  --->														   
 							
 							<cf_assignid>
@@ -3688,7 +3688,7 @@
 							WHERE  BatchId = '#batchid#'
 						</cfquery>	
 						
-						<!--- Hanno 20/7/2015 
+						<!--- Dev 20/7/2015
 						is this needed still ?, i think this is no longer needed as the transaction is excluded 
 												
 						<cfquery name="deleteBatchLines"

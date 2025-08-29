@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- Hanno 8/8 this will have to be adjusted to work this on the period, in this process we check if the parent 
+<!--- Dev 8/8 this will have to be adjusted to work this on the period, in this process we check if the parent
 is indeed enabled for that period, if not, we move this to the top of the hierarchy 
 
 1. I need to check the usage of the hierarchy for the project activity manangement : children 

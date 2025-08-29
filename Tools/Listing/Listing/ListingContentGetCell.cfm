@@ -450,7 +450,7 @@
 																					
 				<cfelse>					
 				    				
-					<!--- Hanno 11/1/2021 : does not work needs fixed size
+					<!--- Dev 11/1/2021 : does not work needs fixed size
 					<cfset cellstyle  = "text-overflow: ellipsis;overflow:hidden;white-space:nowrap">
 					--->
 					

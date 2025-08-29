@@ -192,7 +192,7 @@ password="#SESSION.dbpw#">
 								AND     RequirementId   = WIR.ResourceId
 		
 								<!--- more correct to use the resourceid as per above as it is more robust for the case we receive variations of the item
-								in RI Hanno or in earmarking 28/11
+								in RI Dev or in earmarking 28/11
 								
 								AND      ItemNo         = WIR.ResourceItemNo 
 								AND      TransactionUoM = WIR.ResourceUoM  		

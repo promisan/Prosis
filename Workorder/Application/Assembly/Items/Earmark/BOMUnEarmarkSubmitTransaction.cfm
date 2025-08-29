@@ -63,7 +63,7 @@
 					
 			<cfelse>
 			
-				<!--- Hanno adjustment for Hicosa handling --->
+				<!--- Dev adjustment for Hicosa handling --->
 				<!--- PENDING 18/9/2016 : 
 				
 				stock was earmarked and unearmarked button is selected means transfer stock but in the transfer

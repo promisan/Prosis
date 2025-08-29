@@ -40,7 +40,7 @@
 <cfparam name="url.year" default="#Param.CurrentAccountPeriod#">
 --->
 
-<!--- 07/07/2010 : Hanno : the budget period needs to be generictly defined, 
+<!--- 07/07/2010 : Dev : the budget period needs to be generictly defined,
 
 this is pending, maybethis needs to be part of the settlement table 
 

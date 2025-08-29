@@ -20,7 +20,7 @@
 
 <table width="100%" class="formpadding" style="navigation_table;border:1px solid silver;border-bottom:0px solid silver">
 
-<!--- Hanno, cleanup somehow it is create a double record, to be tracked --->
+<!--- Dev, cleanup somehow it is create a double record, to be tracked --->
 
 <cfquery name="cleanAction"
 	datasource="AppsLedger"

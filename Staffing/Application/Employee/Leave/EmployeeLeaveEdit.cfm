@@ -500,7 +500,7 @@
 							
 							</td>
 						
-							<!--- disabled for now to be adjusted Hanno 
+							<!--- disabled for now to be adjusted Dev
 				  
 							<cf_intelliCalendarDate9
 								FieldName="dateeffective" 

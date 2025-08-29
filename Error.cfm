@@ -195,7 +195,7 @@
 	    <!--- no mail is sent --->
 	    <cfset mail = "0">
 	<cfelse>
-	    <cfset mail = "0">  <!--- adjusted by hanno to 0 as mail is sent below --->
+	    <cfset mail = "0">  <!--- adjusted by Dev to 0 as mail is sent below --->
 	</cfif>
 	--->
 
@@ -225,7 +225,7 @@
 
 		<cfcatch>
 
-<!--- disabled by Hanno 11/11/2012 as it triggered double records --->
+<!--- disabled by Dev 11/11/2012 as it triggered double records --->
 
 		</cfcatch>
 
@@ -384,7 +384,7 @@
 			<!--- get the recorded error in the log file of cf
 			
 			 Note:  April 10, 2015. by dev.
-			 As discussed with Hanno, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database therefore no
+			 As discussed with Dev, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database therefore no
 			 need for exception.log file to be populated (b) Even though this is "display:none", it is a security vulnerability to output detailed error information to clients.
 			
 			<tr><td class="hide" colspan="1" id="errordetail">

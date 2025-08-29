@@ -15,7 +15,7 @@
 -->
 <cfsilent>
 	<proUsr>administrator</proUsr>
-	<proOwn>Hanno van Pelt</proOwn>
+	<proOwn>Dev van Pelt</proOwn>
 	<proDes>Ajax enabled</proDes>
 	<proCom>Framework</proCom>
 </cfsilent>

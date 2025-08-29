@@ -117,7 +117,7 @@ password="#SESSION.dbpw#">
 	
 		<!--- reset payables, 
 		
-		hanno 29/7/2021 : it can be that a payables is already processed 
+		Dev 29/7/2021 : it can be that a payables is already processed
 		in the current situation it will not allow to proceed and will through an error --->
 		
 		<cftry>

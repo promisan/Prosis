@@ -23,7 +23,7 @@ datasource="appsOrganization"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 
-    <!--- removed by Hanno 26/11/2020 only documents that are set to be forced will be populated here 
+    <!--- removed by Dev 26/11/2020 only documents that are set to be forced will be populated here
 	
 	SELECT    D.DocumentId, 
 			  R.DocumentCode,

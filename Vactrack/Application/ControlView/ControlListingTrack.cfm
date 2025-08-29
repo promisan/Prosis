@@ -25,7 +25,7 @@
 
 <cfparam name="URL.Status" default="0">
 
-<!--- correction hanno 24/10 as sometimes the widget has abother ' --->
+<!--- correction Dev 24/10 as sometimes the widget has abother ' --->
 <cfif findNoCase("portal",url.mode)>
 	<cfset url.mode = "portal">
 </cfif>	

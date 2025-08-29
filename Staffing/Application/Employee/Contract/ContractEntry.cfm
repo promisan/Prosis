@@ -185,7 +185,7 @@
 						 ) 
 		</cfif>
 						   
-		<!--- hanno remove, 16/2/2018 : you can record another contract record now
+		<!--- Dev remove, 16/2/2018 : you can record another contract record now
 		 if a current contract is pending, do not allow the creation of a new one 		   
 		AND    Mission NOT IN (SELECT Mission 
 		                       FROM   Organization.dbo.Ref_Mission 

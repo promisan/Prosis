@@ -78,7 +78,7 @@ datasource="AppsSystem">
 <table width="100%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0">
 	
 <!--- top menu, take the mission from the ref_module control entry, but more correctly we
-need to select it like for fuel: hanno 01/02/2012 --->
+need to select it like for fuel: Dev 01/02/2012 --->
 
 <cfif url.mission eq "">
 	<cfset url.mission  = "#system.FunctionCondition#">

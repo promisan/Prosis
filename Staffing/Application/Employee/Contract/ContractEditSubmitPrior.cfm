@@ -235,7 +235,7 @@
 								 Amount, 
 		                         DocumentReference, 
 								 Remarks, 
-								 '2',         <!--- was '1' but corrected by hanno 6/10/2018 --->
+								 '2',         <!--- was '1' but corrected by Dev 6/10/2018 --->
 								 '#rowguid#', <!--- newly added contract --->
 								 ActionReference, 
 								 OfficerUserId, 

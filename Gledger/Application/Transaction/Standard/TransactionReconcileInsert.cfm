@@ -189,7 +189,7 @@
 			  <cfset des = Reference>  
 			</cfif>
 			
-			<!--- Hanno : added provision to prevent incorrect posting 6/11/2016 --->
+			<!--- Dev : added provision to prevent incorrect posting 6/11/2016 --->
 			
 			<cfif crd eq 0>
 				<cfset creditbase = 0>

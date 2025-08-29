@@ -185,7 +185,7 @@ password="#SESSION.dbpw#">
 	
 	<tr>
 	
-	<!--- option to toggle the budget entry mode Hanno : 20/8/2010 --->
+	<!--- option to toggle the budget entry mode Dev : 20/8/2010 --->
 		
 	<cfquery name="CheckAllotment" 
 	datasource="AppsProgram" 

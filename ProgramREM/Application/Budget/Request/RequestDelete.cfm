@@ -206,7 +206,7 @@
 					   method           = "LogRequirement" 
 					   RequirementId    = "#url.RequirementId#">					
 			
-			<!--- 14/9 Hanno disabled as it is too tricky and now we enable editing
+			<!--- 14/9 Dev disabled as it is too tricky and now we enable editing
 				
 			<cfelse>		
 						

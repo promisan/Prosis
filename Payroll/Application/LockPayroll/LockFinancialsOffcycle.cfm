@@ -439,7 +439,7 @@
 										 								WHERE      	SettlementId IN (#preserveSingleQuotes(Settlements)#))
 										
 										<!--- Attention --->
-										<!--- Hanno 22/7 only programs that belong to this mission, maybe we should even add the ProgramPeriod here 
+										<!--- Dev 22/7 only programs that belong to this mission, maybe we should even add the ProgramPeriod here
 										as otherwise it might not show in the budget execution view if it is not enabled for that year --->
 										
 										AND       PF.ProgramCode IN (SELECT ProgramCode 
@@ -947,7 +947,7 @@
 		UPDATE ES
 		SET        	ES.ActionStatus ='3'
 		FROM    	Payroll.dbo.EmployeeSettlement as ES
-		WHERE 		ES.SettlementID IN (#preserveSingleQuotes(Settlements)#) <!--- adjusteed by hanno 22/6 --->
+		WHERE 		ES.SettlementID IN (#preserveSingleQuotes(Settlements)#) <!--- adjusteed by Dev 22/6 --->
 		AND     	ES.PaymentStatus = '1'
 
 	</cfquery>		

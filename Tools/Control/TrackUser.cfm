@@ -212,7 +212,7 @@ datasource="AppsSystem">
 		and not FindNoCase("Connection.cfc", filename)
 		and not FindNoCase("Security.cfc", filename)>  <!--- we are not tracking connection.cfcas this is too repeated --->
 				
-		<!--- or : REMOVED BY HANNO 6/2/2012
+		<!--- or : REMOVED BY Dev 6/2/2012
 		group neq logon.templategroup --->
 		
 		<cftransaction>		

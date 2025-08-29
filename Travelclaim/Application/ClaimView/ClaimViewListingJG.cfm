@@ -16,7 +16,7 @@
 <cfsilent>
 
 <proUsr>administrator</proUsr>
-<proOwn>Hanno van Pelt</proOwn>
+<proOwn>Dev van Pelt</proOwn>
 <proDes>a.Made changes to disable claiming against Travel request that have status closed: TCP Issues: 33
 b. Made changes since if the traveller does not choose express or detailed and hits logout ,when he logs back 
 in it only shows detailed as the default (JG).

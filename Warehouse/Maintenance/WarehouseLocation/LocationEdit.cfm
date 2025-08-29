@@ -475,7 +475,7 @@ password="#SESSION.dbpw#">
 		 <td class="labelmedium" style="padding-left:6px"><cf_tl id="Issues internally"></td>
 	 </tr>	 
 		
-		 <!--- 5/5/2015 Hanno i dropped the condition if the location to be associated to an asset 
+		 <!--- 5/5/2015 Dev i dropped the condition if the location to be associated to an asset
 		 <td class="label" style="padding-left:4px">  
 		 <input type="radio" name="Distribution" id="consumption" <cfif getAsset.recordcount eq "0">disabled</cfif> value="8" <cfif "8" eq get.Distribution>checked</cfif>>
 		 </td>

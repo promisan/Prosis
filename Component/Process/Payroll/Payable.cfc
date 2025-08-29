@@ -589,7 +589,7 @@
 			                            WHERE     PF.DateEffective <= #DTE#
 										
 										<!--- Attention --->
-										<!--- Hanno 22/7 only programs that belong to this mission, maybe we should even add the ProgramPeriod here 
+										<!--- Dev 22/7 only programs that belong to this mission, maybe we should even add the ProgramPeriod here
 										as otherwise it might not show in the budget execution view if it is not enabled for that year --->
 										
 										AND       PF.ProgramCode IN (SELECT ProgramCode 

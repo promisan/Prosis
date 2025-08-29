@@ -64,7 +64,7 @@
 		fld = document.getElementById('formcustomfield');
 		ap  = document.getElementById('actionprocessbox');
 		
-		// added by hanno to prevent breakout for charles for LOA
+		// added by Dev to prevent breakout for charles for LOA
 		
 	    var wfmode = 8
 						

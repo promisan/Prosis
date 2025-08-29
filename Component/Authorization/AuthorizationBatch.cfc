@@ -31,7 +31,7 @@
 			 <cfparam name      = "Session.Status"    default="0">		
 			 <cfparam name      = "Session.Message"   default="Please Wait">	
 			 
-			  <!--- Hanno ensure the session progresses if no explicit 
+			  <!--- Dev ensure the session progresses if no explicit
 	 						action is taken for some reason --->
 				
 			 <cfif session.status lt 1>

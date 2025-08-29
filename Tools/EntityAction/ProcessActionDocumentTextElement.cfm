@@ -91,7 +91,7 @@
 	  	 <textarea name="hdrFieldDocument#no#" style="padding:5px;border:0px;background-color:efefef;width:100%;height:50px">#doc.DocumentHeader#</textarea>	
 	  
 	  
-	  	 <!--- remove hanno 
+	  	 <!--- remove Dev
 	  
 	     <cfset text = replace(doc.DocumentHeader,"<script","<disable","all")>
 	     <cfset text = replace(text,"<iframe","<disable","all")>

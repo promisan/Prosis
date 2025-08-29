@@ -506,7 +506,7 @@ password="#SESSION.dbpw#">
 					 PaymentCurrency, 					 
 					 
 					 <!--- the below  amounts are used for successive calculation processing for other component --->					 
-					 EntitlementAmountFull, <!--- EntitlementAmountBase corrected 9/22/2017 Hanno after Karin reported percentages for overtime were not applied correctly --->												  
+					 EntitlementAmountFull, <!--- EntitlementAmountBase corrected 9/22/2017 Dev after Karin reported percentages for overtime were not applied correctly --->
 					 EntitlementAmountDays,
 					 EntitlementAmountBase,						 					 
 					 EntitlementAmount,

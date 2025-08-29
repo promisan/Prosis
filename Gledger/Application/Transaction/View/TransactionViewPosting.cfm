@@ -360,7 +360,7 @@ dev 10/4/2013: Very important query as it combines child/parent transactions. Ex
 					 T.ParentJournal,
 					 T.ParentJournalSerialNo
 					
-					<!--- hanno 29/7 adjusted the sorting --->
+					<!--- Dev 29/7 adjusted the sorting --->
 					
 			ORDER BY Sorting,
 					H.DocumentDate,
@@ -477,7 +477,7 @@ dev 10/4/2013: Very important query as it combines child/parent transactions. Ex
 
 		<cfoutput group="TransactionSource">
 
-<!--- we group the output Header.JournalTransactionNo and then by transaction source :a dded by Hanno for the sales COGS presentation (BCN) --->
+<!--- we group the output Header.JournalTransactionNo and then by transaction source :a dded by Dev for the sales COGS presentation (BCN) --->
 
 <!--- check if this object has a workflow --->
 
@@ -796,7 +796,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 								AND     T.Journal         != '#Journal#'
 								AND     T.JournalSerialNo != '#JournalSerialNo#'
 
-<!--- added by hanno 2/3/2016 in order not to show too much in the screen as subsequent transactions are already shown --->
+<!--- added by Dev 2/3/2016 in order not to show too much in the screen as subsequent transactions are already shown --->
 									AND     (T.ParentJournal = '' or T.ParentJournal is NULL)
 <!--- -------------------------------------------------------------------------- --->
 
@@ -819,7 +819,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 						<cfset box  = replace(box,"-","_","All")>
 						<cfset link = "journal=#journal#&journalserialno=#journalserialno#&transactionserialno=#transactionserialno#&box=#box#">
 
-<!--- 5/5/2009 : Hanno --->
+<!--- 5/5/2009 : Dev --->
 <!--- do not allow editing of attributes if the  transaction is distributed --->
 
 						<cfquery name="CheckDis"

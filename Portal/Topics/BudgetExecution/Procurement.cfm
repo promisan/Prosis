@@ -259,7 +259,7 @@ password="#SESSION.dbpw#">
 				   
 		<cfelse>
 				   		   			   
-			<!--- -------- posted obligations : Hanno -------- --->		   
+			<!--- -------- posted obligations : Dev -------- --->
 			
 			<cfinvoke component = "Service.Process.Program.Execution"  
 					   method             = "Disbursement" 

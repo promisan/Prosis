@@ -124,7 +124,7 @@ password="#SESSION.dbpw#">
 	<TR><td height="30"></td>
 		
 	<INPUT type="hidden" name="Crit1_FieldName" value="P.DateExpiration">
-	<!--- Date convert hanno <INPUT type="hidden" name="Crit3_Value_date"> --->
+	<!--- Date convert Dev <INPUT type="hidden" name="Crit3_Value_date"> --->
 	<INPUT type="hidden" name="Crit1_FieldType" value="DATETIME"> 
 	
 	<TD width="134" class="regular"><b>Expiration:</b></td>

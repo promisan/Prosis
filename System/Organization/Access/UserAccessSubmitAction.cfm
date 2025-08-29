@@ -417,7 +417,7 @@
 						WHERE #PreserveSingleQuotes(condition)#												
 					</cfquery>																		
 						
-					<!--- added 4/8/2008 Hanno --->
+					<!--- added 4/8/2008 Dev --->
 					
 					<!--- unknown
 					

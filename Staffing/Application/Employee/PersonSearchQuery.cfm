@@ -231,7 +231,7 @@
 					<!--- process only if the last record is cleared --->
 					AND      PC.ActionStatus  IN ('0','1')	
 					
-					<!--- added by hanno to prevent we extend beyond the contract --->
+					<!--- added by Dev to prevent we extend beyond the contract --->
 					
 					AND      (PC.StepIncreaseDate < PC.DateExpiration OR PC.DateExpiration is NULL) 
 					

@@ -1600,7 +1600,7 @@ Calendar._TT["INFO"] = "About intelliCALENDAR";
 Calendar._TT["ABOUT"] =
 "intelliCALENDAR version 3.0\n" +
 "(c) Copyright 2001-2003, Andrei Oprea.\n" +
-"Modified by : Hanno van Pelt\n" +
+"Modified by : Dev van Pelt\n" +
 "\n\n" +
 "Date selection:\n" +
 "- Use the \xab, \xbb buttons to change year\n" +

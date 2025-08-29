@@ -327,8 +327,8 @@ so we make sure that tomorrow when we wake up PHP data is there for the new acco
 	
 	<cfquery name="Step6" 
 	datasource="appsSelection" 
-	username="hanno" 
-	password="hanno">
+	username="Dev"
+	password="Dev">
 		UPDATE    [nova-p-db-007].InspiraJO.dbo.CONVERSION
 		SET       PersonNo    = '#Form.Correct#',
 		          ApplicantNo = '#Step41.applicantNo#',

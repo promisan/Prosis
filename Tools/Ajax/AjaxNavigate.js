@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 // ===================================================================
-// Author: Hanno van Pelt
+// Author: Dev van Pelt
 // WWW: http://www.promisan.com/
 //
 // NOTICE: You may use this code for any purpose, commercial or

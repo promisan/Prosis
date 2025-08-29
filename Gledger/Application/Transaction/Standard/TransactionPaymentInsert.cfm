@@ -373,7 +373,7 @@ password="#SESSION.dbpw#">
 						   '#serNo#',
 						   newid(),
 						   <!--- removed 14/10/2014 based on the fact that this is not a line but a header reference 
-						        16/9/2016 reverted by Hanno with issue for CICIG mode --->
+						        16/9/2016 reverted by Dev with issue for Cmode --->
 						   '#TransactionId#', 
 						   #tradte#,
 						   '#Advance.GLAccount#',            <!--- offset against the same account --->

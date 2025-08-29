@@ -82,7 +82,7 @@ we should not apply this is if the grouping has not changed, this will then save
 					 WHERE    #url.listcolumn1# is not NULL <!--- this is the base content which we generated or kept in memory --->										
 				</cfquery>
 				
-				<!--- Hanno this we need to make quicker and see if we can get it 
+				<!--- Dev this we need to make quicker and see if we can get it
 				 from the grouped information already <cfoutput>aaaaa:#cfquery.executiontime#</cfoutput>
 				--->
 						

@@ -225,7 +225,7 @@
 		ptoken.open(root + "/Procurement/Application/Requisition/Portal/RequisitionView.cfm?id=&mission="+mis+"&period="+per+ "&ts="+new Date().getTime(), "right", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=yes");
 	}
 	
-	<!--- added by hanno 28/11/2014 --->
+	<!--- added by Dev 28/11/2014 --->
 	
 	function programobject(id,prg,mis,planperiod,period,cls,hrg,edt,fund,org,box) {		
 	 					
@@ -250,7 +250,7 @@
 		 		 		
 	  }
 	  
-	<!--- added by hanno 28/11/2014 --->
+	<!--- added by Dev 28/11/2014 --->
 	
 	function amore(tpc,box,ed,fund,reqno,period,prg,obj,act,mode,mis,hier,org,resource,status) {
 		    se   = document.getElementById(tpc+box);	

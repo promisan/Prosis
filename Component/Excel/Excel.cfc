@@ -157,7 +157,7 @@
 		<cfset info.title           = "#SESSION.welcome# Excel Engine"> 
 		<cfset info.category        = "Financials"> 
 		<cfset info.author          = "#SESSION.welcome# Excel Engine"> 
-		<cfset info.comments        = "Revised by Hanno van Pelt October 2022"> 
+		<cfset info.comments        = "Revised by Dev van Pelt October 2022">
 		<cfset spreadsheetaddInfo(thesheet,info)> 
 		
 		<!--- set the default formatting content --->

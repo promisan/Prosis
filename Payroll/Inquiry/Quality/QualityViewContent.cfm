@@ -49,7 +49,7 @@
 						 	ESL.PaymentDate,
 						 	ESL.SalarySchedule,
 						 	SS.Description as SalaryScheduleDescription,
-							<!--- Hanno tweaking 23/8 to change this to the payment date --->
+							<!--- Dev tweaking 23/8 to change this to the payment date --->
 							(convert(varchar(4), year(PaymentDate)) + convert(varchar(2), month(PaymentDate))) as stMonth,							
 						 	ESL.Currency,
 						 	ESL.PayrollItem,

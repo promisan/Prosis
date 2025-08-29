@@ -46,7 +46,7 @@
 <cfset claimsection = "'Subsistence'">	 
 <cfinclude template = "ClaimEventEntryDSASubmitPointer.cfm">	
 
-<!--- Hanno 15/12/2008 I removed submission code for checkboxes as this is saved on the fly --->
+<!--- Dev 15/12/2008 I removed submission code for checkboxes as this is saved on the fly --->
 
 <cf_Navigation
 	 Alias         = "AppsTravelClaim"

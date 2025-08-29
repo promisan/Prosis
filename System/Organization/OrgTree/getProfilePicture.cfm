@@ -81,7 +81,7 @@
 			<div style="float:left; padding:20px; width:90px"><img src="#vPhoto#" style="#attributes.style#"  class="#attributes.class#"></div>
 		</cfif>			
 	
-		<!--- too slow : Hanno 4/2/2021
+		<!--- too slow : Dev 4/2/2021
 	
 		<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\EmployeePhoto/#vPhoto#.jpg")>						
 		<cfimage class="img-circle clsRoundedPicture #attributes.class#" style="#attributes.style#" source="#myImage#" action="writeToBrowser">														

@@ -570,7 +570,7 @@
 			<cflock timeout="1" throwontimeout="No" name="mysession" type="EXCLUSIVE">						    	
 						
 				<cfset session.listingdata[box]['dataprepsort'] = "#cfquery.executiontime#">	
-				<!--- Hanno 20/1/2022 the below was giving an error in NY, I disabled it, effectively this did not mean that
+				<!--- Dev 20/1/2022 the below was giving an error in NY, I disabled it, effectively this did not mean that
 				sorting would not work 
 				<cfset session.listingdata[box]['sqlsorting']   = listsorting>			
 				<cfset session.listingdata[box]['dataset']      = searchresult> 	

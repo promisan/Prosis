@@ -33,7 +33,7 @@
 </cfquery>
 
 <!--- -------------------------------------------------------------------------------------- --->
-<!--- temp measurement Hanno, 21/7/2012 this prevented an early print which was not complete --->
+<!--- temp measurement Dev, 21/7/2012 this prevented an early print which was not complete --->
       <cf_screentop html="no" margin="4" height="95%" scroll="yes">
 <!--- -------------------------------------------------------------------------------------- --->
 

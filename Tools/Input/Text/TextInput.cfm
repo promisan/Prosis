@@ -29,7 +29,7 @@
 <cfparam name="Attributes.Enabled"     default="Yes">
 <cfparam name="Attributes.Size"        default="20">
 
-<!--- added by hanno 31/5/2013 --->
+<!--- added by Dev 31/5/2013 --->
 <cfif attributes.size eq "">
    <cfset attributes.size = "20">
 </cfif>

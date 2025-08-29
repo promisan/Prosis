@@ -53,8 +53,8 @@
              AND   Operational = 1
 	         
 		 
-		      <!--- Note Hanno only location that have the same item as the transfer item also defined in its stock,
-	              maybe that is a bit too strong 23/3/2023 : Hanno --->
+		      <!--- Note Dev only location that have the same item as the transfer item also defined in its stock,
+	              maybe that is a bit too strong 23/3/2023 : Dev --->
 				  
              <cfif qWarehouse.ModeSetItem eq "Location">
                  AND    Location IN (SELECT Location

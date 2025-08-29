@@ -311,7 +311,7 @@ function reloadForm(page,view,layout,global) {
 		 AND        Pe.Period = '#URL.Period#' 	
 		 AND        Pe.RecordStatus != 9
 		 
-		 <!--- general filter on orgunits added by Hanno --->
+		 <!--- general filter on orgunits added by Dev --->
 		 
 		 <cfif accessGlobal eq "NONE">
 		 

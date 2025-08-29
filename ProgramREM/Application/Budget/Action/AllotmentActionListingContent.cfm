@@ -76,7 +76,7 @@
 		
 		WHERE 1=1
 		
-		<!---	removed hanno, we show all until we pass the period correctly 
+		<!---	removed Dev, we show all until we pass the period correctly
 		AND       PAA.Period = '#MissionPeriod.Period#'
 		--->
 				

@@ -104,7 +104,7 @@
              Ref_ShipToModeMission SM ON H.Mission = SM.Mission AND T.ShipToMode = SM.Code AND I.Category = SM.Category
 			
 	<!--- cleared --->	
-	<!--- Hanno I remove as completed determine lines 	 
+	<!--- Dev I remove as completed determine lines
 	WHERE        H.ActionStatus IN ('2p','3') 
 	--->
 	WHERE        H.ActionStatus IN ('2p','3','5')

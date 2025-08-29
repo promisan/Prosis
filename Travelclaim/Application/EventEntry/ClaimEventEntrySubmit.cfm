@@ -616,7 +616,7 @@ This should rarely happen, but it may if the International Date Line was crossed
 	<!--- save people --->
 	
 <!--- MKM: Nov 20, 2008
-I had fixed this once before but Hanno seems to have reverted the code.
+I had fixed this once before but Dev seems to have reverted the code.
 Sometimes the ClaimRequestLine table will have different ClaimantTypes for the same person.
 Changing the query to use ClaimRequest instead fixes this problem, but the Line table will be 
 neccessary if we ever need to use the code for Multiple Travellers on one Claim and then

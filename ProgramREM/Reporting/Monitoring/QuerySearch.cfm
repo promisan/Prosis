@@ -325,7 +325,7 @@
 	    #LastWhere#
 </cfquery>
 
-<!--- disabled Hanno 22/02/22 
+<!--- disabled Dev 22/02/22
 
 <!--- now we have all programs but we also need to have the parent --->
 <!--- to this table to have a complete picture --->

@@ -121,7 +121,7 @@
 </cfquery>
 	
 
-	<!--- disabled hanno
+	<!--- disabled Dev
 
 encryption="40-bit"
 		  userpassword="#pwd#"

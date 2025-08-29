@@ -23,7 +23,7 @@
 <cfoutput>
 	<link rel="stylesheet" type="text/css" href="#SESSION.root#/images/css/#standardCSS#">
 	<link rel="stylesheet" type="text/css" href="#SESSION.root#/#client.style#"> 		
-	<!--- conflicts, disabled Hanno 17/12/2019
+	<!--- conflicts, disabled Dev 17/12/2019
 	<script type="text/javascript" src = "#SESSION.root#/Scripts/jQuery/jquery.js"></script>
 	--->
 	<script>

@@ -15,7 +15,7 @@
 -->
 <cfsilent>
 	<proUsr>dev</proUsr>
-	<proOwn>Hanno van Pelt</proOwn>
+	<proOwn>Dev van Pelt</proOwn>
 	<proDes>Tuned for multi period</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -241,7 +241,7 @@ password="#SESSION.dbpw#">
 		   
 <cfelse>
 		   		   			   
-	<!--- -------- posted obligations : Hanno -------- --->		   
+	<!--- -------- posted obligations : Dev -------- --->
 	
 	<cfinvoke component = "Service.Process.Program.Execution"  
 			   method             = "Disbursement" 

@@ -203,7 +203,7 @@
 	</cfif>
 						
 	 <cfset value=Replace(Value,"'",'','ALL')>
-	 <!--- Hanno 4/4 disabled the removal of the space as it gave an issue for spaced PK selection 
+	 <!--- Dev 4/4 disabled the removal of the space as it gave an issue for spaced PK selection
 	 <cfset value=Replace(Value," ",'','ALL')>
 	 --->
 	 <cfset value=Replace(Value,"#chr(10)#",',','ALL')>
@@ -242,7 +242,7 @@
 		</cfif>
 						
 		 <cfset value=Replace(Value,"'",'','ALL')>
-		 <!--- Hanno 4/4 disabled the removal of the space as it gave an issue for spaced PK selection 
+		 <!--- Dev 4/4 disabled the removal of the space as it gave an issue for spaced PK selection
 		 <cfset value=Replace(Value," ",'','ALL')>
 		 --->
 		 <cfset value=Replace(Value,"#chr(10)#",',','ALL')>

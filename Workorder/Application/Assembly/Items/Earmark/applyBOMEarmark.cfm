@@ -189,7 +189,7 @@ open the screen for the batch and refresh the underlying listing for the collect
 					
 			<cfelse>
 							
-				<!--- Hanno : 28/11/2013 we select any items with the same parent for the same UoM to widen the allocation --->
+				<!--- Dev : 28/11/2013 we select any items with the same parent for the same UoM to widen the allocation --->
 		
 				AND         T.ItemNo IN (SELECT ItemNo 
 				                         FROM   Materials.dbo.Item 

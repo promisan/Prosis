@@ -278,7 +278,7 @@
 		
 		<cftransaction>
 					
-			<!--- Hanno if transactions in this batch were driven by a request 
+			<!--- Dev if transactions in this batch were driven by a request
 			we should REVERT the request so it
 			gets the correct status and also [PENDING] we should revert the RequestHeader here
 			???? --->

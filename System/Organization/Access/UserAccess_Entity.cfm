@@ -276,7 +276,7 @@ function more(bx) {
 	     </cfquery>	
 		
 		 			
-		  <!--- Hanno : 03/01/2012 set the iterations based on the user access for the owner, this code is not 100% if the
+		  <!--- Dev : 03/01/2012 set the iterations based on the user access for the owner, this code is not 100% if the
 		  user has different access for each mission, showing more or less owners, maybe best to define
 		  the iterations in a variable per mission --->
 		  		 

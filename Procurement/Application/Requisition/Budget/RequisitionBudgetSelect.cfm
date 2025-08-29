@@ -288,7 +288,7 @@ password="#SESSION.dbpw#">
 							         Purchase.dbo.RequisitionLineFunding F
 							   WHERE R.RequisitionNo = F.RequisitionNo
 							   AND   R.Mission       = '#URL.Mission#'
-							   <!--- removed by hanno, we can safely allow for this
+							   <!--- removed by Dev, we can safely allow for this
 							   AND   R.Period        = '#URL.Period#'
 							   --->
 							   AND   F.ProgramCode   = P.ProgramCode

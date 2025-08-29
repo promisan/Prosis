@@ -313,7 +313,7 @@ password="#SESSION.dbpw#">
 					  '#SESSION.first#')
 			</cfquery>			
 		
-			<!--- framework function added by hanno --->
+			<!--- framework function added by Dev --->
 			<cfset showProcess = "0">	
 	
 	</cfif>

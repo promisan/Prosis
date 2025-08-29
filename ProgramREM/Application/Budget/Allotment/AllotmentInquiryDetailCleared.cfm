@@ -243,7 +243,7 @@
 				<table width="100%">
 					<tr class="labelmedium"><td style="text-align:center;padding-left:4px;padding-right:5px"><cf_tl id="Cleared"></td>
 					
-					<!--- disabled hanno 10/12/2017 as i think removing this should be done from the maintenance control for the program
+					<!--- disabled Dev 10/12/2017 as i think removing this should be done from the maintenance control for the program
 					<cfif ActionId neq "" and getAdministrator("*") eq "1">
 					
 						<cfif Action.ActionType eq "Transfer" or Action.ActionType eq "Amendment"> 

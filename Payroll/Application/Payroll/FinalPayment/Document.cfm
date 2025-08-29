@@ -141,7 +141,7 @@ password="#SESSION.dbpw#">
 		WHERE     PersonNo          = '#get.PersonNo#' 
 		AND       SalarySchedule    = '#get.SalarySchedule#' 
 		AND       Mission           = '#get.Mission#' 
-		AND       ActionStatus      IN ('0','1') <!--- hanno 5/2/2019 added 0 to be included based on davies 9289 who did not have his last leg closed --->
+		AND       ActionStatus      IN ('0','1') <!--- Dev 5/2/2019 added 0 to be included based on davies 9289 who did not have his last leg closed --->
 		AND       HistoricContract != '1'			        
 		ORDER BY  DateEffective DESC		
 	</cfquery>

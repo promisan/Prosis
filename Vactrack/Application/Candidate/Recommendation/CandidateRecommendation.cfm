@@ -40,7 +40,7 @@ password="#SESSION.dbpw#">
 			
     FROM  	Document D 
 	        INNER JOIN Applicant.dbo.FunctionOrganization F  ON D.FunctionId = F.FunctionId
-    		INNER JOIN Employee.dbo.Position as P            ON P.PositionNo = D.PositionNo   <!--- Hanno : we should use documentposition so be on the alert --->
+    		INNER JOIN Employee.dbo.Position as P            ON P.PositionNo = D.PositionNo   <!--- Dev : we should use documentposition so be on the alert --->
 			INNER JOIN Organization.dbo.Organization as Org  ON Org.OrgUnit  = P.OrgUnitOperational						
 			
     WHERE 	D.DocumentNo = '#url.documentNo#' 

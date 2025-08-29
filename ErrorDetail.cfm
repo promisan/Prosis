@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- 1. check format in NY/CICIG of the date
+<!--- 1. check format in C of the date
       2. send eMail will details using the dialog we have 	  
 	  3. test behavior on windows dialog screen 
  --->
@@ -36,7 +36,7 @@
     <!--- get the recorded error in the log file of cf 	
 	
 	Note:  April 10, 2015. by dev.
-	As discussed with Hanno, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database so no 
+	As discussed with Dev, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database so no
 	need for exception.log file to be populated
 	
 	<cffile action="READ" 
@@ -79,7 +79,7 @@
 			WHERE  HostName = '#CGI.HTTP_HOST#'
 		</cfquery>
 		
-		<!--- dev, on 21/05/2015: removed as per discussion with Hanno.
+		<!--- dev, on 21/05/2015: removed as per discussion with Dev.
 		<cfif Parameter.ErrorMailToOwner eq "9">
 			
 			<script>

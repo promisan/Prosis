@@ -38,7 +38,7 @@
 	<!--- official business only '1' / Home = '9' --->
 	AND     f_refx_tvrq_seq_num IN ('1') 
 	
-	<!--- Ø	have been approved The condition “travel request has been approved” implies that 
+	<!--- ï¿½	have been approved The condition ï¿½travel request has been approvedï¿½ implies that 
 	i) the travel request current status is Approved, or 
 	ii) the travel request current status is unapproved (not in Approved status, could be Unapproved, Certified, Certified Insufficient Funds, etc)
 	but the travel request was approved earlier and subsequently amended (tvrq.apprv_trav_ind = 1 indicates that the travel portion of the travel request was approved at one point), or 
@@ -47,7 +47,7 @@
 	--->
 	
 	AND (doc_stat_code_trav IN ('ap','vr') OR (apprv_trav_ind = 1))
-	<!---Added on 04-12-2007 Based on Hanno Email after discussing with Flor 
+	<!---Added on 04-12-2007 Based on Dev Email after discussing with Flor
 	     To exclude everyone other than Staff Members
 	--->
 	AND (f_refx_trpn_seq_num IN ('1'))
@@ -67,7 +67,7 @@
 	AND    R.creat_date > '#dateformat(get.SourceDateCutOff,client.dateSQL)#' 
 	AND    R.f_refx_tvrq_seq_num IN ('1') 
 	AND    (R.doc_stat_code_trav IN ('cl') OR R.apprv_trav_ind = 1)
-	<!---Added on 04-12-2007 Based on Hanno Email after discussing with Flor 
+	<!---Added on 04-12-2007 Based on Dev Email after discussing with Flor
 	     To exclude everyone other than Staff Members
 	--->
 	

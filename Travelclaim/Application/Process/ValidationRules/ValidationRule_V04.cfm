@@ -17,7 +17,7 @@
 Validation Rule :  V04
 Name			:  Pending Advances
 Steps			:  Determine if some advances are pending
-Date			:  02 January 2008 : revised 11/04/2008 Hanno)
+Date			:  02 January 2008 : revised 11/04/2008 Dev)
 --->
 
 <cfquery name="Check" 

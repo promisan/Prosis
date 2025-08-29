@@ -75,7 +75,7 @@
 <cfelse>
 
 	<!--- administrator can set the status to disbursed no matter what.
-	Hanno 12/9/2011 --->
+	Dev 12/9/2011 --->
 	
 	<cfif PendingInvoices.recordcount gte "1" and 
 	      PendingReceipts.recordcount gte "1"  and 

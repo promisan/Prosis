@@ -296,7 +296,7 @@ password="#SESSION.dbpw#">
 							WHERE     EditionId = '#url.EditionId#' 	
 						</cfquery>
 						
-						<!--- Hanno : attention this amounts are in the Finance base currency we can be different
+						<!--- Dev : attention this amounts are in the Finance base currency we can be different
 						from the budget currency, if that happens we need to convert transactions
 						back the to bufget currency unless the transaction itself was posted in the currency
 						AmountDebit - AmountCredit --->

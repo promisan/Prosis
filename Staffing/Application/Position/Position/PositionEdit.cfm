@@ -15,7 +15,7 @@
 -->
 <cfsilent>
 	<proUsr>dev</proUsr>
-	<proOwn>Hanno van Pelt</proOwn>
+	<proOwn>Dev van Pelt</proOwn>
 	<proDes>ST version 1</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -46,7 +46,7 @@
 </cfif>
 
 
-<!--- 15/7/2013 Hanno correct for strange situation
+<!--- 15/7/2013 Dev correct for strange situation
    provision to correct the missionoperational --->
 
 <cfquery name="resetPosition" 
@@ -285,7 +285,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
     FROM   Ref_Mission
-	WHERE  1=1  <!--- MissionOwner = '#CurrentMission.MissionOwner#' : disabled by Hanno to allow DPA - DPKO cross loan, maybe not good for validation but lets do it now  --->
+	WHERE  1=1  <!--- MissionOwner = '#CurrentMission.MissionOwner#' : disabled by Dev to allow DPA - DPKO cross loan, maybe not good for validation but lets do it now  --->
 	AND    Mission IN (SELECT Mission 
 	                   FROM   Ref_MissionModule 
 				   	   WHERE  SystemModule = 'Staffing'

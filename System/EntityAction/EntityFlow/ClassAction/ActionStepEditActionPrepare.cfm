@@ -142,7 +142,7 @@
 	WHERE EntityCode = '#URL.EntityCode#'
 	AND EntityClass  = '#URL.EntityClass#'
 	AND ActionCode != '#URL.ActionCode#' 
-	<!--- Hanno 29/05/05 
+	<!--- Dev 29/05/05
 	AND ActionCode NOT IN (SELECT ActionGoToYes
 	                         FROM Ref_EntityClassAction
 							 WHERE ActionGoToYes > ''

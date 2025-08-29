@@ -17,7 +17,7 @@
 
 <cfset billingid = url.customerid>
 
-<!--- not sure what this was about, to be reviewed : Hanno 11/8 --->
+<!--- not sure what this was about, to be reviewed : Dev 11/8 --->
 
 <cfquery name="getLines"
 	datasource="AppsMaterials" 

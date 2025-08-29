@@ -180,7 +180,7 @@
 						
 						    <cfparam name="session.listingdata[box]['queryfiltermode']" default="">									
 							
-								<!--- hanno correction to have @fields converted --->
+								<!--- Dev correction to have @fields converted --->
 							<cfset sc = filtersql>
 							<cfset fileNo = "1">	
 							<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparationVars.cfm">
@@ -228,7 +228,7 @@
 							<cfset qryfiltermode = session.listingdata[box]['queryfiltermode']>
 											
 													
-						    <!--- Hanno, we need to define what query is quicker the one that takes the base query 
+						    <!--- Dev, we need to define what query is quicker the one that takes the base query
 							   or the one that has the query of query values --->						
 						
 						    <cfif session.listingdata[box]['queryfiltermode'] eq "query">

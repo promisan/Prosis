@@ -141,7 +141,7 @@
 					WHERE    WorkOrderId = '#woid#'
 					AND      Currency    = '#cur#'	
 					
-					<!--- NEW Hanno 2011-09-11, only the period to be considered --->
+					<!--- NEW Dev 2011-09-11, only the period to be considered --->
 					
 					<cfif getServiceItem.DatePostingCalculate neq "">						
 					AND      SelectionDate >= '#getServiceItem.DatePostingCalculate#' 
@@ -325,7 +325,7 @@
 							
 							<cfelse>
 							
-								<!--- ATTENTION 1/2: 31/3/2014 Hanno
+								<!--- ATTENTION 1/2: 31/3/2014 Dev
 								if we have an SLA we need to prevent
 								that lines that have disappeared and swapped by new line
 								will contribute for the past monthly value to the
@@ -405,7 +405,7 @@
 							
 							<cfelse>
 							
-								<!--- ATTENTION 1/2: 31/3/2014 Hanno
+								<!--- ATTENTION 1/2: 31/3/2014 Dev
 								if we have an SLA we need to prevent
 								that lines that have disappeared and swapped by new line
 								will contribute for the past monthly value to the
@@ -468,7 +468,7 @@
 								GROUP BY ServiceItemUnit							
 						</cfquery>
 												
-						<!--- ATTENTION 2/2 : 31/3/2014 Hanno
+						<!--- ATTENTION 2/2 : 31/3/2014 Dev
 						We need a correction for wo-lines that were already additionally 
 						charged in a prior month but fall under SLA in the current month as 
 						other lines fell off, we need to make sure that these charges are
@@ -879,7 +879,7 @@
 						
 						<!--- ---1. POSTING PREPARATION correction for :: getAccumulatedChargesForBilling-- --->
 						
-						<!--- NEW Hanno 12/10/2013 we determine the combinations that exist for this 
+						<!--- NEW Dev 12/10/2013 we determine the combinations that exist for this
 							workorder and that no longer exist in the charges to ensure the 
 							charges are corrected 
 							for service unit Class, GL account and charge (P/B) for this workorder

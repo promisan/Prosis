@@ -159,7 +159,7 @@
 	</cfquery>	
 				
 	
-	<!--- added by hanno to remove any related logging --->
+	<!--- added by Dev to remove any related logging --->
 		
 	<cfquery name="Delete"
 		datasource="#attributes.Alias#" 

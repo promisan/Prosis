@@ -157,7 +157,7 @@ we DO NEED to include the program components here as well : inherit --->
 
 <CF_DropTable dbName="AppsQuery" tblName="tmp#SESSION.acc##tbl#Cpt">
 
-<!--- disabled hanno 22/04/05 
+<!--- disabled Dev 22/04/05
 <!--- component level 1 --->
 
 <cfquery name = "Component" 

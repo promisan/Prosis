@@ -200,7 +200,7 @@
               </table>
 
             <!--- START FOOTER 
-			<cf_MailDefaultFooter> : disabled by Hanno as it was appearinig double in standard mails --->
+			<cf_MailDefaultFooter> : disabled by Dev as it was appearinig double in standard mails --->
 
             <!--- END FOOTER --->
             

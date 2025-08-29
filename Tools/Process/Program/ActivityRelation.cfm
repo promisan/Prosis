@@ -18,7 +18,7 @@
 <cfparam name="Attributes.Mode"        default="Child">
 
 <!--- ATTENTION --->
-<!--- Hanno make faster by creating a subset first of Programcode --->
+<!--- Dev make faster by creating a subset first of Programcode --->
 
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#ParentActivity">
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#ParentBase">

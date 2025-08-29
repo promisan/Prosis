@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <p align="center">ORDEN DE COMPRA No. <cfoutput>#GetHeader.PurchaseNo#</cfoutput><BR>
- CICIG
+ C
 <br><br>
 CONDICIONES GENERALES
 </p>
@@ -23,14 +23,14 @@ CONDICIONES GENERALES
 <li>
 <P>
 <u>ACEPTACION DE LA ORDEN DE COMPRA</u><BR><BR>
-Esta Orden de Compra solamente podrá ser aceptada después que el proveedor firme y devuelva una copia de reconocimiento de la misma o por el despacho a tiempo de los bienes de acuerdo con los términos de esta Orden de Compra, como se especifica de aquí en adelante. La aceptación de la presente Orden de Compra implica un contrato entre las partes bajo el cual los derechos y obligaciones de las Partes serán reguladas ínicamente por los términos y condiciones de esta Orden de Compra, incluyendo estas Condiciones Generales. Ninguna cláusula adicional o inconsistente propuesta por el Proveedor obligará a la CICIG a no ser que se hubiera acordado por escrito entre las partes involucradas.
+Esta Orden de Compra solamente podrï¿½ ser aceptada despuï¿½s que el proveedor firme y devuelva una copia de reconocimiento de la misma o por el despacho a tiempo de los bienes de acuerdo con los tï¿½rminos de esta Orden de Compra, como se especifica de aquï¿½ en adelante. La aceptaciï¿½n de la presente Orden de Compra implica un contrato entre las partes bajo el cual los derechos y obligaciones de las Partes serï¿½n reguladas ï¿½nicamente por los tï¿½rminos y condiciones de esta Orden de Compra, incluyendo estas Condiciones Generales. Ninguna clï¿½usula adicional o inconsistente propuesta por el Proveedor obligarï¿½ a la Ca no ser que se hubiera acordado por escrito entre las partes involucradas.
 </p>
 </li>
 
 <li>
 <P>
 <u>NORMA APLICABLE</u><BR><BR>
-La presente orden de compra se regirá por las condiciones generales adjuntas, así como a los términos y condiciones especiales de la  oferta presentada por el proveedor con fecha 19 DE MAYO 2008.
+La presente orden de compra se regirï¿½ por las condiciones generales adjuntas, asï¿½ como a los tï¿½rminos y condiciones especiales de la  oferta presentada por el proveedor con fecha 19 DE MAYO 2008.
 </p>
 </li>
 
@@ -38,16 +38,16 @@ La presente orden de compra se regirá por las condiciones generales adjuntas, as
 <P>
 <u>DEFINICIONES</u><BR>
 <ol type="a"><li>
-El término "CICIG" significa COMISION INTERNACIONAL CONTRA LA IMPUNIDAD EN GUATEMALA.
+text
 </li>
 <li>
-El término "Proveedor" o "Vendedor" será entendido como el oferente que resulte adjudicatario de la invitación a licitar o pedido de cotización.
+El tï¿½rmino "Proveedor" o "Vendedor" serï¿½ entendido como el oferente que resulte adjudicatario de la invitaciï¿½n a licitar o pedido de cotizaciï¿½n.
 </li>
 <li>
-El término "Comprador" será entendido como la CICIG u Organismo que adquiere los bienes.
+El tï¿½rmino "Comprador" serï¿½ entendido como la Cu Organismo que adquiere los bienes.
 </li>
 <li>
-El término "Orden" o "Contrato" significará la orden de compra resultante del llamado a licitación o pedido de cotización.
+El tï¿½rmino "Orden" o "Contrato" significarï¿½ la orden de compra resultante del llamado a licitaciï¿½n o pedido de cotizaciï¿½n.
 </li></ol></p>
 </li>
 <BR>
@@ -58,30 +58,30 @@ El término "Orden" o "Contrato" significará la orden de compra resultante del ll
 Original:  A ser retenida por el proveedor y
 </li>
 <li>
-Las demás copias:  A ser devueltas por el proveedor al Comprador.
+Las demï¿½s copias:  A ser devueltas por el proveedor al Comprador.
 </li></ol>
 </p></li>
 <BR>
 
 <li><p>
 <u>FACTURAS</u><br><BR>
-	Las facturas serán preparadas y enviadas a las oficinas del Programa de Naciones Unidas para el Desarrollo (PNUD) ubicadas en la 5?. Avenida 5-55 zona 14, Edificio Europlaza, Torre IV, nivel 10, ciudad de Guatemala.  La factura deberá contener la siguiente información:
-	Nombre: COMISION INTERNACIONAL CONTRA LA IMPUNIDAD EN GUATEMALA, 
-	Número de NIT: 5867961-8
-	Descripción de los artículos, Precios Unitario y Total de la factura<br><br>
+	Las facturas serï¿½n preparadas y enviadas a las oficinas .  La factura deberï¿½ contener la siguiente informaciï¿½n:
+	Nombre: ,
+	Nï¿½mero de NIT:
+	Descripciï¿½n de los artï¿½culos, Precios Unitario y Total de la factura<br><br>
 
-	Deben remitirse  junto con la factura los documentos que contengan las garantías de las armas adquiridas.
+	Deben remitirse  junto con la factura los documentos que contengan las garantï¿½as de las armas adquiridas.
 </p></li>
 
 	
 <li><p>
 <u>EL NO PAGO POR EQUIPO O TRABAJO NO AUTORIZADO</u><br><BR>
-	No se efectuará pago por equipo o trabajo no autorizado.</p>
+	No se efectuarï¿½ pago por equipo o trabajo no autorizado.</p>
 </li>
 
 <li><p>
 <u>INSPECCION</u><br><BR>
-	El Comprador  se reserva, en cualquier momento, el derecho de inspección de los bienes ordenados en esta orden de compra y el Vendedor proveerá todas las facilidades para dicha inspección.
+	El Comprador  se reserva, en cualquier momento, el derecho de inspecciï¿½n de los bienes ordenados en esta orden de compra y el Vendedor proveerï¿½ todas las facilidades para dicha inspecciï¿½n.
 </p>
 </li>
 
@@ -93,74 +93,74 @@ Las demás copias:  A ser devueltas por el proveedor al Comprador.
 
 <li><p>
 <u>INCUMPLIMIENTO</u><BR><BR>
-	En el caso de incumplimiento por parte del proveedor o que no pueda hacer la entrega de bienes dentro del tiempo estipulado en la orden de compra, el Comprador puede, por escrito o vía télex, dar por terminado el derecho del contratante para proceder con las entregas después del plazo especificado.
+	En el caso de incumplimiento por parte del proveedor o que no pueda hacer la entrega de bienes dentro del tiempo estipulado en la orden de compra, el Comprador puede, por escrito o vï¿½a tï¿½lex, dar por terminado el derecho del contratante para proceder con las entregas despuï¿½s del plazo especificado.
 </p></li>
 
 <li><p>
 <u>ARREGLO DE DISPUTAS</u><br>
 <ol type="a">
 <li>
-Arreglo Amistoso: Las partes utilizarán sus mejores esfuerzos para arreglar amigablemente cualquier disputa, controversia o reclamo que surja de, o relacionado con esta Orden de Compra, o el rompimiento, terminación o invalidez.  Las partes buscarán dicho arreglo amigable mediante la conciliación, la cual se realizará de acuerdo a otros procedimientos que pudiesen ser acordados.  Las partes tendrán un plazo de diez (10) días hábiles para realizar este arreglo amistoso a partir de la fecha de recepción de solicitud por alguna de las partes.
+Arreglo Amistoso: Las partes utilizarï¿½n sus mejores esfuerzos para arreglar amigablemente cualquier disputa, controversia o reclamo que surja de, o relacionado con esta Orden de Compra, o el rompimiento, terminaciï¿½n o invalidez.  Las partes buscarï¿½n dicho arreglo amigable mediante la conciliaciï¿½n, la cual se realizarï¿½ de acuerdo a otros procedimientos que pudiesen ser acordados.  Las partes tendrï¿½n un plazo de diez (10) dï¿½as hï¿½biles para realizar este arreglo amistoso a partir de la fecha de recepciï¿½n de solicitud por alguna de las partes.
 </li>
 <li>
-Arbitraje:  Todo litigio, controversia o reclamación resultante de este contrato o relativo a esta Orden de Compra, su incumplimiento, resolución o nulidad, se resolver? mediante arbitraje de conformidad con el Reglamento de arbitraje de la Comisión de las Naciones Unidas para el Derecho Mercantil Internacional (CNUDMI), tal como se encuentra en vigor. 
+text.
 </li></ol></p></li>
 <BR>
 
 <li><p>
 <u>INMUNIDAD DE PROCESO</u><br><BR>
-Nada de lo contenido en esta orden de compra deberá considerarse como una renuncia, impl?cita o expl?cita, de la inmunidad de la cual la CICIG pueda gozar, ya sea de acuerdo con la Convención de Privilegios e Inmunidades de las Agencias Especializadas del Sistema de Naciones Unidas o cualquier otra convención, acuerdo, ley, orden o decreto de carácter nacional, internacional u otro diferente.
+text
 </p></li>
 
 <li><p>
 <u>GARANTIA	</u><br><BR>
-El proveedor garantizará la calidad de los materiales de los bienes contenidos en este contrato, así como también de defectos en su confección, hechura y mano de obra. Esta garantía es sin perjuicio a otras más amplias que el vendedor pueda proveer a la compra; estas garantías se aplicar?n a los bienes contenidos en esta orden de compra. 
+El proveedor garantizarï¿½ la calidad de los materiales de los bienes contenidos en este contrato, asï¿½ como tambiï¿½n de defectos en su confecciï¿½n, hechura y mano de obra. Esta garantï¿½a es sin perjuicio a otras mï¿½s amplias que el vendedor pueda proveer a la compra; estas garantï¿½as se aplicar?n a los bienes contenidos en esta orden de compra. 
 </p></li>
 
 <li><p>
 <u>ADVERTENCIA	</u><br><BR>
-	El vendedor no anunciará, y menos, hará del dominio público, el hecho de que él es proveedor para la CICIG o la ORGANIZACION DE NACIONES UNIDAS.  El proveedor en ninguna forma podr? usar el nombre, siglas, abreviaturas, emblema o el sello oficial del SISTEMA DE NACIONES UNIDAS y/o sus proyectos para beneficio de su negocio o cualquier otra circunstancia. 
+	text.
 </p></li>
 
 <li><p>
 <u>COPIA DE CONFIRMACION/PAIS DE ORIGEN</u><br><BR>
-El vendedor firmará la Copia de la Orden de Compra en el espacio apropiado con el fin de confirmar que la orden de compra ha sido aceptada por él.  El vendedor deberá también indicar en la orden de compra el país de origen en donde los bienes fueron ensamblados/fabricados.
-El proveedor deberá regresar la copia de confirmación, con la información completa y debidamente firmada, a la dirección de la compradora.
+El vendedor firmarï¿½ la Copia de la Orden de Compra en el espacio apropiado con el fin de confirmar que la orden de compra ha sido aceptada por ï¿½l.  El vendedor deberï¿½ tambiï¿½n indicar en la orden de compra el paï¿½s de origen en donde los bienes fueron ensamblados/fabricados.
+El proveedor deberï¿½ regresar la copia de confirmaciï¿½n, con la informaciï¿½n completa y debidamente firmada, a la direcciï¿½n de la compradora.
 </p></li>
 
 <li><p>
 <u>TERMINOS DE PAGO/DOCUMENTACION</u><br><BR>
-Es imperativo que los siguientes procedimientos sean seguidos en forma estricta para asegurar que esta orden de compra sea consolidada sin inconvenientes y/o demoras ocasionados ya sea por el proveedor o la CICIG.
+Es imperativo que los siguientes procedimientos sean seguidos en forma estricta para asegurar que esta orden de compra sea consolidada sin inconvenientes y/o demoras ocasionados ya sea por el proveedor o la C.
 <ol type="a"><li>
-El proveedor devolverá las copias de la orden de compra, a la oficina de la CICIG responsable de la emisión de la misma.  Esta devolución se hará dentro de los 7 días después de recibida la orden de compra.
+El proveedor devolverï¿½ las copias de la orden de compra, a la oficina de la Cresponsable de la emisiï¿½n de la misma.  Esta devoluciï¿½n se harï¿½ dentro de los 7 dï¿½as despuï¿½s de recibida la orden de compra.
 </li>
 <li>
-Al momento del despacho de los bienes, la entidad vendedora emitirá la factura correspondiente y la entregará directamente al Comprador.
+Al momento del despacho de los bienes, la entidad vendedora emitirï¿½ la factura correspondiente y la entregarï¿½ directamente al Comprador.
 </li></ol>
 <br>
-El pago se hará por medio de cheque.
+El pago se harï¿½ por medio de cheque.
 </p></li>
 <BR>
 
 <li><p>
 <u>FUNCIONARIOS NO DEBEN BENEFICIARSE</u><br><BR>
-El Vendedor garantiza que a ningún funcionario de Naciones Unidas, ni de la CICIG, le ha concedido o le será concedido beneficio directo o indirecto alguno como resultado de esta Orden o de su adjudicación.
+text.
 </p></li>
 
 <li><p>
 <u>INFRACCION DE PROPIEDAD INTELECTUAL</u><br><BR>
-El proveedor garantiza que el uso o provisión de los bienes vendidos bajo esta Orden de Compra no infringe ninguna patente, dise?o, marca de fabricación o marca comercial. Además el proveedor deberá de acuerdo con esta garantía, defender y mantener intacto al Sistema de Naciones Unidas, a la CICIG  de cualquier acción o reclamo como consecuencia de la adquisición de los bienes vendidos bajo esta Orden de Compra.
+text.
 </p></li>
 
 <li><p>
 <u>TRABAJO INFANTIL</u><br><BR>
-El proveedor ni sus afiliados y proveedores representan y garantizan que están comprometidos con cualquier práctica que viole los derechos establecidos en la Convención de los Derechos del Nio, incluyendo el artículo 32 pertinente, el cual, inter alia, requiere que el ni?o deberá ser protegido de cualquier trabajo que podría ser peligroso o interferir con la educación del ni?o o causar da?o al desarrollo de la salud física, mental, espiritual, moral o social del ni?o. 
+El proveedor ni sus afiliados y proveedores representan y garantizan que estï¿½n comprometidos con cualquier prï¿½ctica que viole los derechos establecidos en la Convenciï¿½n de los Derechos del Nio, incluyendo el artï¿½culo 32 pertinente, el cual, inter alia, requiere que el ni?o deberï¿½ ser protegido de cualquier trabajo que podrï¿½a ser peligroso o interferir con la educaciï¿½n del ni?o o causar da?o al desarrollo de la salud fï¿½sica, mental, espiritual, moral o social del ni?o. 
 <br><br>
-Cualquier transgresión de esta representación y garantía permitir? a la CICIG cancelar esta Orden de Compra inmediatamente de la notificación al proveedor, sin perjuicio de cobros de cancelación o cualquier perjuicio de otro tipo.
+Cualquier transgresiï¿½n de esta representaciï¿½n y garantï¿½a permitir? a la Ccancelar esta Orden de Compra inmediatamente de la notificaciï¿½n al proveedor, sin perjuicio de cobros de cancelaciï¿½n o cualquier perjuicio de otro tipo.
 </p></li>
 
 <li><p>
 <u>MINAS</u><br><BR>
-El Proveedor garantiza que la empresa del Proveedor ni sus afiliadas, ni ninguna subsidiaria controlada por su empresa, está comprometida en la venta o fabricación de minas anti-personales o de componentes utilizados en la fabricación de minas anti-personales. El proveedor reconoce que la infracción a esta cláusula permitirá a la CICIG a cancelar su contrato de provisión con el Proveedor. 
+El Proveedor garantiza que la empresa del Proveedor ni sus afiliadas, ni ninguna subsidiaria controlada por su empresa, estï¿½ comprometida en la venta o fabricaciï¿½n de minas anti-personales o de componentes utilizados en la fabricaciï¿½n de minas anti-personales. El proveedor reconoce que la infracciï¿½n a esta clï¿½usula permitirï¿½ a la Ca cancelar su contrato de provisiï¿½n con el Proveedor.
 </p></li>
 </ol>

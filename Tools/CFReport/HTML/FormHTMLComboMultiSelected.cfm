@@ -37,7 +37,7 @@
 									 
     <cfloop index="itm" list="#form.multivalue#" delimiters=",">
 					
-		<cfif itm neq "*"> <!--- Hanno added on 7/10/2008 --->
+		<cfif itm neq "*"> <!--- Dev added on 7/10/2008 --->
 		
       	   <cfif tmp eq "">
     	    <cfset tmp = "'#itm#'">

@@ -493,7 +493,7 @@ associate to the LOWEST number and enforce association --->
 				WHERE    ClaimRequestId   = '#ClaimRequestId#' 				
 			  </cfquery>
 			  
-			  <!--- disabled hanno 15/11
+			  <!--- disabled Dev 15/11
 			  <cfif check.recordcount gte "2">
 			  --->
 				
@@ -541,7 +541,7 @@ associate to the LOWEST number and enforce association --->
 		
 			<!--- update amounts line TRM, MSC, LTR  --->
 			
-			<!--- depreciated Hanno
+			<!--- depreciated Dev
 			
 			<cfquery name="Match" 
 			  datasource="appsTravelClaim" 

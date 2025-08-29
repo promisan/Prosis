@@ -42,7 +42,7 @@
 <cfparam name="Attributes.ExperienceStatus"   default="'0','1'">
 <cfparam name="Attributes.ExperienceReviewed" default="No">
 
-<!--- added by hanno 20/10/2021 to ensure in case of same submission record per same source no duplicated --->
+<!--- added by Dev 20/10/2021 to ensure in case of same submission record per same source no duplicated --->
 <cfif attributes.applicantno neq "">
 	<cfset ComparisonApplicantNo = attributes.applicantno>
 </cfif>
@@ -183,7 +183,7 @@
 <cfelse>
 
 
-	<!--- Hanno we need to define at the minium the source for the edition/languahe --->
+	<!--- Dev we need to define at the minium the source for the edition/languahe --->
 		
 	<table style="width:100%;height:100%">
 	

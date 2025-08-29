@@ -689,7 +689,7 @@ password="#SESSION.dbpw#">
 			parent  = "Root"
 			expand  = "Yes">
 				
-		<!--- hanno disabled as we do not have pupose for it 			
+		<!--- Dev disabled as we do not have pupose for it
 			
 		<cf_tl id= "Preference" var = "1">
 	
@@ -701,7 +701,7 @@ password="#SESSION.dbpw#">
 			
 		--->	
 		
-		<!--- hanno added 9/3/2016 --->
+		<!--- Dev added 9/3/2016 --->
 		
 		<cfif findNoCase("nucleus.un.org",session.root) or findNoCase("nova.un.org",session.root)>
 		

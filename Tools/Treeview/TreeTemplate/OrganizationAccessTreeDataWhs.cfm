@@ -26,7 +26,7 @@
 	  ORDER BY MandateDefault DESC
 </cfquery>
 
-<!--- General correct by Hanno on 23/07/2012 as warehouse granted access is not mandate sensitive
+<!--- General correct by Dev on 23/07/2012 as warehouse granted access is not mandate sensitive
 and is driven by the role we adjust the entries in OrganizationAuthorization to reflect the OrgUnit of the current mandate 
 which is derrived through the missionorgunitid --->
 

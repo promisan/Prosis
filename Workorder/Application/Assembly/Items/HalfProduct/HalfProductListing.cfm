@@ -119,7 +119,7 @@
 				 FROM      Materials.dbo.ItemTransaction S
 				 WHERE     Mission           = '#get.Mission#'				 
 				 AND       RequirementId     = WOL.WorkOrderItemId		
-				 <!--- added hanno to exclude the usage of items by sales workorders transfer --->
+				 <!--- added Dev to exclude the usage of items by sales workorders transfer --->
 				 AND       TransactionType NOT IN ('6','8')						
 				) as OnHand,  <!--- quantity received in production warehouse --->
 				

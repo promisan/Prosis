@@ -77,7 +77,7 @@ datasource="AppsInit">
 	<cfparam name="Attributes.width"             default="100%">
 	<cfparam name="Attributes.height"            default="">	
 		
-	<!--- to be validated Hanno 1/8/2013 --->	
+	<!--- to be validated Dev 1/8/2013 --->
 	
 	<cfparam name="Attributes.bstyle"            default="">	
 	<cfparam name="Attributes.border"            default="1">	

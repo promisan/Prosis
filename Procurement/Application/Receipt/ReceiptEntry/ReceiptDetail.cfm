@@ -949,7 +949,7 @@ password="#SESSION.dbpw#">
 								
 				<cfif insert eq "1" or 1 eq 1>
 				
-				     <!--- hanno no need to show the entry hare as it shows as part of the line 
+				     <!--- Dev no need to show the entry hare as it shows as part of the line
 					 ReceiptEntryContentLines.cfm line 245 --->
 					 
 				     <cfif url.taskid eq "">

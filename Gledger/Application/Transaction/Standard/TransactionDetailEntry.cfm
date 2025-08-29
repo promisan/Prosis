@@ -1194,7 +1194,7 @@ password="#SESSION.dbpw#">
 
 </table>
 
-<!--- Hanno 3/5 : throwing a jv error upon opening 
+<!--- Dev 3/5 : throwing a jv error upon opening
 <cfset ajaxonload("doCalendar")>
 --->
 

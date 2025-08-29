@@ -83,7 +83,7 @@ Last date		:  05 June 2006
 		<!--- Attention : only if currency is USD, 
 		 as I found a record FRA110, obligated in CHF but the                  DSA currency in the table was = EURO, so only for USD --->
 					
-		<!--- disabled by Hanno as result of the new table ?? --->
+		<!--- disabled by Dev as result of the new table ?? --->
 					
 		<!--- this query will only work for the first 30 or 60 days --->
 					

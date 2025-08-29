@@ -287,7 +287,7 @@
 	
 	<cfif presentation eq "group" and url.listcolumn1 neq "">
 	
-		<!--- added by hanno to control the spacing --->
+		<!--- added by Dev to control the spacing --->
 		<td style="width:10%;border-left: 1px solid silver"></td>
 		<cfset totalcols = totalcols+1>
 	

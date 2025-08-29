@@ -169,7 +169,7 @@
 					AND    R.PointerSale = '#pointersale#' <!--- workorders for interal production and thus not earmarked --->
 					</cfif>
 					
-					<!--- removed hanno as this was confusing as sometimes there are negatives, with the function to set inventory
+					<!--- removed Dev as this was confusing as sometimes there are negatives, with the function to set inventory
 					you can control this better.
 					
 					AND ResourceId IN (
@@ -207,7 +207,7 @@
 					AND    R.PointerSale = '#pointersale#' <!--- workorders for interal production and thus not earmarked --->
 					</cfif>	
 					
-					<!--- removed hanno as this was confusing as sometimes there are negatives, with the function to set inventory
+					<!--- removed Dev as this was confusing as sometimes there are negatives, with the function to set inventory
 					you can control this better.
 					AND WorkOrderItemId IN (
 										

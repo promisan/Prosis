@@ -205,7 +205,7 @@
 			    AND      R.ItemNo            = I.ItemNo 
 			    AND      R.UoM               = I.UoM	
 	
-				AND      RH.ActionStatus < '5'   <!--- added hanno --->
+				AND      RH.ActionStatus < '5'   <!--- added Dev --->
 				
 				<!--- total requested --->
 				

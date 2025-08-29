@@ -136,7 +136,7 @@ password="#SESSION.dbpw#">
 					         TransactionHeader Hdr ON Line.Journal = Hdr.Journal AND Line.JournalSerialNo = Hdr.JournalSerialNo
 					WHERE    Acc.AccountClass   = 'Balance'
 					
-					<!--- Hanno this is a bit tricky usually this has to be the same for balance was before line. --->				
+					<!--- Dev this is a bit tricky usually this has to be the same for balance was before line. --->
 					AND      Hdr.AccountPeriod = '#prior#' 
 					
 					

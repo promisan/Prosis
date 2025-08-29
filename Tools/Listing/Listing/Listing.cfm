@@ -1192,7 +1192,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <!--- PRESENTING the result  --->
 <!--- ---------------------- --->
 
-<cfset box = attributes.box>  <!--- set by hanno 12/9/19 as box was blank --->
+<cfset box = attributes.box>  <!--- set by Dev 12/9/19 as box was blank --->
 
 <cfif url.ajaxid eq "content">
   

@@ -62,7 +62,7 @@
 
 <cfparam name="URL.entrymode" default="#section.TemplateCondition#">
 
-<!--- harcoding Hanno 21/11/2015 --->
+<!--- harcoding Dev 21/11/2015 --->
 <cfif url.mission eq "EAD">
 	<cfset URL.entrymode = "Standard">
 </cfif>

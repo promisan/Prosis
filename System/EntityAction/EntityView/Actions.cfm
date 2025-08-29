@@ -64,7 +64,7 @@
 				<!--- we take the result from the initial opening as the basis showing
 				      same actions or less based on processing --->
 					  
-				<!--- 16/8 I don't think it is needed hanno	  
+				<!--- 16/8 I don't think it is needed Dev
 	            OA.ActionId IN (#preservesingleQuotes(session.myclear)#) OR 
 				--->
 				

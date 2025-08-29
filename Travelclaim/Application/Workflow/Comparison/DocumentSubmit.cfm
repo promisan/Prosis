@@ -15,9 +15,9 @@
 -->
 <cfsilent>
  <proUsr>administrator</proUsr>
- <proOwn>Hanno van Pelt</proOwn>
+ï¿½<proOwn>Dev van Pelt</proOwn>
  <proDes>Memo field size check</proDes>
- <proCom></proCom>
+ï¿½<proCom></proCom>
  <proCM></proCM>
 </cfsilent>
 

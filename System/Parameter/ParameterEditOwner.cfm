@@ -114,7 +114,7 @@ datasource="AppsSystem">
 	
 	<tr><td height="4"></td></tr>
 	
-	<!--- adjusted by hanno to no longer allow users to make non - logging settings if cf_reportquery> is used. --->
+	<!--- adjusted by Dev to no longer allow users to make non - logging settings if cf_reportquery> is used. --->
 		
 	<TR>
     <td class="labelmedium">Audit&nbsp;<b><a href="##" title="Capture criteria and timestamp of start/end of the SQL portion for each report">Report&nbsp;preparation:</a></b></td>

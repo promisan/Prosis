@@ -324,7 +324,7 @@
 
 <!--- -------------------------------------------------------------------------------------- --->
 <!--- special correction to reset the status for the dependents based on the master record
-       needed for some reason in CICIG Hanno : 20/4/2011                                     --->
+       needed for some reason in CHanno : 20/4/2011                                     --->
 <!--- -------------------------------------------------------------------------------------- --->   
 
 <cfquery name="ResetEntitlement" 
@@ -375,7 +375,7 @@
 
 <!--- -------------------------------------------------------------------------------------- --->
 <!--- END special correction to reset the status for the dependents based on the master 
-       needed for some reason in CICIG Hanno : 20/4/2011                                     --->
+       needed for some reason in CHanno : 20/4/2011                                     --->
 <!--- -------------------------------------------------------------------------------------- --->   
 
 <!--- ---- STEP 3 of 4 ---- --->

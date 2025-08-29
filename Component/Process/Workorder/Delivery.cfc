@@ -105,7 +105,7 @@
 				
 			</cfquery>		
 			
-			<!--- Hanno : this needs to be conditional, not all are coming from the workorder so we need to make a condition
+			<!--- Dev : this needs to be conditional, not all are coming from the workorder so we need to make a condition
 		     if this comes from POS instead --->
 			
 			<cfquery name="ShipmentOrder"

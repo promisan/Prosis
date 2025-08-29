@@ -183,7 +183,7 @@ password="#SESSION.dbpw#">
 
 <cfif check.recordcount eq "1">
 
-<!--- Hanno 28/3/2016
+<!--- Dev 28/3/2016
 <cfif check.recordcount eq "1" and Domain.AllowConcurrent eq "0">
 --->	
 	

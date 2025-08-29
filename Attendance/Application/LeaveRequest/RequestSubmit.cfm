@@ -126,7 +126,7 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<!--- 3/12/2019 added by Hanno as a quick resolve. Needs to be better embedded as a business rule in a
+<!--- 3/12/2019 added by Dev as a quick resolve. Needs to be better embedded as a business rule in a
 new table Ref_LeaveTypeRule --->
 
 <cfif form.leaveType eq "Annual">

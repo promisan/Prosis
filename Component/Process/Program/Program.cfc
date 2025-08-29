@@ -329,7 +329,7 @@
 			</cfquery>  	
 			
 			<!--- ------------------------ --->
-			<!--- added by hanno 17/9/2015 --->
+			<!--- added by Dev 17/9/2015 --->
 			<!--- ------------------------ --->	
 						
 			<cfif Check.DueCalculation eq "1">
@@ -389,7 +389,7 @@
 					<!--- define total ROUNDED amount requested as specified in the requirements for this object as for
 					the allotment we only apply rouneded amounts 
 					
-					Hanno : we adjust here to define the rounded RequestAmountBase AND the AmountBaseAllotment, so we have
+					Dev : we adjust here to define the rounded RequestAmountBase AND the AmountBaseAllotment, so we have
 					2 amount of which the difference will be recorded as P versus 0
 					
 					--->
@@ -1088,7 +1088,7 @@
 				
 				</cfif>		
 				
-				<!--- cleansing of overcomplete records 8/5/2014 added by Hanno --->
+				<!--- cleansing of overcomplete records 8/5/2014 added by Dev --->
 				
 				<cfquery name="InsertBudgetRequestMapping" 
 					datasource="AppsProgram" 

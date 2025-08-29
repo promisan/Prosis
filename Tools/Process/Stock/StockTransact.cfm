@@ -90,7 +90,7 @@
 </cfquery>
 
 <!--- ------------------------------------------------- ---> 
-<!--- Hanno 15/9 better to enforce this accounting----- --->
+<!--- Dev 15/9 better to enforce this accounting----- --->
 <!--- ------------------------------------------------- --->
 
 <cf_verifyOperational 

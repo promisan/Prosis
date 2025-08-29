@@ -515,7 +515,7 @@
 				AND       TransactionUoM = '#UoM#'		
 				--->
 				
-				<!--- Hanno 10/7/2019 
+				<!--- Dev 10/7/2019
 						likely we need to be more granular based on the transactiontype 
 						and the actionstatus of the transaction to be included 
 						receipt likely best to be status = '1'

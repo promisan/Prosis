@@ -410,7 +410,7 @@
 			  
 			  <cfset NoAct = "#PendingContract.ActionDocumentNo#">
 			  
-			  <!--- added by hanno on 31/3/2011 --->			  			  
+			  <!--- added by Dev on 31/3/2011 --->
 
 			  <cfset dateValue = "">				
 			  <CF_DateConvert Value="#dateformat(PendingContract.DateEffective,CLIENT.DateFormatShow)#">
@@ -431,7 +431,7 @@
 			  
 			  <cfset NoAct = "#PendingContractAdjustment.ActionDocumentNo#">
 			  
-			  <!--- added by hanno on 31/3/2011 --->			  			  
+			  <!--- added by Dev on 31/3/2011 --->
 
 			  <cfset dateValue = "">				
 			  <CF_DateConvert Value="#dateformat(PendingContractAdjustment.DateEffective,CLIENT.DateFormatShow)#">

@@ -57,14 +57,14 @@
 									<td style="padding:4px; border:0px solid ##C0C0C0;-webkit-border-radius:1px;-moz-border-radius:10px;border-radius:1px;" valign="top" width="50%">
 																		
 									    <cfinclude template="EmployeeProfileViewDetail.cfm">
-										<!--- no need to load this also through ajax in my views : Hanno 
+										<!--- no need to load this also through ajax in my views : Dev
 										<cfdiv id="divPersonViewDetail" bind="url:Employee/EmployeeProfileViewDetail.cfm?personNo=#personNo#&customerid=#url.customerid#&workschedule=#url.workschedule#">
 										--->
 									</td>
 									<td>&nbsp;&nbsp;</td>
 									<td style="padding:4px; padding-right:5px; border:0px solid ##C0C0C0;-webkit-border-radius:1px;-moz-border-radius:10px;border-radius:1px;" valign="top" width="50%">
 									    <cfinclude template="EmployeeProfileViewWorkSchedule.cfm">
-										<!--- no need to load this also through ajax in my views : Hanno 
+										<!--- no need to load this also through ajax in my views : Dev
 										<cfdiv id="divPersonViewSchedule" bind="url:Employee/EmployeeProfileViewWorkSchedule.cfm?personNo=#personNo#&customerid=#url.customerid#&workschedule=#url.workschedule#">
 										--->
 									</td>

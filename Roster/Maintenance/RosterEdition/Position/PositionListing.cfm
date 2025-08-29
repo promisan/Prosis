@@ -108,7 +108,7 @@ password="#SESSION.dbpw#">
 
 <cfdiv id="dresult" class="#vClass#">
 
-<!--- do not remove : Hanno --->
+<!--- do not remove : Dev --->
 	
 	<input type="hidden" id="UpdateList" name="UpdateList">
 	<input type="hidden" id="reloadpos" value="">

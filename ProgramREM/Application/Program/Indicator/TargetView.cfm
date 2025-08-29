@@ -186,7 +186,7 @@ password="#SESSION.dbpw#">
 		FROM    Ref_Indicator I, Ref_ProgramCategory C
 		WHERE   C.Code = I.ProgramCategory
 		
-		<!--- temp disabled by hanno 
+		<!--- temp disabled by Dev
 		AND     ProgramCategory IN (SELECT   ProgramCategory
 		                            FROM     ProgramCategory
 		                            WHERE    ProgramCode = '#URL.ProgramCode#') 

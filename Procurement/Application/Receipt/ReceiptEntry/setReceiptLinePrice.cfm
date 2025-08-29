@@ -96,7 +96,7 @@ password="#SESSION.dbpw#">
 	WHERE    Warehouse = '#url.warehouse#'	
 </cfquery>	
 
-<!--- Hanno : warehouse geo location (fuel) to determine 
+<!--- Dev : warehouse geo location (fuel) to determine
     the correct batch price for receipt --->
 
 <cfif warehouse.locationid neq "">

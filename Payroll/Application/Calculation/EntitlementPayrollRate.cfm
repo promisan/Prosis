@@ -318,7 +318,7 @@ disabled 16/3/2018, I don't think this is needed anymore to make such provision
 
 checked for overtime : can be removed
 
-hanno 16/10/2019 : ready for removal 
+Dev 16/10/2019 : ready for removal
 			
 			<cfquery name="CorrectionSplitContract" 
 			  datasource="AppsQuery" 

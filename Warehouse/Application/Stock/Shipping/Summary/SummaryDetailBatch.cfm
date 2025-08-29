@@ -64,7 +64,7 @@
 			  
 				  AND        T.TransactionType = '2'
 				  
-				  <!--- removed by hanno to show by batch 
+				  <!--- removed by Dev to show by batch
 				  
 				  AND        T.AssetId IN (SELECT   AssetId
 				                           FROM     AssetItem 

@@ -17,7 +17,7 @@
 
 <cfif ModuleEnabled eq "1">
 
-	<!--- this query is likely not optimised yet for its content : Hanno 25/10/2015 --->
+	<!--- this query is likely not optimised yet for its content : Dev 25/10/2015 --->
 	
 	<!--- financial base currency Allotment, Obligation and Disbursement --->
 

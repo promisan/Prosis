@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- 6/5/2016, it appears that this is already loaded, check with Hanno if you are going to restore it 
+<!--- 6/5/2016, it appears that this is already loaded, check with Dev if you are going to restore it
 <cf_screentop html="No" jQuery="Yes">
 --->
 

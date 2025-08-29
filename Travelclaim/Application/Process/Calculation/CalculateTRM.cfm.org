@@ -147,11 +147,11 @@ WHERE 	userquery.dbo.#table1#.ClaimId = ClaimLineDateIndicator.ClaimId
 <!--- FDT 7/08/08: NEW CODE TO DETERMINE IF TERMINAL SHOULD BE PAID 
 FOR EACH DEPARTURE AND EACH ARRIVAL OF THE ITINERARY 
 INPUT: 
-- The "Review" Structure (as in the Hanno's code)
+- The "Review" Structure (as in the Dev's code)
 - The "AllDays" Structure (SQL table: userquery.dbo.#table1#) used only to know which day are Annual Leave 
 OUTPUT:
 - A "list" called EXC of the ClaimTripId where no TRM should be paid.
-(as in the Hanno's code)
+(as in the Dev's code)
 RULES: 
 There are 2 cases where Terminal (both on Arrival and Departure) should be EXCLUDED: 
 a)	Intermediate Stop of less than 6 hours 
@@ -162,7 +162,7 @@ a) Person [previous code was not really consistent on this]
 b) LocationDate
 c) CountryCityId [I still don't understand this last one - FDT]
 
-HANNO : This was added very recently as part of the TRM changes. Essentially it does not harm as the location date
+Dev : This was added very recently as part of the TRM changes. Essentially it does not harm as the location date
 is unique is in combination with the city id. However adding the . is to prevent that if a stopover trip has the same city the system would be tempted to pay for the same city stopover
 --->
 
@@ -176,7 +176,7 @@ is unique is in combination with the city id. However adding the . is to prevent
 <cfset ArrDay = "">  
 <!--- Last Day in the Stop/City (in most cases day before departure day) --->
 <cfset LastStopDay = "">  
-<!--- Id of the “Trip” representing the arrival in the city --->
+<!--- Id of the ï¿½Tripï¿½ representing the arrival in the city --->
 <cfset  TripIdArr = "">  
 <!--- 1 if the current stop is an intermediate stop --->
 <cfset  TripStop = 0>  

@@ -138,7 +138,7 @@
 				AND       ItemNo         = '#itemNo#' 
 				AND       TransactionUoM = '#UoM#'		
 				
-				<!--- Hanno 10/7/2019 
+				<!--- Dev 10/7/2019
 						likely we need to be more granular based on the transactiontype 
 						and the actionstatus of the transaction to be included 
 						receipt likely best to be status = '1'
@@ -264,7 +264,7 @@
 			
 			<cfif content eq "Basic">
 			
-			     <!--- Hanno : Can be remove, was not really used 
+			     <!--- Dev : Can be remove, was not really used
 				                       maybe for fuel at some point  --->
 							
 				<cfquery name="stock" 
@@ -1147,7 +1147,7 @@
 				    <cfset diff = round((val-getTra.TransactionValue)*corr)/corr> 
 				</cfif>	
 								
-				<cfif diff neq "0" or getGL.recordcount eq "0">		<!--- Hanno : 6/27/2017 we need to add also a comparison with the posted value, not just existance --->		
+				<cfif diff neq "0" or getGL.recordcount eq "0">		<!--- Dev : 6/27/2017 we need to add also a comparison with the posted value, not just existance --->
 																						
 					<cfif cnt eq "1">								 
 				 
@@ -2182,7 +2182,7 @@
 											
 					<cfelseif ItemVal.ValuationCode eq "Average">	
 					
-						<!--- pending Hanno --->
+						<!--- pending Dev --->
 					
 						<cfquery name="UoM" 
 						   datasource="#DataSource#" 
@@ -2196,7 +2196,7 @@
 					
 						<cfset pr = UoM.StandardCost>
 					
-					<!--- pending Hanno 
+					<!--- pending Dev
 					
 					<cfelseif ItemVal.ValuationCode eq "Last">	
 												

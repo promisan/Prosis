@@ -109,7 +109,7 @@
 							AND     TR.TaskSerialNo = T.TaskSerialNo
 							AND     ActionStatus != '9'
 							AND     TR.TransactionQuantity < 0
-							AND     TR.TransactionType = '8'   <!--- Hanno 17/5 corrected from IN ('1','8','6') --->					
+							AND     TR.TransactionType = '8'   <!--- Dev 17/5 corrected from IN ('1','8','6') --->
 							
 						</cfif>	
 						)
@@ -133,7 +133,7 @@
 							 AND     TR.TaskSerialNo = T.TaskSerialNo
 							 AND     ActionStatus != '9'
 							 AND     TR.TransactionQuantity < 0
-							 AND     TR.TransactionType = '8'   <!--- Hanno 17/5 corrected from IN ('1','8','6') --->		
+							 AND     TR.TransactionType = '8'   <!--- Dev 17/5 corrected from IN ('1','8','6') --->
 							 ) <> 0												
 							 
 						</cfif>
@@ -182,7 +182,7 @@
 							AND     TR.TaskSerialNo = T.TaskSerialNo
 							AND     ActionStatus != '9'
 							AND     TR.TransactionQuantity < 0
-							AND     TR.TransactionType = '8'   <!--- Hanno 17/5 corrected from IN ('1','8','6') --->														
+							AND     TR.TransactionType = '8'   <!--- Dev 17/5 corrected from IN ('1','8','6') --->
 						</cfif>	
 						)
 					)		

@@ -151,7 +151,7 @@
 					 AND    R.SearchId =  '#URL.ID1#'					
 			     </cfquery>
 				 				 
-				 <!--- this is to alert if a candidate has a recently selection : Hanno 17/3/2023
+				 <!--- this is to alert if a candidate has a recently selection : Dev 17/3/2023
 				 
 					 <cfinvoke component  = "Service.Process.Applicant.Vacancy"  
 					   method            = "Candidacy" 
@@ -218,13 +218,13 @@
 							try { 
 							se = parent.parent.parent.window	
 							se.document.getElementById('workflowbutton_#docno#').click()															
-						    // se.opener.document.getElementById('workflowbutton_#docno#').click() : hanno							
+						    // se.opener.document.getElementById('workflowbutton_#docno#').click() : Dev
 							} catch(e) { 
 							
 							try { 
 							se = parent.parent.parent.parent.window	
 							se.document.getElementById('workflowbutton_#docno#').click()															
-						    // se.opener.document.getElementById('workflowbutton_#docno#').click() : hanno							
+						    // se.opener.document.getElementById('workflowbutton_#docno#').click() : Dev
 							} catch(e) { }
 														
 							}

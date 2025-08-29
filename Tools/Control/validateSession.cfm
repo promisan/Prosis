@@ -15,7 +15,7 @@
 -->
 <cftry>
 		
-	<!--- added by hanno to proactive end the session if this was done on the level of the data
+	<!--- added by Dev to proactive end the session if this was done on the level of the data
 	base like expirate or multiple session --->
 	
 	<cfparam name="SESSION.acc"       default="">

@@ -16,7 +16,7 @@
 <cfsilent>
 
 	<proUsr>administrator</proUsr>
-	<proOwn>Hanno van Pelt</proOwn>
+	<proOwn>Dev van Pelt</proOwn>
 	<proDes></proDes>
 	<proCom></proCom>
 	<proCM></proCM>
@@ -31,7 +31,7 @@
 	<proOwn>MKM</proOwn>
 	<proDes>Multiple person types for same person</proDes>
 	<proCom> MKM: Nov 20, 2008
-I had fixed this once before but Hanno seems to have reverted the code.
+I had fixed this once before but Dev seems to have reverted the code.
 Sometimes the ClaimRequestLine table will have different ClaimantTypes for the same person.
 Changing the query to use ClaimRequest instead fixes this problem, but the Line table will be 
 neccessary if we ever need to use the code for Multiple Travellers on one Claim and then
@@ -306,7 +306,7 @@ we'll need to really fix this code. </proCom>
 	
 	<cfif URL.Topic eq "Trip">
 <!--- MKM: Nov 20, 2008
-I had fixed this once before but Hanno seems to have reverted the code.
+I had fixed this once before but Dev seems to have reverted the code.
 Sometimes the ClaimRequestLine table will have different ClaimantTypes for the same person.
 Changing the query to use ClaimRequest instead fixes this problem, but the Line table will be 
 neccessary if we ever need to use the code for Multiple Travellers on one Claim and then
@@ -506,7 +506,7 @@ we'll need to really fix this code. --->
 	
 	<cfif URL.Topic eq "Trip" and URL.Status eq "Edit">
 	
-		<!--- -------------------------------Hanno------------------------------------ --->
+		<!--- -------------------------------Dev------------------------------------ --->
 		<!--- 17/8/2008 determine if this conditional template portion is used for SFT --->
 		<!--- ------------------------------------------------------------------------ --->
 	

@@ -105,7 +105,7 @@ password="#SESSION.dbpw#">
 			
 	   <cfelse>	
 	   
-		   <!--- Hanno 15/6 alert what happens if the request was tasked to another warehouse 
+		   <!--- Dev 15/6 alert what happens if the request was tasked to another warehouse
 		       and also received to which this person does not have access --->
 	
 	    AND     H.Reference IN (

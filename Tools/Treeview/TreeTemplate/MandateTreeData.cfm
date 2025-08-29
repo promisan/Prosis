@@ -404,7 +404,7 @@ password="#SESSION.dbpw#">
  <!--- AUTHORISED POSITION --->
  <!--- -------------------   
  
- Removed by Hanno
+ Removed by Dev
  
 <cftry>
 	

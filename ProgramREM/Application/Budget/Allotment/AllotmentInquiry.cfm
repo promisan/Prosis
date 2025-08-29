@@ -404,7 +404,7 @@ password="#SESSION.dbpw#">
 
 
 <!--- -------------------------------------------------------------------------------------------- --->
-<!--- set the correct plan period : added by Hanno to make the view being able to mix plan periods --->
+<!--- set the correct plan period : added by Dev to make the view being able to mix plan periods --->
 		  
 <cfloop index="EditionId" list="#EditionList#" delimiters=",">	  
 	  				   

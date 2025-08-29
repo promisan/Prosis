@@ -355,7 +355,7 @@
 								AND   ESL.PersonNo = TL.ReferenceNo
 								AND   TL.TransactionSerialNo = 0 
 						WHERE ESL.Source             = 'Offset'
-						<!--- hanno added 25/4 --->
+						<!--- Dev added 25/4 --->
 						<!--- AND   TL.TansactionAmount > 0 --->
 						<!--- ---------------- --->
 						AND   ESL.Journal 		     = '#getHeader.Journal#'
@@ -409,7 +409,7 @@
 						AND    TH.ReferencePersonNo = '#ForPersonNo#'
 						</cfif>
 						
-						<!--- hanno added 25/4 --->
+						<!--- Dev added 25/4 --->
 						
 						AND     (TL.Reference != 'Offset' 
 						          or (TL.Reference = 'Offset' AND TL.TransactionAmount > 0)

@@ -347,7 +347,7 @@
 							sendAttDoc  = "0"
 							sendAttObj  = "0">
 								
-							<!--- attachment feature not enabled for this yet : hanno --->
+							<!--- attachment feature not enabled for this yet : Dev --->
 													   
 					</cfif>
 					

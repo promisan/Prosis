@@ -144,7 +144,7 @@
 		   
 	    ProsisUI.createWindow('rightpanel', 'Selection Summary', '',{height:340,width:350,modal:false,center:true})				
 		// if (mde == "all") { 
-		// Hanno better to show the content of the listing here
+		// Dev better to show the content of the listing here
 		  ptoken.navigate('#SESSION.root#/#base#/#pty#/Property.cfm?fileno=#fileno#','rightpanel') 						 
 	    // }		
 	}	

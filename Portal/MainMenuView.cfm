@@ -149,7 +149,7 @@
 		<script src="../Scripts/cfajax.js" type="text/javascript"></script>
 		<cf_UIGadgets>
 
-		<!--- ADDED BY HANNO TO PREVENT RIGHT-CLICK --->
+		<!--- ADDED BY Dev TO PREVENT RIGHT-CLICK --->
 		<cfif getAdministrator("*") eq "0">		
 			<script>
 				document.oncontextmenu=new Function("return false")
@@ -157,7 +157,7 @@
 		</cfif>
 		
 		<cfif thisbrowser.name eq "Explorer" and thisbrowser.release lte "10">				
-			<!--- Hanno : TEMP measurement only.
+			<!--- Dev : TEMP measurement only.
 			    we force the disabled mode as otherwise we have a ajax called superseding the IE9 - IE8 settings for the menu --->								
 			<cf_SystemScript force="1">
 		<cfelse>

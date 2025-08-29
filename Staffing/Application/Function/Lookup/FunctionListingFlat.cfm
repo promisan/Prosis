@@ -43,7 +43,7 @@
 <CFSET cond = Replace("#URL.ID1#", "'", "''", "ALL" )>
 <cfset cond = "FunctionDescription LIKE '%#cond#%'">
 
-<!--- Hanno the field URL.Owner can be passed a mission or straight as the owner --->
+<!--- Dev the field URL.Owner can be passed a mission or straight as the owner --->
 
 <cfparam name="URL.Owner" default="">
 

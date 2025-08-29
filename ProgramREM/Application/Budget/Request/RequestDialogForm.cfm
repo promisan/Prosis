@@ -196,7 +196,7 @@ password="#SESSION.dbpw#">
 	AND       Operational     = 1
  </cfquery>	
  
- <!--- Hanno 8/10/2015 now we define in addition the last allotment being issues --->
+ <!--- Dev 8/10/2015 now we define in addition the last allotment being issues --->
   	  
 <cfquery name="LastAllotment" 
 datasource="AppsProgram" 

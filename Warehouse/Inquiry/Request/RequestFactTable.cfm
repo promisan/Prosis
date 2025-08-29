@@ -18,7 +18,7 @@
 <cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#_Consumption">
 
 <!--- ---------------------------------------------------- --->
-<!--- Note Hanno create a fact table, this in the future has to come from an skTable that is refreshed daily to
+<!--- Note Dev create a fact table, this in the future has to come from an skTable that is refreshed daily to
 improve performance, the sktable should go into appsOLAP --->
 <!--- ---------------------------------------------------- --->
 

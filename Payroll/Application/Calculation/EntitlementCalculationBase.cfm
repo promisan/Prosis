@@ -62,7 +62,7 @@
 				<cfelse>
 			    AND      PersonNo NOT IN (#preservesingleQuotes(selper)#)	   
 				</cfif>
-				<!--- reset by Hanno 11/12 -as it had -- in front to disable it
+				<!--- reset by Dev 11/12 -as it had -- in front to disable it
 				 for unknwon reasons when i checked this but maybe for SPA --->
 				 
 				 <cfif calcprocessmode neq "overtime">

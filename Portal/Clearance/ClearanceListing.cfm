@@ -59,7 +59,7 @@ AND Operational = '1'
 
 </cfif>
 
-<!--- disabled Hanno 15/04/2005
+<!--- disabled Dev 15/04/2005
 
 <!--- Check program --->
 
@@ -117,7 +117,7 @@ that are pending from that list --->
 	   #PreserveSingleQuotes(BudgetCond)# 				
 </cfquery>
 
-<!--- done just to get recordcount.  Ask Hanno about this --->
+<!--- done just to get recordcount.  Ask Dev about this --->
 <cfquery name="PendingAllotments" 
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 

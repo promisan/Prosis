@@ -45,7 +45,7 @@
 	          userQuery.dbo.tmp#SESSION.acc#_#fileNo#_FunSelect Fun
        WHERE  K.PersonNo = Fun.PersonNo
 	   <!--- --------------------------------------------------------------------- --->
-	   <!--- Hanno  22/5/2013 added to search within the scope of the search owner --->
+	   <!--- Dev  22/5/2013 added to search within the scope of the search owner --->
 	   <!--- --------------------------------------------------------------------- --->
 	   <cfif RosterSearch.Owner neq "" and Owner.SelectId eq "1">
 	   	AND    K.Owner = '#RosterSearch.Owner#'  
@@ -96,7 +96,7 @@
    FROM   skApplicantKeyWord K, 
           userQuery.dbo.tmp#SESSION.acc#_#fileNo#_FunSelect Fun  
    WHERE  Fun.PersonNo = K.PersonNo
-   <!--- Hanno  22/5/2013 added to search within the scope of the search owner --->
+   <!--- Dev  22/5/2013 added to search within the scope of the search owner --->
    <cfif RosterSearch.Owner neq "" and Owner.SelectId eq "1">
    	AND   K.Owner = '#RosterSearch.Owner#' 
    <cfelse>

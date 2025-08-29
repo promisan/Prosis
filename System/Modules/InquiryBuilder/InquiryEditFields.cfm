@@ -34,7 +34,7 @@ password="#SESSION.dbpw#">
 <cfset client.queryscript = form.QueryScript>
 
 <!---
-<cfset myscript = urldecode(Form.QueryScript)> : this removed the plus + sign and that is not good. Hanno 30/4/2022
+<cfset myscript = urldecode(Form.QueryScript)> : this removed the plus + sign and that is not good. Dev 30/4/2022
 --->
 
 <cfif findNoCase("UPDATE",myscript) or findNoCase("DELETE",myscript)>

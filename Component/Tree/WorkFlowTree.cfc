@@ -67,7 +67,7 @@
 							<!--- show only roles and thus modules to which this system person has access
 							through the entity class defined for it
 							
-							5/7/2014 : Hanno ****** we could limit this further based on Ref_EntityClassMission so we
+							5/7/2014 : Dev ****** we could limit this further based on Ref_EntityClassMission so we
 							only show entities for which one or more classes have the mission of
 							this role defined
 							

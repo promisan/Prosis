@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <!--- Query returning detail information for selected item
-28/8/2012 : Hanno, this form may be tuned for regular portal requests only from the traditional screen
+28/8/2012 : Dev, this form may be tuned for regular portal requests only from the traditional screen
 --->
 
 <cfparam name="url.itemno"     default="">

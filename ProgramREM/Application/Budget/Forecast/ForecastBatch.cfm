@@ -214,7 +214,7 @@ password="#SESSION.dbpw#">
 								
 			</cfquery>	
 			
-			<!--- Hanno 9/6/2018 to be included, some positions are under SLWOP and have no costs in the selection month, in that case it would be good
+			<!--- Dev 9/6/2018 to be included, some positions are under SLWOP and have no costs in the selection month, in that case it would be good
 			to take the last one with costs --->
 			
 			<!--- ----------------------------------------   PENDING   --------------------------------------------------- --->

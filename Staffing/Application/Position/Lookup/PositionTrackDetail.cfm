@@ -19,7 +19,7 @@
 
 	<!--- check if person is associated in the staffing table
 	
-	coded 15/12/2006 Hanno van Pelt
+	coded 15/12/2006 Dev van Pelt
 	
 	1. Check if EmployeeNo is filled and exists
 		if not 

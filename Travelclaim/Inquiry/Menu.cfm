@@ -18,7 +18,7 @@
 <cfsilent>
 
 <proUsr>administrator</proUsr>
-<proOwn>Hanno van Pelt</proOwn>
+<proOwn>Dev van Pelt</proOwn>
 <proDes>Laster update installed</proDes>
 <proCom></proCom>
 <proCM></proCM>

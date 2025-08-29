@@ -41,7 +41,7 @@
 	WHERE   ActionStatus != '9'	
 	AND     ActionStatus != '0z'				
 	AND     JobNo    = '#URL.ID1#' 
-	<!--- not needed, based on CICIG report 
+	<!--- not needed, based on Creport
 	AND     Period   = '#URL.Period#'
 	--->
 </cfquery>

@@ -54,7 +54,7 @@
 	<cfset lng = url.longitude>
 	
 
-	<!--- Hanno 07/12/2011 : limit the search here as the method is giving issues --->
+	<!--- Dev 07/12/2011 : limit the search here as the method is giving issues --->
 	
 	<cfinvoke component="service.maps.googlegeocoder3" 
 	          method="googlegeocoder3" 

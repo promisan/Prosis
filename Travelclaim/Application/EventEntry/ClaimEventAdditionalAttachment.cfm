@@ -16,7 +16,7 @@
 <cfsilent>
 
 	<proUsr>administrator</proUsr>
-	<proOwn>Hanno van Pelt</proOwn>
+	<proOwn>Dev van Pelt</proOwn>
 	<proDes>The changes are done so that If URL mode is empty set to empty as a param statement JG since this screen always expects a mode  </proDes>
 	<proCom></proCom>
 	<proCM></proCM>

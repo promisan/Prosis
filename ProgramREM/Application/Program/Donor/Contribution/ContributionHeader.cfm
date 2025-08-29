@@ -15,7 +15,7 @@
 -->
 <cfparam name="URL.action" default="View">
 
-<!--- tuned  by Hanno 8/7/2012 --->
+<!--- tuned  by Dev 8/7/2012 --->
 
 <cfquery name="get"
     datasource="AppsProgram" 

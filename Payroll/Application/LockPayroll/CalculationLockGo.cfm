@@ -312,7 +312,7 @@ password="#SESSION.dbpw#">
 	<cfelse>
 		
 		<!--- ------------------------------------------------------------------------------- --->
-		<!--- --- BB Post the calculation as an financials posting : CICIG and others ------- --->
+		<!--- --- BB Post the calculation as an financials posting : Cand others ------- --->
 		<!--- ------------------------------------------------------------------------------ --->
 			
 		<cf_verifyOperational 

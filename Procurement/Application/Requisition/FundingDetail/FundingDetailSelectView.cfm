@@ -39,7 +39,7 @@
 										WHERE  R.RequisitionNo != '#url.requisitionno#' <!--- exclude this rwquisition --->
 										AND    R.Mission = '#get.Mission#'
 										AND    R.Period  = '#get.Period#'
-										<!--- Hanno : to be clarified, I could image we take here the condition that 2q + job is also excluded --->
+										<!--- Dev : to be clarified, I could image we take here the condition that 2q + job is also excluded --->
 										AND    R.ActionStatus IN ('2','2a','2b','2f','2i','2k')
 										)
 												

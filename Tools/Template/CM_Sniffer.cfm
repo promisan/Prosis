@@ -15,10 +15,10 @@
 -->
 <cfsilent>
  <proUsr>administrator</proUsr>
- <proOwn>Hanno van Pelt</proOwn>
+ï¿½<proOwn>Dev van Pelt</proOwn>
  <proDes>CM sniffer</proDes>
  <!--- specific comments for the current change, may be overwritten --->
- <proCom></proCom>
+ï¿½<proCom></proCom>
  <proCM>[ObservationNo]</proCM>
 </cfsilent>
 
@@ -118,9 +118,9 @@ ORDER BY O.Created DESC
 	<cfset posCE = Find("</proCom>", content)>
 	<cftry>
 	     <cfset usr = Mid(content, posUS+8, posUE-PosUS-8)>
-		 <cfset nme = Mid(content, posNS+8, posNE-PosNS-8)>
+		ï¿½<cfset nme = Mid(content, posNS+8, posNE-PosNS-8)>
 		 <cfset com = Mid(content, posCS+8, PosCE-PosCS-8)>
-	 <cfcatch></cfcatch>
+	ï¿½<cfcatch></cfcatch>
 	</cftry>								
 	
 					 

@@ -279,7 +279,7 @@
 				   
 				<!--- 
 				
-				    Hanno. we will check for an adjusted target based on the operation level
+				    Dev. we will check for an adjusted target based on the operation level
 				    in the period since the last transaction
 
 					hereto we consider the operational level for each day since the last and define the target based on

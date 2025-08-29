@@ -15,7 +15,7 @@
 -->
 <cfsilent>
  <proUsr>administrator</proUsr>
-<proOwn>Hanno van Pelt</proOwn>
+<proOwn>Dev van Pelt</proOwn>
  <proDes>Version Management</proDes>
  <!--- specific comments for the current change, may be overwritten --->
 <proCom></proCom>

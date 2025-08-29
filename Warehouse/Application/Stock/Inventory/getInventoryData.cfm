@@ -491,7 +491,7 @@ password="#SESSION.dbpw#">
 								
 				SELECT     #preservesingleQuotes(getStock)#
 				
-				<!--- 20/10/2014 Hanno we only take items with a stock or items without stockremove but recently movements in ItemTransaction over the last 30 days --->						  
+				<!--- 20/10/2014 Dev we only take items with a stock or items without stockremove but recently movements in ItemTransaction over the last 30 days --->
 				
 				HAVING 	   SUM(round(L.TransactionQuantity,3)) <> 0		
 																								  
@@ -501,7 +501,7 @@ password="#SESSION.dbpw#">
 				
 				 <!--- no provision for earmaked stuff --->				 
 						
-				<!--- 20/10/2014 Hanno we only take items with a stock or items without stock but include recently movements in ItemTransaction over the last 30 days --->
+				<!--- 20/10/2014 Dev we only take items with a stock or items without stock but include recently movements in ItemTransaction over the last 30 days --->
 						   
 				HAVING 	   L.ItemNo IN (SELECT ItemNo 
 		                                FROM   ItemTransaction

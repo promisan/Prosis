@@ -91,7 +91,7 @@
 				  <cfcase value="List">
 				 
 				 	<!--- obtain the list of values to be shown for a topic, 
-					Hanno : we can make it 	faster if this remains the same ---> 
+					Dev : we can make it 	faster if this remains the same --->
 				   
 					    <cfsavecontent variable="qry">
 						 

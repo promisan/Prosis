@@ -93,7 +93,7 @@ select line information based on the linkage of the IMIS document No
 			   LocationCode, 
 	           'Nucleus' AS Expr1, 
 			   'Van Pelt' AS Expr2, 
-	           'Hanno' AS Expr3
+	           'Dev' AS Expr3
 	FROM       userquery.dbo.tmpUploadLines
 	WHERE     PersonNo IS NOT NULL
 	AND  (ClaimCategory is not NULL or claimCategoryRequest is not NULL)

@@ -56,7 +56,7 @@
 		
 		AND      PC.ActionStatus  = '1'	
 		
-		<!--- added by hanno to prevent we extend beyond the contract --->
+		<!--- added by Dev to prevent we extend beyond the contract --->
 		
 		AND      (PC.StepIncreaseDate < PC.DateExpiration OR PC.DateExpiration is NULL) 
 		

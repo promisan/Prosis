@@ -217,7 +217,7 @@ if this item is carried by the warehouse select WarehouseItem --->
 				
 					<cfif StockControlMode eq "Individual">
 					
-						<!--- Hanno 18/11/2013 attention the below query could well not be the same as the above query for its total, 
+						<!--- Dev 18/11/2013 attention the below query could well not be the same as the above query for its total,
 						this has to be carefully analyses and then tuned the query to prevent it --->
 					
 						<cfquery name="getTransaction" 
@@ -245,7 +245,7 @@ if this item is carried by the warehouse select WarehouseItem --->
 							AND        T.RequirementId  = '#url.WorkOrderItemId#' <!--- earmarked --->
 							AND        T.TransactionIdOrigin IS NULL <!--- is a source transaction --->
 							
-							<!--- disabled 6/6/2014 Hanno
+							<!--- disabled 6/6/2014 Dev
 							AND        T.TransactionType != '3' <!--- 26/3/2014 : returned items do not count as available --->
 							--->
 							

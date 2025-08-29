@@ -327,7 +327,7 @@
 				     SELECT   DISTINCT ProgramCode, ProgramName,Reference, ListingOrder, Exist, ProgramScope
 				     FROM     dbo.tmp#SESSION.acc#Program P
 					 WHERE    P.OrgUnit     = '#SearchResult.OrgUnit#'
-					 <!--- 3/9/2021 corrected by hanno in order not to show too much, but if the project is under a different unit
+					 <!--- 3/9/2021 corrected by Dev in order not to show too much, but if the project is under a different unit
 					 it might not always be visible / STL --->
 					 AND      (P.ParentCode = '' OR P.ParentCode is NULL)
 					 UNION 

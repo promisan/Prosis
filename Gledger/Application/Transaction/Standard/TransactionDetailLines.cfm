@@ -284,7 +284,7 @@ password="#SESSION.dbpw#">
 				<cfif Check.recordcount eq "1" and apply eq "0">
 				
 				   <!--- provision added 10/5/2010 based on obsevation kristina to edit a payment reconciliation record 
-				   adjust a but by hanno to prevent doubles ---> 		
+				   adjust a but by Dev to prevent doubles --->
 				   		 			  
 				   <cfset lineid = Check.TransactionLineId>		
 				   <cfset apply = "1">		   

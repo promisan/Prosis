@@ -37,7 +37,7 @@
 	
 	<!---
 	
-	This option to show in the portal under my menu is no longer supported : Hanno 8/5/2023 
+	This option to show in the portal under my menu is no longer supported : Dev 8/5/2023
 	
 	<cfif url.portal eq "">
 	

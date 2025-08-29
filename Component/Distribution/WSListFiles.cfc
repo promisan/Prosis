@@ -17,7 +17,7 @@
   <cffunction name="getList" returntype="any" output="false" access="remote">
 	<cfargument name="LastUpdate" type="string" required="yes">
 
-	<!--- Q Hanno : please use CGI variable to define host --->
+	<!--- Q Dev : please use CGI variable to define host --->
 	
 	<cfquery name="Parameter" 
 	datasource="AppsInit">
@@ -30,7 +30,7 @@
 
 	<!--- Get all directory information in a query of queries.--->
 	
-	<!--- Q Hanno : how would you know the format of the client's date --->
+	<!--- Q Dev : how would you know the format of the client's date --->
 	
 	<cfquery dbtype="query" name="NewUpdates">
 		SELECT * FROM NewUpdates 

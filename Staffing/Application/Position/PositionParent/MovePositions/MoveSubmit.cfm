@@ -357,7 +357,7 @@ copy AssignmentTopic
 							   FunctionDescription,
 							   DateEffective,
 							   DateExpiration,
-							   OrgUnit,      <!--- added by hanno --->
+							   OrgUnit,      <!--- added by Dev --->
 							   ActionReference,
 							   OfficerUserId,
 							   OfficerLastName,
@@ -369,7 +369,7 @@ copy AssignmentTopic
 							  '#newFunctionDescription#',
 							  #dateadd('d',1,date)#,
 							  DateExpiration,
-							  '#newOrgUnit#',  <!--- added by hanno --->
+							  '#newOrgUnit#',  <!--- added by Dev --->
 							  '#NoAct#',
 						      '#SESSION.Acc#'   AS OfficerUserId,
 					      	  '#SESSION.Last#'  AS OfficerLastName,
@@ -481,7 +481,7 @@ copy AssignmentTopic
 					 password="#SESSION.dbpw#">
 				    	 UPDATE PersonAssignment
 						 SET    AssignmentStatus = '9',
-						        ContractId = NULL  <!--- hanno we no longer want the contract workflow to be able to control these records onwards ---> 
+						        ContractId = NULL  <!--- Dev we no longer want the contract workflow to be able to control these records onwards --->
 					   	 WHERE  AssignmentNo = '#getAssignment.AssignmentNo#' 
 					</cfquery>
 						
@@ -504,7 +504,7 @@ copy AssignmentTopic
 					    <cfset clr = "1">
 					</cfif>	
 					
-					<!--- Hanno 4/3/2018 : since this is a position action, we clear the assignment immediately --->
+					<!--- Dev 4/3/2018 : since this is a position action, we clear the assignment immediately --->
 					
 					<cfset clr = "1">
 					

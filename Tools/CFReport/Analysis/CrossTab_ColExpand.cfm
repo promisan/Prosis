@@ -264,7 +264,7 @@
 		ORDER BY ListingOrder	
 </cfquery>				  
 
-<!--- Hanno : link the tables to pass the value of the dimension and then save the content into an array --->
+<!--- Dev : link the tables to pass the value of the dimension and then save the content into an array --->
   
 <cfoutput>	
 							
