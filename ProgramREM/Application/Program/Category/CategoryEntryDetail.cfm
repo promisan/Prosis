@@ -244,7 +244,7 @@
 											</cfif>
 											
 											<!--- kherrera(2020-10-26): new rules applied for GM 4--->
-											<cfif vAVGVal eq 3 AND url.mission eq 'DPPA-DPO' AND (url.period eq "F21")>
+											<cfif vAVGVal eq 3 AND url.mission eq 'DD' AND (url.period eq "F21")>
 												<cfset vAVGVal = 4>
 												<cfset vAVGLabel = "">
 											</cfif>

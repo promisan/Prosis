@@ -301,10 +301,10 @@ password="#SESSION.dbpw#">
 				   mode             = "table">			
 			  	
 		<!--- ---------------------------------------------- --->
-		<!--- ----UN OICT only as per request of segolene--- --->
+		<!--- ----UN O only as per request of segolene--- --->
 		<!--- ---------------------------------------------- --->	
 			   
-		<cfif url.mission eq "OICT">
+		<cfif url.mission eq "O">
 		
 			<!--- --------invoices processed outside -------- --->		
 			<cfinvoke component = "Service.Process.Program.IMIS"  
@@ -417,7 +417,7 @@ password="#SESSION.dbpw#">
 					 align			  = "center">
 			</td>		
 						
-			<cfif url.mission eq "OICT">
+			<cfif url.mission eq "O">
 			<td class="labelit" bgcolor="B7DBFF" align="center" style="border-left: 1px solid Gray;"><cf_space spaces="#spc#"><cf_tl id="IMIS"><br></td>						
 			<cfelse>
 			<td class="labelit" bgcolor="eeeeaf" align="center" style="border-left: 1px solid Gray;">
@@ -692,7 +692,7 @@ password="#SESSION.dbpw#">
 			
 			<td align="right" bgcolor="B7DBFF" style="#stc#">
 			
-			  <cfif url.mission eq "OICT" >
+			  <cfif url.mission eq "O" >
 			  
 			    <cfquery name="IMIS" 
 				datasource="AppsQuery" 

@@ -72,7 +72,7 @@
 	  							W.ServiceItem
 	  			FROM stCustomerMapping M 
 	  			INNER JOIN WorkOrder W on M.CustomerId = W.CustomerId 
-	  			INNER JOIN ServiceItemUnitMission S ON W.ServiceItem = S.ServiceItem and S.Mission = 'OICT' 
+	  			INNER JOIN ServiceItemUnitMission S ON W.ServiceItem = S.ServiceItem and S.Mission = 'O'
 	  			INNER JOIN ServiceItemUnit U ON U.ServiceItem = S.ServiceItem AND U.Unit = S.ServiceItemUnit
 	  			WHERE 
    					M.MappingCode = '#qServices.Organization#'
@@ -120,7 +120,7 @@
 									OfficerFirstName
 									)
 							VALUES
-							('OICT',
+							('O',
 							 '#vService#',
 							 '#qCustomer.CustomerId#',
 							 '#qCustomer.OrgUnit#',
@@ -763,7 +763,7 @@
 						S.Frequency							
 				FROM stCustomerMapping M
 				INNER JOIN WorkOrder W on  M.CustomerId = W.CustomerId
-				INNER JOIN ServiceItemUnitMission S ON W.ServiceItem = S.ServiceItem and S.Mission = 'OICT' 
+				INNER JOIN ServiceItemUnitMission S ON W.ServiceItem = S.ServiceItem and S.Mission = 'O'
 				INNER JOIN ServiceItemUnit U ON U.ServiceItem = S.ServiceItem AND U.Unit = S.ServiceItemUnit
 				WHERE W.ServiceItem = '#vService#'
 					AND M.MappingCode 	= '#vOrganization#'

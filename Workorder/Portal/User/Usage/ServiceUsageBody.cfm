@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<cfparam name="url.mission"   default="OICT">
+<cfparam name="url.mission"   default="O">
 <cfparam name="url.mode"      default="standard">
 <cfparam name="url.Year"      default="2010">
 <cfparam name="url.Month"     default="3">

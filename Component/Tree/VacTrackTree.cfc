@@ -42,7 +42,7 @@
 									 WHERE    Mission = M.Mission
 									 AND      Status != '9')									 	
 				<cfif session.welcome eq "Nova">					 
-			     AND    M.Mission IN ('DPPA-DPO','OCT')						 
+			     AND    M.Mission IN ('DD','OCT')
 				 </cfif>
 				 AND    M.MissionType != 'Planning'
 				 ORDER BY M.MissionType							 								 
@@ -102,7 +102,7 @@
 											   AND    Status != '9')
 						<!--- we better remove the module access --->	
 						<cfif session.welcome eq "Nova">				   
-						AND    M.Mission IN ('DPPA-DPO','OCT')						   
+						AND    M.Mission IN ('DD','OCT')
 						</cfif>
 						ORDER BY M.Mission
 						

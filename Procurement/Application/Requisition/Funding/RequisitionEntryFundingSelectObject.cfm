@@ -335,7 +335,7 @@ password="#SESSION.dbpw#">
 						
 	       			    AND    D.EditionId     = '#Edition#'
 						
-						<!--- added for OICT to prevent showing too many OE --->
+						<!--- added for O to prevent showing too many OE --->
 						<cfif url.fund neq "">
 						AND    D.Fund          = '#URL.Fund#'
 						</cfif>
@@ -519,8 +519,8 @@ password="#SESSION.dbpw#">
 			 display          = "Text">
 		 </td>	 		
 		
-		 <!--- UN OICT only as per request of segolene --->
-		<cfif url.mission eq "OICT" or url.mission eq "DM_FMS">		   
+		 <!--- UN O only as per request of segolene --->
+		<cfif url.mission eq "O" or url.mission eq "DM_FMS">
 			<td align="center" class="labelit" bgcolor="B7DBFF" style="#stc#"><cf_space spaces="#spc#"><cf_tl id="IMIS"><br>
 			 <cfif url.view eq "fund">			  
 				  <a href="javascript:imis('#expenditure.accountperiod#','#url.value#','','','#url.editionid#','#url.mission#','','')">[...]</a>			

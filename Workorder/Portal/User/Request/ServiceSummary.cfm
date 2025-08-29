@@ -15,7 +15,7 @@
 -->
 <cf_screentop height="100%" html="No">
 
-<cfparam name="url.mission" default="OICT">
+<cfparam name="url.mission" default="O">
 
 <cfquery name="Service" 
   datasource="AppsWorkOrder" 

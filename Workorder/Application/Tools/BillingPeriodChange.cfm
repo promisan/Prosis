@@ -91,7 +91,7 @@
 					'#ServiceItemUnitMission.DateExpiration#',
 					'administrator',
 					'NOVA Administrator',
-					'OICT - ')								
+					'O - ')
 			</cfquery>
 	
 	
@@ -140,7 +140,7 @@
 						1 AS Operational,
 					'administrator',
 					'NOVA Administrator',
-					'OICT - '																		
+					'O - '
 				FROM WorkOrderLineBillingDetail
 				WHERE WorkOrderId = '#WorkOrderLineBilling.WorkOrderId#'
 				AND WorkOrderLine = '#WorkOrderLineBilling.WorkOrderLine#'

@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <cfparam name="url.reference" default = "">
-<cfparam name="url.mission"   default="OICT">
+<cfparam name="url.mission"   default="O">
 <cfparam name="url.content"   default="">
 
 <cfif url.content eq "NonBillable">

@@ -21,8 +21,8 @@
 
 <!--- 27/12/2009 provision to correct the item master if the item master
 from some reason does no longer exist, take the default itemmaster for that object 
-this will also properly correct the item master for OICT, as we will remove
-the item master that were added temp for the OICT-M usage class --->
+this will also properly correct the item master for O, as we will remove
+the item master that were added temp for the O-M usage class --->
 
 <cfquery name="Update" 
     datasource="AppsProgram" 
@@ -74,7 +74,7 @@ the item master that were added temp for the OICT-M usage class --->
 							<!--- period is NOT a planning period itself 
 							Dev 10/10/2012 : this needs review, better to drop the isPlanning period and
 							let is be defined on the dbo.missionperiod level if a period is a plan period.
-							The below prevents for example in OICT to show B14-15 to be recorded under
+							The below prevents for example in O to show B14-15 to be recorded under
 							plan period B12-13, which is not the intention hence it was removed.
 														
 							AND    Period NOT IN (SELECT PP.Period 

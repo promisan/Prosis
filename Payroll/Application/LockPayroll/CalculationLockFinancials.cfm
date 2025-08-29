@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <!--- entity parameters to be passed for loading into GL --->
-<cfparam name="url.mission"        default="OICT">
+<cfparam name="url.mission"        default="O">
 
 <!--- added a provision to set the journal postings referenceNo to Final --->
 <!--- ------------------------------------------------------------------ --->

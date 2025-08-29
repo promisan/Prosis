@@ -20,7 +20,7 @@
 	<cfset url.id = Object.ObjectKeyValue1>	
 </cfif>
 
-<!--- temp provision only on request of FMS/OICT --->
+<!--- temp provision only on request of FMS/O --->
 
 <!--- end temp provision --->
 

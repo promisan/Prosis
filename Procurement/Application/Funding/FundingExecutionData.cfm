@@ -285,10 +285,10 @@ password="#SESSION.dbpw#">
 		   
 		  	  	
 <!--- ---------------------------------------------- --->
-<!--- ----UN OICT only as per request of segolene--- --->
+<!--- ----UN O only as per request of segolene--- --->
 <!--- ---------------------------------------------- --->	
 	   
-<cfif url.mission eq "OICT" or url.mission eq "DM_FMS">
+<cfif url.mission eq "O" or url.mission eq "DM_FMS">
 
 	<!--- --------invoices processed outside -------- --->		
 	<cfinvoke component = "Service.Process.Program.IMIS"  
@@ -382,7 +382,7 @@ password="#SESSION.dbpw#">
 			<td bgcolor="eeeeaf" align="center" style="border-left: 1px solid Gray;"><cf_space spaces="#spc#"><cf_tl id="Unliquidated"><br>[d]</td>	
 			<td bgcolor="eeeeaf" align="center" style="border-left: 1px solid Gray;"><cf_space spaces="#spc#"><cf_tl id="Disbursed"><br>[e]</td>		
 						
-			<cfif url.mission eq "OICT" or url.mission eq "DM_FMS">
+			<cfif url.mission eq "O" or url.mission eq "DM_FMS">
 			<td bgcolor="eeeeaf" align="center" style="border-left: 1px solid Gray;"><cf_space spaces="#spc#"><cf_tl id="IMIS"><br></td>						
 			<cfelse>
 			<td bgcolor="eeeeaf" align="center" style="border-left: 1px solid Gray;"><cf_space spaces="#spc#"><cf_tl id="Commitment"><br>[d+e]</td>			
@@ -754,7 +754,7 @@ password="#SESSION.dbpw#">
 		
 		<td align="right" bgcolor="B7DBFF" style="#stc#">
 		
-		  <cfif url.mission eq "OICT" or url.mission eq "DM_FMS">
+		  <cfif url.mission eq "O" or url.mission eq "DM_FMS">
 		  
 		    <cfquery name="IMIS" 
 			datasource="AppsQuery" 

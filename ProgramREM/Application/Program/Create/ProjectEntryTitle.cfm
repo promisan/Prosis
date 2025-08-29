@@ -67,20 +67,20 @@ password="#SESSION.dbpw#">
 <cf_tl class="Message" id="ProjectJustification"         var="vProjectJustification">
 <cf_tl class="Message" id="ProjectObjectives"            var="vProjectObjectives">
 	
-<cfif qGroup.Mission eq "DPA" OR qGroup.Mission eq "DPPA-DPO">
+<cfif qGroup.Mission eq "DPA" OR qGroup.Mission eq "DD">
 					
 	<!--- DPA projects --->						
 	<cfset vDisplayProblemAnalysis = "display:none;">
 			
 	<!--- Rapid Response --->
 	<cfif qGroup.ProgramGroup eq "D02">		
-		<cf_tl class="Message" id="Rapid DPPA-DPO Objective"       var="vSummarySubtitle">
-		<cf_tl class="Message" id="Rapid DPPA-DPO Requirement"     var="vRequirementsSubtitle">
-		<cf_tl class="Message" id="Rapid DPPA-DPO Justification"   var="vJustificationSubtitle">	
+		<cf_tl class="Message" id="Rapid DD Objective"       var="vSummarySubtitle">
+		<cf_tl class="Message" id="Rapid DD Requirement"     var="vRequirementsSubtitle">
+		<cf_tl class="Message" id="Rapid DD Justification"   var="vJustificationSubtitle">
 	<cfelse>
-		<cf_tl class="Message" id="Project DPPA-DPO Objective"     var="vSummarySubtitle">
-		<cf_tl class="Message" id="Project DPPA-DPO Requirement"   var="vRequirementsSubtitle">
-		<cf_tl class="Message" id="Project DPPA-DPO Justification" var="vJustificationSubtitle">								
+		<cf_tl class="Message" id="Project DD Objective"     var="vSummarySubtitle">
+		<cf_tl class="Message" id="Project DD Requirement"   var="vRequirementsSubtitle">
+		<cf_tl class="Message" id="Project DD Justification" var="vJustificationSubtitle">
 	</cfif>
 		
 <cfelse>

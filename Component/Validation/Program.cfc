@@ -736,7 +736,7 @@
 																AND MCx.Mission = CCx.Mission
 																AND CCx.ControlElement = 'Period'
 																AND CCx.ControlValue = '#get.Period#'
-												WHERE   RPCx.Area = 'DPPA Strategic Objectives'
+												WHERE   RPCx.Area = 'DD Strategic Objectives'
 												AND		MCx.Mission = '#getProgramUnit.Mission#'
 												<!---
 												AND		(MCx.OrgUnit = '#get.OrgUnit#' OR MCx.OrgUnit = '0')
@@ -872,7 +872,7 @@
 															AND MCx.Mission = CCx.Mission
 															AND CCx.ControlElement = 'Period'
 															AND CCx.ControlValue = '#get.Period#'
-											WHERE   RPCx.Area = 'DPPA Strategic Objectives'
+											WHERE   RPCx.Area = 'DD Strategic Objectives'
 											AND		MCx.Mission = '#getProgramUnit.Mission#'
 											<!---
 											AND		(MCx.OrgUnit = '#get.OrgUnit#' OR MCx.OrgUnit = '0')

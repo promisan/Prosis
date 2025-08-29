@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <!--- ---------------------------------------- --->
-<!--- --Contract service for OICT data entry-- --->
+<!--- --Contract service for O data entry-- --->
 <!--- ---------------------------------------- --->
 <!--- ---------------------------------------- --->
 

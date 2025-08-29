@@ -18,7 +18,7 @@
 <!--- --------------------------------------------- --->
 <!--- --------------------------------------------- --->
 
-<cfparam name="url.mission" default="OICT">
+<cfparam name="url.mission" default="O">
 
 <cfparam name="url.selectiondate" default="2012-11-30">
 

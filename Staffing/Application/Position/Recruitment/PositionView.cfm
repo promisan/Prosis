@@ -23,7 +23,7 @@
   </td>
   </tr>  
   
-    <cfif Position.mission eq "DPPA-DPO" or Position.mission eq "OCT">
+    <cfif Position.mission eq "DD" or Position.mission eq "OCT">
       <cfset source = "hub">
     <cfelse>
       <cfset source = "standard">
@@ -75,7 +75,7 @@
 	<cfset until = "">
  
     <!---
-	<cfif Position.mission neq "DPPA-DPO">
+	<cfif Position.mission neq "DD">
 	--->
 		
 		<cfquery name="getLast" 

@@ -14,7 +14,7 @@
     limitations under the License.
 -->
 <!--- entity parameters to be passed for loading into GL --->
-<cfparam name="url.mission"        				default="OICT">
+<cfparam name="url.mission"        				default="O">
 <cfparam name="url.settlementId"        		default="00000000-0000-0000-0000-000000000000">
 <cfparam name="settlements"             		default="">
 

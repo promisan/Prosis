@@ -18,7 +18,7 @@
         returntype="query"
         displayname="Gender stat">
 		
-		<cfargument name="Entity" type="string" default="- DPPA" required="yes">
+		<cfargument name="Entity" type="string" default="- DD" required="yes">
 		<cfargument name="SelectionDates" type="string" default="''" required="yes">
 						
 		<cfquery name="Period" 
@@ -121,7 +121,7 @@
 						COUNT(*) AS DPPADPOTotal122021
 						
 			FROM        Gender G
-			WHERE       Mission             = 'DPPA-DPO' 
+			WHERE       Mission             = 'DD'
 			AND         SelectionDate       = '12/31/2021' 
 			AND         PositionSeconded    = '0' 
 			AND         AssignmentType      <> 'LI' 
@@ -143,7 +143,7 @@
         returntype="query"
         displayname="geographic">
 		
-		<cfargument name="Entity"        type="string" 	default="- DPPA"   required="yes">	
+		<cfargument name="Entity"        type="string" 	default="- DD"   required="yes">
 		<cfargument name="SelectionDates" type="string" default="''" required="yes">
 
 		<cfquery name="Period" 
@@ -264,7 +264,7 @@
         returntype="query"
         displayname="geographic">
 		
-		<cfargument name="Entity"        type="string" 	default="- DPPA"   required="yes">		
+		<cfargument name="Entity"        type="string" 	default="- DD"   required="yes">
 		<cfargument name="SelectionDates" type="string" default="''" required="yes">
 						
 		<cfquery name="Period" 
@@ -363,7 +363,7 @@
 			COUNT(*) AS DPPADPOTotal122021
 			
 			FROM        Gender G
-			WHERE       Mission = 'DPPA-DPO' 
+			WHERE       Mission = 'DD'
 			AND         SelectionDate = '12/31/2021' 
 			AND         AssignmentType <> 'LI' 
 			AND         AppointmentTypeName <> 'xTemporary' 

@@ -383,7 +383,7 @@ password="#SESSION.dbpw#">
 								
 				</cfif>
 				
-				<!--- added 1/1/2011 because of an apparent error by OICT --->
+				<!--- added 1/1/2011 because of an apparent error by O --->
 				<cfoutput>
 				<input type="hidden" name="DocumentAmountPayable" id="DocumentAmountPayable" value="#INV.DocumentAmount#">
 				</cfoutput>	

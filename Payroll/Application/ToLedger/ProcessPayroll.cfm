@@ -14,11 +14,11 @@
     limitations under the License.
 -->
 <!--- tune template for usuage within the batch
-      enable umoja, as we keep all entries under OICT here
+      enable umoja, as we keep all entries under O here
 	  default program ---> 
 
 <!--- entity parameters to be passed for loading into GL 
-<cfparam name="mission"  default="OICT">
+<cfparam name="mission"  default="O">
 <cfparam name="url.year"     default="2011">
 --->
 
@@ -141,7 +141,7 @@ for that journal in JournalBatch this will then match the month of the payroll -
 		- Prevent double counting (stop)
 		- All defined positions do have a mapping 
 		- All Funds and programs are valid
-		- The defined programs indeed belong to OICT mission
+		- The defined programs indeed belong to O mission
 		- All lines have entry in SalarySchedulePayrollItem 
 		
 	--->

@@ -55,7 +55,7 @@
 	 
 	 AND        I.ActionStatus <> '9' 
 	 
-	 <!--- to be reviewed for now i disabled it but OICT had several in invoice that were on hold, but
+	 <!--- to be reviewed for now i disabled it but O had several in invoice that were on hold, but
 	 like the workflow existance manages partially as well
 	 AND        I.InvoiceSerialNo = 1 
 	 --->

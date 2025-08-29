@@ -778,7 +778,7 @@
 										 
 		<cfif url.mode eq "List" 		  
 		   and (Parent.Reference neq "#Period.Reference#")
-		   and (url.mission is "OICT" or url.mission is "DM_FMS")>
+		   and (url.mission is "O" or url.mission is "DM_FMS")>
 		   		   
 		  <tr><td colspan="3" height="3" style="padding-left:40px;padding-right:50px">
 		   

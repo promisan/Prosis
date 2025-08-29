@@ -139,9 +139,9 @@
 			LanguageCode    = "ENG"
 			DocumentDate	= "#vDate#"
 			Reference	    = ""
-			To			    = "Mr. Chulmin Kang, Chief<br>Central Accounts Division, DM/dev<br><br>"
-			From		    = "Yin Wang-Beissel, Chief<br>Operations Support Unit, DM/OICT<br><br>"
-			Subject		    = "ICT Services: #ServiceDescription# - #CustomerNameLong# (#CustomerName#)"
+			To			    = "Mr. user, position<br>text/dev<br><br>"
+			From		    = "user, position<br>text<br><br>"
+			Subject		    = " Services: #ServiceDescription# - #CustomerNameLong# (#CustomerName#)"
 			Logo            = "#vLogo#"
 			TitleLine1      = "#vTitleLine1#"
 			TitleLine2      = "#vTitleLine2#"
@@ -162,7 +162,7 @@
 				 	<tr >
 						<td align="right" width="5%" valign="top">1.</td>
 						<td  style="font-size:11pt" align="justify">
-							Please find attached the details of the charges to be recovered for <strong>#ServiceDescription#</strong> provided by the Office (DM/OICT) to the
+							Please find attached the details of the charges to be recovered for <strong>#ServiceDescription#</strong> provided by the Office (O) to the
 							<strong>#CustomerNameLong# (#CustomerName#)</strong> for <strong>#JournalBatchYear#</strong>, as described in the attached document and in compliance with the service request document signed by the aforementioned office.
 							<br><br>						
 						</td>

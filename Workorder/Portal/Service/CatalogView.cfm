@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<cfparam name="URL.Mission" default="OICT">
+<cfparam name="URL.Mission" default="O">
 
 <cfquery name="Parameter" 
 	datasource="AppsWorkOrder" 

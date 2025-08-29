@@ -206,8 +206,8 @@
 		 
 	 </td>	 		
 	
-	 <!--- UN OICT only as per request of segolene --->
-	<cfif url.mission eq "OICT" or url.mission eq "DM_FMS">		   
+	 <!--- UN O only as per request of segolene --->
+	<cfif url.mission eq "O" or url.mission eq "DM_FMS">
 		<td align="center" bgcolor="B7DBFF" style="#stc#"><cf_space spaces="#spc#"><cf_tl id="IMIS"><br>
 		 <cfif url.view eq "fund">			  
 			  <a href="javascript:imis('#expenditure.accountperiod#','#url.value#','','','#url.editionid#','#url.mission#','','')">[...]</a>			

@@ -554,7 +554,7 @@
 						</cfif>		
 						) as Invoice
 						
-						<cfif url.mission eq "OICT" or url.mission eq "DM_FMS">
+						<cfif url.mission eq "O" or url.mission eq "DM_FMS">
 							
 							,							
 							(
@@ -836,7 +836,7 @@
 				<td align="right" class="line" bgcolor="B7DBFF" onclick="object('#programcode#','#url.mission#','#per#','#url.period#','#programclass#','#programhierarchy#','#edition.editionid#','#fdid#','#url.unithierarchy#')"
 			    style="#stc#;background-color:##B7DBFF80">																		
 		 
-		  		 <cfif url.mission eq "OICT" or url.mission eq "DM_FMS">			   
+		  		 <cfif url.mission eq "O" or url.mission eq "DM_FMS">
 					
 					<cfif ExpenditureAmount eq "">
 					  <cfset ims = 0>

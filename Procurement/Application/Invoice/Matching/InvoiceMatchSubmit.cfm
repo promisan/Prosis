@@ -122,7 +122,7 @@
 									 WHERE  L.Journal = H.Journal
 									   AND  L.JournalSerialNo = H.JournalSerialNo
 									   AND  H.ReferenceId = '#URL.ID#')
-				<!--- 6/2/2010 by Dev for OICT processing --->
+				<!--- 6/2/2010 by Dev for O processing --->
 				OR   InvoiceIdMatched = '#URL.ID#'					   
 			</cfquery>`
 		
@@ -154,7 +154,7 @@
 								 WHERE  L.Journal = H.Journal
 								   AND  L.JournalSerialNo = H.JournalSerialNo
 								   AND  H.ReferenceId = '#URL.ID#')
-			<!--- 6/2/2010 by Dev for OICT processing --->
+			<!--- 6/2/2010 by Dev for O processing --->
 			OR   InvoiceIdMatched = '#URL.ID#'					   
 		</cfquery>
 		

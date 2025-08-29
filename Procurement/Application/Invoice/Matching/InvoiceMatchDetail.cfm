@@ -567,7 +567,7 @@ password="#SESSION.dbpw#">
 			   </cfif>			   
 		   </TR>
 		   
-		   <cfif Invoice.Mission eq "OICT" or Invoice.Mission eq "CMP">
+		   <cfif Invoice.Mission eq "O" or Invoice.Mission eq "CMP">
 		   
 			   <tr><td></td><td colspan="3">
 			   

@@ -892,7 +892,7 @@ refer to line 710
 							
 							</cfif>
 							
-							<!--- OICT/CMP UN mode take not that here we link on the requisition line and not on the purchase, there is just one (1)
+							<!--- O/CMP UN mode take not that here we link on the requisition line and not on the purchase, there is just one (1)
 							purchase order --->
 						
 							<cfquery name="Lines" 

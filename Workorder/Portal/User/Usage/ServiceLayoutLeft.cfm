@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<cfset url.mission = "OICT">
+<cfset url.mission = "O">
 
 <cfparam name="client.selectedmonth" default="">
 <cfset client.selectedmonth = "0">

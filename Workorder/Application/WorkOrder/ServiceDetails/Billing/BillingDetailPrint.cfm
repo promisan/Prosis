@@ -322,7 +322,7 @@
 				 <table width="100%" cellspacing="0" cellpadding="0" align="center" border="0">
 					 <tr>
 						 <td width="65%" style="#td03#" style="#td05#" align="left"  valign="middle">
-							<img align="center" border="0" src="#SESSION.root#/Custom/OICT/images/logo.png" >
+							<img align="center" border="0" src="#SESSION.root#/Custom/O/images/logo.png" >
 						 </td>			 
 						 <td width="35%" style="#td05#" rowspan="2">
 						 	<table width="100%" cellspacing="0" cellpadding="0" align="center" >

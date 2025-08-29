@@ -803,7 +803,7 @@
 			
 		<td align="right" bgcolor="B7DBFF" style="#ostyle#; <cfif filtermode eq 'resource'>font-weight:bold</cfif>">	
 		
-			    <cfif url.mission eq "OICT">					
+			    <cfif url.mission eq "O">
 				
 				  <cftry>
 				  

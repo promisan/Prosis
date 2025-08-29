@@ -23,7 +23,7 @@
 
 <!---
 <cfset selend = createdate (2011,6,30)>
-<cfset mission = "OICT">
+<cfset mission = "O">
 --->
 
 <cfset selstr = createdate (url.year,url.month,1)>

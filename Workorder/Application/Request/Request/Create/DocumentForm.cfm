@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<cfparam name="url.mission"       default="OICT">
+<cfparam name="url.mission"       default="O">
 <cfparam name="url.drillid"       default="">
 <cfparam name="url.requestid"     default="#url.drillid#">
 <cfparam name="url.requestline"   default="1">

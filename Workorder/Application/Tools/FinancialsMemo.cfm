@@ -30,7 +30,7 @@
 </head>
 <body>
 
-<cfparam name="url.mission" default="OICT">
+<cfparam name="url.mission" default="O">
 <cfparam name="url.serviceitem" default="CU001">
 <cfparam name="sel" default="#createdate(2012,4,1)#">
 <cfparam name="selend" default="#createdate(2012,4,30)#">
@@ -117,7 +117,7 @@
 	<cfif User.recordcount gt "0">
 		<cfif User.eMailAddress neq "">
 		
-			 	<cfset mailFromName = "OICT - Cost Recovery">
+			 	<cfset mailFromName = "O - Cost Recovery">
 				<cfset mailFromAddress = "dev@email">
 				<cfset mFrom	= "#mailFromName#<#mailFromAddress#>">		
 		

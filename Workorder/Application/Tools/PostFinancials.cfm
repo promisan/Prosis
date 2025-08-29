@@ -47,7 +47,7 @@ for some reason no longer exists, we do NOT make a correction.
  
 ---> 
 
-<cfparam name="URL.Mission"        	default="OICT">
+<cfparam name="URL.Mission"        	default="O">
 <cfparam name="URL.WorkOrderid"    	default="00000000-0000-0000-0000-000000000000">
 <cfparam name="URL.Posting"        	default="1">
 <cfparam name="schedulelogid"      	default="">
