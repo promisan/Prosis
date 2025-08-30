@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!--- old batres based dialog 
+<!--- old dev based dialog
 
 <cfparam name="url.doctypemode"         default="quirks">
 <cfparam name="url.context"             default="day">

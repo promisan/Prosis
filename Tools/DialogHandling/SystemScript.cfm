@@ -655,7 +655,7 @@
 		}
 	 }			
 	
-	// to be removed, this is the batres button which was deprecated 
+	// to be removed, this is the dev button which was deprecated
 		
 	// Start cf_button JS Functions
 	function hlbg(left,center,right,mode)   {	
