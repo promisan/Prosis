@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="components" default="'FirstLangAllow','SecLangAllow'">
 <cfparam name="correction" default="PostAd">
 <cfparam name="actionlogging" default="0">
@@ -127,7 +141,7 @@ password="#SESSION.dbpw#">
 		WHERE     PersonNo          = '#get.PersonNo#' 
 		AND       SalarySchedule    = '#get.SalarySchedule#' 
 		AND       Mission           = '#get.Mission#' 
-		AND       ActionStatus      IN ('0','1') <!--- hanno 5/2/2019 added 0 to be included based on davies 9289 who did not have his last leg closed --->
+		AND       ActionStatus      IN ('0','1') <!--- Dev 5/2/2019 added 0 to be included based on davies 9289 who did not have his last leg closed --->
 		AND       HistoricContract != '1'			        
 		ORDER BY  DateEffective DESC		
 	</cfquery>

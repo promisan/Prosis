@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.mission"          default="">
 <cfparam name="client.workactionid"  default="">
 <cfparam name="url.workactionid"     default="#client.workactionid#">
@@ -236,7 +250,7 @@
 				
 			   (
     				<!---- to point to the invoice specifically for this date 
-					For : Ronmell if you do this again, please help me to understand, took me 20 mins to align this query properly
+					For : R if you do this again, please help me to understand, took me 20 mins to align this query properly
 					and still not sure i this is the most effective query
 					----->
     				SELECT TOP 1 WorkActionId 

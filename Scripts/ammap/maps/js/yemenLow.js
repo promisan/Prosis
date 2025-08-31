@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Yemen - Low
 // areas: {id:"YE-AB"},{id:"YE-AD"},{id:"YE-AM"},{id:"YE-BA"},{id:"YE-DA"},{id:"YE-DH"},{id:"YE-HD"},{id:"YE-HJ"},{id:"YE-HU"},{id:"YE-IB"},{id:"YE-JA"},{id:"YE-LA"},{id:"YE-MA"},{id:"YE-MR"},{id:"YE-MW"},{id:"YE-RA"},{id:"YE-SA"},{id:"YE-SD"},{id:"YE-SH"},{id:"YE-SN"},{id:"YE-TA"}
 AmCharts.maps.yemenLow={

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Bosnia-Herzegovina Cantons High
 // areas: {id:"BA-01"},{id:"BA-02"},{id:"BA-03"},{id:"BA-04"},{id:"BA-05"},{id:"BA-06"},{id:"BA-07"},{id:"BA-08"},{id:"BA-09"},{id:"BA-10"},{id:"BA-BR-BR"},{id:"BA-SR-BI"},{id:"BA-SR-BJ"},{id:"BA-SR-DO"},{id:"BA-SR-FO"},{id:"BA-SR-SR"},{id:"BA-SR-TR"},{id:"BA-SR-VL"}
 AmCharts.maps.bosniaHerzegovinaCantonsHigh={

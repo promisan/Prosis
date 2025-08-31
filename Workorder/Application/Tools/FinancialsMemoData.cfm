@@ -1,7 +1,21 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfoutput>
 <cfset vLogo       = "<img src='#SESSION.root#/Images/UN_LOGO_BLUE.gif' alt='' width='64' height='57' border='0'>">
-<cfset vTitleLine1 = "United Nations">
+<cfset vTitleLine1 = "Organizations">
 <cfset vTitleLine2 = "Nations Unies" >
 <cfset vTitleLine3 = "INTEROFFICE MEMORANDUM">
 <cfset vTitleLine4 = "MEMORANDUM INTERIEUR">
@@ -125,9 +139,9 @@
 			LanguageCode    = "ENG"
 			DocumentDate	= "#vDate#"
 			Reference	    = ""
-			To			    = "Mr. Chulmin Kang, Chief<br>Central Accounts Division, DM/OPPBA<br><br>"
-			From		    = "Yin Wang-Beissel, Chief<br>Operations Support Unit, DM/OICT<br><br>"
-			Subject		    = "ICT Services: #ServiceDescription# - #CustomerNameLong# (#CustomerName#)"
+			To			    = "Mr. user, position<br>text/dev<br><br>"
+			From		    = "user, position<br>text<br><br>"
+			Subject		    = " Services: #ServiceDescription# - #CustomerNameLong# (#CustomerName#)"
 			Logo            = "#vLogo#"
 			TitleLine1      = "#vTitleLine1#"
 			TitleLine2      = "#vTitleLine2#"
@@ -148,7 +162,7 @@
 				 	<tr >
 						<td align="right" width="5%" valign="top">1.</td>
 						<td  style="font-size:11pt" align="justify">
-							Please find attached the details of the charges to be recovered for <strong>#ServiceDescription#</strong> provided by the Office of Information and Communications Technology (DM/OICT) to the 
+							Please find attached the details of the charges to be recovered for <strong>#ServiceDescription#</strong> provided by the Office (O) to the
 							<strong>#CustomerNameLong# (#CustomerName#)</strong> for <strong>#JournalBatchYear#</strong>, as described in the attached document and in compliance with the service request document signed by the aforementioned office.
 							<br><br>						
 						</td>

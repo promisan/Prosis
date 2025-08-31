@@ -1,7 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- history --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
 
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfquery name="whs" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
@@ -13,7 +24,7 @@
 
 <cf_ExchangeRate EffectiveDate="#dateformat(now(),client.dateformatshow)#" CurrencyFrom="#Application.BaseCurrency#" CurrencyTo="#whs.SaleCurrency#">
 
-<!---- added by Armin on 12/7/2015 --->
+<!---- added by dev on 12/7/2015 --->
 <cfset yr = year(now())-1>
 
 <cfif month(now())+1 gt 12>

@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfcomponent>
 
     <cfproperty name="name" type="string">
@@ -57,7 +72,7 @@
 	  							W.ServiceItem
 	  			FROM stCustomerMapping M 
 	  			INNER JOIN WorkOrder W on M.CustomerId = W.CustomerId 
-	  			INNER JOIN ServiceItemUnitMission S ON W.ServiceItem = S.ServiceItem and S.Mission = 'OICT' 
+	  			INNER JOIN ServiceItemUnitMission S ON W.ServiceItem = S.ServiceItem and S.Mission = 'O'
 	  			INNER JOIN ServiceItemUnit U ON U.ServiceItem = S.ServiceItem AND U.Unit = S.ServiceItemUnit
 	  			WHERE 
    					M.MappingCode = '#qServices.Organization#'
@@ -105,14 +120,14 @@
 									OfficerFirstName
 									)
 							VALUES
-							('OICT',
+							('O',
 							 '#vService#',
 							 '#qCustomer.CustomerId#',
 							 '#qCustomer.OrgUnit#',
 							 '2018-01-01',
-							 'jamazariegosr',
-							 'jamazariegosr',
-							 'jamazariegosr'	
+							 'jadevr',
+							 'jadevr',
+							 'jadevr'	
 							)
 						</cfquery>
 					<cfelse>
@@ -404,9 +419,9 @@
 								'#vTopic#',
 								'#vTopicValue#',
 								1,
-								'jamazariegosr',
-								'jamazariegosr',
-								'jamazariegosr'
+								'jadevr',
+								'jadevr',
+								'jadevr'
 								)
 					 	</cfquery>		
 								<br>
@@ -748,7 +763,7 @@
 						S.Frequency							
 				FROM stCustomerMapping M
 				INNER JOIN WorkOrder W on  M.CustomerId = W.CustomerId
-				INNER JOIN ServiceItemUnitMission S ON W.ServiceItem = S.ServiceItem and S.Mission = 'OICT' 
+				INNER JOIN ServiceItemUnitMission S ON W.ServiceItem = S.ServiceItem and S.Mission = 'O'
 				INNER JOIN ServiceItemUnit U ON U.ServiceItem = S.ServiceItem AND U.Unit = S.ServiceItemUnit
 				WHERE W.ServiceItem = '#vService#'
 					AND M.MappingCode 	= '#vOrganization#'
@@ -872,9 +887,9 @@
 								VALUES (
 									'UserAccount',
 									'#vEmailAddress#',
-									'jamazariegosr',
-									'jamazariegosr',
-									'jamazariegosr',
+									'jadevr',
+									'jadevr',
+									'jadevr',
 									getdate()
 									)
 				 			</cfquery>						 				
@@ -932,9 +947,9 @@
 									NULL,
 									NULL,
 								</cfif>	
-								'jamazariegosr',
-								'jamazariegosr',
-								'jamazariegosr',
+								'jadevr',
+								'jadevr',
+								'jadevr',
 								getdate(),
 								'#vFirstName# #vLastName#')
 				 			</cfquery>	
@@ -1023,9 +1038,9 @@
 								<cfif vUnitDateExpiration neq "">
 									'#vUnitDateExpiration#',
 								</cfif>	
-								'jamazariegosr',
-								'jamazariegosr',
-								'jamazariegosr',
+								'jadevr',
+								'jadevr',
+								'jadevr',
 								getdate())
 				 			</cfquery>	
 
@@ -1060,9 +1075,9 @@
 								1,
 								'USD',
 								'#vStandardCost#',
-								'jamazariegosr',
-								'jamazariegosr',
-								'jamazariegosr',
+								'jadevr',
+								'jadevr',
+								'jadevr',
 								getdate())		
 				 			</cfquery>	
 

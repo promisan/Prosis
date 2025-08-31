@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.batchid"           default="">
 <cfparam name="url.customerid"        default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.customeridinvoice" default="00000000-0000-0000-0000-000000000000">
@@ -187,7 +201,7 @@
 		---->
 		
 		<!--- <cfif getPrior.total eq getNewSale.Total> --->
-        <!--- Here we need a better way to indicate we operate in new e-invoice mode, Armin 10/6/2020 --->
+        <!--- Here we need a better way to indicate we operate in new e-invoice mode, dev 10/6/2020 --->
 		
 		<cfif getPriorTotal.total eq getNewSaleTotal.Total>
 
@@ -277,7 +291,7 @@
 	Do note that url.batchid is different from vBatchId
 	URL.batchId : is the batchId for retrieving purposes
 	vBatchId : is the generated Id that was given after calling postTransaction
-	11/13/2014 	Armin 
+	11/13/2014 	dev 
 	--->
 	
 	<cfif url.batchid neq "">

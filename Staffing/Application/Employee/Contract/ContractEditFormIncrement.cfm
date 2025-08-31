@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.reset"          default="0">
 <cfparam name="url.lastcontractid" default="">
 <cfparam name="url.eff"            default="#dateformat(now(),CLIENT.DateFormatShow)#">
@@ -104,7 +118,7 @@
 	<cfoutput>
 						
 		<select name="StepIncreaseDate" style="width:150px;<cfif url.entry eq 'edit'>border:0px</cfif>" class="<cfif url.lastcontractid eq "">regularxxl<cfelse>regularxxl</cfif>">
-			<!--- was before; rfuentes, STL tmp 
+			<!--- was before; r, STL tmp
 		     <option value="" selected><cf_tl id="No applicable"></option>
 			 
 		     <cfloop index="yr" from="#year(sel)-20#" to="#year(sel)+20#" step="1">

@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- the purpose of this template is
 
 1. View all document actions [deplaying the exact step that is due for easy 
@@ -61,8 +75,8 @@ password="#SESSION.dbpw#">
 --->
 
 <!--- ----------------------------------------------------------------------------------------------- --->
-<!--- Hanno 27/10/2014 need to tune this query so it will show ONLY if the last step has been reached --->
-<!--- Hanno 17/10/2022 was tuned --->
+<!--- Dev 27/10/2014 need to tune this query so it will show ONLY if the last step has been reached --->
+<!--- Dev 17/10/2022 was tuned --->
 <!--- ----------------------------------------------------------------------------------------------- --->
 
 <cfquery name="SearchResult"

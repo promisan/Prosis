@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Croatia - Low
 // areas: {id:"HR-01"},{id:"HR-02"},{id:"HR-03"},{id:"HR-04"},{id:"HR-05"},{id:"HR-06"},{id:"HR-07"},{id:"HR-08"},{id:"HR-09"},{id:"HR-10"},{id:"HR-11"},{id:"HR-12"},{id:"HR-13"},{id:"HR-14"},{id:"HR-15"},{id:"HR-16"},{id:"HR-17"},{id:"HR-18"},{id:"HR-19"},{id:"HR-20"},{id:"HR-21"}
 AmCharts.maps.croatiaLow={

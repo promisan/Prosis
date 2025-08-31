@@ -1,8 +1,23 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // ---
 // PhotoTagger plugin written by Ben Nadel.
 // Copyright www.bennadel.com 2010.
 // ---
-// Modified by Armin , Promisan b.v. 2015 in order to add custom functions on:
+// Modified by dev , Promisan b.v. 2015 in order to add custom functions on:
 // adding, deleting from PROSIS database
 
 // Create a self-executing function that will warp the window

@@ -1,4 +1,19 @@
 /*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
         DatePicker v5.4 by frequency-decoder.com
 
         Released under a creative commons Attribution-Share Alike 3.0 Unported license (http://creativecommons.org/licenses/by-sa/3.0/)
@@ -1013,7 +1028,7 @@ var datePickerController = (function datePickerController() {
                         b.className = b.className.replace(/fd-drag-active/g, "");
                         removeEvent(document,'mousemove',o.trackDrag, false);
                         removeEvent(document,'mouseup',o.stopDrag, false);
-                        o.div.style.zIndex = 99999; //modified by Armin 12/26/2014 - a 9 was added 
+                        o.div.style.zIndex = 99999; //modified by dev 12/26/2014 - a 9 was added 
                 }; 
                 this.onmousedown = function(e) {
                         e = e || document.parentWindow.event;
@@ -1088,7 +1103,7 @@ var datePickerController = (function datePickerController() {
                                 addEvent(document,'mouseup',o.stopDrag, false);
                                 var b = document.getElementsByTagName("body")[0];
                                 b.className = b.className.replace(/fd-drag-active/g, "") + " fd-drag-active";
-                                o.div.style.zIndex = 100000; //modified by Armin 12/26/2014 -  a 0 was added.
+                                o.div.style.zIndex = 100000; //modified by dev 12/26/2014 -  a 0 was added.
                                 
                                 return stopEvent(e);
                         };

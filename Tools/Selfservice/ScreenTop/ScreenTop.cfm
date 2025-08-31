@@ -1,5 +1,18 @@
-<!--- provisio to prevent double load --->
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.source" default="">
 
 <cfparam name="url.mid"    default="">
@@ -64,7 +77,7 @@ datasource="AppsInit">
 	<cfparam name="Attributes.width"             default="100%">
 	<cfparam name="Attributes.height"            default="">	
 		
-	<!--- to be validated Hanno 1/8/2013 --->	
+	<!--- to be validated Dev 1/8/2013 --->
 	
 	<cfparam name="Attributes.bstyle"            default="">	
 	<cfparam name="Attributes.border"            default="1">	
@@ -834,7 +847,7 @@ datasource="AppsInit">
 		<cfelseif attributes.layout eq "None">
 
 		<cfelse>
-			<!--- It seems this part is for the login in selfservice (comment by Armin 8/8/2013)--->
+			<!--- It seems this part is for the login in selfservice (comment by dev 8/8/2013)--->
 			<cfset row = "9">	
 			<cfset image = "#SESSION.root#/tools/selfservice/LoginImages">			
 														
@@ -951,7 +964,7 @@ datasource="AppsInit">
 	</cfif>
 
 	<!---
-	Removed by Armin on 29/Jan/2020
+	Removed by dev on 29/Jan/2020
 	<cfif attributes.HTML eq "No" and attributes.mail eq "No">
 		<cf_waitend>
 	</cfif>

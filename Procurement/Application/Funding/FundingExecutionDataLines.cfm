@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
  <cfquery name="getRole" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
@@ -48,7 +62,7 @@
 		
 		<!--- master views of programs to be shown in the execution view --->
 		
-		<!--- Hanno : I move the GL outside for a issue with DPA 10/10 --->
+		<!--- Dev : I move the GL outside for a issue with DPA 10/10 --->
 		
 		<cfquery name="getProgramLedger" 
 		datasource="AppsLedger" 
@@ -540,7 +554,7 @@
 						</cfif>		
 						) as Invoice
 						
-						<cfif url.mission eq "OICT" or url.mission eq "DM_FMS">
+						<cfif url.mission eq "O" or url.mission eq "DM_FMS">
 							
 							,							
 							(
@@ -822,7 +836,7 @@
 				<td align="right" class="line" bgcolor="B7DBFF" onclick="object('#programcode#','#url.mission#','#per#','#url.period#','#programclass#','#programhierarchy#','#edition.editionid#','#fdid#','#url.unithierarchy#')"
 			    style="#stc#;background-color:##B7DBFF80">																		
 		 
-		  		 <cfif url.mission eq "OICT" or url.mission eq "DM_FMS">			   
+		  		 <cfif url.mission eq "O" or url.mission eq "DM_FMS">
 					
 					<cfif ExpenditureAmount eq "">
 					  <cfset ims = 0>

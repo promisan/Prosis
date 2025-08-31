@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- steps 
 1.	submit the base values PersonNo (A) and removal PersonNo (B)
 --->
@@ -271,7 +285,7 @@ but only for documentNo that do not have already an occurance with the base (A).
 		WHERE  PersonNo = '#Form.Wrong#' 
 	</cfquery>
 
-	<!---- Below added by Armin on Jan 21 2021 ---->
+	<!---- Below added by dev on Jan 21 2021 ---->
 	<cfquery name="qCheckCustomer"
 			datasource="appsSelection" username="#SESSION.login#" password="#SESSION.dbpw#">
 		SELECT * FROM Workorder.dbo.Customer
@@ -313,8 +327,8 @@ so we make sure that tomorrow when we wake up PHP data is there for the new acco
 	
 	<cfquery name="Step6" 
 	datasource="appsSelection" 
-	username="hanno" 
-	password="hanno">
+	username="Dev"
+	password="Dev">
 		UPDATE    [nova-p-db-007].InspiraJO.dbo.CONVERSION
 		SET       PersonNo    = '#Form.Correct#',
 		          ApplicantNo = '#Step41.applicantNo#',

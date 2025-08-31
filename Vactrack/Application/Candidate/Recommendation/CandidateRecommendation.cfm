@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- candidate recommendation --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfquery name="Doc" 
 datasource="appsVacancy" 
 username="#SESSION.login#" 
@@ -28,7 +40,7 @@ password="#SESSION.dbpw#">
 			
     FROM  	Document D 
 	        INNER JOIN Applicant.dbo.FunctionOrganization F  ON D.FunctionId = F.FunctionId
-    		INNER JOIN Employee.dbo.Position as P            ON P.PositionNo = D.PositionNo   <!--- Hanno : we should use documentposition so be on the alert --->
+    		INNER JOIN Employee.dbo.Position as P            ON P.PositionNo = D.PositionNo   <!--- Dev : we should use documentposition so be on the alert --->
 			INNER JOIN Organization.dbo.Organization as Org  ON Org.OrgUnit  = P.OrgUnitOperational						
 			
     WHERE 	D.DocumentNo = '#url.documentNo#' 

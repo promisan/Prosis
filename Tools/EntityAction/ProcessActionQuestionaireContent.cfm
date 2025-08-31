@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <table style="width:95%" align="center">
 
 <!--- we initially populate the questionaire if it has already a value for the questionId --->
@@ -391,7 +405,7 @@
 		 <cfelse>	
 		 		
 		 
-		 <!-- Hanno 4/1/2023, there is only one tab in this questionaire step so we go to close it immediately --->
+		 <!-- Dev 4/1/2023, there is only one tab in this questionaire step so we go to close it immediately --->
 									   					   					   					   					 		 
 		    <input type = "button" 
 			class       = "button10g" 

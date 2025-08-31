@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Serbia No Kosovo - Low
 // areas: {id:"RS-00"},{id:"RS-01"},{id:"RS-02"},{id:"RS-03"},{id:"RS-04"},{id:"RS-05"},{id:"RS-06"},{id:"RS-07"},{id:"RS-08"},{id:"RS-09"},{id:"RS-10"},{id:"RS-11"},{id:"RS-12"},{id:"RS-13"},{id:"RS-14"},{id:"RS-15"},{id:"RS-16"},{id:"RS-17"},{id:"RS-18"},{id:"RS-19"},{id:"RS-20"},{id:"RS-21"},{id:"RS-22"},{id:"RS-23"},{id:"RS-24"}
 AmCharts.maps.serbiaNoKosovoLow={

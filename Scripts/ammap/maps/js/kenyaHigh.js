@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Kenya - High
 // areas: id:"KE-28"},{id:"KE-19"},{id:"KE-39"},{id:"KE-14"},{id:"KE-21"},{id:"KE-23"},{id:"KE-30"},{id:"KE-10"},{id:"KE-22"},{id:"KE-13"},{id:"KE-27"},{id:"KE-29"},{id:"KE-16"},{id:"KE-33"},{id:"KE-34"},{id:"KE-02"},{id:"KE-08"},{id:"KE-06"},{id:"KE-15"},{id:"KE-18"},{id:"KE-40"},{id:"KE-36"},{id:"KE-17"},{id:"KE-12"},{id:"KE-41"},{id:"KE-35"},{id:"KE-45"},{id:"KE-31"},{id:"KE-38"},{id:"KE-32"},{id:"KE-26"},{id:"KE-04"},{id:"KE-20"},{id:"KE-11"},{id:"KE-44"},{id:"KE-07"},{id:"KE-03"},{id:"KE-42"},{id:"KE-05"},{id:"KE-01"},{id:"KE-09"},{id:"KE-37"},{id:"KE-47"},{id:"KE-46"},{id:"KE-24"},{id:"KE-25"},{id:"KE-43"}
 AmCharts.maps.kenyaHigh={

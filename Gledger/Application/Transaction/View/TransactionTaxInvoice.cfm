@@ -1,7 +1,20 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<cfparam name="url.scope"        default="pos"> <!--- finance | pos --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.currency"     default="QTZ">
-<cfparam name="url.mode"         default="3">  <!--- new mode FEL by Hanno which handles discounts and enforces 12% --->
+<cfparam name="url.mode"         default="3">  <!--- new mode FEL by Dev which handles discounts and enforces 12% --->
 <cfparam name="url.terminal"     default="">
 <cfparam name="url.actionid"     default="">
 
@@ -39,7 +52,7 @@
 
 <cfif qHeader.TransactionSource eq "SalesSeries" and url.scope eq "pos">  
 		
-		<!--- Hanno : verify if this is still used
+		<!--- Dev : verify if this is still used
 		
 		this one makes still use of the V2 component also used for POS Cash and Carry --->
 	
@@ -216,7 +229,7 @@
 		
 						<cfif stResponse.Status neq "OK">	
 														   					
-							 <!--- manual 5/7/2021 by Armin	<cfset Invoice.Mode = "1"> --->
+							 <!--- manual 5/7/2021 by dev	<cfset Invoice.Mode = "1"> --->
 							 <cfset Invoice.Status = "9">
 							 <cfset Invoice.ErrorDescription = stResponse.ErrorDescription>
 							 <cfif StructKeyExists(stResponse,"ErrorDetail")>
@@ -263,7 +276,7 @@
 		   
 		    </cfoutput>   	 
 			
-			<!--- Armin : do record action and other stuff --->	
+			<!--- dev : do record action and other stuff --->	
 	
 	</cfif>
 

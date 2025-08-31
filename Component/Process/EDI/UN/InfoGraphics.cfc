@@ -1,12 +1,24 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- component for Infographics --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cffunction name="gender"
         access="public"
         returntype="query"
         displayname="Gender stat">
 		
-		<cfargument name="Entity" type="string" default="- DPPA" required="yes">
+		<cfargument name="Entity" type="string" default="- DD" required="yes">
 		<cfargument name="SelectionDates" type="string" default="''" required="yes">
 						
 		<cfquery name="Period" 
@@ -109,7 +121,7 @@
 						COUNT(*) AS DPPADPOTotal122021
 						
 			FROM        Gender G
-			WHERE       Mission             = 'DPPA-DPO' 
+			WHERE       Mission             = 'DD'
 			AND         SelectionDate       = '12/31/2021' 
 			AND         PositionSeconded    = '0' 
 			AND         AssignmentType      <> 'LI' 
@@ -131,7 +143,7 @@
         returntype="query"
         displayname="geographic">
 		
-		<cfargument name="Entity"        type="string" 	default="- DPPA"   required="yes">	
+		<cfargument name="Entity"        type="string" 	default="- DD"   required="yes">
 		<cfargument name="SelectionDates" type="string" default="''" required="yes">
 
 		<cfquery name="Period" 
@@ -252,7 +264,7 @@
         returntype="query"
         displayname="geographic">
 		
-		<cfargument name="Entity"        type="string" 	default="- DPPA"   required="yes">		
+		<cfargument name="Entity"        type="string" 	default="- DD"   required="yes">
 		<cfargument name="SelectionDates" type="string" default="''" required="yes">
 						
 		<cfquery name="Period" 
@@ -351,7 +363,7 @@
 			COUNT(*) AS DPPADPOTotal122021
 			
 			FROM        Gender G
-			WHERE       Mission = 'DPPA-DPO' 
+			WHERE       Mission = 'DD'
 			AND         SelectionDate = '12/31/2021' 
 			AND         AssignmentType <> 'LI' 
 			AND         AppointmentTypeName <> 'xTemporary' 

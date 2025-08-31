@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Uganda - High
 // areas: // areas: {id:"UG-223"},{id:"UG-329"},{id:"UG-325"},{id:"UG-425"},{id:"UG-422"},{id:"UG-424"},{id:"UG-122"},{id:"UG-118"},{id:"UG-116"},{id:"UG-124"},{id:"UG-324"},{id:"UG-328"},{id:"UG-230"},{id:"UG-225"},{id:"UG-228"},{id:"UG-421"},{id:"UG-423"},{id:"UG-420"},{id:"UG-322"},{id:"UG-330"},{id:"UG-323"},{id:"UG-326"},{id:"UG-302"},{id:"UG-327"},{id:"UG-123"},{id:"UG-319"},{id:"UG-121"},{id:"UG-119"},{id:"UG-120"},{id:"UG-117"},{id:"UG-232"},{id:"UG-227"},{id:"UG-217"},{id:"UG-226"},{id:"UG-229"},{id:"UG-224"},{id:"UG-231"},,{id:"UG-331"},{id:"UG-414"},{id:"UG-408"},{id:"UG-404"},{id:"UG-410"},{id:"UG-412"},{id:"UG-411"},{id:"UG-418"},{id:"UG-417"},{id:"UG-416"},{id:"UG-413"},{id:"UG-406"},{id:"UG-402"},{id:"UG-105"},{id:"UG-110"},{id:"UG-311"},{id:"UG-308"},{id:"UG-317"},{id:"UG-315"},{id:"UG-216"},{id:"UG-306"},{id:"UG-207"},{id:"UG-212"},{id:"UG-214"},{id:"UG-219"},{id:"UG-202"},{id:"UG-201"},{id:"UG-221"},{id:"UG-209"},{id:"UG-215"},{id:"UG-218"},{id:"UG-206"},{id:"UG-407"},{id:"UG-415"},{id:"UG-405"},{id:"UG-403"},{id:"UG-401"},{id:"UG-321"},{id:"UG-403"},{id:"UG-312"},{id:"UG-318"},{id:"UG-307"},{id:"UG-304"},{id:"UG-305"},{id:"UG-115"},{id:"UG-114"},{id:"UG-107"},{id:"UG-104"},{id:"UG-113"},{id:"UG-109"},{id:"UG-103"},{id:"UG-102"},{id:"UG-320"},{id:"UG-313"},{id:"UG-309"},{id:"UG-310"},{id:"UG-419"},{id:"UG-316"},{id:"UG-303"},{id:"UG-301"},{id:"UG-106"},{id:"UG-111"},{id:"UG-210"},{id:"UG-108"},{id:"UG-211"},{id:"UG-222"},{id:"UG-220"},{id:"UG-314"},{id:"UG-205"},{id:"UG-203"},{id:"UG-112"},{id:"UG-213"},{id:"UG-208"},{id:"UG-204"},{id:"UG-101"}
 AmCharts.maps.ugandaHigh={

@@ -1,5 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- ----------------------- --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- -----ORGANIZATION----- --->
 <!--- ---------------------- --->
 
@@ -1615,7 +1628,7 @@
 					  OrgUnitLevel="Parent"   		Description="Requisition Funding clearer" 
 					  ListingOrder="6"				Memo="May clear funding of prepared requisitions">
 	
-	<!--- Note both roles below can be set to either parent or all : Parent is default and has been set for SAT Guatemala --->
+	<!--- Note both roles below can be set to either parent or all : Parent is default and has been set for S --->
 	
 	<cf_insertRoles   Role="ProcReqCertify" 				Area="Material Management" 
 					  SystemModule="Procurement" 			SystemFunction="Requisition"
@@ -2753,7 +2766,7 @@
 		  
 </cfloop>			  
 
-<!---- Inserting role access added by Armin on 12/26/2014 ---->
+<!---- Inserting role access added by dev on 12/26/2014 ---->
 <cfquery name="qRole" 
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 

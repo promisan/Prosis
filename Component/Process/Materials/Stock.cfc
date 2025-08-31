@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- components that related to stock and its valuation --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- 
 	
 	0a. get the on hand stock levels for an item of a mission, warehouse or stock location
@@ -126,7 +138,7 @@
 				AND       ItemNo         = '#itemNo#' 
 				AND       TransactionUoM = '#UoM#'		
 				
-				<!--- Hanno 10/7/2019 
+				<!--- Dev 10/7/2019
 						likely we need to be more granular based on the transactiontype 
 						and the actionstatus of the transaction to be included 
 						receipt likely best to be status = '1'
@@ -252,7 +264,7 @@
 			
 			<cfif content eq "Basic">
 			
-			     <!--- Hanno : Can be remove, was not really used 
+			     <!--- Dev : Can be remove, was not really used
 				                       maybe for fuel at some point  --->
 							
 				<cfquery name="stock" 
@@ -1135,7 +1147,7 @@
 				    <cfset diff = round((val-getTra.TransactionValue)*corr)/corr> 
 				</cfif>	
 								
-				<cfif diff neq "0" or getGL.recordcount eq "0">		<!--- Hanno : 6/27/2017 we need to add also a comparison with the posted value, not just existance --->		
+				<cfif diff neq "0" or getGL.recordcount eq "0">		<!--- Dev : 6/27/2017 we need to add also a comparison with the posted value, not just existance --->
 																						
 					<cfif cnt eq "1">								 
 				 
@@ -2170,7 +2182,7 @@
 											
 					<cfelseif ItemVal.ValuationCode eq "Average">	
 					
-						<!--- pending Hanno --->
+						<!--- pending Dev --->
 					
 						<cfquery name="UoM" 
 						   datasource="#DataSource#" 
@@ -2184,7 +2196,7 @@
 					
 						<cfset pr = UoM.StandardCost>
 					
-					<!--- pending Hanno 
+					<!--- pending Dev
 					
 					<cfelseif ItemVal.ValuationCode eq "Last">	
 												
@@ -2997,7 +3009,7 @@
 			is to change through creating a new item or manual fix --->
 			
 						
-			<!--- To improve performance Armin changed IN statement to NOT EXIST --->
+			<!--- To improve performance dev changed IN statement to NOT EXIST --->
 						
 			<!---
 			

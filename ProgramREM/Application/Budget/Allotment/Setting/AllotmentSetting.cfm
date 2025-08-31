@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- define settings for the project, period and edition --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cf_screentop height="100%" html="no" label="Allotment Settings" line="no" user="no" scroll="no" layout="webapp" banner="blue" jquery="yes">
 
 
@@ -284,7 +296,7 @@ password="#SESSION.dbpw#">
 							WHERE     EditionId = '#url.EditionId#' 	
 						</cfquery>
 						
-						<!--- Hanno : attention this amounts are in the Finance base currency we can be different
+						<!--- Dev : attention this amounts are in the Finance base currency we can be different
 						from the budget currency, if that happens we need to convert transactions
 						back the to bufget currency unless the transaction itself was posted in the currency
 						AmountDebit - AmountCredit --->

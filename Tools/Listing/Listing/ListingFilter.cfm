@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cf_tl id="contains" var="1">
 <cfset vcontains=#lt_text#>
 <cf_tl id="begins with" var="1">
@@ -166,7 +180,7 @@
 						
 						    <cfparam name="session.listingdata[box]['queryfiltermode']" default="">									
 							
-								<!--- hanno correction to have @fields converted --->
+								<!--- Dev correction to have @fields converted --->
 							<cfset sc = filtersql>
 							<cfset fileNo = "1">	
 							<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparationVars.cfm">
@@ -214,7 +228,7 @@
 							<cfset qryfiltermode = session.listingdata[box]['queryfiltermode']>
 											
 													
-						    <!--- Hanno, we need to define what query is quicker the one that takes the base query 
+						    <!--- Dev, we need to define what query is quicker the one that takes the base query
 							   or the one that has the query of query values --->						
 						
 						    <cfif session.listingdata[box]['queryfiltermode'] eq "query">

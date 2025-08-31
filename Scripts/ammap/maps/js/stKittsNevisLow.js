@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of St. Kitts and Nevis -Low
 // areas: {id:"KN-01"},{id:"KN-02"},{id:"KN-03"},{id:"KN-04"},{id:"KN-05"},{id:"KN-06"},{id:"KN-07"},{id:"KN-08"},{id:"KN-09"},{id:"KN-10"},{id:"KN-11"},{id:"KN-12"},{id:"KN-13"},{id:"KN-15"}
 AmCharts.maps.stKittsNevisLow={

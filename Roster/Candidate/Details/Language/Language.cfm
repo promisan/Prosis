@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- Hanno : we need a provision for the online user to process it, even if allowedit = 0 --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.applicantno" default="0">
 <cfparam name="URL.ID3"         default="#url.applicantno#">
 <cfparam name="URL.ID4"         default="">
@@ -258,7 +270,7 @@ password="#SESSION.dbpw#">
 											
 							<cfif ((URL.Topic neq "All" or url.entryScope eq "Portal") and getSource.allowEdit eq "1" and getSource.operational eq "1")>
 							
-								<!--- Hanno : we need a provision for the online user to process it, even if allowedit = 0
+								<!--- Dev : we need a provision for the online user to process it, even if allowedit = 0
 									<cfif Source neq "#Parameter.PHPSource#" and URL.Topic neq "All">		
 								--->
 				

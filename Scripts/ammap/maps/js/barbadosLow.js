@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Barbados - Low
 // areas: {id:"BB-11"},{id:"BB-10"},{id:"BB-09"},{id:"BB-08"},{id:"BB-07"},{id:"BB-06"},{id:"BB-05"},{id:"BB-04"},{id:"BB-03"},{id:"BB-02"},{id:"BB-01"}
 AmCharts.maps.barbadosLow={

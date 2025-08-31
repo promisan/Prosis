@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Macedonia - Low
 // areas: {id:"MK-01"},{id:"MK-02"},{id:"MK-03"},{id:"MK-04"},{id:"MK-05"},{id:"MK-06"},{id:"MK-07"},{id:"MK-08"},{id:"MK-09"},{id:"MK-10"},{id:"MK-11"},{id:"MK-12"},{id:"MK-13"},{id:"MK-14"},{id:"MK-15"},{id:"MK-16"},{id:"MK-17"},{id:"MK-18"},{id:"MK-19"},{id:"MK-20"},{id:"MK-21"},{id:"MK-22"},{id:"MK-23"},{id:"MK-24"},{id:"MK-25"},{id:"MK-26"},{id:"MK-27"},{id:"MK-28"},{id:"MK-29"},{id:"MK-30"},{id:"MK-31"},{id:"MK-32"},{id:"MK-33"},{id:"MK-34"},{id:"MK-35"},{id:"MK-36"},{id:"MK-37"},{id:"MK-38"},{id:"MK-39"},{id:"MK-40"},{id:"MK-41"},{id:"MK-42"},{id:"MK-43"},{id:"MK-44"},{id:"MK-45"},{id:"MK-46"},{id:"MK-47"},{id:"MK-48"},{id:"MK-49"},{id:"MK-50"},{id:"MK-51"},{id:"MK-52"},{id:"MK-53"},{id:"MK-54"},{id:"MK-55"},{id:"MK-56"},{id:"MK-57"},{id:"MK-58"},{id:"MK-59"},{id:"MK-60"},{id:"MK-61"},{id:"MK-62"},{id:"MK-63"},{id:"MK-64"},{id:"MK-65"},{id:"MK-66"},{id:"MK-67"},{id:"MK-68"},{id:"MK-69"},{id:"MK-70"},{id:"MK-71"},{id:"MK-72"},{id:"MK-73"},{id:"MK-74"},{id:"MK-75"},{id:"MK-76"},{id:"MK-77"},{id:"MK-78"},{id:"MK-79"},{id:"MK-80"},{id:"MK-81"},{id:"MK-82"},{id:"MK-83"},{id:"MK-84"},{id:"MK-LKD"},{id:"MK-LKO"}
 AmCharts.maps.macedoniaLow={

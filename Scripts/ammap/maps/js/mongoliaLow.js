@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Mongolia - Low
 // areas: {id:"MN-1"},{id:"MN-035"},{id:"MN-037"},{id:"MN-039"},{id:"MN-041"},{id:"MN-043"},{id:"MN-046"},{id:"MN-047"},{id:"MN-049"},{id:"MN-051"},{id:"MN-053"},{id:"MN-055"},{id:"MN-057"},{id:"MN-059"},{id:"MN-061"},{id:"MN-063"},{id:"MN-064"},{id:"MN-065"},{id:"MN-067"},{id:"MN-069"},{id:"MN-071"},{id:"MN-073"}
 AmCharts.maps.mongoliaLow={

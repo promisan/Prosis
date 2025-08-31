@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!---  Name: /Component/Process/Program.cfc
        Description: Program procedures      
 ---> 
@@ -315,7 +329,7 @@
 			</cfquery>  	
 			
 			<!--- ------------------------ --->
-			<!--- added by hanno 17/9/2015 --->
+			<!--- added by Dev 17/9/2015 --->
 			<!--- ------------------------ --->	
 						
 			<cfif Check.DueCalculation eq "1">
@@ -375,7 +389,7 @@
 					<!--- define total ROUNDED amount requested as specified in the requirements for this object as for
 					the allotment we only apply rouneded amounts 
 					
-					Hanno : we adjust here to define the rounded RequestAmountBase AND the AmountBaseAllotment, so we have
+					Dev : we adjust here to define the rounded RequestAmountBase AND the AmountBaseAllotment, so we have
 					2 amount of which the difference will be recorded as P versus 0
 					
 					--->
@@ -1074,7 +1088,7 @@
 				
 				</cfif>		
 				
-				<!--- cleansing of overcomplete records 8/5/2014 added by Hanno --->
+				<!--- cleansing of overcomplete records 8/5/2014 added by Dev --->
 				
 				<cfquery name="InsertBudgetRequestMapping" 
 					datasource="AppsProgram" 

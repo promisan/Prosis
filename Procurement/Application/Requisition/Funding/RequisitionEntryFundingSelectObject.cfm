@@ -1,8 +1,21 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- Prosis template framework --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfsilent>
-	<proUsr>hvanpelt</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Show resources budget</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -322,7 +335,7 @@ password="#SESSION.dbpw#">
 						
 	       			    AND    D.EditionId     = '#Edition#'
 						
-						<!--- added for OICT to prevent showing too many OE --->
+						<!--- added for O to prevent showing too many OE --->
 						<cfif url.fund neq "">
 						AND    D.Fund          = '#URL.Fund#'
 						</cfif>
@@ -506,8 +519,8 @@ password="#SESSION.dbpw#">
 			 display          = "Text">
 		 </td>	 		
 		
-		 <!--- UN OICT only as per request of segolene --->
-		<cfif url.mission eq "OICT" or url.mission eq "DM_FMS">		   
+		 <!--- UN O only as per request of segolene --->
+		<cfif url.mission eq "O" or url.mission eq "DM_FMS">
 			<td align="center" class="labelit" bgcolor="B7DBFF" style="#stc#"><cf_space spaces="#spc#"><cf_tl id="IMIS"><br>
 			 <cfif url.view eq "fund">			  
 				  <a href="javascript:imis('#expenditure.accountperiod#','#url.value#','','','#url.editionid#','#url.mission#','','')">[...]</a>			

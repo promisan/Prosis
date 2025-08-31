@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <html>
 <head>
 <title>PHP General</title>
@@ -22,14 +37,14 @@
 <cfset Q14 = "7. Height [cm]">
 <cfset Q15 = "8. Weight [kg]">
 <cfset Q16 = "9. Maritial Status">
-<cfset Q17 = "10. Entry into the United Nations service might require assignment to any area of he world in which the United Nations might have responsibilities.">
+<cfset Q17 = "10. Entry into the Organizations service might require assignment to any area of he world in which the Organizations might have responsibilities.">
 <cfset Q18 = "Are there any limitations on your ability to engage in all travel?">
 <cfset Q19 = "Are there any limitations on your ability to perform in your prospective field of work?">
 <cfset Q20 = "11. Have you taken up legal permanent residence status in any country other than that of your nationality?">
 <cfset Q21 = "12. If you have taken any legal steps towards changing your present nationality, explain the circumstances:">
 <cfset Q22 = "13. What is your preferred field of work?">
 <cfset Q23 = "14. Would you accept employment for less than six months?">
-<cfset Q24 = "15. If you have previously submitted an application for employment and/or undergone any tests with the United Nations, indicate when?">
+<cfset Q24 = "15. If you have previously submitted an application for employment and/or undergone any tests with the Organizations, indicate when?">
 <cfset Q25 = "16. Have you ever been arrested, indicted, or summoned into court as a defendant in a criminal proceeding, or convicted, fined or imprisoned for the violation of any law (excluding minor traffic violations)?">
 <cfset Q26 = "Give an explanation of each">
 <cfset Q27 = "17. State any other relevant facts, include information regarding any residence outside the country of your nationality.">

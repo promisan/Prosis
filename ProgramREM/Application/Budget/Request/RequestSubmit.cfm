@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- 
 	1. insert/edit record
 	2. refresh_listing
@@ -369,7 +383,7 @@ password="#SESSION.dbpw#">
 	   
 	   <cfset processmode = "Add">
 		 
-	  <!--- attention : Object.RequirementMode added by hanno to allow for adding --->	
+	  <!--- attention : Object.RequirementMode added by Dev to allow for adding --->
 		 
 	  <!--- add new entries as we do not have any entries or we are 
 	  						 in the travel mode or we have selected ADD --->
@@ -843,7 +857,7 @@ password="#SESSION.dbpw#">
 			
 			</cfif>		 	  
 											
-			<!--- Hanno problem if you would add an lines, which did not exisit before it will not be picked up --->	
+			<!--- Dev problem if you would add an lines, which did not exisit before it will not be picked up --->
 			
 						
 			
@@ -1287,7 +1301,7 @@ password="#SESSION.dbpw#">
 			  WHERE  RequirementId = '#requirementId#'
 			</cfquery>  
 				
-			<!--- hanno removed we can NOT really remove ripples here as they might be alloted refer to
+			<!--- Dev removed we can NOT really remove ripples here as they might be alloted refer to
 			code under rippkied 9/13/2014 --->
 			
 			<!--- removed  !!!!!!!					

@@ -1,4 +1,18 @@
-				  
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfquery name="Parameter" 
 	datasource="AppsPurchase" 
 	username="#SESSION.login#" 
@@ -192,8 +206,8 @@
 		 
 	 </td>	 		
 	
-	 <!--- UN OICT only as per request of segolene --->
-	<cfif url.mission eq "OICT" or url.mission eq "DM_FMS">		   
+	 <!--- UN O only as per request of segolene --->
+	<cfif url.mission eq "O" or url.mission eq "DM_FMS">
 		<td align="center" bgcolor="B7DBFF" style="#stc#"><cf_space spaces="#spc#"><cf_tl id="IMIS"><br>
 		 <cfif url.view eq "fund">			  
 			  <a href="javascript:imis('#expenditure.accountperiod#','#url.value#','','','#url.editionid#','#url.mission#','','')">[...]</a>			

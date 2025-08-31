@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- 
 
 Button : PUBLISH
@@ -473,7 +487,7 @@ Button SEND
 
 - retrieve the nodes (Organization, OrganziationAddress) [we validate on the effective/expiration date]
 
-- generate document of note verbale (combinate standard and variable text, check with Giorgia)
+- generate document of note verbale (combinate standard and variable text, check with G)
 
 - retrieve the associated Buckets 
    
@@ -481,7 +495,7 @@ Button SEND
 	
 - trigger the email
 - save eMail action in Ref_SubmissionEditionPublish
-	[Jorge, how can we capture we delivery confirmation ?]
+	[dev, how can we capture we delivery confirmation ?]
 - Prevent sending eMails twice, unless Ref_SubnmissionEditionPublish allows for it.
 
  --->

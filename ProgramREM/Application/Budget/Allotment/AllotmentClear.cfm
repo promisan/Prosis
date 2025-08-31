@@ -1,5 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- ---------------------------------- --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- determine if clearance can be done --->
 <!--- ---------------------------------- --->
 
@@ -284,7 +297,7 @@ password="#SESSION.dbpw#">
 			
 			    <cfif Check.Status eq "0" and Parameter.EnableDonor eq "0"> <!--- handle as snapshot as it is the first submission but only if the donor option is turned off --->
 															
-					<!--- Hanno disabled 16/7/2018 , as it SHOULD go through the review part of the workflow to be openened as status = 1 and then
+					<!--- Dev disabled 16/7/2018 , as it SHOULD go through the review part of the workflow to be openened as status = 1 and then
 					picked up by the allotment process screen we have  
 					
 					<cfoutput>	

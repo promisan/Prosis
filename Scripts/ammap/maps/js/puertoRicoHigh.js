@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Puerto Rico - High
 // areas: {id:"PR-YU"},{id:"PR-YB"},{id:"PR-VL"},{id:"PR-VQ"},{id:"PR-VB"},{id:"PR-VA"},{id:"PR-UT"},{id:"PR-TJ"},{id:"PR-TB"},{id:"PR-TA"},{id:"PR-SI"},{id:"PR-SS"},{id:"PR-SL"},{id:"PR-SJ"},{id:"PR-SG"},{id:"PR-SA"},{id:"PR-SB"},{id:"PR-RG"},{id:"PR-RC"},{id:"PR-QB"},{id:"PR-PO"},{id:"PR-PN"},{id:"PR-PT"},{id:"PR-OR"},{id:"PR-NR"},{id:"PR-NG"},{id:"PR-MV"},{id:"PR-MC"},{id:"PR-MG"},{id:"PR-MG2"},{id:""},{id:"PR-MB"},{id:"PR-MR"},{id:"PR-MT"},{id:"PR-LQ"},{id:"PR-LZ"},{id:"PR-LP"},{id:"PR-LM"},{id:"PR-LR"},{id:"PR-LJ"},{id:"PR-JC"},{id:"PR-JD"},{id:"PR-JY"},{id:"PR-IS"},{id:"PR-HU"},{id:"PR-HO"},{id:"PR-HA"},{id:"PR-GR"},{id:"PR-GB"},{id:"PR-GL"},{id:"PR-GM"},{id:"PR-GC"},{id:"PR-FL"},{id:"PR-FJ"},{id:"PR-DO"},{id:"PR-CU"},{id:"PR-CZ"},{id:"PR-CM"},{id:"PR-CO"},{id:"PR-CD"},{id:"PR-CL"},{id:"PR-CB"},{id:"PR-CY"},{id:"PR-CT"},{id:"PR-CN"},{id:"PR-CV"},{id:"PR-CA"},{id:"PR-CG"},{id:"PR-CR"},{id:"PR-BY"},{id:"PR-BQ"},{id:"PR-BC"},{id:"PR-AR"},{id:"PR-AC"},{id:"PR-AN"},{id:"PR-AI"},{id:"PR-AB"},{id:"PR-AL"},{id:"PR-AD"},{id:"PR-AJ"}
 AmCharts.maps.puertoRicoHigh={

@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- standard transaction view --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.embed"   default="0">
 <cfparam name="url.id"      default="">
 <cfparam name="url.role"    default="">
@@ -41,7 +53,7 @@
 
 
 
-<!--- --------Hanno : 5/1/2015----------------------------- --->
+<!--- --------Dev : 5/1/2015----------------------------- --->
 <!--- -------move this one into a batch as sometimes------- --->
 <!--- -------it is not in balance-------------------------- --->
 

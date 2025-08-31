@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfcomponent output="false">
 
 	  <cffunction name="googlegeocoder3" returntype="query" access="public">
@@ -151,7 +166,7 @@
 	    <cfargument name="destination" required="true" type="string" default="">
 	    <cfargument name="language" required="false" type="string" default="">
 	
-		<!--- by Armin on 1/5/2015, Promisan b.v. ---->
+		<!--- by dev on 1/5/2015, Promisan b.v. ---->
 		
 		<cftry>    
 
@@ -179,7 +194,7 @@
 		      </cfif>
 
 		      
-		      <!--- This is a new key I needed to generated using our gmail account bvpromisan@gmail.com, to discuss with Hanno
+		      <!--- This is a new key I needed to generated using our gmail account dev@email, to discuss with Dev
 		      on how to add this to the client variables 1/5/2015 ---->
 		      
 		      <cfif len(trim(client.googleMAPId)) is not 0>

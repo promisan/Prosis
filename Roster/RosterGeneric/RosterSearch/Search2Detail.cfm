@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- identify matching functions --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfset cond = "F.OccupationalGroup = '#url.occ#'">
 
 <cfquery name="Parameter" 
@@ -72,7 +84,7 @@ password="#SESSION.dbpw#">
 		ORDER BY Status 
 	</cfquery>	
 	
-	<!--- 12/10/2014 : pendi ng Hanno if url.mode = vacancy we check if we have to filter the results by the to the 
+	<!--- 12/10/2014 : pendi ng Dev if url.mode = vacancy we check if we have to filter the results by the to the
 	vacancy associated buchkets as defined in the edition of that bucket --->
 		
 	<cftry>		

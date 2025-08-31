@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!---  Name: /Component/Process/Procurement/PurchaseLine.cfc
        Description: Purchase Line procedures      
 ---> 
@@ -575,7 +589,7 @@
 			                            WHERE     PF.DateEffective <= #DTE#
 										
 										<!--- Attention --->
-										<!--- Hanno 22/7 only programs that belong to this mission, maybe we should even add the ProgramPeriod here 
+										<!--- Dev 22/7 only programs that belong to this mission, maybe we should even add the ProgramPeriod here
 										as otherwise it might not show in the budget execution view if it is not enabled for that year --->
 										
 										AND       PF.ProgramCode IN (SELECT ProgramCode 

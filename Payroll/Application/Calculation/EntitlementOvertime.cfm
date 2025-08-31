@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <CF_DropTable dbName="AppsTransaction" tblName="sal#SESSION.thisprocess#Overtime">	
 
 <!--- not a good idea we only do this in the begiining _init
@@ -378,7 +392,7 @@ password="#SESSION.dbpw#">
 										 AND    CalculationBase = '#code#' )	
 		AND     S.PayrollCalcNo       = T.Line	  
 		<cfelse> 
-		AND     S.PayrollCalcNo       = T.Line	  		<!--- adjusted 23/12/2017 ronmell observation that we took the wrong calcNo --->
+		AND     S.PayrollCalcNo       = T.Line	  		<!--- adjusted 23/12/2017 R observation that we took the wrong calcNo --->
 		</cfif>
 		AND     T.CalculationBase     = '#code#' 		
 				

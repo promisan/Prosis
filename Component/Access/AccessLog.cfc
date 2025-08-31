@@ -1,5 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- 1.  removing access specific   --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- 1b. removing access request    --->
 <!--- 2.  removing acess id          --->
 <!--- 3.  removing access global     --->
@@ -290,7 +303,7 @@
 	  
 	  <cftransaction>
 	  
-		  <!--- For Nery 26/1/2012 
+		  <!--- For dev 26/1/2012 
 		     1. go to all userAuthorizationAction records with this id
 			 2. sort all applied transactions of userAuthorizationActionLog in the reverse order
 			 3. loop
@@ -961,7 +974,7 @@
 	  ORDER BY MandateDefault DESC
 </cfquery>		
 
-<!--- Hanno this is tricky once a mandate which is set as default is removed, as it will remove the access as well  but this
+<!--- Dev this is tricky once a mandate which is set as default is removed, as it will remove the access as well  but this
 is an SOP action as it is not new for other access as well --->
 
 <!--- --------------------------------------- --->

@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- 
    Name : /Component/Process/System/SystemError.cfc
    Description : Validation Functions  
@@ -148,7 +162,7 @@
 			
 			    <!--- NEW additionally we check if the SAME user/session has this link 
 				  matched in length which qualifies for now as well
-				  as we have in cfdiv the issue of the {mission} not to fire an MIP yet : Hanno 19/5/2020 --->		
+				  as we have in cfdiv the issue of the {mission} not to fire an M yet : Dev 19/5/2020 --->
 				  		
 			
 				<cfquery name="check" 
@@ -163,7 +177,7 @@
 									
 				</cfquery>	
 				
-				<!--- Hanno temp measure : an almost match qualifies for a fresh link to be given --->
+				<!--- Dev temp measure : an almost match qualifies for a fresh link to be given --->
 				
 				<cfif check.recordcount gte "1">
 				

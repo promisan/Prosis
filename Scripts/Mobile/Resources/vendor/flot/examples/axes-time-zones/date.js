@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // -----
 // The `timezoneJS.Date` object gives you full-blown timezone support, independent from the timezone set on the end-user's machine running the browser. It uses the Olson zoneinfo files for its timezone data.
 //
@@ -6,7 +21,7 @@
 // The other significant difference from the built-in JavaScript Date is that `timezoneJS.Date` also has named properties that store the values of year, month, date, etc., so it can be directly serialized to JSON and used for data transfer.
 
 /*
- * Copyright 2010 Matthew Eernisse (mde@fleegix.org)
+ * Copyright 2010 Matthew Eernisse (dev@email)
  * and Open Source Applications Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,14 +37,14 @@
  * limitations under the License.
  *
  * Credits: Ideas included from incomplete JS implementation of Olson
- * parser, "XMLDAte" by Philippe Goetz (philippe.goetz@wanadoo.fr)
+ * parser, "XMLDAte" by Philippe Goetz (dev@email)
  *
  * Contributions:
  * Jan Niehusmann
  * Ricky Romero
- * Preston Hunt (prestonhunt@gmail.com)
- * Dov. B Katz (dov.katz@morganstanley.com)
- * Peter Bergström (pbergstr@mac.com)
+ * Preston Hunt (dev@email)
+ * Dov. B Katz (dev@email)
+ * Peter Bergström (dev@email)
  * Long Ho
  */
 (function () {

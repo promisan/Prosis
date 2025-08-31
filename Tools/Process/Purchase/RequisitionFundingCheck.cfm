@@ -1,9 +1,21 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-<!--- Prosis template framework --->
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Translated</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -118,7 +130,7 @@ password="#SESSION.dbpw#">
 			   <cfset FA = "ByPass">
 						  
 		<!--- do not check the funding of this is turned-off
-		        after funding review stage introduced for SAT (Carolina) --->
+		        after funding review stage introduced for S --->
 		
 	<cfelseif (Parameter.FundingByReviewer eq "2" or Parameter.FundingByReviewer eq "1e")
 	           and
@@ -1071,7 +1083,7 @@ password="#SESSION.dbpw#">
 				        <cfset res = res+Preencum.Amount>				    
 				    </cfif>				   		 			
 												 
-					<!---- Check on -res from the below as it might giving issues for this mode Armin, 11-20-2019, no change --->							 
+					<!---- Check on -res from the below as it might giving issues for this mode dev, 11-20-2019, no change --->							 
 					<cfset bal = bud - res - obl - dis>
 
 					 

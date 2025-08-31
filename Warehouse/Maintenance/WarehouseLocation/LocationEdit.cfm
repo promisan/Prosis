@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.access" default="ALL">
 
 <cfquery name="getWhs" 
@@ -461,7 +475,7 @@ password="#SESSION.dbpw#">
 		 <td class="labelmedium" style="padding-left:6px"><cf_tl id="Issues internally"></td>
 	 </tr>	 
 		
-		 <!--- 5/5/2015 Hanno i dropped the condition if the location to be associated to an asset 
+		 <!--- 5/5/2015 Dev i dropped the condition if the location to be associated to an asset
 		 <td class="label" style="padding-left:4px">  
 		 <input type="radio" name="Distribution" id="consumption" <cfif getAsset.recordcount eq "0">disabled</cfif> value="8" <cfif "8" eq get.Distribution>checked</cfif>>
 		 </td>

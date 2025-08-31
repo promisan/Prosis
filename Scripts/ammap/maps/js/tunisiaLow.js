@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Tunisia - Low
 // areas: {id:"TN-11"},{id:"TN-12"},{id:"TN-13"},{id:"TN-14"},{id:"TN-21"},{id:"TN-22"},{id:"TN-23"},{id:"TN-31"},{id:"TN-32"},{id:"TN-33"},{id:"TN-34"},{id:"TN-41"},{id:"TN-42"},{id:"TN-43"},{id:"TN-51"},{id:"TN-52"},{id:"TN-53"},{id:"TN-61"},{id:"TN-71"},{id:"TN-72"},{id:"TN-73"},{id:"TN-81"},{id:"TN-82"},{id:"TN-83"}
 AmCharts.maps.tunisiaLow={

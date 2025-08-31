@@ -1,5 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- --------CUSTOM FORM DATA ENTRY ----------- --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- ------------------------------------------ --->
 <!--- --Consult service for Medical data entry-- --->
 <!--- ------------------------------------------ --->
@@ -148,7 +161,7 @@
 			<cfset orgunitimplementername = last.OrgUnitImplementerName>
 			<cfset lastReference          = Last.Reference>
 								
-			<!--- specific for Aldana --->
+			<!--- specific for A --->
 			
 			<cfquery name="topic" 
 			 datasource="AppsSelection" 
@@ -157,7 +170,7 @@
 			 
 				SELECT    TopicValue
 				FROM      ApplicantSubmissionTopic
-				WHERE     Topic = 'MED102' <!--- specific for Aldana 7/10/2016 --->
+				WHERE     Topic = 'MED102' <!--- specific for A 7/10/2016 --->
 				AND       ApplicantNo IN (SELECT ApplicantNo 
 				                          FROM   ApplicantSubmission 
 										  WHERE  PersonNo= '#customer.personno#')
@@ -733,7 +746,7 @@
 		<td  height="34" colspan="2" style="padding-left:4px;height:30px;font-size:16px;font-weight:bold" class="labelmedium2" width="15%"><cf_tl id="Planned actions"></td>
 	</tr>
 			
-	<!--- Note for the file : Hanno 10/10/2016 ------------------------------------------------------- --->
+	<!--- Note for the file : Dev 10/10/2016 ------------------------------------------------------- --->
 	<!--- attention : if the implementing orgunit changes 
 	     we should allow here to pass a different orgunit for the action fields : this is pending here --->
 	<!--- -------------------------------------------------------------------------------------------- --->	 

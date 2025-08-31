@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfcomponent>
 
 	<cfproperty name="name" type="string">
@@ -144,7 +159,7 @@
 
 		<cfif getHeader.recordcount neq 0>
 				
-				<!--- generate a tmp table to group the debit using program/fund/objectcode, but for the credits MIP/UNJSPF, it doesn't matter --->
+				<!--- generate a tmp table to group the debit using program/fund/objectcode, but for the credits M, it doesn't matter --->
 				
 				<cfquery name="qPreparation" 
 					datasource="AppsPayroll" 
@@ -160,7 +175,7 @@
 											TL.GLAccount
 						            WHEN TL.Reference = 'Payroll cost'
 						           		THEN '820000'
-									WHEN TL.Reference = 'Liability' AND TL.GLAccount NOT IN ('4021','4022','4023','4024','4025','4026' /*MIP*/
+									WHEN TL.Reference = 'Liability' AND TL.GLAccount NOT IN ('4021','4022','4023','4024','4025','4026' /*M*/
 																	,'4041','4042','4043','4044','4045','4046'/**/)  /*the ones that don't need program/fund/OE, all others costs.*/
 										THEN '820000'
 						            ELSE GLAccount
@@ -183,7 +198,7 @@
 						            WHEN TL.Reference = 'Payroll cost'
 							            THEN GLAccount 
 									WHEN TL.Reference = 'Liability' 
-										AND TL.GLAccount NOT IN ('4021','4022','4023','4024','4025','4026' /*MIP*/
+										AND TL.GLAccount NOT IN ('4021','4022','4023','4024','4025','4026' /*M*/
 																,'4041','4042','4043','4044','4045','4046'/**/) 
 										AND TL.GLAccount != (SELECT GLAccount FROM Employee.dbo.PersonGLedger WHERE Area ='Payroll' and PersonNo = TL.memo)
 										THEN GLAccount 
@@ -213,7 +228,7 @@
 				        AND     (
 							 		(TL.Glaccount != '#getSchedule.GlAccount#' 	AND TL.GlAccount != '2161')
 						          OR (TL.GLAccount = '2161'						AND TL.TransactionSerialNo != '0')
-								  OR (TL.GLAccount = '2161' 					AND TL.TransactionSerialNo = '0' 			AND TL.Reference = 'Liability') <!--- added by Ronmell  --->
+								  OR (TL.GLAccount = '2161' 					AND TL.TransactionSerialNo = '0' 			AND TL.Reference = 'Liability') <!--- added by R  --->
 								 )
 								 
 						<!--- special if this is viewed from the Persons profile --->
@@ -270,7 +285,7 @@
 												
 						UNION ALL
 						
-						<!--- now the Credits for the payroll costs, meaning: MIP/UNJSPF --->
+						<!--- now the Credits for the payroll costs, meaning: < --->
 						
 						SELECT 	 '1.1' type, Journal, JournalSerialNo, GLAccount, DateDue, DatePrepared, Reference,  
 								 ReferenceName, ''Program, ''Fund, ''ProgramPeriod, ''ProgramCode, ''ObjectCode, Currency,
@@ -340,7 +355,7 @@
 								AND   ESL.PersonNo = TL.ReferenceNo
 								AND   TL.TransactionSerialNo = 0 
 						WHERE ESL.Source             = 'Offset'
-						<!--- hanno added 25/4 --->
+						<!--- Dev added 25/4 --->
 						<!--- AND   TL.TansactionAmount > 0 --->
 						<!--- ---------------- --->
 						AND   ESL.Journal 		     = '#getHeader.Journal#'
@@ -394,7 +409,7 @@
 						AND    TH.ReferencePersonNo = '#ForPersonNo#'
 						</cfif>
 						
-						<!--- hanno added 25/4 --->
+						<!--- Dev added 25/4 --->
 						
 						AND     (TL.Reference != 'Offset' 
 						          or (TL.Reference = 'Offset' AND TL.TransactionAmount > 0)
@@ -715,7 +730,7 @@
 					WHERE  Program = '' 
 			    </cfquery>
 								 
-				 <!--- RFUENTES CHANGED on 15Jan2018
+				 <!--- r CHANGED on 15Jan2018
 				 Accordingto Werner on email with subject Reconciliation of progen and prosis Marian did.
 				 NOTHING that came from SUN must return as credit or debit to the budget, so here 
 				 we initially collect the miscellaneous as Staff members account, here we DEDUCTED FROM
@@ -811,7 +826,7 @@
 				<cfif qCheck.recordcount eq 0>
 				
 						<!--- Column 6 history, 
-							by Armin
+							by dev
 							17/01/2018, please note the replacement statement 
 							SUN expects 2017 as 217, 2018 as 218, 2029 as 229
 							The reason for this is unknown at this time
@@ -1470,10 +1485,10 @@
 			WHERE 	  Ref.Description NOT LIKE '%of HPE on SEPARATION%'
 				AND   	Ref.Description NOT LIKE '%REPATRIATION GRANT%'
 				AND     (
-							(tmp1.GLaccountLiability NOT IN ('4021','4022','4023','4024','4025','4026') /*prov MIP*/ 
-							AND     tmp1.GLAccount NOT IN ('2131','2231','2164','2264')/*MIP Deductions*/
+							(tmp1.GLaccountLiability NOT IN ('4021','4022','4023','4024','4025','4026') /*prov M*/
+							AND     tmp1.GLAccount NOT IN ('2131','2231','2164','2264')/*M Deductions*/
 							)
-							OR tmp1.GLAccount IN ('2131','2231','2164','2264')/*MIP Deductions*/
+							OR tmp1.GLAccount IN ('2131','2231','2164','2264')/*M Deductions*/
 						)
 				AND     (
 							(tmp1.GLaccountLiability NOT IN ('4041','4042','4043','4044','4045','4046')/*prov pens*/
@@ -1483,11 +1498,11 @@
 						)
 				AND tmp1.PayrollItem NOT IN ('M23')
 
-		<!--- portion for the MIP/PENS provision ---->
+		<!--- portion for the M provision ---->
 		
 		UNION ALL
 		
-		SELECT	'MIP Provision' as Column0,
+		SELECT	'M Provision' as Column0,
 				'1' as order_,
 				'530002' 																as Column1
 				,CAST(YEAR(DateDue) as VARCHAR(4))
@@ -1523,8 +1538,8 @@
 						--->
 						
 				FROM     userQuery.dbo.#tmptbl_PC# as TMP11
-				WHERE    tmp11.GLaccount IN ('2131','2231','2264')/*MIP Deductions*/
-				OR       tmp11.GLaccountLiability IN ('4021','4022','4023','4024','4025','4026') /*prov MIP*/
+				WHERE    tmp11.GLaccount IN ('2131','2231','2264')/*M Deductions*/
+				OR       tmp11.GLaccountLiability IN ('4021','4022','4023','4024','4025','4026') /*prov M*/
 				GROUP BY DateDue,
 				         DatePrepared,
 						 Currency,

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Cambodia - Low
 // areas: {id:"KH-1"},{id:"KH-2"},{id:"KH-3"},{id:"KH-4"},{id:"KH-5"},{id:"KH-6"},{id:"KH-7"},{id:"KH-8"},{id:"KH-9"},{id:"KH-10"},{id:"KH-11"},{id:"KH-12"},{id:"KH-13"},{id:"KH-14"},{id:"KH-15"},{id:"KH-16"},{id:"KH-17"},{id:"KH-18"},{id:"KH-19"},{id:"KH-20"},{id:"KH-21"},{id:"KH-22"},{id:"KH-23"},{id:"KH-24"}
 AmCharts.maps.cambodiaLow={

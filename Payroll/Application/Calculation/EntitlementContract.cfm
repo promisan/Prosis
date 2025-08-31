@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- Generates the Salary based on the contract trigger and its associated components as a 1:N relationship 
 	I.  Create data set of rates (YEARLY, MONTH, DAY )
 	II. Create data set with rates to be used
@@ -285,7 +299,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <!--- ATTENTION to read from SalaryScaleComponent file --->
-<!--- SPECIAL SALARY DAY RATES : Bono SAT aniversario --->
+<!--- SPECIAL SALARY DAY RATES : Bono S aniversario --->
 
 <cfquery name="DayRate" 
 datasource="AppsPayroll" 
@@ -492,7 +506,7 @@ password="#SESSION.dbpw#">
 					 PaymentCurrency, 					 
 					 
 					 <!--- the below  amounts are used for successive calculation processing for other component --->					 
-					 EntitlementAmountFull, <!--- EntitlementAmountBase corrected 9/22/2017 Hanno after Karin reported percentages for overtime were not applied correctly --->												  
+					 EntitlementAmountFull, <!--- EntitlementAmountBase corrected 9/22/2017 Dev after Karin reported percentages for overtime were not applied correctly --->
 					 EntitlementAmountDays,
 					 EntitlementAmountBase,						 					 
 					 EntitlementAmount,

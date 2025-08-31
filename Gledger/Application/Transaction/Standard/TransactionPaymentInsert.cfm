@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- 16/2/2009 : Automatic offset account --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="FORM.recordno" default="0">
 <cfparam name="FORM.selected" default="">
 
@@ -361,7 +373,7 @@ password="#SESSION.dbpw#">
 						   '#serNo#',
 						   newid(),
 						   <!--- removed 14/10/2014 based on the fact that this is not a line but a header reference 
-						        16/9/2016 reverted by Hanno with issue for CICIG mode --->
+						        16/9/2016 reverted by Dev with issue for Cmode --->
 						   '#TransactionId#', 
 						   #tradte#,
 						   '#Advance.GLAccount#',            <!--- offset against the same account --->

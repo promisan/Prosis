@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="CLIENT.Sort" default="Gender">
 
 <cfif CLIENT.Sort neq "Continent" and
@@ -224,7 +238,7 @@ password="#SESSION.dbpw#">
                    Applicant A ON R.PersonNo = A.PersonNo INNER JOIN
                    ApplicantSubmission H ON R.PersonNo = H.PersonNo INNER JOIN
                    System.dbo.Ref_Nation N ON A.Nationality = N.Code LEFT OUTER JOIN				   
-                   Employee.dbo.skPersonContract C ON A.IndexNo = C.IndexNo	AND C.IndexNo <> '' <!--- added by Hanno to prevent duplicates --->	
+                   Employee.dbo.skPersonContract C ON A.IndexNo = C.IndexNo	AND C.IndexNo <> '' <!--- added by Dev to prevent duplicates --->
 				   
 		  WHERE  R.SearchId = #URL.ID1#	   					  
 			 
@@ -326,7 +340,7 @@ password="#SESSION.dbpw#">
 																    WHERE  SearchId    = #URL.ID1#
 																    AND    SearchClass = 'Function')) 	
 			   
-			   <!--- added on the request of charles --->
+			   <!--- added on the request of ch --->
 			   																		
 			   AND A.Status IN (
 			   		      SELECT SelectID 

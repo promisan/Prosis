@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Iceland - Low
 // areas: {id:"GL1"},{id:"GL2"},{id:"GL3"},{id:"GL4"},{id:"GL5"},{id:"GL6"},{id:"GL7"},{id:"GL8"},{id:" GL9"},{id:"GL10"},{id:"IS-1"},{id:"IS-2"},{id:"IS-3"},{id:"IS-4"},{id:"IS-5"},{id:"IS-6"},{id:"IS-7"},{id:"IS-8"}
 AmCharts.maps.icelandLow={

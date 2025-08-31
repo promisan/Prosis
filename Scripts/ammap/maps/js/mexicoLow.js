@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Mexico
 // areas: {id:"MX-AGU"},{id:"MX-BCN"},{id:"MX-BCS"},{id:"MX-CAM"},{id:"MX-CHP"},{id:"MX-CHH"},{id:"MX-COA"},{id:"MX-OCL"},{id:"MX-DIF"},{id:"MX-DUR"},{id:"MX-GUA"},{id:"MX-GRO"},{id:"MX-HID"},{id:"MX-JAL"},{id:"MX-MEX"},{id:"MX-MIC"},{id:"MX-MOR"},{id:"MX-NAY"},{id:"MX-NLE"},{id:"MX-OAX"},{id:"MX-PUE"},{id:"MX-QUE"},{id:"MX-ROO"},{id:"MX-SLP"},{id:"MX-SIN"},{id:"MX-SON"},{id:"MX-TAB"},{id:"MX-TAM"},{id:"MX-TLA"},{id:"MX-VER"},{id:"MX-YUC"},{id:"MX-ZAC"}
 AmCharts.maps.mexicoLow={

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Spain - Custom - Low
 // areas: {id:"divider"},{id:"ES-AN"},{id:"ES-AR"},{id:"ES-AS"},{id:"ES-CB"},{id:"ES-CE"},{id:"ES-CL"},{id:"ES-CM"},{id:"ES-CN"},{id:"ES-CT"},{id:"ES-EX"},{id:"ES-GA"},{id:"ES-IB"},{id:"ES-MC"},{id:"ES-MD"},{id:"ES-ML"},{id:"ES-NC"},{id:"ES-PV"},{id:"ES-RI"},{id:"ES-VC"}
 AmCharts.maps.spain2Low={

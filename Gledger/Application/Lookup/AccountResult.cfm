@@ -1,5 +1,18 @@
-<!--- Create Criteria string for query from data entered thru search form --->
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfquery name="GLAccount"
 datasource="AppsLedger" 
 username="#SESSION.login#" 
@@ -291,7 +304,7 @@ password="#SESSION.dbpw#">
 		    </select>
 			</td>			
 						 
-			  <!---- RFUENTES 5/21/2015, set this filter only for the Result accounts --->
+			  <!---- r 5/21/2015, set this filter only for the Result accounts --->
 			  
 			 <cfif GLACcount.AccountClass eq "Result">
 			 	<td class="labelmedium2" style="padding-left:3px;;border-right:0px"><cf_tl id="Warehouse"></td>

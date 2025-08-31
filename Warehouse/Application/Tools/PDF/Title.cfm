@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 	<cfif vSlogan>
          <draw name="Rectangle1" y="6.35mm" w="203.2mm" h="9.525mm">
             <value>
@@ -18,7 +33,7 @@
                <textEdit/>
             </ui>
             <value>
-               <text>United Nations                                                       Nations Unies</text>
+               <text>Organizations                                                       Nations Unies</text>
             </value>
             <font typeface="Myriad Pro"/>
             <margin topInset="0.5mm" bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm"/>

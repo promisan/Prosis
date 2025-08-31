@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Ukraine - Low
 // areas: {id:"UA-40"},{id:"UA-43"},{id:"UA-71"},{id:"UA-74"},{id:"UA-77"},{id:"UA-12"},{id:"UA-14"},{id:"UA-26"},{id:"UA-63"},{id:"UA-65"},{id:"UA-68"},{id:"UA-30"},{id:"UA-32"},{id:"UA-35"},{id:"UA-09"},{id:"UA-46"},{id:"UA-48"},{id:"UA-51"},{id:"UA-53"},{id:"UA-56"},{id:"UA-59"},{id:"UA-61"},{id:"UA-21"},{id:"UA-05"},{id:"UA-07"},{id:"UA-23"},{id:"UA-18"}
 AmCharts.maps.ukraineLow={

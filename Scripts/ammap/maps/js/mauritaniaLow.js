@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Mauritania - Low
 // areas: {id:"MR-09"},{id:"MR-02"},{id:"MR-01"},{id:"MR-07"},{id:"MR-04"},{id:"MR-10"},{id:"MR-03"},{id:"MR-06"},{id:"MR-13"},{id:"MR-12"},{id:"MR-08"},{id:"MR-05"},{id:"MR-11"},{id:"MR-"}
 AmCharts.maps.mauritaniaLow={

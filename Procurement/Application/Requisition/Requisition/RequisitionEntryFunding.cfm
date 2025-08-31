@@ -1,7 +1,21 @@
-<!--- Prosis template framework --->
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Jorge Mazariegos</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>dev dev</proOwn>
 	<proDes>Translated</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -150,7 +164,7 @@
 	
 	<cfset reviewflow = Requisition.ReviewClass>
 	
-	<!--- Hanno note : this is for the CMP additional budget, 
+	<!--- Dev note : this is for the CMP additional budget,
 	    however I am not certain on its purpose at this moment 17 May 2010, it cleans if there is not flow, which is right I believe --->
 	
 	<cfif reviewflow eq "">
@@ -277,7 +291,7 @@ password="#SESSION.dbpw#">
           or	<!--- 1. no itemmaster defined yet --->
          (url.enforceFund eq "0" 		 
 		     and Parameter.FundingByReviewer eq "2" 
-			 and fullfunded.total eq "1"  <!--- Hanno 17/1/2011 added to show the funding if it is not fully funded yet --->
+			 and fullfunded.total eq "1"  <!--- Dev 17/1/2011 added to show the funding if it is not fully funded yet --->
 			 
 			 <!---  hide if the status is passed and user has not right for funding   --->			 
 			 <!--- 8/8/2010 removed  or Requisition.ActionStatus gte "3" in the below ---> 

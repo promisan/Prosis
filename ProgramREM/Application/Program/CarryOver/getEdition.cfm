@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- show relevant editions --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfquery name="Period" 
 	datasource="AppsProgram"  
     username="#SESSION.login#" 
@@ -40,9 +52,9 @@
 							</cfif>
 																		
 							<!--- period is NOT a planning period itself 
-							Hanno 10/10/2012 : this needs review, better to drop the isPlanning period and
+							Dev 10/10/2012 : this needs review, better to drop the isPlanning period and
 							let is be defined on the dbo.missionperiod level if a period is a plan period.
-							The below prevents for example in OICT to show B14-15 to be recorded under
+							The below prevents for example in O to show B14-15 to be recorded under
 							plan period B12-13, which is not the intention hence it was removed.
 							
 							

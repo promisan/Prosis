@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Uruguay - High
 // areas: // areas: {id:"UY-RN"},{id:"UY-PA"},{id:"UY-FS"},{id:"UY-AR"},{id:"UY-SJ"},{id:"UY-CO"},{id:"UY-RO"},{id:"UY-MO"},{id:"UY-MA"},{id:"UY-LA"},{id:"UY-FD"},{id:"UY-CA"},{id:"UY-TT"},{id:"UY-TA"},{id:"UY-RV"},{id:"UY-DU"},{id:"UY-CL"},{id:"UY-SO"},{id:"UY-SA"}
 AmCharts.maps.uruguayHigh={

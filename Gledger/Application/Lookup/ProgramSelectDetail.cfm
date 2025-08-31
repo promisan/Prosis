@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- provision to select only mission --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
     <cfquery name="Parameter" 
 	datasource="AppsLedger" 
 	username="#SESSION.login#" 
@@ -46,7 +58,7 @@
 	    <cfif url.idParent neq "">
 		AND ProgramClass = '#URL.IDParent#'
 		</cfif>		
-		<!--- Removed by Armin October 9th 2012
+		<!--- Removed by dev October 9th 2012
 		 AND ProgramScope = 'Unit' the lookup should allow for including also "global programs"
 		---->
 		AND Pe.RecordStatus != '9'

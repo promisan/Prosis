@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfquery name="Entity" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
@@ -128,7 +142,7 @@
 	WHERE EntityCode = '#URL.EntityCode#'
 	AND EntityClass  = '#URL.EntityClass#'
 	AND ActionCode != '#URL.ActionCode#' 
-	<!--- Hanno 29/05/05 
+	<!--- Dev 29/05/05
 	AND ActionCode NOT IN (SELECT ActionGoToYes
 	                         FROM Ref_EntityClassAction
 							 WHERE ActionGoToYes > ''

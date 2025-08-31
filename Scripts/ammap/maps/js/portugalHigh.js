@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Portugal - High
 // areas: {id:"PT-01"},{id:"PT-02"},{id:"PT-03"},{id:"PT-04"},{id:"PT-05"},{id:"PT-06"},{id:"PT-07"},{id:"PT-08"},{id:"PT-09"},{id:"PT-10"},{id:"PT-11"},{id:"PT-12"},{id:"PT-13"},{id:"PT-14"},{id:"PT-15"},{id:"PT-16"},{id:"PT-17"},{id:"PT-18"},{id:"PT-20"},{id:"PT-30"}
 AmCharts.maps.portugalHigh={

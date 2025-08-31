@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Paraguay - High
 // areas: {id:"PY-7"},{id:"PY-14"},{id:"PY-6"},{id:"PY-5"},{id:"PY-10"},{id:"PY-13"},{id:"PY-9"},{id:"PY-12"},{id:"PY-8"},{id:"PY-4"},{id:"PY-11"},{id:"PY-2"},{id:"PY-15"},{id:"PY-3"},{id:"PY-1"},{id:"PY-19"},{id:"PY-16"},{id:"PY-ASU"}
 AmCharts.maps.paraguayHigh={

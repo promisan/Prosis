@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of The Bahamas - Low
 // areas: {id:"BS-HT"},{id:"BS-BI"},{id:"BS-IN"},{id:"BS-MG"},{id:"BS-AK"},{id:"BS-CK"},{id:"BS-RI"},{id:"BS-LI"},{id:"BS-RC"},{id:"BS-SS"},{id:"BS-CI"},{id:"BS-SE"},{id:"BS-CE"},{id:"BS-NE"},{id:"BS-HI"},{id:"BS-SW"},{id:"BS-EX"},{id:"BS-BP"},{id:"BS-SA"},{id:"BS-MC"},{id:"BS-CS"},{id:"BS-NS"},{id:"BS-BY"},{id:"BS-MI"},{id:"BS-SO"},{id:"BS-CO"},{id:"BS-NO"},{id:"BS-GC"},{id:"BS-EG"},{id:"BS-WG"},{id:"BS-FP"},{id:"BS-NP"}
 AmCharts.maps.bahamasLow={

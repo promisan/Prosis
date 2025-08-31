@@ -1,7 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
 
-
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfajaximport tags="cfdiv">
 
 <cfset CLIENT.init = "No">	
@@ -138,7 +149,7 @@
 		<script src="../Scripts/cfajax.js" type="text/javascript"></script>
 		<cf_UIGadgets>
 
-		<!--- ADDED BY HANNO TO PREVENT RIGHT-CLICK --->
+		<!--- ADDED BY Dev TO PREVENT RIGHT-CLICK --->
 		<cfif getAdministrator("*") eq "0">		
 			<script>
 				document.oncontextmenu=new Function("return false")
@@ -146,7 +157,7 @@
 		</cfif>
 		
 		<cfif thisbrowser.name eq "Explorer" and thisbrowser.release lte "10">				
-			<!--- Hanno : TEMP measurement only.
+			<!--- Dev : TEMP measurement only.
 			    we force the disabled mode as otherwise we have a ajax called superseding the IE9 - IE8 settings for the menu --->								
 			<cf_SystemScript force="1">
 		<cfelse>

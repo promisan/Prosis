@@ -1,4 +1,18 @@
-<!--- we save the content into a field --->
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfset cnt = 0>	
 <cfparam name  = "rowshow" default="1">
 
@@ -25,7 +39,7 @@
 				<cfif rowshow eq "2" and last2nd eq current.label>
 						   
 				   <!--- fill the cols of the second row --->
-				   <!--- <cfset colspan = col - (cols2nd-current.colspan) +1> This formula didn't work - Nery Nov 29th '11--->
+				   <!--- <cfset colspan = col - (cols2nd-current.colspan) +1> This formula didn't work - dev Nov 29th '11--->
 		   		   <!--- +1 added for the last column annotation --->
 				   <cfset colspan = cols2nd-current.colspan> 
 				   
@@ -436,7 +450,7 @@
 																					
 				<cfelse>					
 				    				
-					<!--- Hanno 11/1/2021 : does not work needs fixed size
+					<!--- Dev 11/1/2021 : does not work needs fixed size
 					<cfset cellstyle  = "text-overflow: ellipsis;overflow:hidden;white-space:nowrap">
 					--->
 					

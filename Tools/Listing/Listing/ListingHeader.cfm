@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfoutput>
 
 <cfset stl = "cursor:pointer;font-size:12px;height:30px">
@@ -272,7 +287,7 @@
 	
 	<cfif presentation eq "group" and url.listcolumn1 neq "">
 	
-		<!--- added by hanno to control the spacing --->
+		<!--- added by Dev to control the spacing --->
 		<td style="width:10%;border-left: 1px solid silver"></td>
 		<cfset totalcols = totalcols+1>
 	

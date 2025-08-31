@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.scope"    default="profile">
 <cfparam name="url.source"   default="">
 
@@ -131,7 +145,7 @@ d. does not exist in the default roster yet --->
 
 <cfif Parameter.DefaultRosterAdd eq "1">
 
-<!--- Hanno : the sole purpose of this is sync any qualifying buckets from this
+<!--- Dev : the sole purpose of this is sync any qualifying buckets from this
 owner to the default roster under DIRECT (no VA related)
 and use this to manage candidates in general to be rostered in general. --->
 
@@ -222,7 +236,7 @@ AND    R.ShowRosterSearch = 1  <!--- was AND    M.Status NOT IN ('5','9') out of
 
 	<cfif Parameter.DefaultRoster eq "#URL.ID1#">
 		AND   V.FunctionRoster = '1'
-<!--- remove by hanno to enable for titles that are intended for the roster
+<!--- remove by Dev to enable for titles that are intended for the roster
 AND   R.ReferenceNo IN ('Direct','direct')
 --->
 	</cfif>

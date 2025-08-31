@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Turkey - Low
 // areas: {id:"TR-01"},{id:"TR-02"},{id:"TR-03"},{id:"TR-04"},{id:"TR-68"},{id:"TR-05"},{id:"TR-06"},{id:"TR-07"},{id:"TR-75"},{id:"TR-08"},{id:"TR-09"},{id:"TR-10"},{id:"TR-74"},{id:"TR-72"},{id:"TR-69"},{id:"TR-11"},{id:"TR-12"},{id:"TR-13"},{id:"TR-14"},{id:"TR-15"},{id:"TR-16"},{id:"TR-17"},{id:"TR-18"},{id:"TR-19"},{id:"TR-20"},{id:"TR-21"},{id:"TR-81"},{id:"TR-22"},{id:"TR-23"},{id:"TR-24"},{id:"TR-25"},{id:"TR-26"},{id:"TR-27"},{id:"TR-28"},{id:"TR-29"},{id:"TR-30"},{id:"TR-31"},{id:"TR-33"},{id:"TR-36"},{id:"TR-32"},{id:"TR-34"},{id:"TR-35"},{id:"TR-46"},{id:"TR-78"},{id:"TR-70"},{id:"TR-36"},{id:"TR-37"},{id:"TR-38"},{id:"TR-79"},{id:"TR-71"},{id:"TR-39"},{id:"TR-40"},{id:"TR-41"},{id:"TR-42"},{id:"TR-43"},{id:"TR-44"},{id:"TR-45"},{id:"TR-47"},{id:"TR-48"},{id:"TR-49"},{id:"TR-50"},{id:"TR-51"},{id:"TR-52"},{id:"TR-80"},{id:"TR-53"},{id:"TR-54"},{id:"TR-55"},{id:"TR-63"},{id:"TR-56"},{id:"TR-57"},{id:"TR-73"},{id:"TR-58"},{id:"TR-59"},{id:"TR-60"},{id:"TR-61"},{id:"TR-62"},{id:"TR-64"},{id:"TR-65"},{id:"TR-77"},{id:"TR-66"},{id:"TR-67"}
 AmCharts.maps.turkeyLow={

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Finland - Low
 // areas: {id:"FI-01"},{id:"FI-02"},{id:"FI-03"},{id:"FI-04"},{id:"FI-05"},{id:"FI-06"},{id:"FI-07"},{id:"FI-08"},{id:"FI-09"},{id:"FI-10"},{id:"FI-11"},{id:"FI-12"},{id:"FI-13"},{id:"FI-14"},{id:"FI-15"},{id:"FI-16"},{id:"FI-17"},{id:"FI-18"},{id:"FI-19"}
 AmCharts.maps.finlandLow={

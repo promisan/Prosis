@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- close line and open the dialog --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!---this is to avoid having many trash in this table, each time user voids an invoice, changes something and creates the charges and bill again---- ---->
 
 <cfquery name="get" 
@@ -22,7 +34,7 @@
 		WHERE       WorkOrderId   = '#get.WorkOrderid#'
 		AND         WorkOrderLine = '#get.WorkOrderLine#'
 		<!--- if the charge is already billed we are NOT removing it 
-		      until a user resets it and thus the charles can be redone --->
+		      until a user resets it and thus the ch can be redone --->
 		AND         Journal is NULL	
 </cfquery>		
 

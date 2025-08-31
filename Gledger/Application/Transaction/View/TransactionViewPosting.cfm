@@ -1,5 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfquery name="Param"
 		datasource="AppsSystem"
 		username="#SESSION.login#"
@@ -44,7 +57,7 @@
 		to have a proper matching to the children. We enforce the sorting by giving the current transaction lines a sorting = 1,
 		then we sort by transaction date followed by transaction header to ensure detailes from the sme transacfion are show in conjunction
 
-Armin 10/4/2013: Very important query as it combines child/parent transactions. Example:
+dev 10/4/2013: Very important query as it combines child/parent transactions. Example:
 
 1. 	Purchases
 		Invoices Received
@@ -347,7 +360,7 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 					 T.ParentJournal,
 					 T.ParentJournalSerialNo
 					
-					<!--- hanno 29/7 adjusted the sorting --->
+					<!--- Dev 29/7 adjusted the sorting --->
 					
 			ORDER BY Sorting,
 					H.DocumentDate,
@@ -464,7 +477,7 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 
 		<cfoutput group="TransactionSource">
 
-<!--- we group the output Header.JournalTransactionNo and then by transaction source :a dded by Hanno for the sales COGS presentation (BCN) --->
+<!--- we group the output Header.JournalTransactionNo and then by transaction source :a dded by Dev for the sales COGS presentation (BCN) --->
 
 <!--- check if this object has a workflow --->
 
@@ -783,7 +796,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 								AND     T.Journal         != '#Journal#'
 								AND     T.JournalSerialNo != '#JournalSerialNo#'
 
-<!--- added by hanno 2/3/2016 in order not to show too much in the screen as subsequent transactions are already shown --->
+<!--- added by Dev 2/3/2016 in order not to show too much in the screen as subsequent transactions are already shown --->
 									AND     (T.ParentJournal = '' or T.ParentJournal is NULL)
 <!--- -------------------------------------------------------------------------- --->
 
@@ -806,7 +819,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 						<cfset box  = replace(box,"-","_","All")>
 						<cfset link = "journal=#journal#&journalserialno=#journalserialno#&transactionserialno=#transactionserialno#&box=#box#">
 
-<!--- 5/5/2009 : Hanno --->
+<!--- 5/5/2009 : Dev --->
 <!--- do not allow editing of attributes if the  transaction is distributed --->
 
 						<cfquery name="CheckDis"
@@ -845,7 +858,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 					</cfoutput>
 
 					<cfif ParentJournal neq "" and ParentJournalSerialNo neq Transaction.JournalSerialNo>
-<!----to show the reference for the parent transaction rfuentes 2017-06-08  ----->
+<!----to show the reference for the parent transaction r 2017-06-08  ----->
 						<cfquery name="getParentDocument"
 								datasource="AppsLedger"
 								username="#SESSION.login#"

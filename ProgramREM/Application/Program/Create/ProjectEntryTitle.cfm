@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <script language="JavaScript">
 	 document.getElementById('savebox').className = "regular"
 </script>
@@ -53,20 +67,20 @@ password="#SESSION.dbpw#">
 <cf_tl class="Message" id="ProjectJustification"         var="vProjectJustification">
 <cf_tl class="Message" id="ProjectObjectives"            var="vProjectObjectives">
 	
-<cfif qGroup.Mission eq "DPA" OR qGroup.Mission eq "DPPA-DPO">
+<cfif qGroup.Mission eq "DPA" OR qGroup.Mission eq "DD">
 					
 	<!--- DPA projects --->						
 	<cfset vDisplayProblemAnalysis = "display:none;">
 			
 	<!--- Rapid Response --->
 	<cfif qGroup.ProgramGroup eq "D02">		
-		<cf_tl class="Message" id="Rapid DPPA-DPO Objective"       var="vSummarySubtitle">
-		<cf_tl class="Message" id="Rapid DPPA-DPO Requirement"     var="vRequirementsSubtitle">
-		<cf_tl class="Message" id="Rapid DPPA-DPO Justification"   var="vJustificationSubtitle">	
+		<cf_tl class="Message" id="Rapid DD Objective"       var="vSummarySubtitle">
+		<cf_tl class="Message" id="Rapid DD Requirement"     var="vRequirementsSubtitle">
+		<cf_tl class="Message" id="Rapid DD Justification"   var="vJustificationSubtitle">
 	<cfelse>
-		<cf_tl class="Message" id="Project DPPA-DPO Objective"     var="vSummarySubtitle">
-		<cf_tl class="Message" id="Project DPPA-DPO Requirement"   var="vRequirementsSubtitle">
-		<cf_tl class="Message" id="Project DPPA-DPO Justification" var="vJustificationSubtitle">								
+		<cf_tl class="Message" id="Project DD Objective"     var="vSummarySubtitle">
+		<cf_tl class="Message" id="Project DD Requirement"   var="vRequirementsSubtitle">
+		<cf_tl class="Message" id="Project DD Justification" var="vJustificationSubtitle">
 	</cfif>
 		
 <cfelse>
@@ -122,7 +136,7 @@ password="#SESSION.dbpw#">
 				
 		  <cfoutput>	
 		  
-		   <!--- Hanno 16/5/2015 : hiding it 		 
+		   <!--- Dev 16/5/2015 : hiding it
 		   		   
 		   <cfif Parent.ProgramClass eq "Program" and ParentList.recordcount gte "1">
 		   		   

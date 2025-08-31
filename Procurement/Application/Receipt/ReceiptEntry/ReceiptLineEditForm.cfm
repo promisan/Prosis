@@ -1,4 +1,18 @@
-	
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <table width="99%" class="formpadding" align="center">
 	
 <cfoutput>	
@@ -1084,7 +1098,7 @@ password="#SESSION.dbpw#">
 			<cfset clc = "hide">	  <!--- warehouse item generation --->								
 	
 	
-	<!--- I removed this option, 12/3/2014 as I don't think it has merits anymore :Hanno
+	<!--- I removed this option, 12/3/2014 as I don't think it has merits anymore :Dev
 		
 	<cfelseif Purchase.ReceiptEntry eq "0">	<!--- dialog is disabled for initial entry, but a listing is presented --->
 		
@@ -2532,7 +2546,7 @@ password="#SESSION.dbpw#">
   
 <!--- this portion only applies if we potentially need to generate a warehouse item and does
 not apply if we are in the requisition stock mode or if we have just a listing based entry of the recording 
-Hanno : I have disabled 13/10/2014 it as we handle it at the moment of opening which mode to show 
+Dev : I have disabled 13/10/2014 it as we handle it at the moment of opening which mode to show
    
 <cfif hasTopics.recordcount gte "1"> 
 	

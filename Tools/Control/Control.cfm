@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="Attributes.VerifyMultipleLogon"  default="0">
 <cfparam name="Attributes.VerifyCSRF"           default="0">
 <cfparam name="Attributes.VerifyAuthentication" default="0">
@@ -262,8 +277,8 @@
 						
 		</cfloop>	
 		
-		<!--- Hanno detect if template may be opened without any MID included which them bypasses the
-		MIP validation as soon as we have reason to believe this link is controlled by MID before
+		<!--- Dev detect if template may be opened without any MID included which them bypasses the
+		M validation as soon as we have reason to believe this link is controlled by MID before
 		
 		right now we do this for ajax links but i think we should do this for any links
 		

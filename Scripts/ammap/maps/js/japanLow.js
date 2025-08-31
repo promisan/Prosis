@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Japan - Low
 // areas: {id:"JP-23"},{id:"JP-05"},{id:"JP-02"},{id:"JP-12"},{id:"JP-38"},{id:"JP-18"},{id:"JP-40"},{id:"JP-07"},{id:"JP-21"},{id:"JP-10"},{id:"JP-28"},{id:"JP-01"},{id:"JP-34"},{id:"JP-08"},{id:"JP-17"},{id:"JP-03"},{id:"JP-39"},{id:"JP-37"},{id:"JP-43"},{id:"JP-14"},{id:"JP-46"},{id:"JP-26"},{id:"JP-24"},{id:"JP-04"},{id:"JP-45"},{id:"JP-15"},{id:"JP-20"},{id:"JP-29"},{id:"JP-42"},{id:"JP-47"},{id:"JP-27"},{id:"JP-33"},{id:"JP-44"},{id:"JP-41"},{id:"JP-25"},{id:"JP-32"},{id:"JP-11"},{id:"JP-22"},{id:"JP-09"},{id:"JP-13"},{id:"JP-36"},{id:"JP-31"},{id:"JP-16"},{id:"JP-30"},{id:"JP-35"},{id:"JP-19"},{id:"JP-06"}
 AmCharts.maps.japanLow={

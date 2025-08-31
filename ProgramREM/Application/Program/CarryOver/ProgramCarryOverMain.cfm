@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- Query returning search results --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfquery name="Org" 
    datasource="AppsOrganization" 
    username="#SESSION.login#" 
@@ -315,7 +327,7 @@
 				     SELECT   DISTINCT ProgramCode, ProgramName,Reference, ListingOrder, Exist, ProgramScope
 				     FROM     dbo.tmp#SESSION.acc#Program P
 					 WHERE    P.OrgUnit     = '#SearchResult.OrgUnit#'
-					 <!--- 3/9/2021 corrected by hanno in order not to show too much, but if the project is under a different unit
+					 <!--- 3/9/2021 corrected by Dev in order not to show too much, but if the project is under a different unit
 					 it might not always be visible / STL --->
 					 AND      (P.ParentCode = '' OR P.ParentCode is NULL)
 					 UNION 

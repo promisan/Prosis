@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of South Korea - Low
 // areas: {id:"KR-11"},{id:"KR-26"},{id:"KR-27"},{id:"KR-28"},{id:"KR-29"},{id:"KR-30"},{id:"KR-31"},{id:"KR-41"},{id:"KR-42"},{id:"KR-43"},{id:"KR-44"},{id:"KR-45"},{id:"KR-46"},{id:"KR-47"},{id:"KR-48"},{id:"KR-49"},{id:"KR-50"}
 AmCharts.maps.southKoreaLow={

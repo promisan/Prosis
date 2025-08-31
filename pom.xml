@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.promisan</groupId>
+  <artifactId>prosis-oss</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+    <license.licenseName>apache_v2</license.licenseName>
+    <!-- For legacy resources -->
+    <legacy.encoding>ISO-8859-1</legacy.encoding>
+  </properties>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>5.0.0</version>
+        <configuration>
+
+          <properties>
+            <year>2025</year>
+            <owner>Promisan B.V.</owner>
+          </properties>
+
+          <encoding>ISO-8859-1</encoding>
+          <strictCheck>true</strictCheck>
+          <useDefaultMapping>false</useDefaultMapping>
+<!--          Help to avoid overriding license to well-known OSS already licensed-->
+          <useDefaultExcludes>true</useDefaultExcludes>
+
+          <excludes>
+            <exclude>**/ValidationScript.cfm</exclude>
+            <exclude>**/RecordDialog.cfm</exclude>
+            <exclude>**/*.zip</exclude>
+            <exclude>**/*.bin</exclude>
+            <exclude>**/*.cfr</exclude>
+            <exclude>**/*.class</exclude>
+            <exclude>**/*.eot</exclude>
+            <exclude>**/*.fla</exclude>
+            <exclude>**/*.gif</exclude>
+            <exclude>**/*.ico</exclude>
+            <exclude>**/*.idx</exclude>
+            <exclude>**/*.jar</exclude>
+            <exclude>**/*.jbf</exclude>
+            <exclude>**/*.jpg</exclude>
+            <exclude>**/*.GIF</exclude>
+            <exclude>**/*.JPG</exclude>
+            <exclude>**/*.otf</exclude>
+            <exclude>**/*.pack</exclude>
+            <exclude>**/*.pdf</exclude>
+            <exclude>**/*.png</exclude>
+            <exclude>**/*.psd</exclude>
+            <exclude>**/*.rep</exclude>
+            <exclude>**/*.scssc</exclude>
+            <exclude>**/*.swf</exclude>
+            <exclude>**/*.template</exclude>
+            <exclude>**/*.ttf</exclude>
+            <exclude>**/*.vsd</exclude>
+            <exclude>**/*.woff</exclude>
+            <exclude>**/*.woff2</exclude>
+            <exclude>**/.gitattributes</exclude>
+            <exclude>**/.gitignore</exclude>
+            <exclude>**/.sdkmanrc</exclude>
+          </excludes>
+
+          <includes>
+            <!-- Files without standard extensions -->
+            <include>**/csslintrc</include>
+            <include>**/jshintrc</include>
+
+            <!-- CFM and special CFM files -->
+            <include>**/*.cfm</include>
+            <include>**/*.05152010cfm</include>
+            <include>**/*.2010-03cfm</include>
+            <include>**/*.backcfm</include>
+            <include>**/*.cfm06162008</include>
+            <include>**/*.cfm_01_27_2010</include>
+            <include>**/*.cfmold</include>
+            <include>**/*.copycfm</include>
+            <include>**/*.newcfm</include>
+            <include>**/*.cfc</include>
+
+            <!-- Standard web files -->
+            <include>**/*.css</include>
+            <include>**/*.ejs</include>
+            <include>**/*.htm</include>
+            <include>**/*.html</include>
+            <include>**/*.java</include>
+            <include>**/*.jnlp</include>
+            <include>**/*.js</include>
+            <include>**/*.json</include>
+            <include>**/*.less</include>
+            <include>**/*.php</include>
+            <include>**/*.scss</include>
+            <include>**/*.svg</include>
+            <include>**/*.ts</include>
+            <include>**/*.xml</include>
+            <include>**/*.yml</include>
+
+            <!-- Documentation files -->
+            <include>**/*.markdown</include>
+            <include>**/*.md</include>
+            <include>**/*.mdown</include>
+
+            <!-- Text and config files -->
+            <include>**/*.csv</include>
+            <include>**/*.dcl</include>
+            <include>**/*.lang</include>
+            <include>**/*.lock</include>
+            <include>**/*.log</include>
+            <include>**/*.map</include>
+            <include>**/*.nuspec</include>
+            <include>**/*.old</include>
+            <include>**/*.org</include>
+            <include>**/*.rtf</include>
+            <include>**/*.sample</include>
+            <include>**/*.sh</include>
+            <include>**/*.tab</include>
+            <include>**/*.txt</include>
+            <include>**/*.txt_</include>
+          </includes>
+          <mapping>
+            <!-- XML style comments -->
+            <xml>XML_STYLE</xml>
+            <html>XML_STYLE</html>
+            <htm>XML_STYLE</htm>
+            <svg>XML_STYLE</svg>
+            <jnlp>XML_STYLE</jnlp>
+            <nuspec>XML_STYLE</nuspec>
+            <ejs>XML_STYLE</ejs>
+
+            <!-- CFM files use both XML and CFM style comments -->
+            <cfm>cfm_custom_style</cfm>
+            <cfc>cfm_custom_style</cfc>
+            <cfm06162008>cfm_custom_style</cfm06162008>
+            <cfm_01_27_2010>cfm_custom_style</cfm_01_27_2010>
+            <backcfm>cfm_custom_style</backcfm>
+            <cfmold>cfm_custom_style</cfmold>
+            <copycfm>cfm_custom_style</copycfm>
+            <newcfm>cfm_custom_style</newcfm>
+
+<!--        This extention can't be updated, manual addition needs to be done for two files-->
+            <ext-05152010cfm>cfm_custom_style</ext-05152010cfm>
+            <ext-2010-03cfm>cfm_custom_style</ext-2010-03cfm>
+
+        <!-- SLASHSTAR style comments -->
+        <java>SLASHSTAR_STYLE</java>
+        <js>SLASHSTAR_STYLE</js>
+        <css>SLASHSTAR_STYLE</css>
+        <scss>SLASHSTAR_STYLE</scss>
+        <less>SLASHSTAR_STYLE</less>
+        <ts>SLASHSTAR_STYLE</ts>
+        <php>SLASHSTAR_STYLE</php>
+
+        <!-- SCRIPT style comments -->
+        <sh>SCRIPT_STYLE</sh>
+
+        <!-- SEMICOLON style comments -->
+        <dcl>SEMICOLON_STYLE</dcl>
+
+        <!-- DOUBLETILDE style comments -->
+        <txt>DOUBLETILDE_STYLE</txt>
+        <txt_>DOUBLETILDE_STYLE</txt_>
+        <rtf>DOUBLETILDE_STYLE</rtf>
+        <tab>DOUBLETILDE_STYLE</tab>
+        <csv>DOUBLETILDE_STYLE</csv>
+        <org>DOUBLETILDE_STYLE</org>
+        <log>DOUBLETILDE_STYLE</log>
+        <lang>DOUBLETILDE_STYLE</lang>
+        <map>DOUBLETILDE_STYLE</map>
+        <old>DOUBLETILDE_STYLE</old>
+        <sample>DOUBLETILDE_STYLE</sample>
+        <lock>DOUBLETILDE_STYLE</lock>
+        <markdown>DOUBLETILDE_STYLE</markdown>
+        <md>DOUBLETILDE_STYLE</md>
+        <mdown>DOUBLETILDE_STYLE</mdown>
+        <json>DOUBLETILDE_STYLE</json>
+        <yml>DOUBLETILDE_STYLE</yml>
+      </mapping>
+
+
+
+
+
+          <headerDefinitions>
+            <headerDefinition>custom-headers.xml</headerDefinition>
+          </headerDefinitions>
+          <licenseSets>
+            <licenseSet>
+<!--              <header>com/mycila/maven/plugin/license/templates/APACHE-2.txt</header>-->
+              <header>com/mycila/maven/plugin/license/templates/APACHE-2-noemail.txt</header>
+            </licenseSet>
+          </licenseSets>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+              <goal>format</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+
+    </plugins>
+  </build>
+</project>

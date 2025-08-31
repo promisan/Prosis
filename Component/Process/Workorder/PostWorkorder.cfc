@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- 
 
    This component contain several method which can be called to apply changes to socalled service based workorders which
@@ -493,7 +507,7 @@
 		
 		</cfif>	
 			
-		<!--- hanno added lines to check first if we already have a line here --->
+		<!--- Dev added lines to check first if we already have a line here --->
 		
 		<cfquery name="check" 
 		     datasource="AppsWorkOrder" 
@@ -1568,7 +1582,7 @@
 							
 							--->
 							
-							<!--- removed by hanno for now 	
+							<!--- removed by Dev for now
 							
 							<cfloop query="getNext">
 							

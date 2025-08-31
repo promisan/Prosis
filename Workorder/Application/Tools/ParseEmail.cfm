@@ -1,5 +1,20 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- Email Parser for Mantinsa
-by Armin Mazariegos 
+by dev dev 
 Guatemala, November 20th 2012
 Promisan b.v.
 In this case we apply the concept of thread as image files might be so big (>1.5k) that processing of the files are an issue 
@@ -80,7 +95,7 @@ In this case we apply the concept of thread as image files might be so big (>1.5
 					ORDER BY A.DateTimePlanning ASC					
 				</cfquery>				
 				
-<!---Armin the following condition was removed 
+<!---dev the following condition was removed 
 	AND      A.DateTimePlanning <='#ATTRIBUTES.dateValue# #ATTRIBUTES.timeValue#'
 	
 	Also, the following was changed from

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Angola - High
 // areas: {id:"AO-BGO"},{id:"AO-BGU"},{id:"AO-BIE"},{id:"AO-CAB"},{id:"AO-CCU"},{id:"AO-CNO"},{id:"AO-CUS"},{id:"AO-CNN"},{id:"AO-HUA"},{id:"AO-HUI"},{id:"AO-LUA"},{id:"AO-LNO"},{id:"AO-LSU"},{id:"AO-MAL"},{id:"AO-MOX"},{id:"AO-NAM"},{id:"AO-UIG"},{id:"AO-ZAI"}
 AmCharts.maps.angolaHigh={

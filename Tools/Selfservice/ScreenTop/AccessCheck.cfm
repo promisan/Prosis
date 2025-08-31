@@ -1,5 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- box to perform the check and then to launch the dialog screen to be shown --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <span id="sessionvalid" style="width: 0px; height: 0px; line-height: 0px; font: 0px;display:none;"></span>
 		
 <!--- box to keep on checking if maybe the session is reestablished to then hide the password screen --->			
@@ -40,7 +53,7 @@
         <!--- record this template/URL but ONLY if the token is valid which is defined 
 		by the time this screen loaded as we have a window of timing for it to be valid ---> 
 		
-		<!--- Hanno 2/11/2015 as we moved this to application.cfc it is likely not needed here anymore as its scope
+		<!--- Dev 2/11/2015 as we moved this to application.cfc it is likely not needed here anymore as its scope
 		is now much wider
 		
 		<cfif url.mid neq "">

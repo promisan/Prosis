@@ -1,8 +1,20 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- STANDARD IN or IN CYCLE POSTING OF THE PAYROLL --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- entity parameters to be passed for loading into GL --->
-<cfparam name="url.mission"        default="OICT">
+<cfparam name="url.mission"        default="O">
 
 <!--- added a provision to set the journal postings referenceNo to Final --->
 <!--- ------------------------------------------------------------------ --->
@@ -478,7 +490,7 @@ password="#SESSION.dbpw#">
 	                            WHERE     PF.DateEffective <= '#PayrollEnd#'
 								
 								<!--- Attention --->
-								<!--- Hanno 22/7 only programs that belong to this mission, maybe we should even add the ProgramPeriod here 
+								<!--- Dev 22/7 only programs that belong to this mission, maybe we should even add the ProgramPeriod here
 								as otherwise it might not show in the budget execution view if it is not enabled for that year --->
 								
 								AND       PF.ProgramCode IN (SELECT ProgramCode 
@@ -502,7 +514,7 @@ password="#SESSION.dbpw#">
 												
 	                             WHERE     ESET.Mission             = '#Period.Mission#' 								 
 								 AND       ESET.SettlementSchedule  = '#Period.SalarySchedule#' 
-								  <!--- Hanno ticket 62 
+								  <!--- Dev ticket 62
 								 AND       ESET.SettlementSchedule  = '#Period.SalarySchedule#' 
 								 --->
 								 AND       ESET.PaymentDate         = '#PayrollEnd#' 
@@ -1316,7 +1328,7 @@ password="#SESSION.dbpw#">
 												   ESD.PayThroughBankName, 
 												   ESD.PaymentCurrency,
 												   ESD.PersonNo						
-												   <!--- rfuentes to avoid offset for the ones on LWOP in negative settlement --->
+												   <!--- r to avoid offset for the ones on LWOP in negative settlement --->
 										/*HAVING ROUND(SUM(ESD.PaymentAmount), 2) >0*/
 							</cfquery>
 							
@@ -1628,7 +1640,7 @@ password="#SESSION.dbpw#">
 													   ESD.PayThroughBankName, 
 													   ESD.PaymentCurrency,
 													   ESD.PersonNo						
-													   <!--- rfuentes to avoid offset for the ones on LWOP in negative settlement --->
+													   <!--- r to avoid offset for the ones on LWOP in negative settlement --->
 											/*HAVING ROUND(SUM(ESD.PaymentAmount), 2) >0*/
 								</cfquery>
 							

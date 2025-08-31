@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- 
 
 	values for fields	
@@ -1178,7 +1192,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <!--- PRESENTING the result  --->
 <!--- ---------------------- --->
 
-<cfset box = attributes.box>  <!--- set by hanno 12/9/19 as box was blank --->
+<cfset box = attributes.box>  <!--- set by Dev 12/9/19 as box was blank --->
 
 <cfif url.ajaxid eq "content">
   

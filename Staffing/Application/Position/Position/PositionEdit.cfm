@@ -1,7 +1,21 @@
-<!--- Prosis template framework --->
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfsilent>
-	<proUsr>jmazariegos</proUsr>
-	<proOwn>Hanno van Pelt</proOwn>
+	<proUsr>dev</proUsr>
+	<proOwn>Dev van Pelt</proOwn>
 	<proDes>ST version 1</proDes>
 	<proCom></proCom>
 </cfsilent>
@@ -32,7 +46,7 @@
 </cfif>
 
 
-<!--- 15/7/2013 Hanno correct for strange situation
+<!--- 15/7/2013 Dev correct for strange situation
    provision to correct the missionoperational --->
 
 <cfquery name="resetPosition" 
@@ -271,7 +285,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
     FROM   Ref_Mission
-	WHERE  1=1  <!--- MissionOwner = '#CurrentMission.MissionOwner#' : disabled by Hanno to allow DPA - DPKO cross loan, maybe not good for validation but lets do it now  --->
+	WHERE  1=1  <!--- MissionOwner = '#CurrentMission.MissionOwner#' : disabled by Dev to allow DPA - DPKO cross loan, maybe not good for validation but lets do it now  --->
 	AND    Mission IN (SELECT Mission 
 	                   FROM   Ref_MissionModule 
 				   	   WHERE  SystemModule = 'Staffing'
@@ -2002,7 +2016,7 @@ password="#SESSION.dbpw#">
 	</cftry>
 			
 	<!--- template to add a custom link to the field 
-	on April 15, 2009, Jorge Mazariegos changed it from SourcePostNumber to PositionNo
+	on April 15, 2009, dev dev changed it from SourcePostNumber to PositionNo
 	
 	
 	<cf_customLink

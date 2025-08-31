@@ -1,5 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- -------------------------- --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- Preparation of the closing --->
 <!--- -------------------------- --->
 
@@ -281,7 +294,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif Schedule.ProcessMode eq "Procurement">
 	
-		<!--- old SAT mode to post through the Procurement module, disabled 
+		<!--- old S mode to post through the Procurement module, disabled
 	
 		<cf_verifyOperational 
 		  datasource= "appsOrganization"
@@ -299,7 +312,7 @@ password="#SESSION.dbpw#">
 	<cfelse>
 		
 		<!--- ------------------------------------------------------------------------------- --->
-		<!--- --- BB Post the calculation as an financials posting : CICIG and others ------- --->
+		<!--- --- BB Post the calculation as an financials posting : Cand others ------- --->
 		<!--- ------------------------------------------------------------------------------ --->
 			
 		<cf_verifyOperational 

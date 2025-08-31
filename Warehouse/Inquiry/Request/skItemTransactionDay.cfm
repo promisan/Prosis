@@ -1,5 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<cfparam name="url.isFullLoad" 				default="0"> <!--- 0 incremental, 1 full calculation, 2 full selective calculation --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.incrementalName" 		default="ItemTransactionDay">
 <cfparam name="url.incrementalGroupName"	default="Warehouse">
 <cfparam name="url.selectiveName" 			default="SelectiveItemTransactionDay">
@@ -9,7 +22,7 @@
 <!--- kherrera [2014-04-29]: Provision made to calculate only FUEL items for performance matters --->
 <cfset vItemCategoryRestriction = "'FUEL'">
 
-<!--- Hanno comment for diaz 01/12/2012 ----------------------------- --->
+<!--- Dev comment for diaz 01/12/2012 ----------------------------- --->
 <!--- this portion we take from the table Ref_CategoryClassification 
 for class=Consumption to prevent we have to change this as hardcoding --->
 <!--- --------------------------------------------------------------- --->

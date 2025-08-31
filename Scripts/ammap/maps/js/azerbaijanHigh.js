@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Azerbaijan - High
 // areas: {id:"AM-GR"},{id:"AZ-ABS"},{id:"AZ-AGA"},{id:"AZ-AGC"},{id:"AZ-AGS"},{id:"AZ-AGM"},{id:"AZ-AGU"},{id:"AZ-AST"},{id:"AZ-BA"},{id:"AZ-BAB"},{id:"AZ-BAL"},{id:"AZ-BAR"},{id:"AZ-BEY"},{id:"AZ-BIL"},{id:"AZ-CAB"},{id:"AZ-CAL"},{id:"AZ-CUL"},{id:"AZ-DAS"},{id:"AZ-FUZ"},{id:"AZ-GA"},{id:"AZ-GAD"},{id:"AZ-GOR"},{id:"AZ-GOY"},{id:"AZ-GYG"},{id:"AZ-HAC"},{id:"AZ-IMI"},{id:"AZ-ISM"},{id:"AZ-KAL"},{id:"AZ-KAN"},{id:"AZ-KUR"},{id:"AZ-LA"},{id:"AZ-LAC"},{id:"AZ-LAN"},{id:"AZ-LER"},{id:"AZ-MAS"},{id:"AZ-MI"},{id:"AZ-NA"},{id:"AZ-NEF"},{id:"AZ-NV"},{id:"AZ-OGU"},{id:"AZ-ORD"},{id:"AZ-QAB"},{id:"AZ-QAX"},{id:"AZ-QAZ"},{id:"AZ-QBA"},{id:"AZ-QBI"},{id:"AZ-QOB"},{id:"AZ-QUS"},{id:"AZ-SA"},{id:"AZ-SAB"},{id:"AZ-SAD"},{id:"AZ-SAH"},{id:"AZ-SAK"},{id:"AZ-SAL"},{id:"AZ-SAR"},{id:"AZ-SAT"},{id:"AZ-SBN"},{id:"AZ-SIY"},{id:"AZ-SKR"},{id:"AZ-SM"},{id:"AZ-SMI"},{id:"AZ-SMX"},{id:"AZ-SR"},{id:"AZ-SUS"},{id:"AZ-TAR"},{id:"AZ-TOV"},{id:"AZ-UCA"},{id:"AZ-XAC"},{id:"AZ-XCI"},{id:"AZ-XIZ"},{id:"AZ-XVD"},{id:"AZ-YAR"},{id:"AZ-YE"},{id:"AZ-YEV"},{id:"AZ-ZAN"},{id:"AZ-ZAQ"},{id:"AZ-ZAR"}
 AmCharts.maps.azerbaijanHigh={

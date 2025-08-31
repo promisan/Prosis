@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.systemfunctionid"    default="">
 <cfparam name="url.mission"             default="">
 <cfparam name="url.status"              default="all">
@@ -42,9 +56,9 @@ AND         W.ActionStatus IN ('0','1','2')
 
 a.	 Show only workorders that issue / return lines that are NOT billed,
 
-b.	 Hanno 18/1/2016 consideration show in principle all workorders 
+b.	 Dev 18/1/2016 consideration show in principle all workorders
 
-c.   Hanno 23/3/2014 : technically we sould also filter to take only WorkOrderLine that are meant for sale !!
+c.   Dev 23/3/2014 : technically we sould also filter to take only WorkOrderLine that are meant for sale !!
 
 d.   Formally closed order are not shown 
 

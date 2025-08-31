@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- The purpose of this tool is to define the funding of the charges based on the settings
 if the posting mode is defined as "Funding". The system tries to assign the
 funding as good as possible based on the effective date for the funding in a top down fashion --->
@@ -129,7 +143,7 @@ BUT ONLY IF of this is NOT an SLA enabled workorder  --->
 		<!--- define only matching funding period --->
 		
 		<!--- ------------------------------------------------------------------------------------------------------------------------------- --->
-		<!--- 26/01/2012  HANNO we need to do a better job to take ONLY the most recent funding record here as these may have several results --->
+		<!--- 26/01/2012  Dev we need to do a better job to take ONLY the most recent funding record here as these may have several results --->
 		<!--- ------------------------------------------------------------------------------------------------------------------------------- --->
 				    
 		AND       C.SelectionDate >= F.DateEffective		

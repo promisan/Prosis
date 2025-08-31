@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 (function(){var e=window.AmCharts;e.AmMap=e.Class({inherits:e.AmChart,construct:function(a){this.cname="AmMap";this.type="map";this.theme=a;this.svgNotSupported="This browser doesn't support SVG. Use Chrome, Firefox, Internet Explorer 9 or later.";this.createEvents("rollOverMapObject","rollOutMapObject","clickMapObject","mouseDownMapObject","selectedObjectChanged","homeButtonClicked","zoomCompleted","dragCompleted","positionChanged","writeDevInfo","click","descriptionClosed");this.zoomDuration=.6;
 this.zoomControl=new e.ZoomControl(a);this.fitMapToContainer=!0;this.mouseWheelZoomEnabled=this.backgroundZoomsToTop=!1;this.allowClickOnSelectedObject=this.useHandCursorOnClickableOjects=this.showBalloonOnSelectedObject=!0;this.showObjectsAfterZoom=this.wheelBusy=!1;this.zoomOnDoubleClick=this.useObjectColorForBalloon=!0;this.allowMultipleDescriptionWindows=!1;this.dragMap=this.centerMap=this.linesAboveImages=!0;this.colorSteps=5;this.forceNormalize=!1;this.showAreasInList=!0;this.showLinesInList=
 this.showImagesInList=!1;this.areasProcessor=new e.AreasProcessor(this);this.areasSettings=new e.AreasSettings(a);this.imagesProcessor=new e.ImagesProcessor(this);this.imagesSettings=new e.ImagesSettings(a);this.linesProcessor=new e.LinesProcessor(this);this.linesSettings=new e.LinesSettings(a);this.initialTouchZoom=1;this.showDescriptionOnHover=!1;e.AmMap.base.construct.call(this,a);this.creditsPosition="bottom-left";this.product="ammap";this.areasClasses={};this.updatableImages=[];e.applyTheme(this,

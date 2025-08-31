@@ -1,5 +1,18 @@
-<!--- select documents for this step that already have content in the database from a prior step --->
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="URL.actionId" default="#URL.ID#">
 <cfparam name="URL.wparam" 	 default="">
 
@@ -10,7 +23,7 @@ datasource="appsOrganization"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 
-    <!--- removed by Hanno 26/11/2020 only documents that are set to be forced will be populated here 
+    <!--- removed by Dev 26/11/2020 only documents that are set to be forced will be populated here
 	
 	SELECT    D.DocumentId, 
 			  R.DocumentCode,

@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="cat" default="">
 
 <cfquery name="Parameter"
@@ -216,7 +230,7 @@
 			
 			<cfparam name="CaseNo" default="">
 			
-			<!--- disabled by hanno as it shows under reference already 
+			<!--- disabled by Dev as it shows under reference already
 			<cfif caseNo neq "">
 				<td class="labelmedium" width="80" style="padding-right:3px"><cf_space spaces="20">#CaseNo#</td>
 			<cfelse>

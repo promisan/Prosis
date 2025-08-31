@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cf_actionlistingscript>
 <cf_filelibraryscript>
 <cf_menuscript>
@@ -100,7 +114,7 @@
 				<cfset itm = 0>
 						
 				<!--- show for collaborator and up --->
-				<!--- REMOVED BY ARMIN ON AUGUST 2011 
+				<!--- REMOVED BY dev ON AUGUST 2011 
 			    <cfif accessGranted gte "0">		
 				
 						<cfset itm = itm+1>
@@ -227,14 +241,14 @@
 			 
 			
 			<cf_menucontainer item="1" class="regular">
-				  <!--- Removed as per OHRM (Jasmin) request on November 18th - Nery
+				  <!--- Removed as per OHRM (Jasmin) request on November 18th - dev
 					<cfset url.objectId = Object.Objectid>
 					<cfinclude template="../Additional/Additional.cfm">
 					--->
 			</cf_menucontainer>
 			<cf_menucontainer item="2" class="hide">
 		
-			<!--- added as per OHRM (Jasmin) request on November 18th - Nery --->
+			<!--- added as per OHRM (Jasmin) request on November 18th - dev --->
 			<script>
 				document.getElementById("death1").click();
 			</script>

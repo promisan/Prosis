@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- Salary
     	I.	 Clean unnneeded records based on final payment that were revoked
 		II.  Create data set of rates (DAY, HOUR
@@ -20,7 +34,7 @@
 		AND     NOT EXISTS (SELECT 'X' 
 		                    FROM   Payroll.dbo.EmployeeSettlement 
 							WHERE  SettlementId = M.SourceId
-							<!--- AND    PaymentFinal = 1 : hanno 22/8 removed to prevent that if in-clycle is run after the FP it would get removed --->)	
+							<!--- AND    PaymentFinal = 1 : Dev 22/8 removed to prevent that if in-clycle is run after the FP it would get removed --->)
 		AND     Status != '5'					 						 
 </cfquery>	
 
@@ -74,7 +88,7 @@ to be processed earlier (affecting the exchange rate) we clean it
 			   Cost.Source,
 			   Cost.SourceId,
 			   Pay.Line,
-			   R.Source as PayrollItemSource, <!--- added by Hanno to handle correctly 3rd party payment corrections --->
+			   R.Source as PayrollItemSource, <!--- added by Dev to handle correctly 3rd party payment corrections --->
 			   R.PayrollItem, 
 			   R.PaymentMultiplier,
 			   Cost.Currency     as DocumentCurrency,
@@ -136,7 +150,7 @@ to be processed earlier (affecting the exchange rate) we clean it
 				   Cost.Source,
 				   Cost.SourceId,
 				   '1' as Line,
-				   R.Source as PayrollItemSource, <!--- added by Hanno to handle correctly 3rd party payment corrections --->
+				   R.Source as PayrollItemSource, <!--- added by Dev to handle correctly 3rd party payment corrections --->
 				   R.PayrollItem, 
 				   R.PaymentMultiplier,
 				   Cost.Currency     as DocumentCurrency,

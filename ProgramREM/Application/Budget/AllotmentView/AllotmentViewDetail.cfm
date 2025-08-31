@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="URL.Portal"  default="0">
 <!--- option to filter on a fund here --->
 <cfparam name="URL.Period"  default="FY10">
@@ -7,8 +21,8 @@
 
 <!--- 27/12/2009 provision to correct the item master if the item master
 from some reason does no longer exist, take the default itemmaster for that object 
-this will also properly correct the item master for OICT, as we will remove
-the item master that were added temp for the OICT-M usage class --->
+this will also properly correct the item master for O, as we will remove
+the item master that were added temp for the O-M usage class --->
 
 <cfquery name="Update" 
     datasource="AppsProgram" 
@@ -58,9 +72,9 @@ the item master that were added temp for the OICT-M usage class --->
 							</cfif>		
 							
 							<!--- period is NOT a planning period itself 
-							Hanno 10/10/2012 : this needs review, better to drop the isPlanning period and
+							Dev 10/10/2012 : this needs review, better to drop the isPlanning period and
 							let is be defined on the dbo.missionperiod level if a period is a plan period.
-							The below prevents for example in OICT to show B14-15 to be recorded under
+							The below prevents for example in O to show B14-15 to be recorded under
 							plan period B12-13, which is not the intention hence it was removed.
 														
 							AND    Period NOT IN (SELECT PP.Period 
@@ -472,7 +486,7 @@ the item master that were added temp for the OICT-M usage class --->
 						AND EPAD.TransactionType = 'Standard'
 						AND EPAD.Amount <> 0)
 						
-						<!--- removed hanno 14/1/2013
+						<!--- removed Dev 14/1/2013
 					   #PreserveSingleQuotes(BudgetCond)# 
 					   --->
 				   

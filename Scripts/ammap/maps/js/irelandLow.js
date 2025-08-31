@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Ireland - Low
 // areas: {id:"GB-NIR"},{id:"IE-CW"},{id:"IE-CN"},{id:"IE-CE"},{id:"IE-CO"},{id:"IE-DL"},{id:"IE-D"},{id:"IE-G"},{id:"IE-KE"},{id:"IE-KK"},{id:"IE-KY"},{id:"IE-LD"},{id:"IE-LH"},{id:"IE-LK"},{id:"IE-LM"},{id:"IE-LS"},{id:"IE-MH"},{id:"IE-MN"},{id:"IE-MO"},{id:"IE-OY"},{id:"IE-RN"},{id:"IE-SO"},{id:"IE-TA"},{id:"IE-WD"},{id:"IE-WH"},{id:"IE-WX"},{id:"IE-WW"}
 AmCharts.maps.irelandLow={

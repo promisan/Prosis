@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Russia - High
 // areas: {id:"RU-AD"},{id:"RU-ALT"},{id:"RU-AMU"},{id:"RU-ARK"},{id:"RU-AST"},{id:"RU-BA"},{id:"RU-BEL"},{id:"RU-BRY"},{id:"RU-BU"},{id:"RU-CE"},{id:"RU-CHE"},{id:"RU-CHU"},{id:"RU-CU"},{id:"RU-DA"},{id:"RU-AL"},{id:"RU-IN"},{id:"RU-IRK"},{id:"RU-IVA"},{id:"RU-KB"},{id:"RU-KC"},{id:"RU-KDA"},{id:"RU-KEM"},{id:"RU-KLU"},{id:"RU-KHA"},{id:"RU-KR"},{id:"RU-KK"},{id:"RU-KL"},{id:"RU-KHM"},{id:"RU-KGD"},{id:"RU-KO"},{id:"RU-KAM"},{id:"RU-KRS"},{id:"RU-KOS"},{id:"RU-KGN"},{id:"RU-KIR"},{id:"RU-KYA"},{id:"RU-LEN"},{id:"RU-LIP"},{id:"RU-MOW"},{id:"RU-ME"},{id:"RU-MAG"},{id:"RU-MUR"},{id:"RU-MO"},{id:"RU-MOS"},{id:"RU-NGR"},{id:"RU-NEN"},{id:"RU-SE"},{id:"RU-NVS"},{id:"RU-NIZ"},{id:"RU-ORE"},{id:"RU-ORL"},{id:"RU-OMS"},{id:"RU-PER"},{id:"RU-PRI"},{id:"RU-PSK"},{id:"RU-PNZ"},{id:"RU-ROS"},{id:"RU-RYA"},{id:"RU-SAM"},{id:"RU-SA"},{id:"RU-SAK"},{id:"RU-SMO"},{id:"RU-SPE"},{id:"RU-SAR"},{id:"RU-STA"},{id:"RU-SVE"},{id:"RU-TAM"},{id:"RU-TOM"},{id:"RU-TUL"},{id:"RU-TA"},{id:"RU-TY"},{id:"RU-TVE"},{id:"RU-TYU"},{id:"RU-UD"},{id:"RU-ULY"},{id:"RU-VGG"},{id:"RU-VLA"},{id:"RU-YAN"},{id:"RU-VLG"},{id:"RU-VOR"},{id:"RU-YAR"},{id:"RU-YEV"},{id:"RU-ZAB"}
 AmCharts.maps.russiaHigh={

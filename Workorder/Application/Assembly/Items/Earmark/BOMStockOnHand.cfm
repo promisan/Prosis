@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfquery name="Warehouse" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
@@ -178,7 +192,7 @@ password="#SESSION.dbpw#">
 								AND     RequirementId   = WIR.ResourceId
 		
 								<!--- more correct to use the resourceid as per above as it is more robust for the case we receive variations of the item
-								in RI Hanno or in earmarking 28/11
+								in RI Dev or in earmarking 28/11
 								
 								AND      ItemNo         = WIR.ResourceItemNo 
 								AND      TransactionUoM = WIR.ResourceUoM  		

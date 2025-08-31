@@ -1,8 +1,21 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- Pending
 
-0. Control prepare is used by the control tree as per Armin assesment 4/16/2011
+0. Control prepare is used by the control tree as per dev assesment 4/16/2011
 
 1.  Define first step with status 0 or 1 (hold) for either candidate or document,      
 2.	Identify the actioncode and parentcode for the last action 

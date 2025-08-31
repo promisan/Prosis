@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfset FileNo = round(Rand()*100)>
 
 <cfparam name="URL.ID1"  default="0">
@@ -314,7 +328,7 @@
 				 <cfelse>
 				 
 				 				 
-				 	  <!--- select track occurence this query is heavy and should be tuned Hanno : 4/9/2013 --->
+				 	  <!--- select track occurence this query is heavy and should be tuned Dev : 4/9/2013 --->
 												  
 							(
 							
@@ -815,7 +829,7 @@
 						OR Staff.PositionParentId LIKE '%#sp##URL.fld##sp#%' 
 					    OR Staff.SourcePostNumber LIKE '%#sp##URL.fld##sp#%' 
 					    
-					    <!--- added by hanno to allow searching in the new mandate --->
+					    <!--- added by Dev to allow searching in the new mandate --->
 					    OR Staff.RecruitmentTrack IN (
 												
 					    						SELECT D.DocumentNo 
@@ -919,7 +933,7 @@
 						    OR Staff.IndexNo     LIKE '%#sp##URL.fld##sp#%'
 						    OR Staff.Nationality LIKE '#URL.fld#%'
 						    
-						    <!--- added by hanno to allow searching in the new mandate --->
+						    <!--- added by Dev to allow searching in the new mandate --->
 						     
 					    	OR Staff.RecruitmentTrack IN (
 					    				SELECT D.DocumentNo 
@@ -928,7 +942,7 @@
 										AND    DC.Status IN ('2','2s') 
 										AND    D.Status != '9' )              											
 					
-							<!--- to be tuned Hanno 4/9/2013 to take a wider selection --->
+							<!--- to be tuned Dev 4/9/2013 to take a wider selection --->
 							<!--- look for information in the recruitment record --->			   
 
 							OR (

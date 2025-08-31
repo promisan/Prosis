@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!---   Name : /Component/Access.cfc Description : Determine authorization rights
    
    1.0.  [Function] General access to module function to be shown
@@ -309,7 +323,7 @@
 		        		        Organization.dbo.Ref_Entity R ON O.EntityCode = R.EntityCode INNER JOIN
 		                		Ref_ModuleControlRoleLevel M ON OA.AccessLevel = M.AccessLevel AND R.Role = M.Role
 						WHERE   OA.UserAccount = '#SESSION.acc#' 
-						<!--- 10/10/2010 by hanno based on monica having too much access --->
+						<!--- 10/10/2010 by Dev based on monica having too much access --->
 						AND     M.SystemFunctionId = '#SystemFunctionId#'					 				 
 					 
 				   <cfelse>		  			   
@@ -2410,7 +2424,7 @@
 		
 	</cffunction>
 				
-	<!--- ATTENTION 3.6 and 3.6B : these ones can be disabled once old track is no longer valid : Hanno 01/04/06 --->
+	<!--- ATTENTION 3.6 and 3.6B : these ones can be disabled once old track is no longer valid : Dev 01/04/06 --->
 				
 	<!--- 3.6 Recruitment officer : access to an vacancy record --->
 	
@@ -2842,7 +2856,7 @@
 	</cffunction>
 	
 	<!--- ------------------------------------ --->	
-	<!--- 3.9 ePass officer : very old for SAT --->
+	<!--- 3.9 ePass officer : very old for  --->
 	<!--- ------------------------------------ --->
 		
 	<cffunction access="public" name="ePas" output="true" returntype="string" displayname="Bucket Access">

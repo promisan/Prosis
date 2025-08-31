@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Bulgaria - High
 // areas: {id:"BG-01"},{id:"BG-02"},{id:"BG-03"},{id:"BG-04"},{id:"BG-05"},{id:"BG-06"},{id:"BG-07"},{id:"BG-08"},{id:"BG-09"},{id:"BG-10"},{id:"BG-11"},{id:"BG-12"},{id:"BG-13"},{id:"BG-14"},{id:"BG-15"},{id:"BG-16"},{id:"BG-17"},{id:"BG-18"},{id:"BG-19"},{id:"BG-20"},{id:"BG-21"},{id:"BG-22"},{id:"BG-23"},{id:"BG-24"},{id:"BG-25"},{id:"BG-26"},{id:"BG-28"},{id:"BG-27"}
 AmCharts.maps.bulgariaHigh={

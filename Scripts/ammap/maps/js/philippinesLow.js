@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Philippines - low
 // areas: {id:"PH-SUR"},{id:"PH-TAR"},{id:"PH-TAW"},{id:"PH-ZMB"},{id:"PH-ZAN"},{id:"PH-ZSI"},{id:"PH-ABR"},{id:"PH-AGN"},{id:"PH-AGS"},{id:"PH-AKL"},{id:"PH-ALB"},{id:"PH-ANT"},{id:"PH-APA"},{id:"PH-AUR"},{id:"PH-BAN"},{id:"PH-BTN"},{id:"PH-BTG"},{id:"PH-BEN"},{id:"PH-BIL"},{id:"PH-BOH"},{id:"PH-BUK"},{id:"PH-BUL"},{id:"PH-CAG"},{id:"PH-CAN"},{id:"PH-CAS"},{id:"PH-CAM"},{id:"PH-CAP"},{id:"PH-CAT"},{id:"PH-CAV"},{id:"PH-CEB"},{id:"PH-COM"},{id:"PH-DAV"},{id:"PH-DAS"},{id:"PH-DAO"},{id:"PH-DIN"},{id:"PH-EAS"},{id:"PH-GUI"},{id:"PH-IFU"},{id:"PH-ILN"},{id:"PH-ILS"},{id:"PH-ILI"},{id:"PH-ISA"},{id:"PH-KAL"},{id:"PH-LUN"},{id:"PH-LAG"},{id:"PH-LAN"},{id:"PH-LAS"},{id:"PH-LEY"},{id:"PH_MG"},{id:"PH-MAD"},{id:"PH-MAS"},{id:"PH-MNL"},{id:"PH-MSC"},{id:"PH-MSR"},{id:"PH-MOU"},{id:"PH-NEC"},{id:"PH-NER"},{id:"PH-NCO"},{id:"PH-NSA"},{id:"PH-NUE"},{id:"PH-NUV"},{id:"PH-MDC"},{id:"PH-MDR"},{id:"PH-PLW"},{id:"PH-PAM"},{id:"PH-PAN"},{id:"PH-QUE"},{id:"PH-QUI"},{id:"PH-RIZ"},{id:"PH-ROM"},{id:"PH-WSA"},{id:"PH-SAR"},{id:"PH-SIG"},{id:"PH-SOR"},{id:"PH-SCO"},{id:"PH-SLE"},{id:"PH-SUK"},{id:"PH-SLU"},{id:"PH-SUN"},{id:"PH-BAS"},{id:"PH-ZAS"}
 AmCharts.maps.philippinesLow={

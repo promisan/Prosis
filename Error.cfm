@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfscript>
 	function ParagraphFormat2(str) {
 		str = replace(str,chr(13)&chr(10),chr(10),"ALL");
@@ -180,7 +195,7 @@
 	    <!--- no mail is sent --->
 	    <cfset mail = "0">
 	<cfelse>
-	    <cfset mail = "0">  <!--- adjusted by hanno to 0 as mail is sent below --->
+	    <cfset mail = "0">  <!--- adjusted by Dev to 0 as mail is sent below --->
 	</cfif>
 	--->
 
@@ -210,7 +225,7 @@
 
 		<cfcatch>
 
-<!--- disabled by Hanno 11/11/2012 as it triggered double records --->
+<!--- disabled by Dev 11/11/2012 as it triggered double records --->
 
 		</cfcatch>
 
@@ -368,8 +383,8 @@
 			
 			<!--- get the recorded error in the log file of cf
 			
-			 Note:  April 10, 2015. by Nery.
-			 As discussed with Hanno, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database therefore no
+			 Note:  April 10, 2015. by dev.
+			 As discussed with Dev, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database therefore no
 			 need for exception.log file to be populated (b) Even though this is "display:none", it is a security vulnerability to output detailed error information to clients.
 			
 			<tr><td class="hide" colspan="1" id="errordetail">
@@ -401,7 +416,7 @@
 
 	<cfelse>
 
-<!--- Oct 1, 2016 by Nery: Somehow, som errors still make it to be displayed fully detailed, so below condition makes sures that only Admin or Session overwrite =1 can see that--->
+<!--- Oct 1, 2016 by dev: Somehow, som errors still make it to be displayed fully detailed, so below condition makes sures that only Admin or Session overwrite =1 can see that--->
 
 		<cfif SESSION.isAdministrator eq "Yes" or Session.Overwrite eq "1">
 

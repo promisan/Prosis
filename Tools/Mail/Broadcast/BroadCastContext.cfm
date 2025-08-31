@@ -1,83 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- ----------------------------------------- --->    
-<!--- define field names----------------------- --->
-<!--- ----------------------------------------- --->
- 
- <cfquery name="Key" 
-	datasource="AppsSystem" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#"> 	
-	SELECT * 
-	FROM   Ref_ModuleControlDetail
-	WHERE  SystemFunctionId = '#Broadcast.systemfunctionid#'		
-	AND    FunctionSerialNo = '#Broadcast.functionserialNo#'	
- </cfquery>		
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- <cfquery name="Mail" 
-	datasource="AppsSystem" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#"> 	
-	SELECT * 
-	FROM   Ref_ModuleControlDetailField
-	WHERE  SystemFunctionId = '#Broadcast.systemfunctionid#'		
-	AND    FunctionSerialNo = '#Broadcast.functionserialNo#'
-	AND    FieldOutputFormat = 'eMail'
- </cfquery>	
- 
- <cfquery name="Name" 
-	datasource="AppsSystem" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#"> 	
-	SELECT * 
-	FROM   Ref_ModuleControlDetailField
-	WHERE  SystemFunctionId = '#Broadcast.systemfunctionid#'		
-	AND    FunctionSerialNo = '#Broadcast.functionserialNo#'
-	AND    FieldHeaderLabel = 'Name'
-</cfquery>		
- 
-<!--- -------------------------------------------------------- --->    
-<!--- generate the listing content and publish it as a view -- --->
-<!--- -------------------------------------------------------- --->
+        http://www.apache.org/licenses/LICENSE-2.0
 
-<cfset url.systemFunctionId = BroadCast.systemFunctionId>
-<cfset url.FunctionSerialNo = BroadCast.FunctionSerialNo>
-<cfset url.showlist = "No">
-
-<cf_inquiryContent>
-				
-<cfquery name="Listing" 
-	datasource="AppsSystem" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#"> 	
-	SELECT * 
-	FROM   Ref_ModuleControlDetail
-	WHERE  SystemFunctionId = '#Broadcast.systemfunctionid#'		
-	AND    FunctionSerialNo = '#Broadcast.functionserialNo#'			
-</cfquery>		
-
-<cfquery name="Drop"
-	datasource="#Listing.QueryDataSource#">
-     if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[vwListing#SESSION.acc#]') 
-	 and OBJECTPROPERTY(id, N'IsView') = 1)
-     drop view [dbo].[vwListing#SESSION.acc#]
-</cfquery>
- 
-<cftry>  
-<cfquery name="View" 
-    datasource="#Listing.QueryDataSource#">
-	CREATE VIEW dbo.vwListing#SESSION.acc# AS
-	#preservesinglequotes(session.listingquery)#    	
-</cfquery> 	
-<cfcatch></cfcatch>
-</cftry>
-
-<!--- define the fields in the table that can be used --->
-
-<cfquery name="Fields" 
-	datasource="#Listing.QueryDataSource#">
-	SELECT   C.name, C.userType 
-    FROM     SysObjects S, SysColumns C 
-	WHERE    S.id = C.id
-	AND      S.name = 'vwListing#SESSION.acc#'		
-	ORDER BY C.ColId
-</cfquery>		
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+-- This file contained DDL statements.
+-- DDL has been removed for open source release.
+-- Please contact the project maintainer or provide your own DDL script.

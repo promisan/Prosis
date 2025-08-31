@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- launch document from the my clearances listing --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.target" default="0">
 <cfparam name="url.portal" default="">
 
@@ -25,7 +37,7 @@
 	
 	<!---
 	
-	This option to show in the portal under my menu is no longer supported : Hanno 8/5/2023 
+	This option to show in the portal under my menu is no longer supported : Dev 8/5/2023
 	
 	<cfif url.portal eq "">
 	

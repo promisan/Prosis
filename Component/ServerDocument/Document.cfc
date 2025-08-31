@@ -1,5 +1,20 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- Xythos interconnection
-by Jorge Armin Mazariegos
+by dev dev dev
 Promisan b.v.
 Last modification on May 24th 2010
 ----->
@@ -425,7 +440,7 @@ Last modification on May 24th 2010
 				AND    (ServerPath != '' and ServerPath is not NULL)
 			</cfquery>				
 			
-			<!--- Jorge Mazariegos added a condition to Filename not blank or serverpath not blank
+			<!--- dev dev added a condition to Filename not blank or serverpath not blank
 			from South Africa on Dec 10th 2010
 			 ----->
 

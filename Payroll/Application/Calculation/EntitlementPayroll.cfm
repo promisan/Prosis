@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- Entitlement
 
 	I.    Verify entitlement data that is associated to a contract
@@ -30,7 +44,7 @@ AND      Status <> '9'
 
 <CF_DropTable dbName="AppsTransaction" tblName="sal#SESSION.thisprocess#Entitlements">	
 
-<!--- Hanno 31/1/2018 entitlements are obtained for each of the legs, and then adjusted for the days/slwop, 
+<!--- Dev 31/1/2018 entitlements are obtained for each of the legs, and then adjusted for the days/slwop,
 it is pretty unlikely days would have to be adjusted in that case, but if it does
 it is well possible that we need to embed the code as we do for the legs to calculate
 the currect number of days / SLWOP and suspect, SO WE KEEP TUNED FOR THIS TO HAPPEN --->
@@ -99,7 +113,7 @@ SELECT     newid() as RecordId,
 
 INTO 	   userTransaction.dbo.sal#SESSION.thisprocess#Entitlements
 
-<!--- 17/1/2018 adjusted in order to prevent generating duplicates that exist between scales as Ronmell left a difference --->
+<!--- 17/1/2018 adjusted in order to prevent generating duplicates that exist between scales as R left a difference --->
 
 FROM       SalaryScale AS C 
            INNER JOIN SalaryScaleComponent AS S ON C.ScaleNo = S.ScaleNo
@@ -338,7 +352,7 @@ SELECT     newid() as RecordId,
 		   E.EntitlementGroup,
 		   
       		<!--- attention not sure if this is correct was ::: P.EntitlementGroup ::: as I recall we had something 
-                        in CICIG to have the highest survive on the level of the Breda : EURO / US insurance rate 
+                        in Cto have the highest survive on the level of the Breda : EURO / US insurance rate
 				  but this is not relevant here as 'insurance' and 'housing' is only a counter --->  
 				  
 		   E.EntitlementSalaryDays, <!--- added to overrule calculations to include SLWOP for example  --->
@@ -598,7 +612,7 @@ password="#SESSION.dbpw#">
 	    </cfquery>	
 		
 		<!--- 
-			 ALERT Tuning 19/07/2011 by Hanno for Karin in case of CICIG
+			 ALERT Tuning 19/07/2011 by Dev for Karin in case of C
 			 
 			 First tuning for net dependent payroll adjustment which was split over different dependent
 			 and which total can not exceed 21.75 combined in that case as it is calculated over the payroll
@@ -629,7 +643,7 @@ password="#SESSION.dbpw#">
 		
 		I am not sure if we need this condition I think it applies always
 		
-		Ronmell: true, always applies.at least should.
+		R: true, always applies.at least should.
 					
 		---> 
 									
@@ -783,7 +797,7 @@ password="#SESSION.dbpw#">
 	the entitlements that do no longer appear in the suspend/LWOP period. The rationale is that those entitlements
 	are	considered to be ending, and this the counting is just on working days over that period
 	like 14 days instead of 15.75 days in case of a full month to the complementing part 
-	likely only relevant for 21.75 scenario Hanno
+	likely only relevant for 21.75 scenario Dev
  --->
  
   
@@ -951,8 +965,8 @@ we can overrule salaryday pointer set on the entitlement record ITSELF, to rever
 			  FROM     PersonDependentEntitlement PD 
 			  WHERE    PD.PersonNo         = P.PersonNo
 			  AND      PD.SalaryTrigger   = D.SalaryTrigger		
-			  AND      PD.DateEffective   <=  P.DateExpiration /*#SALEND# CHANGED BY RONMELL ON KARIN CHECK for MIP person 9134*/ 
-			  AND      (PD.DateExpiration >=  P.DateEffective /*#SALSTR# CHANGED BY RONMELL ON KARIN CHECK for MIP person 9134*/
+			  AND      PD.DateEffective   <=  P.DateExpiration /*#SALEND# CHANGED BY R ON KARIN CHECK for M person 9134*/
+			  AND      (PD.DateExpiration >=  P.DateEffective /*#SALSTR# CHANGED BY R ON KARIN CHECK for M person 9134*/
 			  								or PD.DateExpiration is NULL)				  		 
 	 		  AND      Status             = '2'
 			  
@@ -1020,7 +1034,7 @@ we can overrule salaryday pointer set on the entitlement record ITSELF, to rever
 	         userTransaction.dbo.sal#SESSION.thisprocess#PointerTrigger L				 
 	 WHERE   P.PersonNo                 = L.PersonNo
 	  AND     P.TriggerDependent         = L.SalaryTrigger
-	 <!--- Hanno 25/3 I noted that for RS the indicator was not set correctly in case of 2 RS records, like for MR West who had 2 entitlements for Rental subsidy  --->
+	 <!--- Dev 25/3 I noted that for RS the indicator was not set correctly in case of 2 RS records, like for MR West who had 2 entitlements for Rental subsidy  --->
 	 AND     (P.DateEffective            = L.DateEffective  OR P.DateExpiration  = L.DateExpiration)			 
 </cfquery>  
 

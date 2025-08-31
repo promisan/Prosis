@@ -1,5 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.scope" default="Transaction">
 
 <cfquery name="get" 
@@ -127,7 +140,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 		
 		<!---
-		Remed out per Carolina's request because it was -unnecessarily- inverting the sign of the quantity: the TransactionQuantity
+		Remed out per C request because it was -unnecessarily- inverting the sign of the quantity: the TransactionQuantity
 		is displayed with the sign inverted, but the value in the Form.TransactionQuantity is passed with the correct sign, thus,
 		no need to change it again in this spot.
 		

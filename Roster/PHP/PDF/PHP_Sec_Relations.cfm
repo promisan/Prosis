@@ -1,8 +1,21 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- RELATIONS --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- *************************************************************************** --->
 <cfset R01 = "19. Are any of your relatives employed by a public international organization?">
-<cfset R02 = "If you answered yes in 19, list any relatives employed by the United Nations or its Specialized Agencies below:">
+<cfset R02 = "If you answered yes in 19, list any relatives employed by the Organizations or its Specialized Agencies below:">
 <cfset R03 = "If you have any dependents, list them below:">
 
 <table width="100%" border="0" align="center" >

@@ -1,4 +1,18 @@
-<!--- Doctye reviewed by Armin, I will leave it for now as it is not PROSIS related 8/7/2013 --->
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
 <html>
@@ -9,7 +23,7 @@
 <body>
 <div align="center"><H1>ColdFusion Barcode Generator</H1></div>
 This page is dedicated to a simple ColdFusion temlpate that allows for creation of many of the most common barcodes available in industry today.  Of course it's encrypted, the source is available for a nominal fee, failing that, 
-<a href="./Barcodegen.zip">Download it now</a> and use it today.  I'm open to suggestions as to how to make it better so please send me an email with requests to <a href="mailto:andyb@webcaterers.com">andyb@webcaterers.com</a>.<br>Please note that within the ZIP file there are a number if GIF graphic files, please make sure these are available in your ./images directory otherwise you will not see a barcode generated!<br><br><br>
+<a href="./Barcodegen.zip">Download it now</a> and use it today.  I'm open to suggestions as to how to make it better so please send me an email with requests to <a href="mailto:dev@email">dev@email</a>.<br>Please note that within the ZIP file there are a number if GIF graphic files, please make sure these are available in your ./images directory otherwise you will not see a barcode generated!<br><br><br>
 <table>
 <tr><td colspan="2">
 <div align="center"><H3>Interleaved 2 of 5 Barcode</H3></div>

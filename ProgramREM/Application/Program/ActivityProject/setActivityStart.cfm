@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- script to set the activity based on the dependency as this was set --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfoutput>
 
 <!--- reset all dependencies of that action --->
@@ -13,7 +25,7 @@
 		WHERE  ActivityId  = '#URL.ActivityID#'
 	</cfquery>
 
-<!--- This full delete was removed by Armin on 25/2/20202 as Evotecnos had issues now that they are retaking this feature. Instead a new field named Operational was added
+<!--- This full delete was removed by dev on 25/2/20202 as Evotecnos had issues now that they are retaking this feature. Instead a new field named Operational was added
 	<cfquery name="RemoveDependency"
 	     datasource="AppsProgram"
 	     username="#SESSION.login#"

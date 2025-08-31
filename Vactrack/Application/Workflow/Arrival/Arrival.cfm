@@ -1,5 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- ---------------------------------------- --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- ---- attention sometime the workflow is open but the track close, which depends on the moment 
   in the workflow that this template is called --->
 <!--- ---------------------------------------- --->  
@@ -130,7 +143,7 @@
  
  <cfif check.recordcount eq "1">
   
-    <!---- added by Armin on Nov 9th 2012---->
+    <!---- added by dev on Nov 9th 2012---->
 	    
 		<cfset Object.ObjectKeyValue4 = qContract.ObjectId>
 		<cfinclude template="../../../../Staffing/Application/Employee/Contract/ContractEditSubmitCommit.cfm">

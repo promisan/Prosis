@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="Form.InitialReview" default="0">
 <cfparam name="Form.Acronym" default="">
 
@@ -148,7 +162,7 @@ password="#SESSION.dbpw#">
 			Key1Value       = "#Form.Category#"
 			Name1           = "Description">
 					
-	<!--- I, Armin, placed this before the verification otherwise the server got down as the verification is  heavy ---->
+	<!--- I, dev, placed this before the verification otherwise the server got down as the verification is  heavy ---->
 		
 	<!--- 5/8/2016, this is now disabled as we don't allow GL stock accounts to be changed anymore once used
 	now we check of the value in the general ledger would need to be corrected by comparing transaction value with GL value 

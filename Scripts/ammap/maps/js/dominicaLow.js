@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // (c) ammap.com | SVG (in JSON format) map of Dominica - Low
 // areas: {id:"DM-11"},{id:"DM-10"},{id:"DM-09"},{id:"DM-08"},{id:"DM-07"},{id:"DM-06"},{id:"DM-05"},{id:"DM-04"},{id:"DM-03"},{id:"DM-02"}
 AmCharts.maps.dominicaLow={

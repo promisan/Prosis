@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cf_dialogREMProgram>
 
 <cfparam name="url.EditionId"  default="">
@@ -65,7 +79,7 @@
 		
 		if (scope == "dialog") {
 		
-		    // not sure if this is still in use, can be removed i think : Hanno 23/3/2015 
+		    // not sure if this is still in use, can be removed i think : Dev 23/3/2015
 	       		  	  	
 		    try {
 		    se = dialogview.document.getElementById("entrydialog")			
@@ -99,7 +113,7 @@
 			   ptoken.open("#SESSION.root#/programrem/Application/Budget/Request/RequestDialog.cfm?mode="+mode+"&requirementid="+id+"&programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid="+edi+"&objectcode="+obj+"&cell="+cell,"requirement")						
 			} else {
 			
-			    // not sure if this is still in use hanno 22/9/2015						
+			    // not sure if this is still in use Dev 22/9/2015
 					    							
 				if (id == "") {
 				 alert("please contact administrator code:modaldialog")

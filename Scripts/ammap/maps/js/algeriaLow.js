@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Algeria - Low
 // areas: {id:"DZ-01"},{id:"DZ-02"},{id:"DZ-03"},{id:"DZ-04"},{id:"DZ-05"},{id:"DZ-06"},{id:"DZ-07"},{id:"DZ-08"},{id:"DZ-09"},{id:"DZ-10"},{id:"DZ-11"},{id:"DZ-12"},{id:"DZ-13"},{id:"DZ-14"},{id:"DZ-15"},{id:"DZ-16"},{id:"DZ-17"},{id:"DZ-18"},{id:"DZ-19"},{id:"DZ-20"},{id:"DZ-21"},{id:"DZ-22"},{id:"DZ-23"},{id:"DZ-24"},{id:"DZ-25"},{id:"DZ-26"},{id:"DZ-27"},{id:"DZ-28"},{id:"DZ-29"},{id:"DZ-30"},{id:"DZ-31"},{id:"DZ-32"},{id:"DZ-33"},{id:"DZ-34"},{id:"DZ-35"},{id:"DZ-36"},{id:"DZ-37"},{id:"DZ-38"},{id:"DZ-39"},{id:"DZ-40"},{id:"DZ-41"},{id:"DZ-42"},{id:"DZ-43"},{id:"DZ-44"},{id:"DZ-45"},{id:"DZ-46"},{id:"DZ-47"},{id:"DZ-48"}
 AmCharts.maps.algeriaLow={

@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfoutput>
 <link rel="stylesheet" type="text/css"  href="#SESSION.root#/#client.style#"> 		
 </cfoutput>
@@ -307,7 +322,7 @@
 				 <table width="100%" cellspacing="0" cellpadding="0" align="center" border="0">
 					 <tr>
 						 <td width="65%" style="#td03#" style="#td05#" align="left"  valign="middle">
-							<img align="center" border="0" src="#SESSION.root#/Custom/OICT/images/logo.png" >
+							<img align="center" border="0" src="#SESSION.root#/Custom/O/images/logo.png" >
 						 </td>			 
 						 <td width="35%" style="#td05#" rowspan="2">
 						 	<table width="100%" cellspacing="0" cellpadding="0" align="center" >
@@ -591,9 +606,9 @@
 											<td><font size="1">
 												<ul>
 													<li>Iseek Wireless Webpage <a href="https://iseek-newyork.un.org/webpgdept2152_1">https://iseek-newyork.un.org/webpgdept2152_1</a></li>
-													<li>Wireless Support <a href="mailto:Wireless@un.org">Wireless@un.org</a></li>
-													<li>Service Support <a href="mailto:ITServices@un.org">ITServices@un.org</a></li>
-													<li>Technical Support <a href="mailto:HelpdeskOICT@un.org">HelpdeskOICT@un.org</a></li>
+													<li>Wireless Support <a href="mailto:dev@email">dev@email</a></li>
+													<li>Service Support <a href="mailto:dev@email">dev@email</a></li>
+													<li>Technical Support <a href="mailto:dev@email">dev@email</a></li>
 												</ul>
 												</font>
 												<br>
@@ -696,7 +711,7 @@
 						</table>
 					</td>
 				</tr>
-				<tr><td align="center"><font size="1"><br>Office of Information and Communications Technology - United Nations Secretariat - New York</font></td></tr>
+				<tr><td align="center"><font size="1"><br>Office - Organizations Secretariat - New York</font></td></tr>
 			</table>
 			
 			</cfif>

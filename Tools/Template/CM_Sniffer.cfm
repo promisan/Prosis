@@ -1,11 +1,24 @@
+<!--
+    Copyright Â© 2025 Promisan B.V.
 
-<!--- Prosis template framework --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfsilent>
  <proUsr>administrator</proUsr>
- <proOwn>Hanno van Pelt</proOwn>
+ï¿½<proOwn>Dev van Pelt</proOwn>
  <proDes>CM sniffer</proDes>
  <!--- specific comments for the current change, may be overwritten --->
- <proCom></proCom>
+ï¿½<proCom></proCom>
  <proCM>[ObservationNo]</proCM>
 </cfsilent>
 
@@ -105,9 +118,9 @@ ORDER BY O.Created DESC
 	<cfset posCE = Find("</proCom>", content)>
 	<cftry>
 	     <cfset usr = Mid(content, posUS+8, posUE-PosUS-8)>
-		 <cfset nme = Mid(content, posNS+8, posNE-PosNS-8)>
+		ï¿½<cfset nme = Mid(content, posNS+8, posNE-PosNS-8)>
 		 <cfset com = Mid(content, posCS+8, PosCE-PosCS-8)>
-	 <cfcatch></cfcatch>
+	ï¿½<cfcatch></cfcatch>
 	</cftry>								
 	
 					 

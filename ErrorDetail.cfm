@@ -1,5 +1,19 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- 1. check format in NY/CICIG of the date
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<!--- 1. check format in C of the date
       2. send eMail will details using the dialog we have 	  
 	  3. test behavior on windows dialog screen 
  --->
@@ -21,8 +35,8 @@
 	
     <!--- get the recorded error in the log file of cf 	
 	
-	Note:  April 10, 2015. by Nery.
-	As discussed with Hanno, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database so no 
+	Note:  April 10, 2015. by dev.
+	As discussed with Dev, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database so no
 	need for exception.log file to be populated
 	
 	<cffile action="READ" 
@@ -65,7 +79,7 @@
 			WHERE  HostName = '#CGI.HTTP_HOST#'
 		</cfquery>
 		
-		<!--- Nery, on 21/05/2015: removed as per discussion with Hanno.
+		<!--- dev, on 21/05/2015: removed as per discussion with Dev.
 		<cfif Parameter.ErrorMailToOwner eq "9">
 			
 			<script>

@@ -1,4 +1,18 @@
-		
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <html><head><title>Payroll Calculation</title></head><body>
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
@@ -70,7 +84,7 @@
 </cfquery>
 
 <!--- currently all tables are personalised in appstransaction; this condition prevents overlapping calculations
-but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep it open : Hanno van Pelt
+but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep it open : Dev van Pelt
 
 <cfif calculation.recordcount gt "0" and getAdministrator("*") eq "0">
 	
@@ -162,7 +176,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 					  <cfelse>	<!--- through the workflow final payment process --->			  
 					  #EOD# as PeriodStart, 	
 				      </cfif>
-					  <!--- Hanno 6/10 : adjust in case of a found period in the payroll action --->
+					  <!--- Dev 6/10 : adjust in case of a found period in the payroll action --->
 				      isNULL(DateExpiration+3000,'2050/12/31') as PeriodEnd
 					  
 			 FROM     PersonContract
@@ -534,7 +548,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 									
 		<cfelse>
 		
-			<!--- Hanno adjustment for off-cycle payment as part of the final workflow
+			<!--- Dev adjustment for off-cycle payment as part of the final workflow
 			In case of an off-cycle payment the calcend is driven by the last settlement and if this
 			last settlement is off-cycle then we use CALEND to be the last date instead. --->	
 		
@@ -641,7 +655,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 				</cfif>
 				
 				<!--- ---------------------------------------------------------------------------------- --->
-				<!--- 19/5/2014 adjustment Hanno do not reset entitlement if a person has an action to 
+				<!--- 19/5/2014 adjustment Dev do not reset entitlement if a person has an action to
 				prevent entitlement correction                                                           --->
 				<!--- ---------------------------------------------------------------------------------- --->
 				
@@ -776,14 +790,14 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 					ProcessBatchId = "#calculationid#"				
 					Description    = "Entitlements, calculated on PRIOR period"> 
 					
-					<!--- reminder : SAT aguinaldo was to be calculated until the prior month --->
+					<!--- reminder : S aguinaldo was to be calculated until the prior month --->
 					
 					<cfinclude template="EntitlementPayrollRate.cfm">						
 					<cfinclude template="EntitlementPayrollPercentage.cfm">		 
 					
 			</cfif>	 			
 			
-			<!--- to be adjusted for SAT as Aguinaldo comes afterwards 
+			<!--- to be adjusted for S as Aguinaldo comes afterwards
 			
 			<!--- 8. Special provision to trigger entitlements usually delayed but now to be release as part of Final payment
 			like : Aguinaldo to be released   --->

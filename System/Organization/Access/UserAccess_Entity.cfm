@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfquery name="Role" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
@@ -262,7 +276,7 @@ function more(bx) {
 	     </cfquery>	
 		
 		 			
-		  <!--- Hanno : 03/01/2012 set the iterations based on the user access for the owner, this code is not 100% if the
+		  <!--- Dev : 03/01/2012 set the iterations based on the user access for the owner, this code is not 100% if the
 		  user has different access for each mission, showing more or less owners, maybe best to define
 		  the iterations in a variable per mission --->
 		  		 

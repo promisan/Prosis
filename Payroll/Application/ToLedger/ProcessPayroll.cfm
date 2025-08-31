@@ -1,11 +1,24 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- tune template for usuage within the batch
-      enable umoja, as we keep all entries under OICT here
+      enable umoja, as we keep all entries under O here
 	  default program ---> 
 
 <!--- entity parameters to be passed for loading into GL 
-<cfparam name="mission"  default="OICT">
+<cfparam name="mission"  default="O">
 <cfparam name="url.year"     default="2011">
 --->
 
@@ -27,7 +40,7 @@
 <cfparam name="url.year" default="#Param.CurrentAccountPeriod#">
 --->
 
-<!--- 07/07/2010 : Hanno : the budget period needs to be generictly defined, 
+<!--- 07/07/2010 : Dev : the budget period needs to be generictly defined,
 
 this is pending, maybethis needs to be part of the settlement table 
 
@@ -128,7 +141,7 @@ for that journal in JournalBatch this will then match the month of the payroll -
 		- Prevent double counting (stop)
 		- All defined positions do have a mapping 
 		- All Funds and programs are valid
-		- The defined programs indeed belong to OICT mission
+		- The defined programs indeed belong to O mission
 		- All lines have entry in SalarySchedulePayrollItem 
 		
 	--->

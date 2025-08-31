@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
@@ -10,7 +25,7 @@
   Release: 2/1/2001
     
   Author..: Peter A Bassey
-  mailto..: BTCheckwriter@basstechconsulting.com
+  mailto..: dev@email
     
   What does it do?
     BTCheckwriter is a custom control that converts numbers to words. It's great for Check Printing
@@ -31,7 +46,7 @@
   Additional Notes:
     BTCheckwriter is compatible with all versions of Cold Fusion
     If you have any problems,comments, or would like any improvements to be 
-	made to this tag please email me at BTCheckwriter@basstechconsulting.com and let me know.
+	made to this tag please email me at dev@email and let me know.
         
   Usage:
 	<cf_BTCheckwriter

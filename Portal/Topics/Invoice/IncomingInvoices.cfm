@@ -1,6 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- filter by owner of the position --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.orgunit" default="">
 <cfparam name="url.period"  default="B12-13">
 
@@ -43,7 +55,7 @@
 	 
 	 AND        I.ActionStatus <> '9' 
 	 
-	 <!--- to be reviewed for now i disabled it but OICT had several in invoice that were on hold, but
+	 <!--- to be reviewed for now i disabled it but O had several in invoice that were on hold, but
 	 like the workflow existance manages partially as well
 	 AND        I.InvoiceSerialNo = 1 
 	 --->

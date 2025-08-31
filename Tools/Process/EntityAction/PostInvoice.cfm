@@ -1,5 +1,18 @@
-<!--- ---------------------------- --->
-<!--- --determine input parameter- --->
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- ---------------------------- --->
 
 <cfparam name="Object.ObjectKeyValue4"  default="#URL.ID#">
@@ -836,7 +849,7 @@ refer to line 710
 								
 								WHERE      I.InvoiceId = '#URL.INVID#' 
 								AND        IP.PurchaseNo = '#purchaseno#'
-								AND        PL.ActionStatus != '9' <!--- added hanno 25/4/2016 --->
+								AND        PL.ActionStatus != '9' <!--- added Dev 25/4/2016 --->
 								
 								GROUP BY   IP.PurchaseNo,
 										   FUN.ProgramPeriod,
@@ -879,7 +892,7 @@ refer to line 710
 							
 							</cfif>
 							
-							<!--- OICT/CMP UN mode take not that here we link on the requisition line and not on the purchase, there is just one (1)
+							<!--- O/CMP UN mode take not that here we link on the requisition line and not on the purchase, there is just one (1)
 							purchase order --->
 						
 							<cfquery name="Lines" 
@@ -1348,7 +1361,7 @@ refer to line 710
 						  
 						  	</cfif>															
 
-							<!--- added by Armin on 11/02/2014---->
+							<!--- added by dev on 11/02/2014---->
 							<cfif workorderid neq "" and workorderline neq "">
 							
 								<cfquery name="workorder" 

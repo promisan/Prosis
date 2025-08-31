@@ -1,10 +1,22 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- July 07, 2012:  This is to return a value instead of automatically redirect to pages, or show cf_message tags. --->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfparam name="url.returnValue"	default = "0">
 
 <!--- 100 = password expired, 101 = group not allowed, 102 = not identified, 103 = reseted password --->
-<!--- Added on September 19th 2013 by Armin--->
+<!--- Added on September 19th 2013 by dev--->
 
 <!--- Here we determine the mode of validation  
 	System.dbo.Parameter -

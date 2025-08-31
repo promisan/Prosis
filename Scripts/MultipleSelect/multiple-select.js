@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery'), require('core-js/modules/es.array.filter'), require('core-js/modules/es.array.find'), require('core-js/modules/es.array.includes'), require('core-js/modules/es.array.join'), require('core-js/modules/es.array.map'), require('core-js/modules/es.array.slice'), require('core-js/modules/es.function.name'), require('core-js/modules/es.string.includes'), require('core-js/modules/es.string.trim'), require('core-js/modules/es.string.replace')) :
   typeof define === 'function' && define.amd ? define(['jquery', 'core-js/modules/es.array.filter', 'core-js/modules/es.array.find', 'core-js/modules/es.array.includes', 'core-js/modules/es.array.join', 'core-js/modules/es.array.map', 'core-js/modules/es.array.slice', 'core-js/modules/es.function.name', 'core-js/modules/es.string.includes', 'core-js/modules/es.string.trim', 'core-js/modules/es.string.replace'], factory) :

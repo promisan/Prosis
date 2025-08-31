@@ -1,5 +1,18 @@
-<!--- define days --->
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 	<cfquery name="SetBaseDays" 
 		datasource="AppsPayroll" 
 		username="#SESSION.login#" 
@@ -189,7 +202,7 @@
 								<cfelse>
 								    <!--- if for one reason the record has 3 instances we also correct for this --->
 								    <cfset t = Form.SalaryDays-Prior.total-days.total>						
-									<!--- revision, it is better to set this scenario to 0 for CICIG as this is for closure --->						
+									<!--- revision, it is better to set this scenario to 0 for Cas this is for closure --->
 									<cfset t = 0>
 								</cfif>	
 							
@@ -203,9 +216,9 @@
 						<!--- person is arriving during the month and ends by the end or earlier --->
 						<!--- ------------------------------------------------------------------ --->
 					
-						<cfif form.Mission eq "CICIG">
+						<cfif form.Mission eq "C">
 						
-							<!--- 16/4/2011 In case of CICIG a correction was requested by German that in case the person is leaving. He/she to be paid the
+							<!--- 16/4/2011 In case of Ca correction was requested by German that in case the person is leaving. He/she to be paid the
 							working days during that month and NOT the complement to be consistent --->
 						
 							<cfquery name="Days" 

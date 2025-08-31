@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfcomponent>
 
 	<cfproperty name="name" type="string">
@@ -749,7 +764,7 @@
 			<!--- --------4 of 4 Totals---- --->		
 			<!--- ------------------------- --->
 			
-			<!--- Hanno : 23/11/2021 sum the lines no longer needed : rethink the dicount application --->
+			<!--- Dev : 23/11/2021 sum the lines no longer needed : rethink the dicount application --->
 			
 			<cfquery name="GetTotal" dbtype="query">
 					SELECT   SUM(AmountSale) as Amount
@@ -760,7 +775,7 @@
 			<cfset FEL.Sale   = getTotal.Amount>	
 			
 			<!--- ------------------------------------------------------------ --->
-			<!--- Hanno correction if the amount like IO has already tax in it --->
+			<!--- Dev correction if the amount like IO has already tax in it --->
 			<!--- ------------------------------------------------------------ --->
 			
 			<cfif getLines.TaxCode eq "00" and getTransaction.TransactionSource eq "AccountSeries">								     
@@ -1040,7 +1055,7 @@
 												<!--- calculate ratio --->											
 												<cfset amt        = round(amt*10000)/10000>		
 												<cfset discount   = FEL.Ratio * amt>
-												<!--- Rethink for workorder with discount recorded : Hanno --->																							
+												<!--- Rethink for workorder with discount recorded : Dev --->
 												<!--- calculate price with default tax included  --->
 												<cfset vSalesPrice = (amt - discount) * (1+FEL.TaxPercentage) /Quantity>
 																																		
@@ -1057,7 +1072,7 @@
 											<dte:PrecioUnitario><cfif SaleQuantity neq 0>#trim(numberformat(ABS(vSalesPrice),"__._______"))#<cfelse>0</cfif></dte:PrecioUnitario>
 											<dte:Precio>#trim(numberformat(amount,"__._______"))#</dte:Precio>				
 											
-											<!--- Rethink for workorder with discount recorded : Hanno --->
+											<!--- Rethink for workorder with discount recorded : Dev --->
 																																
 											<dte:Descuento>#trim(numberformat(discount,"__._______"))#</dte:Descuento>
 																						
@@ -1705,7 +1720,7 @@
 							
 							<dte:DatosEmision ID="DatosEmision">
 								<dte:DatosGenerales CodigoMoneda="#vCurrency#" FechaHoraEmision="#DateFormat(dts,"yyyy-mm-dd")#T#TimeFormat(dta,"hh:mm:ssXXX")#" Tipo="#vInvoiceType#"></dte:DatosGenerales>
-								<cfif GetWarehouseSeries.OrgUnitName eq "DR. JORGE MANUEL ALDANA SAENZ">
+								<cfif GetWarehouseSeries.OrgUnitName eq "dev">
 									<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetWarehouseSeries.OrgUnitName#">
 								<cfelse>
 									<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetMission.MissionName#">
@@ -2683,7 +2698,7 @@
 			<!--- --------4 of 4 Totals---- --->		
 			<!--- ------------------------- --->
 			
-			<!--- Hanno : 23/11/2021 sum the lines no longer needed : rethink the dicount application --->
+			<!--- Dev : 23/11/2021 sum the lines no longer needed : rethink the dicount application --->
 			
 			<cfquery name="GetTotal" dbtype="query">
 					SELECT   SUM(AmountSale) as Amount
@@ -2694,7 +2709,7 @@
 			<cfset FEL.Sale   = getTotal.Amount>	
 			
 			<!--- ------------------------------------------------------------ --->
-			<!--- Hanno correction if the amount like IO has already tax in it --->
+			<!--- Dev correction if the amount like IO has already tax in it --->
 			<!--- ------------------------------------------------------------ --->
 			
 			<cfif getLines.TaxCode eq "00" and getTransaction.TransactionSource eq "AccountSeries">								     
@@ -2938,7 +2953,7 @@
 												<!--- calculate ratio --->											
 												<cfset amt        = round(amt*10000)/10000>		
 												<cfset discount   = FEL.Ratio * amt>
-												<!--- Rethink for workorder with discount recorded : Hanno --->																							
+												<!--- Rethink for workorder with discount recorded : Dev --->
 												<!--- calculate price with default tax included  --->
 												<cfset vSalesPrice = (amt - discount) * (1+FEL.TaxPercentage) /Quantity>
 																																		
@@ -2955,7 +2970,7 @@
 											<dte:PrecioUnitario><cfif SaleQuantity neq 0>#trim(numberformat(ABS(vSalesPrice),"__._______"))#<cfelse>0</cfif></dte:PrecioUnitario>
 											<dte:Precio>#trim(numberformat(amount,"__._______"))#</dte:Precio>				
 											
-											<!--- Rethink for workorder with discount recorded : Hanno --->
+											<!--- Rethink for workorder with discount recorded : Dev --->
 																																
 											<dte:Descuento>#trim(numberformat(discount,"__._______"))#</dte:Descuento>
 																						

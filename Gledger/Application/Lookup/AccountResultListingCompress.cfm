@@ -1,5 +1,19 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
-<!--- Hanno 8/7/2013 use the parent association of the line to reconstruct for the same account so we do not have
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<!--- Dev 8/7/2013 use the parent association of the line to reconstruct for the same account so we do not have
 repeated debits and credits if not needed --->
 
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#GLedgerCompress"> 
@@ -83,7 +97,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 		AND    L.ParentJournal IS NULL		 
 		
-		<!---RFUENTES 21/5/2015 adding: CC for the accounts that are Result Class  ---->
+		<!---r 21/5/2015 adding: CC for the accounts that are Result Class  ---->
 		<cfif url.costcenter neq "All" and url.costcenter neq "" and url.costcenter neq "undefined">
 		AND	   L.OrgUnit IN ('#URL.costcenter#')
 		</cfif>
@@ -92,7 +106,7 @@ password="#SESSION.dbpw#">
 		AND	   H.OrgUnitOwner IN ('#URL.owner#')			
 		</cfif>
 
-		<!--- RFUENTES 12/10/2015 added: to filter only valid transactions ----->
+		<!--- r 12/10/2015 added: to filter only valid transactions ----->
 		AND H.RecordStatus   != '9'
 		AND H.ActionStatus 	 != '9'
 

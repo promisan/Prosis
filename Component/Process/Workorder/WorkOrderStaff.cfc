@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfcomponent>
 
     <cfproperty name="name" type="string">
@@ -64,7 +79,7 @@
 							    WS.ListingOrder   as WorkScheduleListingOrder,
 						    </cfif>		
 								
-						   	G.PostOrder  <!--- Hanno : used for sorting of the list, which can have duplicated in rare cases --->				
+						   	G.PostOrder  <!--- Dev : used for sorting of the list, which can have duplicated in rare cases --->
 							
 					FROM   	Employee.dbo.Person P
 							INNER JOIN Employee.dbo.PersonAssignment PA	     ON P.PersonNo      = PA.PersonNo
@@ -211,7 +226,7 @@
 
 		 Future : current month and after 
 		 
-	     Hanno we show the relevant areas of cleaning for this customer 
+	     Dev we show the relevant areas of cleaning for this customer
 	     that were indeed scheduled during this selected month for one or more days 
 		 and to which the SELECTED person has also been tasked (isActor) 
 		 UNLESS he fell of the staffing table BEFORE this month
@@ -391,7 +406,7 @@
 									AND		WO.WorkOrderId IN (#preserveSingleQuotes(vWorkOrderId)#)
 								</cfif>		
 								
-								<!--- Hanno 25/7 added open workorders and lines that fit within the requested frame- --->		
+								<!--- Dev 25/7 added open workorders and lines that fit within the requested frame- --->
 								AND     WO.ActionStatus = '1' 
 													
 								AND     WOL.Operational = 1									

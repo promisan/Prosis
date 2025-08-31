@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <cfoutput>
 
 	<cfset root = SESSION.root>
@@ -211,7 +225,7 @@
 		ptoken.open(root + "/Procurement/Application/Requisition/Portal/RequisitionView.cfm?id=&mission="+mis+"&period="+per+ "&ts="+new Date().getTime(), "right", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=yes");
 	}
 	
-	<!--- added by hanno 28/11/2014 --->
+	<!--- added by Dev 28/11/2014 --->
 	
 	function programobject(id,prg,mis,planperiod,period,cls,hrg,edt,fund,org,box) {		
 	 					
@@ -236,7 +250,7 @@
 		 		 		
 	  }
 	  
-	<!--- added by hanno 28/11/2014 --->
+	<!--- added by Dev 28/11/2014 --->
 	
 	function amore(tpc,box,ed,fund,reqno,period,prg,obj,act,mode,mis,hier,org,resource,status) {
 		    se   = document.getElementById(tpc+box);	

@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2025 Promisan B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 ﻿// (c) ammap.com | SVG (in JSON format) map of Spain Provinces - High
 // areas: {id:"divider"},{id:"ES-A"},{id:"ES-AB"},{id:"ES-AL"},{id:"ES-AV"},{id:"ES-B"},{id:"ES-BA"},{id:"ES-BI"},{id:"ES-BU"},{id:"ES-C"},{id:"ES-CA"},{id:"ES-CC"},{id:"ES-CE"},{id:"ES-CO"},{id:"ES-CR"},{id:"ES-CS"},{id:"ES-CU"},{id:"ES-GC"},{id:"ES-GI"},{id:"ES-GR"},{id:"ES-GU"},{id:"ES-H"},{id:"ES-HU"},{id:"ES-J"},{id:"ES-L"},{id:"ES-LE"},{id:"ES-LO"},{id:"ES-LU"},{id:"ES-M"},{id:"ES-MA"},{id:"ES-ML"},{id:"ES-MU"},{id:"ES-NA"},{id:"ES-O"},{id:"ES-OR"},{id:"ES-P"},{id:"ES-PM"},{id:"ES-PO"},{id:"ES-S"},{id:"ES-SA"},{id:"ES-SE"},{id:"ES-SG"},{id:"ES-SO"},{id:"ES-SS"},{id:"ES-TE"},{id:"ES-TF"},{id:"ES-TO"},{id:"ES-T"},{id:"ES-V"},{id:"ES-VA"},{id:"ES-VI"},{id:"ES-Z"},{id:"ES-ZA"}
 AmCharts.maps.spainProvincesHigh={

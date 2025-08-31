@@ -1,4 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- 
 	1. first define cumulative entitlement after each calculation as of the start date 
 	2. and the define payment that is due after cumulative prior settlement 
@@ -81,7 +95,7 @@ but EXCLUDE entitlements for a COMPLETE MONTH deferred by a PAYROLL action 4001 
 	<cfset compUntilDate = SALSTR>
 </cfif>
 
-<!--- Hanno : line 134, 222, 299 --->
+<!--- Dev : line 134, 222, 299 --->
 
 <cfquery name="Deferred" 
 datasource="AppsPayroll" 
@@ -370,7 +384,7 @@ password="#SESSION.dbpw#">
 							 AND      PayrollItem = S.PayrollItem 
 							 AND      Source      = S.Source
 							 AND      Mission     = '#Form.Mission#'
-							 <!--- added by hanno 19/10/2022 --->
+							 <!--- added by Dev 19/10/2022 --->
 							 AND      PayrollStart >= ( SELECT TOP 1 EntitlementEffective
 	                                                    FROM   userTransaction.dbo.sal#SESSION.thisprocess#Payroll
 								                        WHERE  PersonNo = S.PersonNo) 								 
@@ -395,7 +409,7 @@ password="#SESSION.dbpw#">
 
 
 <!--- not sure what below was used for in reality, 
-disabled Hanno 24/2/2021 as we had cents correction in the payroll calculation
+disabled Dev 24/2/2021 as we had cents correction in the payroll calculation
 which is wrong effect 
 
 <cfquery name="qCeiling1" 

@@ -1,3 +1,18 @@
+<!--
+    Copyright © 2025 Promisan B.V.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <!--- content 
 
 	1. getPrice (24)
@@ -175,7 +190,7 @@
 				ORDER BY  DateEffective DESC
 			</cfquery>			
 			
-			<!--- Nery: Temp Solution as SanBenito store is having too many issues with pricing (not taking regular) --->
+			<!--- dev: Temp Solution as SanBenito store is having too many issues with pricing (not taking regular) --->
 			
 			<cfif getSchedule.RecordCount eq 0>
 			
@@ -2837,7 +2852,7 @@
 									
 					</cfloop>	
 					
-					<!--- Hanno better to use the component we have to correct this, but it can work here --->			
+					<!--- Dev better to use the component we have to correct this, but it can work here --->
 		
 					<cfquery name="qUpdateOutstanding"
 					datasource="AppsMaterials" 
@@ -3298,7 +3313,7 @@
 				<cfset Invoice.ErrorDetail       = "">
 				<cfset Invoice.Status            = "1">							   	
 					
-				<!--- validate series otherwise Invoice.Mode = "1" : Manual which was removed by Hanno 13 June 2021 --->
+				<!--- validate series otherwise Invoice.Mode = "1" : Manual which was removed by Dev 13 June 2021 --->
 												
 					<cfquery name="getSeries"
 					 datasource="AppsOrganization" 
@@ -3321,7 +3336,7 @@
 							<cfset Invoice.ErrorDescription = "No tax series set">
 							<cfset Invoice.ErrorDetail      = "">
 							
-							<!--- Hanno 6/13/2021 here we need to add the logging TransactionHeaderAction 
+							<!--- Dev 6/13/2021 here we need to add the logging TransactionHeaderAction
 							                               for the manual mode  --->														   
 							
 							<cf_assignid>
@@ -3673,7 +3688,7 @@
 							WHERE  BatchId = '#batchid#'
 						</cfquery>	
 						
-						<!--- Hanno 20/7/2015 
+						<!--- Dev 20/7/2015
 						is this needed still ?, i think this is no longer needed as the transaction is excluded 
 												
 						<cfquery name="deleteBatchLines"
